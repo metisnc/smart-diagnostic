@@ -1,0 +1,29 @@
+# Secrets locaux — ne jamais versionner
+CLAUDE.local.md
+.env
+.env.*
+!.env.example
+
+# Dépendances
+/vendor/
+/node_modules/
+
+# Build et artefacts
+/build/
+/dist/
+*.zip
+
+# Outils
+.phpunit.result.cache
+.phpunit.cache/
+.phpcs-cache
+/coverage/
+/test-results/
+/playwright-report/
+/tests/e2e/.auth/
+
+# Système / éditeurs
+.DS_Store
+Thumbs.db
+.idea/
+login.txt

@@ -1,0 +1,1030 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://github.com/metisnc/smart-diagnostic/schema/diagnostic.schema.json",
+	"title": "Smart Diagnostic configuration",
+	"description": "Configuration complète d'un diagnostic. Aucun contenu métier n'est imposé : tout est défini par l'administrateur.",
+	"type": "object",
+	"required": [ "schemaVersion", "sections", "steps" ],
+	"additionalProperties": false,
+	"properties": {
+		"schemaVersion": {
+			"description": "Version du format. Les configs plus anciennes sont migrées automatiquement (src/Config/Migrations).",
+			"const": 1
+		},
+		"meta": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"title": { "$ref": "#/$defs/text" },
+				"description": { "$ref": "#/$defs/text" }
+			}
+		},
+		"i18n": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"defaultLanguage": { "$ref": "#/$defs/lang" },
+				"languages": {
+					"type": "array",
+					"items": { "$ref": "#/$defs/lang" },
+					"uniqueItems": true
+				},
+				"switcher": {
+					"type": "boolean",
+					"default": false,
+					"description": "Affiche un sélecteur de langue côté visiteur."
+				}
+			}
+		},
+
+		"welcome": {
+			"description": "Écran d'accueil. Tous les éléments sont optionnels ; absent = démarrage direct.",
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"enabled": { "type": "boolean", "default": true },
+				"title": { "$ref": "#/$defs/text" },
+				"subtitle": { "$ref": "#/$defs/text" },
+				"benefits": {
+					"type": "array",
+					"items": { "$ref": "#/$defs/text" }
+				},
+				"image": { "$ref": "#/$defs/media" },
+				"resultPreview": {
+					"type": "boolean",
+					"default": false,
+					"description": "Affiche un aperçu factice du rendu de résultat."
+				},
+				"badges": {
+					"type": "array",
+					"items": { "$ref": "#/$defs/text" }
+				},
+				"startLabel": { "$ref": "#/$defs/text" }
+			}
+		},
+
+		"flow": {
+			"description": "Comportement du parcours.",
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"progress": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"bar": { "type": "boolean", "default": true },
+						"counter": { "type": "boolean", "default": true },
+						"sectionName": { "type": "boolean", "default": true }
+					}
+				},
+				"backButton": { "type": "boolean", "default": true },
+				"saveProgress": {
+					"type": "boolean",
+					"default": true,
+					"description": "Sauvegarde locale + reprise."
+				},
+				"autoAdvance": {
+					"type": "boolean",
+					"default": false,
+					"description": "Passe à l'étape suivante après un choix unique."
+				},
+				"optionLetters": {
+					"type": "boolean",
+					"default": false,
+					"description": "Préfixe les options par A, B, C…"
+				},
+				"encouragements": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": [ "atPercent", "text" ],
+						"additionalProperties": false,
+						"properties": {
+							"atPercent": {
+								"type": "number",
+								"minimum": 0,
+								"maximum": 100
+							},
+							"text": { "$ref": "#/$defs/text" }
+						}
+					}
+				},
+				"interstitials": {
+					"description": "Cartes insérées automatiquement toutes les N réponses.",
+					"type": "object",
+					"additionalProperties": false,
+					"required": [ "every", "cards" ],
+					"properties": {
+						"every": { "type": "integer", "minimum": 1 },
+						"cards": {
+							"type": "array",
+							"items": { "$ref": "#/$defs/contentBody" },
+							"minItems": 1
+						}
+					}
+				},
+				"transition": {
+					"description": "Écran d'attente avant le résultat.",
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"enabled": { "type": "boolean", "default": false },
+						"durationMs": {
+							"type": "integer",
+							"minimum": 0,
+							"maximum": 15000,
+							"default": 3000
+						},
+						"steps": {
+							"type": "array",
+							"items": { "$ref": "#/$defs/text" }
+						}
+					}
+				}
+			}
+		},
+
+		"sections": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": [ "key", "label" ],
+				"additionalProperties": false,
+				"properties": {
+					"key": { "$ref": "#/$defs/key" },
+					"label": { "$ref": "#/$defs/text" }
+				}
+			}
+		},
+
+		"steps": {
+			"type": "array",
+			"minItems": 1,
+			"items": {
+				"oneOf": [
+					{ "$ref": "#/$defs/questionStep" },
+					{ "$ref": "#/$defs/contentStep" },
+					{ "$ref": "#/$defs/formStep" }
+				]
+			}
+		},
+
+		"axes": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": [ "key", "label" ],
+				"additionalProperties": false,
+				"properties": {
+					"key": { "$ref": "#/$defs/key" },
+					"label": { "$ref": "#/$defs/text" },
+					"description": { "$ref": "#/$defs/text" },
+					"base": { "type": "number", "default": 0 },
+					"min": { "type": "number", "default": 0 },
+					"max": { "type": "number", "default": 100 }
+				}
+			}
+		},
+
+		"scoring": {
+			"description": "Ordre d'application : base de l'axe → points des options → règles (dans l'ordre) → clamp [min, max].",
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"rules": {
+					"type": "array",
+					"items": { "$ref": "#/$defs/scoringRule" }
+				}
+			}
+		},
+
+		"variables": {
+			"description": "Valeurs dérivées, calculées après les scores, dans l'ordre (une variable peut utiliser les précédentes).",
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": [ "key", "expr" ],
+				"additionalProperties": false,
+				"properties": {
+					"key": { "$ref": "#/$defs/key" },
+					"label": { "$ref": "#/$defs/text" },
+					"expr": { "$ref": "#/$defs/expression" },
+					"format": { "$ref": "#/$defs/numberFormat" }
+				}
+			}
+		},
+
+		"outcomes": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"profiles": {
+					"description": "Le premier profil dont la condition est vraie (tri par priority décroissante) est attribué.",
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": [ "key", "label" ],
+						"additionalProperties": false,
+						"properties": {
+							"key": { "$ref": "#/$defs/key" },
+							"label": { "$ref": "#/$defs/text" },
+							"text": { "$ref": "#/$defs/richText" },
+							"image": { "$ref": "#/$defs/media" },
+							"when": { "$ref": "#/$defs/condition" },
+							"priority": { "type": "integer", "default": 0 }
+						}
+					}
+				},
+				"texts": {
+					"description": "Textes conditionnels : tous ceux dont la condition est vraie sont affichés.",
+					"type": "array",
+					"items": { "$ref": "#/$defs/conditionalBlock" }
+				},
+				"actions": {
+					"description": "Plan d'action / recommandations conditionnelles.",
+					"type": "array",
+					"items": { "$ref": "#/$defs/conditionalBlock" }
+				},
+				"ctas": {
+					"description": "Le CTA recommandé est le premier dont la condition est vraie (priority décroissante).",
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": [ "key", "label", "url" ],
+						"additionalProperties": false,
+						"properties": {
+							"key": { "$ref": "#/$defs/key" },
+							"label": { "$ref": "#/$defs/text" },
+							"text": { "$ref": "#/$defs/richText" },
+							"url": {
+								"type": "string",
+								"format": "uri-reference"
+							},
+							"utm": {
+								"type": "object",
+								"additionalProperties": false,
+								"properties": {
+									"source": { "type": "string" },
+									"medium": { "type": "string" },
+									"campaign": { "type": "string" },
+									"content": { "type": "string" },
+									"term": { "type": "string" }
+								}
+							},
+							"when": { "$ref": "#/$defs/condition" },
+							"priority": { "type": "integer", "default": 0 }
+						}
+					}
+				}
+			}
+		},
+
+		"results": {
+			"description": "Mise en page du résultat : liste ordonnée de blocs.",
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"title": { "$ref": "#/$defs/text" },
+				"blocks": {
+					"type": "array",
+					"items": { "$ref": "#/$defs/resultBlock" }
+				},
+				"shareLink": {
+					"type": "boolean",
+					"default": true,
+					"description": "Génère un lien unique de consultation."
+				},
+				"emailResult": { "type": "boolean", "default": true }
+			}
+		},
+
+		"integrations": {
+			"description": "Les secrets (HMAC, clés captcha) ne sont JAMAIS stockés ici : ils restent en base, hors import/export.",
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"emails": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"user": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"enabled": {
+									"type": "boolean",
+									"default": true
+								},
+								"subject": { "$ref": "#/$defs/text" },
+								"template": {
+									"type": "string",
+									"description": "Nom de template (surchargeable par le thème)."
+								}
+							}
+						},
+						"admin": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"enabled": {
+									"type": "boolean",
+									"default": true
+								},
+								"to": {
+									"type": "array",
+									"items": {
+										"type": "string",
+										"format": "email"
+									}
+								},
+								"subject": { "$ref": "#/$defs/text" },
+								"template": { "type": "string" }
+							}
+						}
+					}
+				},
+				"webhooks": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": [ "key", "url" ],
+						"additionalProperties": false,
+						"properties": {
+							"key": { "$ref": "#/$defs/key" },
+							"url": { "type": "string", "format": "uri" },
+							"events": {
+								"type": "array",
+								"items": { "enum": [ "submit", "capture" ] },
+								"default": [ "submit" ]
+							},
+							"mapping": {
+								"description": "Champ de sortie → chemin source (ex. \"email\": \"contact.email\", \"score_global\": \"score.global\").",
+								"type": "object",
+								"additionalProperties": { "type": "string" }
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"ui": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"theme": {
+					"description": "Converti en CSS custom properties (--sd-*).",
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"colors": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"primary": { "$ref": "#/$defs/color" },
+								"primaryText": { "$ref": "#/$defs/color" },
+								"background": { "$ref": "#/$defs/color" },
+								"surface": { "$ref": "#/$defs/color" },
+								"text": { "$ref": "#/$defs/color" },
+								"muted": { "$ref": "#/$defs/color" },
+								"success": { "$ref": "#/$defs/color" },
+								"warning": { "$ref": "#/$defs/color" },
+								"danger": { "$ref": "#/$defs/color" }
+							}
+						},
+						"fontFamily": { "type": "string" },
+						"headingFontFamily": { "type": "string" },
+						"radius": {
+							"type": "string",
+							"pattern": "^[0-9.]+(px|rem|em)$"
+						},
+						"maxWidth": {
+							"type": "string",
+							"pattern": "^[0-9.]+(px|rem|em|%)$"
+						}
+					}
+				},
+				"logo": { "$ref": "#/$defs/media" },
+				"strings": {
+					"description": "Surcharge des libellés d'interface (next, back, start, submit, required, resume…).",
+					"type": "object",
+					"additionalProperties": { "$ref": "#/$defs/text" }
+				},
+				"legal": { "$ref": "#/$defs/richText" }
+			}
+		}
+	},
+
+	"$defs": {
+		"key": {
+			"description": "Identifiant technique stable, utilisé dans les règles et les exports.",
+			"type": "string",
+			"pattern": "^[a-z][a-z0-9_]{0,63}$"
+		},
+		"lang": { "type": "string", "pattern": "^[a-z]{2}(_[A-Z]{2})?$" },
+		"text": {
+			"description": "Texte simple, ou objet { langue: texte }. Supporte les variables {first_name}, {answer:cle}, {score:axe}, {var:cle}.",
+			"oneOf": [
+				{ "type": "string" },
+				{
+					"type": "object",
+					"propertyNames": { "$ref": "#/$defs/lang" },
+					"additionalProperties": { "type": "string" },
+					"minProperties": 1
+				}
+			]
+		},
+		"richText": {
+			"description": "Comme text, mais HTML limité autorisé (filtré par wp_kses côté serveur).",
+			"$ref": "#/$defs/text"
+		},
+		"media": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"id": {
+					"type": "integer",
+					"description": "ID de pièce jointe WordPress (prioritaire)."
+				},
+				"url": { "type": "string", "format": "uri-reference" },
+				"alt": { "$ref": "#/$defs/text" }
+			}
+		},
+		"color": {
+			"type": "string",
+			"pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$"
+		},
+		"numberFormat": {
+			"type": "object",
+			"additionalProperties": false,
+			"properties": {
+				"style": {
+					"enum": [ "number", "currency", "percent" ],
+					"default": "number"
+				},
+				"decimals": { "type": "integer", "minimum": 0, "maximum": 6 },
+				"currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+				"suffix": { "$ref": "#/$defs/text" }
+			}
+		},
+
+		"expression": {
+			"description": "Expression évaluée sans eval (parseur dédié JS + PHP). Opérateurs : + - * / % ( ) == != < <= > >= and or not ?: . Identifiants : answer.<cle>, score.<axe>, var.<cle>, contact.<champ>, count.<cle> (nb d'options cochées). Fonctions : min, max, abs, round, floor, ceil, clamp, sum, avg, if, isAnswered.",
+			"type": "string",
+			"minLength": 1,
+			"maxLength": 1000
+		},
+
+		"condition": {
+			"description": "Condition déclarative. Combinable via all / any / not. Forme avancée : { \"expr\": \"...\" }.",
+			"oneOf": [
+				{
+					"type": "object",
+					"required": [ "all" ],
+					"additionalProperties": false,
+					"properties": {
+						"all": {
+							"type": "array",
+							"items": { "$ref": "#/$defs/condition" },
+							"minItems": 1
+						}
+					}
+				},
+				{
+					"type": "object",
+					"required": [ "any" ],
+					"additionalProperties": false,
+					"properties": {
+						"any": {
+							"type": "array",
+							"items": { "$ref": "#/$defs/condition" },
+							"minItems": 1
+						}
+					}
+				},
+				{
+					"type": "object",
+					"required": [ "not" ],
+					"additionalProperties": false,
+					"properties": { "not": { "$ref": "#/$defs/condition" } }
+				},
+				{
+					"type": "object",
+					"required": [ "expr" ],
+					"additionalProperties": false,
+					"properties": { "expr": { "$ref": "#/$defs/expression" } }
+				},
+				{
+					"description": "Comparaison simple. left : chemin (answer.q1, score.axe, var.x, count.q2) ou mot-clé weakestAxis / strongestAxis.",
+					"type": "object",
+					"required": [ "left", "op" ],
+					"additionalProperties": false,
+					"properties": {
+						"left": {
+							"type": "string",
+							"pattern": "^((answer|score|var|contact|count)\\.[a-z][a-z0-9_]*|weakestAxis|strongestAxis)$"
+						},
+						"op": {
+							"enum": [
+								"eq",
+								"neq",
+								"gt",
+								"gte",
+								"lt",
+								"lte",
+								"between",
+								"in",
+								"notIn",
+								"contains",
+								"notContains",
+								"answered",
+								"empty"
+							]
+						},
+						"value": {}
+					}
+				}
+			]
+		},
+
+		"stepBase": {
+			"type": "object",
+			"required": [ "key", "kind" ],
+			"properties": {
+				"key": { "$ref": "#/$defs/key" },
+				"kind": { "enum": [ "question", "content", "form" ] },
+				"section": {
+					"$ref": "#/$defs/key",
+					"description": "Clé d'une entrée de sections[]."
+				},
+				"showIf": { "$ref": "#/$defs/condition" },
+				"jumpTo": {
+					"description": "Saut après l'étape : clé d'étape, \"results\", ou liste de règles évaluées dans l'ordre.",
+					"oneOf": [
+						{ "type": "string" },
+						{
+							"type": "array",
+							"items": {
+								"type": "object",
+								"required": [ "to" ],
+								"additionalProperties": false,
+								"properties": {
+									"if": { "$ref": "#/$defs/condition" },
+									"to": { "type": "string" }
+								}
+							}
+						}
+					]
+				}
+			}
+		},
+
+		"option": {
+			"type": "object",
+			"required": [ "value", "label" ],
+			"additionalProperties": false,
+			"properties": {
+				"value": { "type": [ "string", "number", "boolean" ] },
+				"label": { "$ref": "#/$defs/text" },
+				"description": { "$ref": "#/$defs/text" },
+				"image": { "$ref": "#/$defs/media" },
+				"icon": { "type": "string", "maxLength": 64 },
+				"scores": {
+					"description": "Points ajoutés par axe : { \"axe\": nombre }.",
+					"type": "object",
+					"propertyNames": { "$ref": "#/$defs/key" },
+					"additionalProperties": { "type": "number" }
+				},
+				"exclusive": {
+					"type": "boolean",
+					"default": false,
+					"description": "Multi : décoche les autres options (ex. « Aucun »)."
+				},
+				"exit": {
+					"description": "Réponse de sortie (« Je ne sais pas »…) et son traitement dans le scoring.",
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"mode": {
+							"enum": [ "ignore", "neutral", "min", "fixed" ],
+							"default": "ignore"
+						},
+						"value": {
+							"type": "number",
+							"description": "Pour mode = fixed."
+						}
+					}
+				}
+			}
+		},
+
+		"questionStep": {
+			"allOf": [
+				{ "$ref": "#/$defs/stepBase" },
+				{
+					"type": "object",
+					"required": [ "type", "label" ],
+					"properties": {
+						"kind": { "const": "question" },
+						"type": {
+							"enum": [
+								"text",
+								"textarea",
+								"email",
+								"phone",
+								"single",
+								"multi",
+								"dropdown",
+								"number",
+								"amount",
+								"multi_amount",
+								"slider",
+								"scale",
+								"yes_no",
+								"image_choice",
+								"date"
+							]
+						},
+						"label": { "$ref": "#/$defs/text" },
+						"help": { "$ref": "#/$defs/text" },
+						"placeholder": { "$ref": "#/$defs/text" },
+						"required": { "type": "boolean", "default": true },
+						"options": {
+							"type": "array",
+							"items": { "$ref": "#/$defs/option" }
+						},
+						"validation": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"min": { "type": "number" },
+								"max": { "type": "number" },
+								"step": {
+									"type": "number",
+									"exclusiveMinimum": 0
+								},
+								"minLength": {
+									"type": "integer",
+									"minimum": 0
+								},
+								"maxLength": {
+									"type": "integer",
+									"minimum": 1
+								},
+								"pattern": { "type": "string" },
+								"minSelected": {
+									"type": "integer",
+									"minimum": 0
+								},
+								"maxSelected": {
+									"type": "integer",
+									"minimum": 1
+								},
+								"message": { "$ref": "#/$defs/text" }
+							}
+						},
+						"unit": {
+							"$ref": "#/$defs/text",
+							"description": "number / slider."
+						},
+						"scaleLabels": {
+							"type": "object",
+							"additionalProperties": false,
+							"properties": {
+								"min": { "$ref": "#/$defs/text" },
+								"max": { "$ref": "#/$defs/text" }
+							}
+						},
+						"currency": {
+							"type": "string",
+							"pattern": "^[A-Z]{3}$",
+							"description": "amount / multi_amount."
+						},
+						"period": {
+							"enum": [
+								"once",
+								"day",
+								"week",
+								"month",
+								"quarter",
+								"year"
+							],
+							"description": "amount / multi_amount."
+						},
+						"fields": {
+							"description": "multi_amount : sous-champs saisis.",
+							"type": "array",
+							"items": {
+								"type": "object",
+								"required": [ "key", "label" ],
+								"additionalProperties": false,
+								"properties": {
+									"key": { "$ref": "#/$defs/key" },
+									"label": { "$ref": "#/$defs/text" }
+								}
+							}
+						},
+						"aggregate": {
+							"enum": [ "sum", "avg", "min", "max" ],
+							"default": "sum",
+							"description": "multi_amount : valeur de answer.<cle>."
+						}
+					},
+					"allOf": [
+						{
+							"if": {
+								"properties": {
+									"type": {
+										"enum": [
+											"single",
+											"multi",
+											"dropdown",
+											"image_choice"
+										]
+									}
+								}
+							},
+							"then": {
+								"required": [ "options" ],
+								"properties": { "options": { "minItems": 1 } }
+							}
+						},
+						{
+							"if": {
+								"properties": {
+									"type": { "const": "multi_amount" }
+								}
+							},
+							"then": { "required": [ "fields" ] }
+						}
+					]
+				}
+			]
+		},
+
+		"contentBody": {
+			"type": "object",
+			"required": [ "variant" ],
+			"properties": {
+				"variant": {
+					"enum": [ "text", "quote", "image", "testimonial", "promo" ]
+				},
+				"title": { "$ref": "#/$defs/text" },
+				"body": { "$ref": "#/$defs/richText" },
+				"image": { "$ref": "#/$defs/media" },
+				"author": { "$ref": "#/$defs/text" },
+				"authorRole": { "$ref": "#/$defs/text" },
+				"cta": {
+					"type": "object",
+					"additionalProperties": false,
+					"properties": {
+						"label": { "$ref": "#/$defs/text" },
+						"url": { "type": "string", "format": "uri-reference" }
+					}
+				}
+			}
+		},
+
+		"contentStep": {
+			"allOf": [
+				{ "$ref": "#/$defs/stepBase" },
+				{ "$ref": "#/$defs/contentBody" },
+				{ "properties": { "kind": { "const": "content" } } }
+			]
+		},
+
+		"formStep": {
+			"allOf": [
+				{ "$ref": "#/$defs/stepBase" },
+				{
+					"type": "object",
+					"required": [ "fields" ],
+					"properties": {
+						"kind": { "const": "form" },
+						"placement": {
+							"description": "inline = à sa place dans le parcours ; after_results = affiché sous le résultat.",
+							"enum": [ "inline", "after_results" ],
+							"default": "inline"
+						},
+						"title": { "$ref": "#/$defs/text" },
+						"text": { "$ref": "#/$defs/richText" },
+						"fields": {
+							"type": "array",
+							"minItems": 1,
+							"items": {
+								"type": "object",
+								"required": [ "key", "type", "label" ],
+								"additionalProperties": false,
+								"properties": {
+									"key": {
+										"$ref": "#/$defs/key",
+										"description": "Exposé en contact.<key>. first_name / email sont utilisés par les emails."
+									},
+									"type": {
+										"enum": [
+											"text",
+											"email",
+											"phone",
+											"select",
+											"checkbox",
+											"textarea"
+										]
+									},
+									"label": { "$ref": "#/$defs/text" },
+									"placeholder": { "$ref": "#/$defs/text" },
+									"required": {
+										"type": "boolean",
+										"default": false
+									},
+									"options": {
+										"type": "array",
+										"items": { "$ref": "#/$defs/option" }
+									}
+								}
+							}
+						},
+						"consent": {
+							"type": "object",
+							"required": [ "text", "version" ],
+							"additionalProperties": false,
+							"properties": {
+								"required": {
+									"type": "boolean",
+									"default": true
+								},
+								"text": { "$ref": "#/$defs/richText" },
+								"version": {
+									"type": "string",
+									"description": "Stockée avec chaque soumission (preuve de consentement)."
+								}
+							}
+						},
+						"submitLabel": { "$ref": "#/$defs/text" }
+					}
+				}
+			]
+		},
+
+		"scoringRule": {
+			"type": "object",
+			"required": [ "type", "axis" ],
+			"properties": {
+				"type": {
+					"enum": [
+						"range",
+						"count",
+						"condition",
+						"multiplier",
+						"cap"
+					]
+				},
+				"axis": { "$ref": "#/$defs/key" },
+				"when": {
+					"$ref": "#/$defs/condition",
+					"description": "La règle ne s'applique que si vraie."
+				}
+			},
+			"oneOf": [
+				{
+					"description": "Points selon la plage de la valeur numérique d'une réponse.",
+					"properties": {
+						"type": { "const": "range" },
+						"question": { "$ref": "#/$defs/key" },
+						"ranges": { "$ref": "#/$defs/pointRanges" }
+					},
+					"required": [ "question", "ranges" ]
+				},
+				{
+					"description": "Points selon le nombre d'options cochées.",
+					"properties": {
+						"type": { "const": "count" },
+						"question": { "$ref": "#/$defs/key" },
+						"ranges": { "$ref": "#/$defs/pointRanges" }
+					},
+					"required": [ "question", "ranges" ]
+				},
+				{
+					"description": "Points fixes ou calculés si la condition est vraie.",
+					"properties": {
+						"type": { "const": "condition" },
+						"points": {
+							"oneOf": [
+								{ "type": "number" },
+								{ "$ref": "#/$defs/expression" }
+							]
+						}
+					},
+					"required": [ "points" ]
+				},
+				{
+					"properties": {
+						"type": { "const": "multiplier" },
+						"factor": { "type": "number" }
+					},
+					"required": [ "factor" ]
+				},
+				{
+					"description": "Plafond / plancher intermédiaire (le clamp final [min,max] de l'axe s'applique toujours).",
+					"properties": {
+						"type": { "const": "cap" },
+						"min": { "type": "number" },
+						"max": { "type": "number" }
+					}
+				}
+			]
+		},
+
+		"pointRanges": {
+			"type": "array",
+			"minItems": 1,
+			"items": {
+				"type": "object",
+				"required": [ "points" ],
+				"additionalProperties": false,
+				"properties": {
+					"min": { "type": "number", "description": "Inclus." },
+					"max": { "type": "number", "description": "Exclu." },
+					"points": { "type": "number" }
+				}
+			}
+		},
+
+		"conditionalBlock": {
+			"type": "object",
+			"required": [ "key", "body" ],
+			"additionalProperties": false,
+			"properties": {
+				"key": { "$ref": "#/$defs/key" },
+				"title": { "$ref": "#/$defs/text" },
+				"body": { "$ref": "#/$defs/richText" },
+				"when": { "$ref": "#/$defs/condition" },
+				"priority": { "type": "integer", "default": 0 }
+			}
+		},
+
+		"resultBlock": {
+			"type": "object",
+			"required": [ "type" ],
+			"properties": {
+				"type": {
+					"enum": [
+						"heading",
+						"profile",
+						"scores",
+						"texts",
+						"variables",
+						"actions",
+						"cta",
+						"share",
+						"form",
+						"html"
+					]
+				},
+				"title": { "$ref": "#/$defs/text" },
+				"showIf": { "$ref": "#/$defs/condition" }
+			},
+			"allOf": [
+				{
+					"if": { "properties": { "type": { "const": "scores" } } },
+					"then": {
+						"properties": {
+							"display": {
+								"enum": [ "radar", "bars", "gauges" ],
+								"default": "bars"
+							},
+							"axes": {
+								"type": "array",
+								"items": { "$ref": "#/$defs/key" },
+								"description": "Vide = tous les axes."
+							},
+							"showValues": { "type": "boolean", "default": true }
+						}
+					}
+				},
+				{
+					"if": {
+						"properties": { "type": { "const": "variables" } }
+					},
+					"then": {
+						"properties": {
+							"keys": {
+								"type": "array",
+								"items": { "$ref": "#/$defs/key" }
+							},
+							"chart": {
+								"enum": [ "none", "bars", "line", "compare" ],
+								"default": "none"
+							}
+						}
+					}
+				},
+				{
+					"if": { "properties": { "type": { "const": "html" } } },
+					"then": {
+						"properties": { "body": { "$ref": "#/$defs/richText" } }
+					}
+				}
+			]
+		}
+	}
+}
