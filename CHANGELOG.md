@@ -4,6 +4,13 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-14
+
+### Fixed
+- Le zip de la 1.0.0 embarquait aussi la version non préfixée de la librairie `opis`
+  (dépendance mal classée dans `composer.lock`) : seule la copie préfixée est désormais
+  livrée, et la release vérifie ce point.
+
 ## [1.0.0] - 2026-10-14
 
 Première version publique.

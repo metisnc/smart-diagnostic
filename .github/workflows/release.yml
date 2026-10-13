@@ -25,7 +25,8 @@ jobs:
       - run: composer install --no-interaction --prefer-dist
       # 2. Puis sans les outils de dev (vendor-prefixed/ est conservé).
       - run: composer install --no-dev --no-scripts --no-interaction --prefer-dist --optimize-autoloader
-      - run: test -f vendor-prefixed/autoload.php
+      # Garde-fou : seule la copie préfixée de la librairie doit être embarquée.
+      - run: test -f vendor-prefixed/autoload.php && test ! -d vendor/opis
       - run: npm ci && npm run build
       - name: Build zip
         run: |
