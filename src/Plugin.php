@@ -51,6 +51,7 @@ final class Plugin {
 				Admin\SubmissionsPage::class,
 				Admin\WebhookSecrets::class,
 				Admin\StatsPage::class,
+				Admin\ImportExport::class,
 				Rest\SubmitController::class,
 				Rest\EventsController::class,
 				Integrations\Mailer::class,

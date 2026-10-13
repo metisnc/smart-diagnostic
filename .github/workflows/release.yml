@@ -21,7 +21,11 @@ jobs:
           php-version: "8.1"
           tools: composer:v2
           coverage: none
-      - run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+      # 1. Installation complète : Strauss préfixe les librairies embarquées (vendor-prefixed/).
+      - run: composer install --no-interaction --prefer-dist
+      # 2. Puis sans les outils de dev (vendor-prefixed/ est conservé).
+      - run: composer install --no-dev --no-scripts --no-interaction --prefer-dist --optimize-autoloader
+      - run: test -f vendor-prefixed/autoload.php
       - run: npm ci && npm run build
       - name: Build zip
         run: |

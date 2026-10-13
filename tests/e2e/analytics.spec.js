@@ -61,8 +61,12 @@ test( 'statistics dashboard shows the funnel', async ( { page } ) => {
 	await page.fill( '#user_pass', process.env.WP_ADMIN_PASSWORD );
 	await page.click( '#wp-submit' );
 
+	await page.goto( '/diagnostic-test/' );
+	const id = await page
+		.locator( '[data-sd-diagnostic]' )
+		.getAttribute( 'data-sd-diagnostic' );
 	await page.goto(
-		'/wp-admin/edit.php?post_type=sd_diagnostic&page=sd-stats'
+		`/wp-admin/edit.php?post_type=sd_diagnostic&page=sd-stats&diagnostic=${ id }`
 	);
 	const started = Number(
 		(

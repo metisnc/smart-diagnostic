@@ -1,0 +1,22 @@
+{
+    "assets/src/block/index.js":  "build/block.js",
+    "assets/src/builder/Builder.js":  "build/builder.js",
+    "assets/src/builder/ConditionEditor.js":  "build/builder.js",
+    "assets/src/builder/fields.js":  "build/builder.js",
+    "assets/src/builder/index.js":  "build/builder.js",
+    "assets/src/builder/utils.js":  "build/builder.js",
+    "assets/src/builder/tabs/General.js":  "build/builder.js",
+    "assets/src/builder/tabs/Results.js":  "build/builder.js",
+    "assets/src/builder/tabs/Scoring.js":  "build/builder.js",
+    "assets/src/builder/tabs/Steps.js":  "build/builder.js",
+    "assets/src/builder/tabs/Test.js":  "build/builder.js",
+    "assets/src/engine/calculator.js":  "build/builder.js",
+    "assets/src/engine/conditions.js":  "build/builder.js",
+    "assets/src/engine/context.js":  "build/builder.js",
+    "assets/src/engine/expression.js":  "build/builder.js",
+    "assets/src/engine/flow.js":  "build/builder.js",
+    "assets/src/engine/interpolate.js":  "build/builder.js",
+    "assets/src/engine/text.js":  "build/builder.js",
+    "assets/src/engine/validate.js":  "build/builder.js",
+    "assets/src/engine/values.js":  "build/builder.js"
+}

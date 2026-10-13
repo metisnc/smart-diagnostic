@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Smart Diagnostic
  * Description:       Moteur de questionnaires de diagnostic interactifs, entièrement configurable.
- * Version:           0.1.0
+ * Version:           1.0.0
  * Requires at least: 6.4
  * Requires PHP:      8.1
  * Author:            metisnc
@@ -18,12 +18,12 @@ declare(strict_types=1);
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SMART_DIAGNOSTIC_VERSION', '0.1.0' );
+define( 'SMART_DIAGNOSTIC_VERSION', '1.0.0' );
 define( 'SMART_DIAGNOSTIC_FILE', __FILE__ );
 define( 'SMART_DIAGNOSTIC_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SMART_DIAGNOSTIC_URL', plugin_dir_url( __FILE__ ) );
 
-if ( ! is_readable( SMART_DIAGNOSTIC_DIR . 'vendor/autoload.php' ) ) {
+if ( ! is_readable( SMART_DIAGNOSTIC_DIR . 'vendor/autoload.php' ) || ! is_readable( SMART_DIAGNOSTIC_DIR . 'vendor-prefixed/autoload.php' ) ) {
 	add_action(
 		'admin_notices',
 		static function (): void {
@@ -36,6 +36,7 @@ if ( ! is_readable( SMART_DIAGNOSTIC_DIR . 'vendor/autoload.php' ) ) {
 }
 
 require_once SMART_DIAGNOSTIC_DIR . 'vendor/autoload.php';
+require_once SMART_DIAGNOSTIC_DIR . 'vendor-prefixed/autoload.php';
 
 register_activation_hook( __FILE__, array( \SmartDiagnostic\Lifecycle::class, 'activate' ) );
 register_deactivation_hook( __FILE__, array( \SmartDiagnostic\Lifecycle::class, 'deactivate' ) );

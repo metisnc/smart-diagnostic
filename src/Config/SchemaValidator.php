@@ -9,8 +9,9 @@ declare(strict_types=1);
 
 namespace SmartDiagnostic\Config;
 
-use Opis\JsonSchema\Errors\ErrorFormatter;
-use Opis\JsonSchema\Validator;
+// Librairie embarquée sous un espace de noms préfixé (Strauss) : pas de conflit avec d'autres plugins.
+use SmartDiagnostic\Vendor\Opis\JsonSchema\Errors\ErrorFormatter;
+use SmartDiagnostic\Vendor\Opis\JsonSchema\Validator;
 
 /**
  * Valide la config telle que décodée en objets (json_decode sans assoc) :

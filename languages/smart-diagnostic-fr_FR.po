@@ -11,8 +11,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"POT-Creation-Date: 2026-10-13T20:59:12+00:00\n"
-"PO-Revision-Date: 2026-10-13 23:00+0000\n"
+"POT-Creation-Date: 2026-10-13T21:24:32+00:00\n"
+"PO-Revision-Date: 2026-10-14 01:00+0000\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: smart-diagnostic\n"
 
@@ -36,51 +36,114 @@ msgstr "metisnc"
 msgid "Smart Diagnostic: dependencies are missing. Run \"composer install\" in the plugin folder."
 msgstr "Smart Diagnostic : dépendances manquantes. Lancez « composer install » dans le dossier du plugin."
 
-#: src/Admin/ConfigEditor.php:42
+#: src/Admin/ConfigEditor.php:43
+#: assets/src/builder/Builder.js:173
 msgid "Configuration (JSON)"
 msgstr "Configuration (JSON)"
 
-#: src/Admin/ConfigEditor.php:65
-msgid "Live preview"
-msgstr "Aperçu en direct"
-
 #. translators: %s: shortcode.
-#: src/Admin/ConfigEditor.php:73
+#: src/Admin/ConfigEditor.php:67
 #, php-format
 msgid "Insert this diagnostic with the \"Diagnostic\" block or the shortcode %s."
 msgstr "Insérez ce diagnostic avec le bloc « Diagnostic » ou le shortcode %s."
 
-#: src/Admin/ConfigEditor.php:122
+#: src/Admin/ConfigEditor.php:116
 msgid "The configuration was not saved: it contains errors. The previous valid version remains online."
 msgstr "La configuration n’a pas été enregistrée : elle contient des erreurs. La dernière version valide reste en ligne."
 
-#: src/Admin/ConfigEditor.php:163
-msgid "Valid configuration."
-msgstr "Configuration valide."
-
-#: src/Admin/ConfigEditor.php:164
-msgid "Errors:"
-msgstr "Erreurs :"
-
-#: src/Admin/ConfigEditor.php:165
-msgid "Invalid JSON:"
-msgstr "JSON invalide :"
-
-#: src/Admin/ConfigEditor.php:184
+#: src/Admin/ConfigEditor.php:173
 msgid "Section 1"
 msgstr "Section 1"
 
-#: src/Admin/ConfigEditor.php:193
+#: src/Admin/ConfigEditor.php:182
 msgid "First question"
 msgstr "Première question"
 
-#: src/Admin/ConfigEditor.php:197
+#: src/Admin/ConfigEditor.php:186
+#: assets/src/builder/tabs/Steps.js:72
 msgid "Answer A"
 msgstr "Réponse A"
 
-#: src/Admin/ConfigEditor.php:201
+#: src/Admin/ConfigEditor.php:190
+#: assets/src/builder/tabs/Steps.js:73
 msgid "Answer B"
 msgstr "Réponse B"
+
+#: src/Admin/ImportExport.php:41
+#: src/Admin/ImportExport.php:42
+#: src/Admin/ImportExport.php:195
+msgid "Import"
+msgstr "Importer"
+
+#: src/Admin/ImportExport.php:65
+#: src/Admin/ImportExport.php:79
+#: assets/src/builder/tabs/Steps.js:1172
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+#: src/Admin/ImportExport.php:66
+#: src/Admin/ImportExport.php:77
+msgid "Export JSON"
+msgstr "Exporter en JSON"
+
+#: src/Admin/ImportExport.php:91
+#: src/Admin/ImportExport.php:110
+#: src/Admin/ImportExport.php:121
+#: src/Admin/SubmissionsPage.php:90
+#: src/Admin/SubmissionsPage.php:252
+msgid "You are not allowed to do this."
+msgstr "Vous n’avez pas l’autorisation de faire cela."
+
+#: src/Admin/ImportExport.php:95
+msgid "This diagnostic has no configuration yet."
+msgstr "Ce diagnostic n’a pas encore de configuration."
+
+#. translators: %s: title of the duplicated diagnostic.
+#: src/Admin/ImportExport.php:113
+#, php-format
+msgid "%s (copy)"
+msgstr "%s (copie)"
+
+#: src/Admin/ImportExport.php:133
+msgid "Choose a JSON file or paste a configuration."
+msgstr "Choisissez un fichier JSON ou collez une configuration."
+
+#: src/Admin/ImportExport.php:146
+msgid "Imported diagnostic"
+msgstr "Diagnostic importé"
+
+#: src/Admin/ImportExport.php:178
+msgid "Import a diagnostic"
+msgstr "Importer un diagnostic"
+
+#: src/Admin/ImportExport.php:179
+msgid "The imported diagnostic is created as a draft. Webhook secrets are never part of an export: enter them again after importing."
+msgstr "Le diagnostic importé est créé en brouillon. Les secrets des webhooks ne font jamais partie d’un export : saisissez-les à nouveau après l’import."
+
+#: src/Admin/ImportExport.php:181
+msgid "The configuration is not valid:"
+msgstr "La configuration n’est pas valide :"
+
+#: src/Admin/ImportExport.php:191
+#: assets/src/builder/tabs/General.js:118
+#: assets/src/builder/tabs/Results.js:106
+#: assets/src/builder/tabs/Results.js:286
+#: assets/src/builder/tabs/Steps.js:668
+#: assets/src/builder/tabs/Steps.js:753
+msgid "Title"
+msgstr "Titre"
+
+#: src/Admin/ImportExport.php:191
+msgid "Optional: by default, the title from the configuration."
+msgstr "Facultatif : par défaut, le titre indiqué dans la configuration."
+
+#: src/Admin/ImportExport.php:192
+msgid "JSON file"
+msgstr "Fichier JSON"
+
+#: src/Admin/ImportExport.php:193
+msgid "Or paste the JSON"
+msgstr "Ou collez le JSON"
 
 #: src/Admin/SettingsPage.php:31
 #: src/Admin/SettingsPage.php:32
@@ -218,6 +281,7 @@ msgid "Funnel"
 msgstr "Entonnoir"
 
 #: src/Admin/StatsPage.php:141
+#: assets/src/builder/tabs/Steps.js:454
 msgid "Step"
 msgstr "Étape"
 
@@ -226,6 +290,8 @@ msgid "Visitors"
 msgstr "Visiteurs"
 
 #: src/Admin/StatsPage.php:145
+#: assets/src/builder/Builder.js:85
+#: assets/src/builder/tabs/Steps.js:913
 msgid "Results"
 msgstr "Résultat"
 
@@ -234,6 +300,7 @@ msgid "Drop-offs (last step seen)"
 msgstr "Abandons (dernière étape vue)"
 
 #: src/Admin/StatsPage.php:161
+#: assets/src/builder/tabs/General.js:90
 msgid "Welcome screen"
 msgstr "Écran d’accueil"
 
@@ -242,11 +309,6 @@ msgstr "Écran d’accueil"
 #: src/Admin/SubmissionsPage.php:121
 msgid "Submissions"
 msgstr "Réponses"
-
-#: src/Admin/SubmissionsPage.php:90
-#: src/Admin/SubmissionsPage.php:252
-msgid "You are not allowed to do this."
-msgstr "Vous n’avez pas l’autorisation de faire cela."
 
 #: src/Admin/SubmissionsPage.php:122
 msgid "Export CSV"
@@ -278,6 +340,8 @@ msgstr "Page de résultat"
 
 #: src/Admin/SubmissionsPage.php:171
 #: src/Admin/SubmissionsTable.php:65
+#: assets/src/builder/ConditionEditor.js:57
+#: assets/src/builder/tabs/Test.js:185
 msgid "Contact"
 msgstr "Contact"
 
@@ -295,6 +359,8 @@ msgstr "Donné"
 #: src/Admin/SubmissionsPage.php:239
 #: src/Admin/SubmissionsTable.php:173
 #: src/Front/Strings.php:44
+#: assets/src/builder/ConditionEditor.js:142
+#: assets/src/builder/tabs/Test.js:21
 msgid "Yes"
 msgstr "Oui"
 
@@ -303,12 +369,15 @@ msgstr "Oui"
 #: src/Admin/SubmissionsTable.php:174
 #: src/Front/Strings.php:45
 #: src/Privacy/Privacy.php:122
+#: assets/src/builder/ConditionEditor.js:143
+#: assets/src/builder/tabs/Test.js:22
 msgid "No"
 msgstr "Non"
 
 #: src/Admin/SubmissionsPage.php:176
 #: src/Admin/SubmissionsTable.php:64
 #: src/Privacy/Privacy.php:117
+#: assets/src/builder/tabs/Steps.js:42
 msgid "Date"
 msgstr "Date"
 
@@ -320,6 +389,8 @@ msgstr "Version"
 #: src/Admin/SubmissionsTable.php:67
 #: src/Privacy/Privacy.php:125
 #: templates/emails/admin.php:21
+#: assets/src/builder/tabs/Results.js:17
+#: assets/src/builder/tabs/Test.js:236
 msgid "Profile"
 msgstr "Profil"
 
@@ -368,6 +439,7 @@ msgstr "Supprimer définitivement cette réponse ?"
 #: src/Admin/SubmissionsPage.php:224
 #: src/Admin/SubmissionsTable.php:88
 #: src/Admin/SubmissionsTable.php:143
+#: assets/src/builder/tabs/Steps.js:1190
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -420,7 +492,7 @@ msgid "•••••••• (unchanged)"
 msgstr "•••••••• (inchangé)"
 
 #. translators: %s: JSON parser error message.
-#: src/Config/SchemaValidator.php:37
+#: src/Config/SchemaValidator.php:38
 #, php-format
 msgid "Invalid JSON: %s"
 msgstr "JSON invalide : %s"
@@ -686,6 +758,8 @@ msgid "First name"
 msgstr "Prénom"
 
 #: templates/emails/admin.php:19
+#: assets/src/builder/tabs/Steps.js:40
+#: assets/src/builder/tabs/Steps.js:91
 msgid "Email"
 msgstr "Email"
 
@@ -708,6 +782,1180 @@ msgstr "Choisir un diagnostic…"
 #: assets/src/block/index.js:42
 msgid "Diagnostic to display"
 msgstr "Diagnostic à afficher"
+
+#: assets/src/builder/Builder.js:83
+#: assets/src/builder/tabs/General.js:169
+msgid "Journey"
+msgstr "Parcours"
+
+#: assets/src/builder/Builder.js:84
+msgid "Calculation"
+msgstr "Calcul"
+
+#: assets/src/builder/Builder.js:86
+msgid "General"
+msgstr "Général"
+
+#: assets/src/builder/Builder.js:87
+msgid "Appearance"
+msgstr "Apparence"
+
+#: assets/src/builder/Builder.js:90
+msgid "Integrations"
+msgstr "Intégrations"
+
+#: assets/src/builder/Builder.js:92
+msgid "Test"
+msgstr "Test"
+
+#: assets/src/builder/Builder.js:102
+msgid "Invalid JSON:"
+msgstr "JSON invalide :"
+
+#: assets/src/builder/Builder.js:108
+msgid "Valid configuration."
+msgstr "Configuration valide."
+
+#. translators: %d: number of errors.
+#: assets/src/builder/Builder.js:116
+#, js-format
+msgid "%d error: the configuration will not be saved until it is fixed."
+msgid_plural "%d errors: the configuration will not be saved until they are fixed."
+msgstr[0] "%d erreur : la configuration ne sera pas enregistrée tant qu’elle n’est pas corrigée."
+msgstr[1] "%d erreurs : la configuration ne sera pas enregistrée tant qu’elles ne sont pas corrigées."
+
+#: assets/src/builder/Builder.js:137
+#: assets/src/builder/Builder.js:201
+msgid "Live preview"
+msgstr "Aperçu en direct"
+
+#: assets/src/builder/Builder.js:177
+msgid "Format documented in schema/diagnostic.schema.json. Changes are applied to the other tabs as soon as the JSON is valid."
+msgstr "Format documenté dans schema/diagnostic.schema.json. Les modifications s’appliquent aux autres onglets dès que le JSON est valide."
+
+#: assets/src/builder/ConditionEditor.js:44
+msgid "Answer"
+msgstr "Réponse"
+
+#: assets/src/builder/ConditionEditor.js:49
+msgid "Number checked"
+msgstr "Nombre de cases cochées"
+
+#: assets/src/builder/ConditionEditor.js:65
+#: assets/src/builder/tabs/Test.js:220
+msgid "Score"
+msgstr "Score"
+
+#: assets/src/builder/ConditionEditor.js:71
+msgid "Variable"
+msgstr "Valeur calculée"
+
+#: assets/src/builder/ConditionEditor.js:76
+msgid "Weakest axis"
+msgstr "Axe le plus faible"
+
+#: assets/src/builder/ConditionEditor.js:80
+msgid "Strongest axis"
+msgstr "Axe le plus fort"
+
+#: assets/src/builder/ConditionEditor.js:86
+msgid "equals"
+msgstr "est égal à"
+
+#: assets/src/builder/ConditionEditor.js:87
+msgid "differs from"
+msgstr "est différent de"
+
+#: assets/src/builder/ConditionEditor.js:92
+msgid "between (min, max)"
+msgstr "est entre (min, max)"
+
+#: assets/src/builder/ConditionEditor.js:93
+msgid "is one of (a, b, c)"
+msgstr "fait partie de (a, b, c)"
+
+#: assets/src/builder/ConditionEditor.js:94
+msgid "is none of (a, b, c)"
+msgstr "ne fait pas partie de (a, b, c)"
+
+#: assets/src/builder/ConditionEditor.js:95
+msgid "contains"
+msgstr "contient"
+
+#: assets/src/builder/ConditionEditor.js:98
+msgid "does not contain"
+msgstr "ne contient pas"
+
+#: assets/src/builder/ConditionEditor.js:100
+msgid "is answered"
+msgstr "est renseigné"
+
+#: assets/src/builder/ConditionEditor.js:101
+msgid "is empty"
+msgstr "est vide"
+
+#: assets/src/builder/ConditionEditor.js:114
+msgid "Values, separated by commas"
+msgstr "Valeurs, séparées par des virgules"
+
+#: assets/src/builder/ConditionEditor.js:150
+#: assets/src/builder/ConditionEditor.js:195
+#: assets/src/builder/tabs/General.js:680
+#: assets/src/builder/tabs/Steps.js:125
+#: assets/src/builder/tabs/Steps.js:150
+msgid "Value"
+msgstr "Valeur"
+
+#: assets/src/builder/ConditionEditor.js:178
+#: assets/src/builder/tabs/Scoring.js:217
+msgid "Axis"
+msgstr "Axe"
+
+#: assets/src/builder/ConditionEditor.js:224
+msgid "—"
+msgstr "—"
+
+#: assets/src/builder/ConditionEditor.js:225
+msgid "Always"
+msgstr "Toujours"
+
+#: assets/src/builder/ConditionEditor.js:227
+#: assets/src/builder/tabs/Results.js:371
+msgid "Comparison"
+msgstr "Comparaison"
+
+#: assets/src/builder/ConditionEditor.js:228
+msgid "All of (AND)"
+msgstr "Toutes (ET)"
+
+#: assets/src/builder/ConditionEditor.js:229
+msgid "Any of (OR)"
+msgstr "Au moins une (OU)"
+
+#: assets/src/builder/ConditionEditor.js:230
+msgid "Not"
+msgstr "Négation (NON)"
+
+#: assets/src/builder/ConditionEditor.js:231
+#: assets/src/builder/ConditionEditor.js:379
+msgid "Expression"
+msgstr "Expression"
+
+#: assets/src/builder/ConditionEditor.js:281
+msgid "Condition"
+msgstr "Condition"
+
+#: assets/src/builder/ConditionEditor.js:292
+msgid "What"
+msgstr "Quoi"
+
+#: assets/src/builder/ConditionEditor.js:302
+msgid "Operator"
+msgstr "Opérateur"
+
+#: assets/src/builder/ConditionEditor.js:360
+msgid "Add a condition"
+msgstr "Ajouter une condition"
+
+#: assets/src/builder/ConditionEditor.js:382
+msgid "Example: score.axis_1 >= 50 and answer.q2 == \"yes\""
+msgstr "Exemple : score.axe_1 >= 50 and answer.q2 == \"oui\""
+
+#: assets/src/builder/fields.js:121
+msgid "Lowercase letters, digits and _ only, starting with a letter."
+msgstr "Minuscules, chiffres et _ uniquement, en commençant par une lettre."
+
+#: assets/src/builder/fields.js:126
+msgid "This key is already used."
+msgstr "Cette clé est déjà utilisée."
+
+#: assets/src/builder/fields.js:133
+msgid "Key"
+msgstr "Clé"
+
+#: assets/src/builder/fields.js:136
+msgid "Technical identifier used in rules and exports."
+msgstr "Identifiant technique utilisé dans les règles et les exports."
+
+#: assets/src/builder/fields.js:229
+#: assets/src/builder/tabs/Steps.js:313
+#: assets/src/builder/tabs/Steps.js:1081
+msgid "Move up"
+msgstr "Monter"
+
+#: assets/src/builder/fields.js:243
+#: assets/src/builder/tabs/Steps.js:1096
+msgid "Move down"
+msgstr "Descendre"
+
+#: assets/src/builder/fields.js:258
+#: assets/src/builder/fields.js:360
+#: assets/src/builder/tabs/Steps.js:328
+msgid "Remove"
+msgstr "Supprimer"
+
+#: assets/src/builder/fields.js:319
+msgid "Ranges (min included, max excluded)"
+msgstr "Plages (min inclus, max exclu)"
+
+#: assets/src/builder/fields.js:327
+msgid "Min"
+msgstr "Min"
+
+#: assets/src/builder/fields.js:328
+msgid "Max"
+msgstr "Max"
+
+#: assets/src/builder/fields.js:329
+msgid "Points"
+msgstr "Points"
+
+#: assets/src/builder/fields.js:378
+msgid "Add a range"
+msgstr "Ajouter une plage"
+
+#: assets/src/builder/tabs/General.js:38
+msgid "Languages"
+msgstr "Langues"
+
+#: assets/src/builder/tabs/General.js:43
+msgid "Languages (codes separated by commas)"
+msgstr "Langues (codes séparés par des virgules)"
+
+#: assets/src/builder/tabs/General.js:47
+msgid "Example: fr, en. With several languages, each text gets one field per language."
+msgstr "Exemple : fr, en. Avec plusieurs langues, chaque texte a un champ par langue."
+
+#: assets/src/builder/tabs/General.js:73
+msgid "Language selector for visitors"
+msgstr "Sélecteur de langue pour les visiteurs"
+
+#: assets/src/builder/tabs/General.js:84
+msgid "Internal title"
+msgstr "Titre interne"
+
+#: assets/src/builder/tabs/General.js:93
+msgid "Show a welcome screen"
+msgstr "Afficher un écran d’accueil"
+
+#: assets/src/builder/tabs/General.js:106
+msgid "Take the diagnostic"
+msgstr "Faites le diagnostic"
+
+#: assets/src/builder/tabs/General.js:125
+msgid "Subtitle"
+msgstr "Sous-titre"
+
+#: assets/src/builder/tabs/General.js:133
+msgid "Benefits"
+msgstr "Bénéfices"
+
+#: assets/src/builder/tabs/General.js:134
+msgid "Add a benefit"
+msgstr "Ajouter un bénéfice"
+
+#: assets/src/builder/tabs/General.js:142
+msgid "Badges"
+msgstr "Badges"
+
+#: assets/src/builder/tabs/General.js:143
+msgid "Add a badge"
+msgstr "Ajouter un badge"
+
+#: assets/src/builder/tabs/General.js:152
+#: assets/src/builder/tabs/Results.js:140
+#: assets/src/builder/tabs/Steps.js:684
+msgid "Image URL"
+msgstr "Adresse de l’image"
+
+#: assets/src/builder/tabs/General.js:159
+msgid "Start button"
+msgstr "Bouton de démarrage"
+
+#: assets/src/builder/tabs/General.js:173
+msgid "Progress bar"
+msgstr "Barre de progression"
+
+#: assets/src/builder/tabs/General.js:184
+msgid "Step counter"
+msgstr "Compteur d’étapes"
+
+#: assets/src/builder/tabs/General.js:195
+msgid "Section name"
+msgstr "Nom de la section"
+
+#: assets/src/builder/tabs/General.js:206
+msgid "Back button"
+msgstr "Bouton Retour"
+
+#: assets/src/builder/tabs/General.js:214
+msgid "Save progress"
+msgstr "Sauvegarder la progression"
+
+#: assets/src/builder/tabs/General.js:225
+msgid "Go to the next step after a single choice"
+msgstr "Passer à l’étape suivante après un choix unique"
+
+#: assets/src/builder/tabs/General.js:236
+msgid "Letters A, B, C… on answers"
+msgstr "Lettres A, B, C… sur les réponses"
+
+#: assets/src/builder/tabs/General.js:248
+msgid "Encouragement messages"
+msgstr "Messages d’encouragement"
+
+#: assets/src/builder/tabs/General.js:253
+msgid "Halfway there!"
+msgstr "Vous êtes à mi-chemin !"
+
+#: assets/src/builder/tabs/General.js:255
+#: assets/src/builder/tabs/General.js:322
+msgid "Add a message"
+msgstr "Ajouter un message"
+
+#: assets/src/builder/tabs/General.js:259
+msgid "At (% of the journey)"
+msgstr "À (% du parcours)"
+
+#: assets/src/builder/tabs/General.js:271
+msgid "Message"
+msgstr "Message"
+
+#: assets/src/builder/tabs/General.js:282
+msgid "Before the results"
+msgstr "Avant le résultat"
+
+#: assets/src/builder/tabs/General.js:285
+msgid "Loading screen before the results"
+msgstr "Écran d’attente avant le résultat"
+
+#: assets/src/builder/tabs/General.js:297
+msgid "Analysing your answers…"
+msgstr "Analyse de vos réponses…"
+
+#: assets/src/builder/tabs/General.js:312
+msgid "Duration (ms)"
+msgstr "Durée (ms)"
+
+#: assets/src/builder/tabs/General.js:321
+msgid "Messages"
+msgstr "Messages"
+
+#: assets/src/builder/tabs/General.js:336
+msgid "Main colour"
+msgstr "Couleur principale"
+
+#: assets/src/builder/tabs/General.js:337
+msgid "Text on main colour"
+msgstr "Texte sur la couleur principale"
+
+#: assets/src/builder/tabs/General.js:338
+msgid "Background"
+msgstr "Fond"
+
+#: assets/src/builder/tabs/General.js:339
+msgid "Panels"
+msgstr "Encadrés"
+
+#: assets/src/builder/tabs/General.js:340
+#: assets/src/builder/tabs/General.js:480
+#: assets/src/builder/tabs/Steps.js:647
+#: assets/src/builder/tabs/Steps.js:760
+msgid "Text"
+msgstr "Texte"
+
+#: assets/src/builder/tabs/General.js:341
+msgid "Secondary text"
+msgstr "Texte secondaire"
+
+#: assets/src/builder/tabs/General.js:349
+msgid "Colours"
+msgstr "Couleurs"
+
+#: assets/src/builder/tabs/General.js:375
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#: assets/src/builder/tabs/General.js:385
+msgid "Font"
+msgstr "Police"
+
+#: assets/src/builder/tabs/General.js:386
+msgid "Example: Inter, sans-serif (the font must be loaded by the theme)."
+msgstr "Exemple : Inter, sans-serif (la police doit être chargée par le thème)."
+
+#: assets/src/builder/tabs/General.js:398
+msgid "Rounded corners"
+msgstr "Arrondi des angles"
+
+#: assets/src/builder/tabs/General.js:408
+msgid "Maximum width"
+msgstr "Largeur maximale"
+
+#: assets/src/builder/tabs/General.js:420
+msgid "Logo URL"
+msgstr "Adresse du logo"
+
+#: assets/src/builder/tabs/General.js:428
+msgid "Legal notice (below the questionnaire)"
+msgstr "Mentions légales (sous le questionnaire)"
+
+#: assets/src/builder/tabs/General.js:437
+msgid "Interface labels"
+msgstr "Libellés de l’interface"
+
+#: assets/src/builder/tabs/General.js:439
+msgid "Override the default labels (Next, Back, See my results…) for this diagnostic."
+msgstr "Remplacez les libellés par défaut (Suivant, Retour, Voir mes résultats…) pour ce diagnostic."
+
+#: assets/src/builder/tabs/General.js:463
+msgid "Override a label"
+msgstr "Remplacer un libellé"
+
+#: assets/src/builder/tabs/General.js:469
+#: assets/src/builder/tabs/Scoring.js:363
+#: assets/src/builder/tabs/Steps.js:126
+#: assets/src/builder/tabs/Steps.js:166
+#: assets/src/builder/tabs/Steps.js:545
+#: assets/src/builder/tabs/Steps.js:809
+msgid "Label"
+msgstr "Libellé"
+
+#: assets/src/builder/tabs/General.js:498
+msgid "Emails"
+msgstr "Emails"
+
+#: assets/src/builder/tabs/General.js:501
+msgid "Send the results to the visitor"
+msgstr "Envoyer le résultat au visiteur"
+
+#: assets/src/builder/tabs/General.js:514
+msgid "Subject of the visitor email"
+msgstr "Objet de l’email au visiteur"
+
+#: assets/src/builder/tabs/General.js:526
+msgid "Notify the team of each submission"
+msgstr "Prévenir l’équipe à chaque réponse"
+
+#: assets/src/builder/tabs/General.js:541
+msgid "Team addresses (separated by commas)"
+msgstr "Adresses de l’équipe (séparées par des virgules)"
+
+#: assets/src/builder/tabs/General.js:545
+msgid "Empty: the site administration email."
+msgstr "Vide : l’email d’administration du site."
+
+#: assets/src/builder/tabs/General.js:563
+msgid "Webhooks (CRM, Make, Zapier, n8n…)"
+msgstr "Webhooks (CRM, Make, Zapier, n8n…)"
+
+#: assets/src/builder/tabs/General.js:579
+msgid "Add a webhook"
+msgstr "Ajouter un webhook"
+
+#: assets/src/builder/tabs/General.js:591
+msgid "URL"
+msgstr "URL"
+
+#: assets/src/builder/tabs/General.js:599
+msgid "On submission"
+msgstr "À la soumission"
+
+#: assets/src/builder/tabs/General.js:603
+msgid "When contact details are added after the results"
+msgstr "Quand des coordonnées sont ajoutées après le résultat"
+
+#: assets/src/builder/tabs/General.js:634
+msgid "Field mapping (empty: everything is sent)"
+msgstr "Correspondance des champs (vide : tout est envoyé)"
+
+#: assets/src/builder/tabs/General.js:662
+#: assets/src/builder/tabs/Steps.js:535
+#: assets/src/builder/tabs/Steps.js:777
+msgid "Add a field"
+msgstr "Ajouter un champ"
+
+#: assets/src/builder/tabs/General.js:668
+msgid "Sent as"
+msgstr "Envoyé sous le nom"
+
+#: assets/src/builder/tabs/General.js:694
+msgid "The signing secret is entered in the “Webhook secrets” box, after saving."
+msgstr "Le secret de signature se saisit dans la boîte « Secrets des webhooks », après l’enregistrement."
+
+#: assets/src/builder/tabs/Results.js:16
+msgid "Heading"
+msgstr "Intertitre"
+
+#: assets/src/builder/tabs/Results.js:18
+msgid "Scores (chart)"
+msgstr "Scores (graphique)"
+
+#: assets/src/builder/tabs/Results.js:19
+msgid "Conditional texts"
+msgstr "Textes conditionnels"
+
+#: assets/src/builder/tabs/Results.js:22
+msgid "Calculated values"
+msgstr "Valeurs calculées"
+
+#: assets/src/builder/tabs/Results.js:24
+#: assets/src/builder/tabs/Results.js:434
+#: assets/src/builder/tabs/Test.js:258
+msgid "Action plan"
+msgstr "Plan d’action"
+
+#: assets/src/builder/tabs/Results.js:27
+msgid "Recommended call to action"
+msgstr "Appel à l’action recommandé"
+
+#: assets/src/builder/tabs/Results.js:29
+msgid "Personal link"
+msgstr "Lien personnel"
+
+#: assets/src/builder/tabs/Results.js:32
+msgid "Form below the results"
+msgstr "Formulaire sous le résultat"
+
+#: assets/src/builder/tabs/Results.js:34
+msgid "Free text"
+msgstr "Texte libre"
+
+#: assets/src/builder/tabs/Results.js:50
+msgid "Text shown when the condition is met."
+msgstr "Texte affiché quand la condition est remplie."
+
+#: assets/src/builder/tabs/Results.js:59
+msgid "Book a call"
+msgstr "Réserver un appel"
+
+#: assets/src/builder/tabs/Results.js:63
+msgid "New profile"
+msgstr "Nouveau profil"
+
+#: assets/src/builder/tabs/Results.js:65
+msgid "Add"
+msgstr "Ajouter"
+
+#: assets/src/builder/tabs/Results.js:93
+msgid "Priority"
+msgstr "Priorité"
+
+#: assets/src/builder/tabs/Results.js:94
+msgid "Highest first."
+msgstr "La plus haute d’abord."
+
+#: assets/src/builder/tabs/Results.js:113
+#: assets/src/builder/tabs/Scoring.js:103
+#: assets/src/builder/tabs/Steps.js:1017
+msgid "Name"
+msgstr "Nom"
+
+#: assets/src/builder/tabs/Results.js:123
+#: assets/src/builder/tabs/Results.js:390
+#: assets/src/builder/tabs/Steps.js:675
+msgid "Text (basic HTML allowed)"
+msgstr "Texte (HTML simple autorisé)"
+
+#: assets/src/builder/tabs/Results.js:157
+msgid "Link"
+msgstr "Lien"
+
+#: assets/src/builder/tabs/Results.js:201
+msgid "Assigned if"
+msgstr "Attribué si"
+
+#: assets/src/builder/tabs/Results.js:202
+#: assets/src/builder/tabs/Results.js:400
+msgid "Shown if"
+msgstr "Affiché si"
+
+#: assets/src/builder/tabs/Results.js:221
+msgid "Results title"
+msgstr "Titre du résultat"
+
+#: assets/src/builder/tabs/Results.js:222
+msgid "Variables allowed: {first_name}, {score:axis}…"
+msgstr "Variables possibles : {first_name}, {score:axe}…"
+
+#: assets/src/builder/tabs/Results.js:233
+msgid "Personal result link"
+msgstr "Lien personnel vers le résultat"
+
+#: assets/src/builder/tabs/Results.js:244
+msgid "Email the results"
+msgstr "Envoyer le résultat par email"
+
+#: assets/src/builder/tabs/Results.js:256
+msgid "Results page layout"
+msgstr "Mise en page du résultat"
+
+#: assets/src/builder/tabs/Results.js:262
+msgid "Add a block"
+msgstr "Ajouter un bloc"
+
+#: assets/src/builder/tabs/Results.js:280
+msgid "Block"
+msgstr "Bloc"
+
+#: assets/src/builder/tabs/Results.js:296
+msgid "Chart"
+msgstr "Graphique"
+
+#: assets/src/builder/tabs/Results.js:304
+#: assets/src/builder/tabs/Results.js:364
+msgid "Bars"
+msgstr "Barres"
+
+#: assets/src/builder/tabs/Results.js:311
+msgid "Radar (3 axes or more)"
+msgstr "Radar (3 axes ou plus)"
+
+#: assets/src/builder/tabs/Results.js:318
+msgid "Gauges"
+msgstr "Jauges"
+
+#: assets/src/builder/tabs/Results.js:330
+msgid "Show values"
+msgstr "Afficher les valeurs"
+
+#: assets/src/builder/tabs/Results.js:349
+#: assets/src/builder/tabs/Scoring.js:391
+msgid "Display"
+msgstr "Affichage"
+
+#: assets/src/builder/tabs/Results.js:357
+msgid "Figures"
+msgstr "Chiffres"
+
+#: assets/src/builder/tabs/Results.js:412
+msgid "Profiles (the first one that matches wins)"
+msgstr "Profils (le premier qui correspond l’emporte)"
+
+#: assets/src/builder/tabs/Results.js:423
+msgid "Conditional texts (all that match are shown)"
+msgstr "Textes conditionnels (tous ceux qui correspondent sont affichés)"
+
+#: assets/src/builder/tabs/Results.js:442
+msgid "Calls to action (the first one that matches is recommended)"
+msgstr "Appels à l’action (le premier qui correspond est recommandé)"
+
+#: assets/src/builder/tabs/Scoring.js:21
+msgid "Points by value range"
+msgstr "Points selon une plage de valeurs"
+
+#: assets/src/builder/tabs/Scoring.js:25
+msgid "Points by number of boxes checked"
+msgstr "Points selon le nombre de cases cochées"
+
+#: assets/src/builder/tabs/Scoring.js:29
+msgid "Points if a condition is met"
+msgstr "Points si une condition est remplie"
+
+#: assets/src/builder/tabs/Scoring.js:33
+msgid "Multiply the score"
+msgstr "Multiplier le score"
+
+#: assets/src/builder/tabs/Scoring.js:35
+msgid "Cap the score"
+msgstr "Plafonner le score"
+
+#: assets/src/builder/tabs/Scoring.js:73
+msgid "Order of calculation: base value of each axis → points of the chosen answers (Journey tab) → rules below, in order → capping between min and max."
+msgstr "Ordre du calcul : valeur de départ de chaque axe → points des réponses choisies (onglet Parcours) → règles ci-dessous, dans l’ordre → plafonnement entre min et max."
+
+#: assets/src/builder/tabs/Scoring.js:79
+msgid "Axes"
+msgstr "Axes"
+
+#: assets/src/builder/tabs/Scoring.js:87
+msgid "New axis"
+msgstr "Nouvel axe"
+
+#: assets/src/builder/tabs/Scoring.js:91
+msgid "Add an axis"
+msgstr "Ajouter un axe"
+
+#: assets/src/builder/tabs/Scoring.js:111
+msgid "Description"
+msgstr "Description"
+
+#: assets/src/builder/tabs/Scoring.js:120
+msgid "Starting value"
+msgstr "Valeur de départ"
+
+#: assets/src/builder/tabs/Scoring.js:130
+#: assets/src/builder/tabs/Steps.js:443
+#: assets/src/builder/tabs/Steps.js:574
+msgid "Minimum"
+msgstr "Minimum"
+
+#: assets/src/builder/tabs/Scoring.js:137
+#: assets/src/builder/tabs/Steps.js:448
+#: assets/src/builder/tabs/Steps.js:578
+msgid "Maximum"
+msgstr "Maximum"
+
+#: assets/src/builder/tabs/Scoring.js:149
+msgid "Scoring rules"
+msgstr "Règles de calcul"
+
+#: assets/src/builder/tabs/Scoring.js:157
+msgid "Add a rule"
+msgstr "Ajouter une règle"
+
+#: assets/src/builder/tabs/Scoring.js:179
+msgid "Rule"
+msgstr "Règle"
+
+#: assets/src/builder/tabs/Scoring.js:229
+#: assets/src/builder/tabs/Steps.js:55
+#: assets/src/builder/tabs/Steps.js:386
+#: assets/src/builder/tabs/Steps.js:1118
+msgid "Question"
+msgstr "Question"
+
+#: assets/src/builder/tabs/Scoring.js:264
+msgid "Points (number or formula)"
+msgstr "Points (nombre ou formule)"
+
+#: assets/src/builder/tabs/Scoring.js:270
+msgid "Example: 10, or count.q2 * 3"
+msgstr "Exemple : 10, ou count.q2 * 3"
+
+#: assets/src/builder/tabs/Scoring.js:290
+msgid "Factor"
+msgstr "Facteur"
+
+#: assets/src/builder/tabs/Scoring.js:300
+msgid "Floor"
+msgstr "Plancher"
+
+#: assets/src/builder/tabs/Scoring.js:308
+msgid "Ceiling"
+msgstr "Plafond"
+
+#: assets/src/builder/tabs/Scoring.js:318
+msgid "Apply only if"
+msgstr "Appliquer seulement si"
+
+#: assets/src/builder/tabs/Scoring.js:332
+msgid "Calculated values (formulas)"
+msgstr "Valeurs calculées (formules)"
+
+#: assets/src/builder/tabs/Scoring.js:345
+msgid "Add a calculated value"
+msgstr "Ajouter une valeur calculée"
+
+#: assets/src/builder/tabs/Scoring.js:374
+msgid "Formula"
+msgstr "Formule"
+
+#: assets/src/builder/tabs/Scoring.js:377
+msgid "Example: max(0, answer.target - answer.current). Available: answer.*, score.*, var.*, min, max, round, sum, avg, if…"
+msgstr "Exemple : max(0, answer.cible - answer.actuel). Disponibles : answer.*, score.*, var.*, min, max, round, sum, avg, if…"
+
+#: assets/src/builder/tabs/Scoring.js:399
+#: assets/src/builder/tabs/Steps.js:32
+msgid "Number"
+msgstr "Nombre"
+
+#: assets/src/builder/tabs/Scoring.js:406
+#: assets/src/builder/tabs/Scoring.js:451
+msgid "Currency"
+msgstr "Devise"
+
+#: assets/src/builder/tabs/Scoring.js:413
+msgid "Percentage"
+msgstr "Pourcentage"
+
+#: assets/src/builder/tabs/Scoring.js:430
+msgid "Decimals"
+msgstr "Décimales"
+
+#: assets/src/builder/tabs/Steps.js:25
+msgid "Single choice"
+msgstr "Choix unique"
+
+#: assets/src/builder/tabs/Steps.js:26
+msgid "Multiple choice"
+msgstr "Choix multiple"
+
+#: assets/src/builder/tabs/Steps.js:27
+msgid "Dropdown list"
+msgstr "Liste déroulante"
+
+#: assets/src/builder/tabs/Steps.js:28
+msgid "Image choice"
+msgstr "Choix d’images"
+
+#: assets/src/builder/tabs/Steps.js:29
+msgid "Yes / No"
+msgstr "Oui / Non"
+
+#: assets/src/builder/tabs/Steps.js:30
+msgid "Scale (1–N)"
+msgstr "Échelle (1–N)"
+
+#: assets/src/builder/tabs/Steps.js:31
+msgid "Slider"
+msgstr "Curseur"
+
+#: assets/src/builder/tabs/Steps.js:33
+#: assets/src/builder/tabs/Steps.js:533
+msgid "Amount"
+msgstr "Montant"
+
+#: assets/src/builder/tabs/Steps.js:36
+msgid "Several amounts (total)"
+msgstr "Plusieurs montants (total)"
+
+#: assets/src/builder/tabs/Steps.js:38
+msgid "Short text"
+msgstr "Texte court"
+
+#: assets/src/builder/tabs/Steps.js:39
+msgid "Long text"
+msgstr "Texte long"
+
+#: assets/src/builder/tabs/Steps.js:41
+msgid "Phone"
+msgstr "Téléphone"
+
+#: assets/src/builder/tabs/Steps.js:56
+#: assets/src/builder/tabs/Steps.js:1125
+msgid "Content"
+msgstr "Contenu"
+
+#: assets/src/builder/tabs/Steps.js:57
+#: assets/src/builder/tabs/Steps.js:1132
+msgid "Form"
+msgstr "Formulaire"
+
+#: assets/src/builder/tabs/Steps.js:70
+msgid "New question"
+msgstr "Nouvelle question"
+
+#: assets/src/builder/tabs/Steps.js:81
+msgid "Text shown between two questions."
+msgstr "Texte affiché entre deux questions."
+
+#: assets/src/builder/tabs/Steps.js:86
+msgid "Receive your results"
+msgstr "Recevez votre résultat"
+
+#: assets/src/builder/tabs/Steps.js:96
+#: assets/src/builder/tabs/Steps.js:845
+msgid "I agree to be contacted about my results."
+msgstr "J’accepte d’être contacté au sujet de mon résultat."
+
+#. translators: %s: axis key
+#: assets/src/builder/tabs/Steps.js:130
+#, js-format
+msgid "Points %s"
+msgstr "Points %s"
+
+#: assets/src/builder/tabs/Steps.js:138
+msgid "“I don’t know”"
+msgstr "« Je ne sais pas »"
+
+#: assets/src/builder/tabs/Steps.js:140
+#: assets/src/builder/tabs/Steps.js:294
+msgid "Exclusive"
+msgstr "Exclusive"
+
+#: assets/src/builder/tabs/Steps.js:223
+msgid "Exit answer"
+msgstr "Réponse de sortie"
+
+#: assets/src/builder/tabs/Steps.js:251
+msgid "no points"
+msgstr "aucun point"
+
+#: assets/src/builder/tabs/Steps.js:257
+msgid "average"
+msgstr "moyenne"
+
+#: assets/src/builder/tabs/Steps.js:260
+msgid "minimum"
+msgstr "minimum"
+
+#: assets/src/builder/tabs/Steps.js:263
+msgid "fixed"
+msgstr "fixe"
+
+#: assets/src/builder/tabs/Steps.js:271
+msgid "Fixed points"
+msgstr "Points fixes"
+
+#: assets/src/builder/tabs/Steps.js:353
+msgid "New answer"
+msgstr "Nouvelle réponse"
+
+#: assets/src/builder/tabs/Steps.js:358
+msgid "Add an answer"
+msgstr "Ajouter une réponse"
+
+#: assets/src/builder/tabs/Steps.js:362
+msgid "Images: edit \"image\": { \"url\": … } in the JSON tab."
+msgstr "Images : renseignez \"image\": { \"url\": … } dans l’onglet JSON."
+
+#: assets/src/builder/tabs/Steps.js:380
+msgid "Question type"
+msgstr "Type de question"
+
+#: assets/src/builder/tabs/Steps.js:392
+msgid "Help text"
+msgstr "Texte d’aide"
+
+#: assets/src/builder/tabs/Steps.js:402
+msgid "Placeholder"
+msgstr "Texte indicatif"
+
+#: assets/src/builder/tabs/Steps.js:410
+msgid "Answer required"
+msgstr "Réponse obligatoire"
+
+#: assets/src/builder/tabs/Steps.js:427
+msgid "Min. checked"
+msgstr "Cases cochées min."
+
+#: assets/src/builder/tabs/Steps.js:433
+msgid "Max. checked"
+msgstr "Cases cochées max."
+
+#: assets/src/builder/tabs/Steps.js:463
+msgid "Unit"
+msgstr "Unité"
+
+#: assets/src/builder/tabs/Steps.js:474
+msgid "Currency (ISO code)"
+msgstr "Devise (code ISO)"
+
+#: assets/src/builder/tabs/Steps.js:487
+msgid "Period"
+msgstr "Période"
+
+#: assets/src/builder/tabs/Steps.js:493
+msgid "once"
+msgstr "une fois"
+
+#: assets/src/builder/tabs/Steps.js:497
+msgid "per day"
+msgstr "par jour"
+
+#: assets/src/builder/tabs/Steps.js:501
+msgid "per week"
+msgstr "par semaine"
+
+#: assets/src/builder/tabs/Steps.js:505
+msgid "per month"
+msgstr "par mois"
+
+#: assets/src/builder/tabs/Steps.js:509
+msgid "per quarter"
+msgstr "par trimestre"
+
+#: assets/src/builder/tabs/Steps.js:513
+msgid "per year"
+msgstr "par an"
+
+#: assets/src/builder/tabs/Steps.js:525
+msgid "Amount fields"
+msgstr "Champs de montant"
+
+#: assets/src/builder/tabs/Steps.js:561
+msgid "Combined value"
+msgstr "Valeur retenue"
+
+#: assets/src/builder/tabs/Steps.js:566
+msgid "Sum"
+msgstr "Somme"
+
+#: assets/src/builder/tabs/Steps.js:570
+msgid "Average"
+msgstr "Moyenne"
+
+#: assets/src/builder/tabs/Steps.js:590
+msgid "Label of the minimum"
+msgstr "Libellé du minimum"
+
+#: assets/src/builder/tabs/Steps.js:599
+msgid "Label of the maximum"
+msgstr "Libellé du maximum"
+
+#: assets/src/builder/tabs/Steps.js:612
+msgid "Min. length"
+msgstr "Longueur min."
+
+#: assets/src/builder/tabs/Steps.js:618
+msgid "Max. length"
+msgstr "Longueur max."
+
+#: assets/src/builder/tabs/Steps.js:626
+msgid "Pattern (regex)"
+msgstr "Format (expression régulière)"
+
+#: assets/src/builder/tabs/Steps.js:644
+msgid "Layout"
+msgstr "Présentation"
+
+#: assets/src/builder/tabs/Steps.js:650
+msgid "Quote"
+msgstr "Citation"
+
+#: assets/src/builder/tabs/Steps.js:654
+msgid "Image"
+msgstr "Image"
+
+#: assets/src/builder/tabs/Steps.js:658
+msgid "Testimonial"
+msgstr "Témoignage"
+
+#: assets/src/builder/tabs/Steps.js:662
+msgid "Promotion"
+msgstr "Encart promotionnel"
+
+#: assets/src/builder/tabs/Steps.js:692
+msgid "Author"
+msgstr "Auteur"
+
+#: assets/src/builder/tabs/Steps.js:698
+msgid "Author role"
+msgstr "Fonction de l’auteur"
+
+#: assets/src/builder/tabs/Steps.js:707
+#: assets/src/builder/tabs/Steps.js:895
+msgid "Button label"
+msgstr "Texte du bouton"
+
+#: assets/src/builder/tabs/Steps.js:716
+msgid "Button link"
+msgstr "Lien du bouton"
+
+#: assets/src/builder/tabs/Steps.js:733
+msgid "Position"
+msgstr "Emplacement"
+
+#: assets/src/builder/tabs/Steps.js:738
+msgid "In the journey (before the results)"
+msgstr "Dans le parcours (avant le résultat)"
+
+#: assets/src/builder/tabs/Steps.js:745
+msgid "Below the results"
+msgstr "Sous le résultat"
+
+#: assets/src/builder/tabs/Steps.js:766
+msgid "Fields"
+msgstr "Champs"
+
+#: assets/src/builder/tabs/Steps.js:775
+msgid "Field"
+msgstr "Champ"
+
+#: assets/src/builder/tabs/Steps.js:793
+msgid "Type"
+msgstr "Type"
+
+#: assets/src/builder/tabs/Steps.js:818
+msgid "Required"
+msgstr "Obligatoire"
+
+#: assets/src/builder/tabs/Steps.js:828
+msgid "Use the keys first_name and email so that emails are personalised and sent."
+msgstr "Utilisez les clés first_name et email pour que les emails soient personnalisés et envoyés."
+
+#: assets/src/builder/tabs/Steps.js:838
+msgid "Consent checkbox (GDPR)"
+msgstr "Case de consentement (RGPD)"
+
+#: assets/src/builder/tabs/Steps.js:859
+msgid "Consent text"
+msgstr "Texte du consentement"
+
+#: assets/src/builder/tabs/Steps.js:870
+msgid "Text version"
+msgstr "Version du texte"
+
+#: assets/src/builder/tabs/Steps.js:871
+msgid "Change it whenever the text changes: it is stored with each consent."
+msgstr "Changez-la à chaque modification du texte : elle est enregistrée avec chaque consentement."
+
+#: assets/src/builder/tabs/Steps.js:882
+msgid "Mandatory"
+msgstr "Obligatoire"
+
+#: assets/src/builder/tabs/Steps.js:920
+msgid "Jumps after this step"
+msgstr "Sauts après cette étape"
+
+#: assets/src/builder/tabs/Steps.js:924
+msgid "Add a jump"
+msgstr "Ajouter un saut"
+
+#: assets/src/builder/tabs/Steps.js:930
+msgid "Go to"
+msgstr "Aller à"
+
+#: assets/src/builder/tabs/Steps.js:936
+msgid "If"
+msgstr "Si"
+
+#: assets/src/builder/tabs/Steps.js:992
+msgid "Sections"
+msgstr "Sections"
+
+#: assets/src/builder/tabs/Steps.js:1000
+msgid "New section"
+msgstr "Nouvelle section"
+
+#: assets/src/builder/tabs/Steps.js:1002
+msgid "Add a section"
+msgstr "Ajouter une section"
+
+#: assets/src/builder/tabs/Steps.js:1027
+msgid "Steps"
+msgstr "Étapes"
+
+#: assets/src/builder/tabs/Steps.js:1068
+msgid "Conditional"
+msgstr "Conditionnelle"
+
+#: assets/src/builder/tabs/Steps.js:1140
+msgid "Select a step to edit it."
+msgstr "Sélectionnez une étape pour la modifier."
+
+#: assets/src/builder/tabs/Steps.js:1206
+msgid "Section"
+msgstr "Section"
+
+#: assets/src/builder/tabs/Steps.js:1247
+msgid "Show this step"
+msgstr "Afficher cette étape"
+
+#: assets/src/builder/tabs/Test.js:148
+msgid "Simulate answers: the result below is computed with the same engine as on the site. Nothing is saved."
+msgstr "Simulez des réponses : le résultat ci-dessous est calculé avec le même moteur que sur le site. Rien n’est enregistré."
+
+#: assets/src/builder/tabs/Test.js:202
+msgid "Clear the answers"
+msgstr "Effacer les réponses"
+
+#: assets/src/builder/tabs/Test.js:206
+msgid "Computed result"
+msgstr "Résultat calculé"
+
+#: assets/src/builder/tabs/Test.js:213
+msgid "Steps taken"
+msgstr "Étapes parcourues"
+
+#: assets/src/builder/tabs/Test.js:247
+msgid "Texts"
+msgstr "Textes"
+
+#: assets/src/builder/tabs/Test.js:273
+msgid "Call to action"
+msgstr "Appel à l’action"
 
 #: blocks/diagnostic/block.json
 msgctxt "block title"

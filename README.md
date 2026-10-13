@@ -1,30 +1,62 @@
 # Smart Diagnostic
 
 Plugin WordPress en marque blanche : un moteur de questionnaires de diagnostic interactifs
-(type « lead magnet ») qui mène le visiteur, étape par étape, jusqu'à un rapport personnalisé
-et un appel à l'action.
+(type « lead magnet ») qui mène le visiteur, étape par étape, jusqu'à un résultat
+personnalisé et un appel à l'action.
 
-Le plugin ne contient **aucun contenu métier** : questions, parcours, règles de calcul, résultats,
-design et textes sont définis par l'administrateur de chaque site, sous forme d'une configuration
-JSON validée par [`schema/diagnostic.schema.json`](schema/diagnostic.schema.json).
+Le plugin ne contient **aucun contenu métier** : questions, parcours, règles de calcul,
+résultats, design et textes sont définis dans chaque site, avec le **constructeur visuel**
+ou en JSON (validé par [`schema/diagnostic.schema.json`](schema/diagnostic.schema.json)).
+Le même plugin sert un diagnostic business, un quiz produit, un audit RH, un test
+d'éligibilité…
 
-> État : **M0 — squelette**. Voir [le plan des milestones](#milestones).
+## Fonctionnalités
 
-## Prérequis
+- **Parcours** mobile-first et accessible : 15 types de questions, sections, progression,
+  retour, reprise automatique, questions conditionnelles et sauts, écrans intermédiaires,
+  messages d'encouragement, formulaire de capture avec consentement RGPD, écran d'attente.
+- **Calcul** : scores par axe, points par réponse, règles (plages, comptage, conditions,
+  multiplicateurs, plafonds), réponses « Je ne sais pas », formules, profils, textes
+  conditionnels, plan d'action, CTA recommandé avec UTM. Moteur identique en JS (aperçu) et
+  en PHP (source de vérité), avec tests de parité.
+- **Résultat** : radar, barres ou jauges en SVG, impression / PDF, lien personnel, email.
+- **Leads** : API REST sécurisée (nonce, anti-robot, limitation, captcha optionnel), admin
+  « Réponses » avec filtres et export CSV, emails, webhooks signés (Make, Zapier, n8n, CRM).
+- **Statistiques** : entonnoir, abandons, profils, CTA ; événements pour GA4 / GTM / Meta.
+- **RGPD** : consentement versionné, conservation limitée, export / effacement WordPress.
+- **Multilingue** (WPML, Polylang), interface traduite en français, **marque blanche**.
+- **Import / export / duplication** de diagnostics d'un site à l'autre.
 
-- WordPress 6.4+
-- PHP 8.1+
+## Installation
 
-## Installation (site WordPress)
+Prérequis : WordPress 6.4+, PHP 8.1+.
 
-Téléchargez le zip de la dernière [release](https://github.com/metisnc/smart-diagnostic/releases)
-puis *Extensions → Ajouter → Téléverser*. Le zip contient déjà les dépendances et les assets compilés.
+1. Télécharger le zip de la dernière [release](https://github.com/metisnc/smart-diagnostic/releases).
+2. *Extensions → Ajouter → Téléverser une extension*, puis activer.
+3. Menu du plugin → **Ajouter un diagnostic** (ou **Importer** un JSON).
+4. Insérer le diagnostic avec le bloc **Diagnostic** ou le shortcode
+   `[smart_diagnostic id="123"]` (ID ou slug).
+
+Recommandé : un plugin SMTP pour l'envoi des emails, et une tâche cron système si le site a
+peu de trafic (réessais des webhooks, purge RGPD).
+
+## Documentation
+
+| Sujet | Document |
+|---|---|
+| Format JSON | [`schema/diagnostic.schema.json`](schema/diagnostic.schema.json), exemple [`examples/demo.json`](examples/demo.json) |
+| Moteur de calcul, expressions, conditions | [`docs/moteur.md`](docs/moteur.md) |
+| API REST, soumissions, stockage | [`docs/api.md`](docs/api.md) |
+| Emails, webhooks, réponses, RGPD | [`docs/integrations.md`](docs/integrations.md) |
+| Statistiques, langues, marque blanche | [`docs/statistiques-langues-marque.md`](docs/statistiques-langues-marque.md) |
+| Hooks, filtres, WP-CLI | [`docs/hooks.md`](docs/hooks.md) |
+| Cahier des charges | [`docs/cahier-des-charges.md`](docs/cahier-des-charges.md) |
 
 ## Développement
 
 ### Démarrage rapide (Docker)
 
-Seul Docker est requis : `composer` et `node` sont utilisés via Docker s'ils ne sont pas installés.
+Seul Docker est requis : `composer` et `node` sont utilisés via Docker s'ils manquent.
 
 ```bash
 git clone https://github.com/metisnc/smart-diagnostic.git
@@ -32,95 +64,57 @@ cd smart-diagnostic
 bin/setup-local.sh
 ```
 
-Le script :
+Le script crée `.env` (mots de passe aléatoires, non versionné), installe les dépendances,
+compile les assets, démarre WordPress + MariaDB + phpMyAdmin, active le plugin, importe
+`examples/demo.json` et crée la page `/diagnostic-test/`.
 
-1. crée `.env` avec des mots de passe aléatoires (fichier non versionné) ;
-2. installe les dépendances et compile les assets ;
-3. démarre WordPress, MariaDB et phpMyAdmin, installe WordPress et active le plugin ;
-4. crée la page `/diagnostic-test/` et importe `examples/demo.json` (à partir de M1).
-
-| Service    | Adresse par défaut                       |
-|------------|------------------------------------------|
+| Service    | Adresse par défaut |
+|------------|--------------------|
 | WordPress  | http://localhost:8080 (admin : `/wp-admin`, identifiants dans `.env`) |
-| phpMyAdmin | http://127.0.0.1:8081                    |
+| phpMyAdmin | http://127.0.0.1:8081 |
 
-Commandes WP-CLI : `docker compose run --rm wpcli wp <commande>`.
+WP-CLI : `docker compose run --rm wpcli wp <commande>`.
+Alternative : `npx wp-env start` (après `composer install && npm ci && npm run build`).
 
-Alternative : [`wp-env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/)
-(`npx wp-env start`, après `composer install && npm ci && npm run build`).
-
-### Installation sur une VM Linux vierge (Debian / Ubuntu)
+### Sur une VM Linux vierge (Debian / Ubuntu)
 
 ```bash
-# Docker Engine + plugin Compose
 curl -fsSL https://get.docker.com | sudo sh
-sudo usermod -aG docker "$USER"   # puis se déconnecter / reconnecter
-
+sudo usermod -aG docker "$USER"      # puis se reconnecter
 sudo apt-get install -y git
 git clone https://github.com/metisnc/smart-diagnostic.git ~/smart-diagnostic
 cd ~/smart-diagnostic
 cp .env.example .env
-# Pour exposer le site sur le réseau, dans .env :
-#   WP_URL=http://<ip-de-la-vm>  WP_BIND=0.0.0.0  WP_PORT=80
+# Pour exposer le site : WP_URL=http://<ip>  WP_BIND=0.0.0.0  WP_PORT=80
 bin/setup-local.sh
 ```
 
-Mise à jour ultérieure depuis une branche : `bin/deploy-test.sh <branche>`.
+Mise à jour depuis une branche : `bin/deploy-test.sh <branche>` ; tous les tests :
+`bin/test-vm.sh`.
 
 ### Qualité et tests
 
-| Commande              | Rôle                                          |
-|-----------------------|-----------------------------------------------|
-| `composer lint`       | PHPCS (WordPress Coding Standards)            |
-| `composer analyse`    | PHPStan niveau 6                              |
-| `composer test`       | PHPUnit                                       |
-| `npm run lint`        | ESLint + Prettier                             |
-| `npm test`            | Jest (dont validation des exemples contre le schéma) |
-| `npm run build`       | Build des assets (`build/`)                   |
-| `npm run size`        | Budget du bundle front (< 100 ko gzip)        |
-| `npm run test:e2e`    | Playwright (`WP_BASE_URL=http://… npm run test:e2e`) |
+| Commande | Rôle |
+|---|---|
+| `composer lint` / `composer analyse` / `composer test` | PHPCS (WPCS), PHPStan niveau 6, PHPUnit |
+| `npm run lint` / `npm test` | ESLint + Prettier, Jest (dont parité JS ↔ PHP) |
+| `npm run build` / `npm run size` | Build ; budget du questionnaire < 100 ko gzip |
+| `npm run test:e2e` | Playwright (`WP_BASE_URL=http://… npm run test:e2e`) |
+| `bin/make-translations.sh [pot]` | Fichiers de traduction |
 
-La CI GitHub Actions exécute tout cela sur chaque push et PR, puis un parcours E2E complet
-dans Docker. Un tag `v*` produit le zip du plugin en release.
+La CI GitHub Actions lance tout cela à chaque push / PR, puis un parcours E2E complet dans
+Docker. Un tag `v*` publie le zip du plugin en release.
 
 ### Choix techniques
 
-- **Front visiteur en Preact** (~4 ko gzip) plutôt que React (~45 ko) : le budget de 100 ko
-  reste confortable. L'admin et le bloc Gutenberg utilisent React, déjà chargé par WordPress.
-- **Pas d'`eval`** : formules et conditions passent par un petit évaluateur d'expressions
-  implémenté à l'identique en JS (aperçu) et en PHP (source de vérité), avec tests de parité.
-- **Secrets hors configuration** : clés de webhooks et de captcha restent en base et ne sortent
-  jamais à l'export JSON.
-
-## Marque blanche
-
-Le nom affiché dans l'admin se règle dans `wp-config.php` :
-
-```php
-define( 'SD_BRAND_NAME', 'Mon diagnostic' );
-```
-
-ou par le filtre `sd_brand_name`. Rien n'est mentionné côté visiteur.
-
-## Format de configuration
-
-Documenté par le JSON Schema [`schema/diagnostic.schema.json`](schema/diagnostic.schema.json) ;
-exemple minimal : [`examples/demo.json`](examples/demo.json). Une documentation détaillée sera
-ajoutée dans `docs/` au fil des milestones.
-
-## Milestones
-
-| | Contenu |
-|---|---|
-| M0 | Squelette, outillage, CI, Docker / wp-env, VM de test |
-| M1 | JSON Schema, CPT, bloc / shortcode, parcours front, évaluateur de conditions JS |
-| M2 | Moteur de règles et formules JS + PHP, axes, résultats, tests de parité |
-| M3 | Formulaire de capture, REST sécurisé, stockage, page de résultat, lien unique |
-| M4 | Emails, webhooks, admin Réponses + CSV, RGPD |
-| M5 | Analytics / entonnoir, multilingue, marque blanche |
-| M6 | Constructeur visuel, import / export, E2E complets, release 1.0 |
-
-Cahier des charges : [`docs/cahier-des-charges.md`](docs/cahier-des-charges.md).
+- **Questionnaire en Preact** (~22 ko gzip) : le visiteur ne charge pas React. L'admin
+  (constructeur, bloc) utilise React et les composants de WordPress.
+- **Pas d'`eval`** : formules et conditions passent par un évaluateur dédié, identique en
+  JS et en PHP.
+- **Librairie PHP embarquée préfixée** (`SmartDiagnostic\Vendor\…`, via Strauss) : pas de
+  conflit avec d'autres plugins.
+- **Secrets hors configuration** : clés de webhooks et de captcha restent en base, jamais
+  dans l'export JSON ni dans la page publique.
 
 ## Licence
 

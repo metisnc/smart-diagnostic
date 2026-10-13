@@ -8,4 +8,5 @@
 declare(strict_types=1);
 
 require_once dirname( __DIR__, 2 ) . '/vendor/autoload.php';
+require_once dirname( __DIR__, 2 ) . '/vendor-prefixed/autoload.php';
 require_once __DIR__ . '/phpstan-constants.php';

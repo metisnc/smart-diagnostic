@@ -8,7 +8,12 @@ const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 
 const REACT_REQUESTS = [ 'react', 'react-dom', 'react/jsx-runtime' ];
-const output = { ...defaultConfig.output, path: path.resolve( __dirname, 'build' ) };
+// clean: false — les deux builds écrivent dans build/ : aucun ne doit effacer l'autre.
+const output = {
+	...defaultConfig.output,
+	path: path.resolve( __dirname, 'build' ),
+	clean: false,
+};
 // Les deux builds écrivent dans build/ en parallèle : pas de nettoyage automatique.
 const basePlugins = defaultConfig.plugins.filter(
 	( plugin ) => plugin.constructor.name !== 'CleanWebpackPlugin'
@@ -46,6 +51,7 @@ const blockConfig = {
 	...defaultConfig,
 	entry: {
 		block: path.resolve( __dirname, 'assets/src/block/index.js' ),
+		builder: path.resolve( __dirname, 'assets/src/builder/index.js' ),
 	},
 	output,
 	plugins: basePlugins,

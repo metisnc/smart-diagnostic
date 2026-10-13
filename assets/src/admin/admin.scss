@@ -1,41 +1,9 @@
-.sd-editor {
-	display: grid;
-	gap: 16px;
-
-	@media (min-width: 1280px) {
-		grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-	}
-
-	.CodeMirror {
-		height: 640px;
-		border: 1px solid #c3c4c7;
-	}
+// Le constructeur occupe toute la largeur de la boîte « Configuration ».
+#sd-config .inside {
+	margin: 0;
+	padding: 0;
 }
 
-.sd-editor__status {
-	margin-top: 8px;
-	padding: 8px 12px;
-	border-left: 4px solid #c3c4c7;
-	background: #f6f7f7;
-
-	&.is-valid {
-		border-color: #00a32a;
-	}
-
-	&.is-invalid {
-		border-color: #d63638;
-	}
-
-	ul {
-		margin: 6px 0 0 18px;
-		list-style: disc;
-		font-family: monospace;
-	}
-}
-
-.sd-editor__preview-frame {
-	max-height: 720px;
-	overflow: auto;
-	border: 1px solid #c3c4c7;
-	background: #fff;
+.sd-config-source {
+	display: none;
 }
