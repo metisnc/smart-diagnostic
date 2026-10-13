@@ -111,7 +111,8 @@ final class SubmissionsPage {
 		$table->prepare_items();
 		$export = wp_nonce_url(
 			add_query_arg(
-				array_merge( array( 'action' => self::EXPORT_ACTION ), array_filter( $this->filter_args() ) ),
+				// Valeurs encodées : un « + » dans un email ne doit pas devenir une espace.
+				array_merge( array( 'action' => self::EXPORT_ACTION ), array_map( 'rawurlencode', array_map( 'strval', array_filter( $this->filter_args() ) ) ) ),
 				admin_url( 'admin-post.php' )
 			),
 			self::EXPORT_ACTION
