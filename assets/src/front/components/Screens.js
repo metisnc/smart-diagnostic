@@ -202,29 +202,3 @@ export function Transition( { transition, ui, onDone, headingRef } ) {
 		</div>
 	);
 }
-
-/**
- * Résultat : affichage provisoire en M1, les blocs de résultat arrivent en M2.
- */
-export function Results( { config, ui, onRestart, headingRef } ) {
-	return (
-		<div className="sd-screen sd-results">
-			<Heading
-				text={
-					ui.tx( config.results?.title ) || ui.t( 'resultsTitle' )
-				}
-				headingRef={ headingRef }
-			/>
-			<p className="sd-lead">{ ui.t( 'resultsPending' ) }</p>
-			<div className="sd-actions">
-				<button
-					type="button"
-					className="sd-button sd-button--ghost"
-					onClick={ onRestart }
-				>
-					{ ui.t( 'restart' ) }
-				</button>
-			</div>
-		</div>
-	);
-}

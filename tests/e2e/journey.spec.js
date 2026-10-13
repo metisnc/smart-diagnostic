@@ -80,6 +80,21 @@ test( 'complete journey with conditional step, auto-advance and form', async ( {
 	await expect(
 		page.getByRole( 'heading', { name: 'Votre résultat, Alice' } )
 	).toBeVisible( { timeout: 10_000 } );
+
+	// Résultat calculé (voir tests/fixtures/parity/demo.json) : X = 75, Y = 15.
+	await expect(
+		page.getByRole( 'heading', { name: 'Profil 2' } )
+	).toBeVisible();
+	await expect(
+		page.getByRole( 'row', { name: /Axe X.*75/ } )
+	).toBeAttached();
+	await expect(
+		page.getByRole( 'row', { name: /Axe Y.*15/ } )
+	).toBeAttached();
+	// Écart = cible (curseur par défaut : 5 000) − valeur actuelle (1 200).
+	await expect( page.getByText( /3[,\s ]?800/ ).first() ).toBeVisible();
+	const cta = page.getByRole( 'link', { name: 'Action recommandée' } );
+	await expect( cta ).toHaveAttribute( 'href', /utm_campaign=demo/ );
 } );
 
 test( 'hidden step is skipped and back button works', async ( { page } ) => {

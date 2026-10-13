@@ -26,11 +26,12 @@ import { FormStep, validateForm } from './components/Form';
 import {
 	ContentBody,
 	Heading,
-	Results,
 	ResumePrompt,
 	Transition,
 	Welcome,
 } from './components/Screens';
+import { Results } from './components/Results';
+import { computeResult } from '../engine/calculator';
 import { RichText } from './html';
 
 const AUTO_ADVANCE_DELAY = 300;
@@ -100,8 +101,15 @@ export function App( { payload, preview = false } ) {
 	const steps = config.steps ?? [];
 	const step = steps.find( ( candidate ) => candidate.key === current );
 
+	const result = useMemo(
+		() =>
+			screen === 'results' || screen === 'transition'
+				? computeResult( config, answers, contact )
+				: null,
+		[ screen, config, answers, contact ]
+	);
 	const pathAnswers = answersOnPath(
-		[ ...history, current ].filter( Boolean ),
+		result ? result.path : [ ...history, current ].filter( Boolean ),
 		answers
 	);
 	const context = createContext( { config, answers: pathAnswers, contact } );
@@ -126,6 +134,8 @@ export function App( { payload, preview = false } ) {
 				config,
 				answers: pathAnswers,
 				contact,
+				scores: result?.scores,
+				vars: result?.vars,
 				lang,
 			} ),
 	};
@@ -357,10 +367,13 @@ export function App( { payload, preview = false } ) {
 				headingRef={ headingRef }
 			/>
 		);
-	} else if ( screen === 'results' ) {
+	} else if ( screen === 'results' && result ) {
 		body = (
 			<Results
 				config={ config }
+				result={ result }
+				answers={ pathAnswers }
+				contact={ contact }
 				ui={ ui }
 				onRestart={ restart }
 				headingRef={ headingRef }
@@ -529,13 +542,17 @@ export function App( { payload, preview = false } ) {
 			</form>
 		);
 	} else {
+		// Étape introuvable (config modifiée entre-temps) : on propose de recommencer.
 		body = (
-			<Results
-				config={ config }
-				ui={ ui }
-				onRestart={ restart }
-				headingRef={ headingRef }
-			/>
+			<div className="sd-screen sd-actions">
+				<button
+					type="button"
+					className="sd-button sd-button--primary"
+					onClick={ restart }
+				>
+					{ ui.t( 'restart' ) }
+				</button>
+			</div>
 		);
 	}
 

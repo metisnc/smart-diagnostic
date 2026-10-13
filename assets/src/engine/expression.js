@@ -22,7 +22,7 @@
  *   - and / or renvoient des booléens.
  */
 
-import { looseEquals, toNumber, isEmptyValue } from './values';
+import { looseEquals, toNumber, isEmptyValue, truthy } from './values';
 
 const MAX_LENGTH = 1000;
 
@@ -267,9 +267,16 @@ function roundHalfAwayFromZero( value, decimals = 0 ) {
 	return n < 0 ? -rounded : rounded;
 }
 
+const extreme =
+	( pick ) =>
+	( ...args ) => {
+		const values = flatten( args );
+		return values.length ? pick( ...values ) : 0;
+	};
+
 export const FUNCTIONS = {
-	min: ( ...args ) => ( args.length ? Math.min( ...flatten( args ) ) : 0 ),
-	max: ( ...args ) => ( args.length ? Math.max( ...flatten( args ) ) : 0 ),
+	min: extreme( Math.min ),
+	max: extreme( Math.max ),
 	abs: ( x ) => Math.abs( toNumber( x ) ),
 	round: roundHalfAwayFromZero,
 	floor: ( x ) => Math.floor( toNumber( x ) ),
@@ -289,12 +296,7 @@ export const FUNCTIONS = {
 	isAnswered: ( x ) => ! isEmptyValue( x ),
 };
 
-export function truthy( value ) {
-	if ( Array.isArray( value ) ) {
-		return value.length > 0;
-	}
-	return Boolean( value );
-}
+export { truthy };
 
 function compare( op, a, b ) {
 	switch ( op ) {

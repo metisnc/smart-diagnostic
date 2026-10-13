@@ -2,6 +2,7 @@
  * Contexte d'évaluation : expose les réponses, scores, variables et contact
  * sous forme de chemins (answer.x, count.x, score.y, var.z, contact.email…).
  */
+import { isNumeric } from './values';
 
 /**
  * Valeur « logique » d'une réponse : agrégat pour multi_amount, valeur brute sinon.
@@ -16,8 +17,8 @@ export function answerValue( step, answer ) {
 		typeof answer === 'object'
 	) {
 		const values = Object.values( answer )
-			.map( Number )
-			.filter( Number.isFinite );
+			.filter( isNumeric )
+			.map( Number );
 		if ( values.length === 0 ) {
 			return null;
 		}

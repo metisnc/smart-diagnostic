@@ -59,7 +59,8 @@ function compare( op, left, value ) {
  * @return {boolean} Résultat.
  */
 export function evaluateCondition( condition, context ) {
-	if ( ! condition ) {
+	// Absente ou vide ({} en JSON) : vraie, comme en PHP.
+	if ( ! condition || Object.keys( condition ).length === 0 ) {
 		return true;
 	}
 	if ( Array.isArray( condition.all ) ) {

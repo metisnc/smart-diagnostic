@@ -1,0 +1,61 @@
+{
+	"values": {
+		"answer.a": 5,
+		"answer.s": "abc",
+		"answer.n": "12",
+		"answer.z": "0",
+		"answer.list": [ 1, 2, 3 ],
+		"answer.t": true,
+		"answer.hex": "0x10",
+		"answer.e": "1e3"
+	},
+	"cases": [
+		{ "expr": "answer.a * 2 + 1", "expected": 11 },
+		{ "expr": "answer.n + 1", "expected": 13 },
+		{ "expr": "answer.hex + 1", "expected": 1 },
+		{ "expr": "answer.e / 10", "expected": 100 },
+		{ "expr": "answer.s == 'abc'", "expected": true },
+		{ "expr": "answer.n == 12", "expected": true },
+		{ "expr": "answer.t == 'true'", "expected": true },
+		{ "expr": "answer.t == 1", "expected": false },
+		{ "expr": "answer.z ? 1 : 2", "expected": 1 },
+		{ "expr": "not answer.list", "expected": false },
+		{ "expr": "sum(answer.list) / count(answer.list)", "expected": 2 },
+		{ "expr": "max()", "expected": 0 },
+		{ "expr": "min(answer.list, -1)", "expected": -1 },
+		{ "expr": "round(2.345, 2)", "expected": 2.35 },
+		{ "expr": "round(-1.5)", "expected": -2 },
+		{ "expr": "round(1.005, 2)", "expected": 1.01 },
+		{ "expr": "10 % 3", "expected": 1 },
+		{ "expr": "-7 % 3", "expected": -1 },
+		{ "expr": "1 / 0", "expected": 0 },
+		{ "expr": "clamp(answer.a, 6, 10)", "expected": 6 },
+		{ "expr": "if(answer.missing, 'yes', 'no')", "expected": "no" },
+		{
+			"expr": "isAnswered(answer.s) and !isAnswered(answer.missing)",
+			"expected": true
+		},
+		{ "expr": "answer.a > 3 and answer.a < 10 or false", "expected": true },
+		{ "expr": "'a' < 'b'", "expected": false },
+		{ "expr": "2 * -3", "expected": -6 },
+		{ "expr": "1 - - 1", "expected": 2 },
+		{ "expr": "answer.list == 2", "expected": false },
+		{ "expr": "avg()", "expected": 0 },
+		{ "expr": "floor(-1.5) + ceil(1.2)", "expected": 0 },
+		{ "expr": "abs(-2.5)", "expected": 2.5 },
+		{ "expr": "1e2 + .5", "expected": 100.5 },
+		{ "expr": "answer.missing == null", "expected": true },
+		{ "expr": "\"it's\" == 'it\\'s'", "expected": true }
+	],
+	"invalid": [
+		"1 +",
+		"(1 + 2",
+		"foo(1)",
+		"1 2",
+		"\"open",
+		"1 $ 2",
+		"",
+		"constructor(1)",
+		"toString()"
+	]
+}

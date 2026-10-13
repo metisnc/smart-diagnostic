@@ -107,6 +107,32 @@ export function progress( config, history, currentKey, context ) {
 }
 
 /**
+ * Rejoue le parcours à partir des réponses : clés des étapes traversées, dans l'ordre.
+ * C'est ce chemin (et non l'historique du navigateur) qui fait foi pour le calcul,
+ * en JS comme en PHP. Une boucle de sauts est interrompue à la première répétition.
+ *
+ * @param {Object}                   config        Config.
+ * @param {Object}                   answers       Réponses brutes.
+ * @param {function(Object): Object} createContext Fabrique de contexte (réponses → contexte).
+ * @return {string[]} Clés parcourues.
+ */
+export function computePath( config, answers, createContext ) {
+	const path = [];
+	const seen = new Set();
+	let key = firstStepKey( config, createContext( {} ) );
+	while ( key !== RESULTS && ! seen.has( key ) ) {
+		seen.add( key );
+		path.push( key );
+		key = nextStepKey(
+			config,
+			key,
+			createContext( answersOnPath( path, answers ) )
+		);
+	}
+	return path;
+}
+
+/**
  * Réponses des seules étapes réellement parcourues (une réponse donnée puis
  * contournée par un retour arrière ne compte plus).
  *

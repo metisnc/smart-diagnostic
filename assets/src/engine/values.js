@@ -3,15 +3,36 @@
  * Elles doivent rester identiques côté PHP (M2).
  */
 
+// Même motif qu'en PHP (Values::NUMERIC) : pas d'hexadécimal ni d'Infinity.
+const NUMERIC = /^\s*[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?\s*$/;
+
 export function isNumeric( value ) {
 	if ( typeof value === 'number' ) {
 		return Number.isFinite( value );
 	}
-	return (
-		typeof value === 'string' &&
-		value.trim() !== '' &&
-		Number.isFinite( Number( value ) )
-	);
+	return typeof value === 'string' && NUMERIC.test( value );
+}
+
+/**
+ * Vérité d'une valeur, identique en PHP : '0' est vrai, tableau / objet vide est faux.
+ *
+ * @param {unknown} value Valeur.
+ * @return {boolean} Vérité.
+ */
+export function truthy( value ) {
+	if ( value === null || value === undefined || value === false ) {
+		return false;
+	}
+	if ( typeof value === 'number' ) {
+		return value !== 0 && ! Number.isNaN( value );
+	}
+	if ( typeof value === 'string' ) {
+		return value !== '';
+	}
+	if ( typeof value === 'object' ) {
+		return ! isEmptyValue( value );
+	}
+	return true;
 }
 
 export function toNumber( value ) {

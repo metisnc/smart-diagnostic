@@ -1,0 +1,270 @@
+{
+	"description": "Toutes les règles : sorties fixed/min/ignore, plages, comptage, points calculés, multiplicateur, plafond, clamp, sauts, priorités.",
+	"config": {
+		"schemaVersion": 1,
+		"sections": [ { "key": "main", "label": "Main" } ],
+		"axes": [
+			{ "key": "a", "label": "A", "base": 10, "min": 0, "max": 100 },
+			{ "key": "b", "label": "B", "base": 0, "min": -50, "max": 50 }
+		],
+		"steps": [
+			{
+				"key": "s1",
+				"kind": "question",
+				"type": "single",
+				"label": "S1",
+				"options": [
+					{
+						"value": "v1",
+						"label": "V1",
+						"scores": { "a": 10, "b": -10 }
+					},
+					{
+						"value": "v2",
+						"label": "V2",
+						"scores": { "a": 30, "b": 20 }
+					},
+					{
+						"value": "dk",
+						"label": "DK",
+						"exit": { "mode": "fixed", "value": 5 }
+					},
+					{
+						"value": "skip",
+						"label": "Skip",
+						"exit": { "mode": "min" }
+					}
+				]
+			},
+			{
+				"key": "s2",
+				"kind": "question",
+				"type": "multi",
+				"label": "S2",
+				"options": [
+					{ "value": "m1", "label": "M1", "scores": { "a": 5 } },
+					{ "value": "m2", "label": "M2", "scores": { "a": 5 } },
+					{
+						"value": "m3",
+						"label": "M3",
+						"exit": { "mode": "ignore" }
+					}
+				]
+			},
+			{
+				"key": "s3",
+				"kind": "question",
+				"type": "number",
+				"label": "S3",
+				"jumpTo": [
+					{
+						"if": { "left": "answer.s3", "op": "gt", "value": 100 },
+						"to": "results"
+					}
+				]
+			},
+			{
+				"key": "s4",
+				"kind": "question",
+				"type": "multi_amount",
+				"label": "S4",
+				"aggregate": "avg",
+				"fields": [
+					{ "key": "x", "label": "X" },
+					{ "key": "y", "label": "Y" }
+				]
+			},
+			{
+				"key": "s5",
+				"kind": "question",
+				"type": "text",
+				"label": "S5",
+				"showIf": {
+					"any": [
+						{ "left": "answer.s1", "op": "in", "value": [ "v2" ] },
+						{ "expr": "answer.s3 >= 50" }
+					]
+				}
+			}
+		],
+		"scoring": {
+			"rules": [
+				{
+					"type": "range",
+					"axis": "a",
+					"question": "s3",
+					"ranges": [
+						{ "max": 0, "points": -5 },
+						{ "min": 0, "max": 50, "points": 5 },
+						{ "min": 50, "points": 20 }
+					]
+				},
+				{
+					"type": "count",
+					"axis": "b",
+					"question": "s2",
+					"ranges": [ { "min": 2, "points": 10 } ]
+				},
+				{
+					"type": "condition",
+					"axis": "a",
+					"when": {
+						"left": "answer.s5",
+						"op": "contains",
+						"value": "hello"
+					},
+					"points": "count.s2 * 3"
+				},
+				{
+					"type": "multiplier",
+					"axis": "b",
+					"factor": 2,
+					"when": { "expr": "score.b > 0" }
+				},
+				{ "type": "cap", "axis": "a", "max": 60 },
+				{
+					"type": "condition",
+					"axis": "b",
+					"when": { "left": "answer.s4", "op": "gte", "value": 1000 },
+					"points": 100
+				}
+			]
+		},
+		"variables": [
+			{ "key": "total", "expr": "answer.s4 + answer.s3" },
+			{ "key": "ratio", "expr": "round(score.a / max(score.b, 1), 2)" },
+			{ "key": "label", "expr": "score.a >= 50 ? 'high' : 'low'" },
+			{ "key": "bad", "expr": "1 / 0" }
+		],
+		"outcomes": {
+			"profiles": [
+				{ "key": "p_low", "label": "Low" },
+				{
+					"key": "p_mid",
+					"label": "Mid",
+					"priority": 5,
+					"when": {
+						"left": "score.a",
+						"op": "between",
+						"value": [ 30, 59.999 ]
+					}
+				},
+				{
+					"key": "p_top",
+					"label": "Top",
+					"priority": 10,
+					"when": { "left": "score.a", "op": "gte", "value": 60 }
+				}
+			],
+			"texts": [
+				{
+					"key": "t1",
+					"body": "T1",
+					"priority": 1,
+					"when": {
+						"left": "strongestAxis",
+						"op": "eq",
+						"value": "a"
+					}
+				},
+				{
+					"key": "t2",
+					"body": "T2",
+					"priority": 5,
+					"when": { "left": "var.label", "op": "eq", "value": "high" }
+				},
+				{ "key": "t3", "body": "T3" }
+			],
+			"actions": [
+				{
+					"key": "a1",
+					"body": "A1",
+					"when": { "not": { "left": "answer.s2", "op": "empty" } }
+				},
+				{
+					"key": "a2",
+					"body": "A2",
+					"when": { "left": "count.s2", "op": "gte", "value": 2 }
+				}
+			],
+			"ctas": [
+				{
+					"key": "c1",
+					"label": "C1",
+					"url": "https://example.com/1",
+					"priority": 1,
+					"when": { "left": "var.total", "op": "gt", "value": 500 }
+				},
+				{ "key": "c2", "label": "C2", "url": "https://example.com/2" }
+			]
+		}
+	},
+	"cases": [
+		{
+			"name": "multiplicateur, plafond et clamp",
+			"answers": {
+				"s1": "v2",
+				"s2": [ "m1", "m2" ],
+				"s3": 60,
+				"s4": { "x": 400, "y": "600" },
+				"s5": "well hello"
+			},
+			"expected": {
+				"path": [ "s1", "s2", "s3", "s4", "s5" ],
+				"scores": { "a": 60, "b": 50 },
+				"vars": {
+					"total": 560,
+					"ratio": 1.2,
+					"label": "high",
+					"bad": 0
+				},
+				"profile": "p_top",
+				"texts": [ "t2", "t3" ],
+				"actions": [ "a1", "a2" ],
+				"cta": "c1"
+			}
+		},
+		{
+			"name": "sortie fixed, saut vers le résultat, réponses hors chemin ignorées",
+			"answers": {
+				"s1": "dk",
+				"s2": [ "m3" ],
+				"s3": 150,
+				"s4": { "x": 1 },
+				"s5": "hello"
+			},
+			"expected": {
+				"path": [ "s1", "s2", "s3" ],
+				"scores": { "a": 35, "b": 10 },
+				"vars": {
+					"total": 150,
+					"ratio": 3.5,
+					"label": "low",
+					"bad": 0
+				},
+				"profile": "p_mid",
+				"texts": [ "t3" ],
+				"actions": [ "a1" ],
+				"cta": "c2"
+			}
+		},
+		{
+			"name": "sortie min, valeurs négatives, montants invalides",
+			"answers": {
+				"s1": "skip",
+				"s2": [],
+				"s3": -3,
+				"s4": { "x": "abc", "y": null }
+			},
+			"expected": {
+				"path": [ "s1", "s2", "s3", "s4" ],
+				"scores": { "a": 15, "b": -10 },
+				"vars": { "total": -3, "ratio": 15, "label": "low", "bad": 0 },
+				"profile": "p_low",
+				"texts": [ "t3" ],
+				"actions": [],
+				"cta": "c2"
+			}
+		}
+	]
+}
