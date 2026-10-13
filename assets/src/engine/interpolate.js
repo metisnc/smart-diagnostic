@@ -34,7 +34,7 @@ function displayAnswer( step, value, lang, fallbackLang ) {
 }
 
 /**
- * @param {string} text   Texte déjà résolu dans la bonne langue.
+ * @param {string} text             Texte déjà résolu dans la bonne langue.
  * @param {Object} params
  * @param {Object} params.config
  * @param {Object} params.answers

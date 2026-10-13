@@ -54,7 +54,7 @@ function compare( op, left, value ) {
 }
 
 /**
- * @param {Object|undefined}                    condition Condition (absente = vraie).
+ * @param {Object|undefined}                     condition Condition (absente = vraie).
  * @param {{resolve: function(string): unknown}} context   Contexte d'évaluation.
  * @return {boolean} Résultat.
  */

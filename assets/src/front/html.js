@@ -82,8 +82,8 @@ export function sanitizeHtml( html ) {
  * Texte riche rendu en HTML assaini.
  *
  * @param {Object} props
- * @param {string} props.html Texte riche.
- * @param {string} [props.as] Élément conteneur.
+ * @param {string} props.html        Texte riche.
+ * @param {string} [props.as]        Élément conteneur.
  * @param {string} [props.className]
  */
 export function RichText( { html, as: Tag = 'div', className } ) {

@@ -37,8 +37,8 @@ export function answerValue( step, answer ) {
 
 /**
  * @param {Object} params
- * @param {Object} params.config  Config du diagnostic.
- * @param {Object} params.answers Réponses brutes indexées par clé d'étape.
+ * @param {Object} params.config    Config du diagnostic.
+ * @param {Object} params.answers   Réponses brutes indexées par clé d'étape.
  * @param {Object} [params.contact] Champs de contact.
  * @param {Object} [params.scores]  Scores par axe.
  * @param {Object} [params.vars]    Variables calculées.

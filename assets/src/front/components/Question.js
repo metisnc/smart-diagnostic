@@ -86,7 +86,10 @@ function OptionContent( { option, index, ui } ) {
 function ChoiceGroup( { step, value, onChange, onPick, ui, ids } ) {
 	const options = optionsFor( step, ui );
 	const multiple = step.type === 'multi';
-	const selected = multiple ? ( Array.isArray( value ) ? value : [] ) : value;
+	let selected = value;
+	if ( multiple ) {
+		selected = Array.isArray( value ) ? value : [];
+	}
 
 	const toggle = ( option ) => {
 		if ( ! multiple ) {
@@ -402,12 +405,12 @@ const FIELDS = {
 
 /**
  * @param {Object}   props
- * @param {Object}   props.step       Étape question.
- * @param {unknown}  props.value      Réponse.
- * @param {Function} props.onChange   Nouvelle réponse.
- * @param {Function} [props.onPick]   Choix unique effectué (passage automatique).
- * @param {Object}   props.ui         Helpers d'affichage.
- * @param {Object}   props.ids        Identifiants ARIA.
+ * @param {Object}   props.step     Étape question.
+ * @param {unknown}  props.value    Réponse.
+ * @param {Function} props.onChange Nouvelle réponse.
+ * @param {Function} [props.onPick] Choix unique effectué (passage automatique).
+ * @param {Object}   props.ui       Helpers d'affichage.
+ * @param {Object}   props.ids      Identifiants ARIA.
  */
 export function QuestionField( props ) {
 	const Field = FIELDS[ props.step.type ] ?? TextField;

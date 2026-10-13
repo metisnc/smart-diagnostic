@@ -17,8 +17,8 @@ const AUTOCOMPLETE = {
 };
 
 /**
- * @param {Object} step    Étape formulaire.
- * @param {Object} contact Valeurs saisies.
+ * @param {Object}  step    Étape formulaire.
+ * @param {Object}  contact Valeurs saisies.
  * @param {boolean} consent Consentement coché.
  * @return {Object<string, string>} Clé de message d'erreur par champ.
  */

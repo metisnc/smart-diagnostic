@@ -63,8 +63,8 @@ function freshState( config, context ) {
 
 /**
  * @param {Object}  props
- * @param {Object}  props.payload           Données du serveur : { id, locale, strings, config }.
- * @param {boolean} [props.preview=false]   Aperçu admin : pas de sauvegarde.
+ * @param {Object}  props.payload         Données du serveur : { id, locale, strings, config }.
+ * @param {boolean} [props.preview=false] Aperçu admin : pas de sauvegarde.
  */
 export function App( { payload, preview = false } ) {
 	const { id, config, locale } = payload;

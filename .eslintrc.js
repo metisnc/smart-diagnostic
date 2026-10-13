@@ -4,6 +4,12 @@ module.exports = {
 	settings: {
 		react: { version: '18.3' },
 	},
+	rules: {
+		// Les fonctions internes ne sont pas toutes documentées paramètre par paramètre.
+		'jsdoc/require-param': 'off',
+		// Les options sont des <label> qui englobent leur <input>.
+		'jsx-a11y/label-has-associated-control': [ 'error', { assert: 'either' } ],
+	},
 	overrides: [
 		{
 			files: [ 'tests/**/*.js' ],
