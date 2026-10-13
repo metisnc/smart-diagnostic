@@ -46,6 +46,7 @@ final class ConfigRepository {
 		 * @param \stdClass $config  Config (objets).
 		 * @param int       $post_id Diagnostic.
 		 */
+		/** @var mixed $filtered Une extension peut renvoyer n'importe quoi. */
 		$filtered = apply_filters( 'sd_config', $config, $post_id );
 		return $filtered instanceof \stdClass ? $filtered : $config;
 	}

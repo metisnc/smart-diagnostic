@@ -30,7 +30,7 @@ final class Privacy {
 	) {}
 
 	public function register(): void {
-		add_action( self::PURGE_HOOK, array( $this, 'purge' ) );
+		add_action( self::PURGE_HOOK, array( $this, 'run_purge' ) );
 		add_action( 'init', array( self::class, 'schedule' ) );
 		add_filter( 'wp_privacy_personal_data_exporters', array( $this, 'register_exporter' ) );
 		add_filter( 'wp_privacy_personal_data_erasers', array( $this, 'register_eraser' ) );
@@ -45,6 +45,13 @@ final class Privacy {
 
 	public static function unschedule(): void {
 		wp_clear_scheduled_hook( self::PURGE_HOOK );
+	}
+
+	/**
+	 * Tâche planifiée quotidienne.
+	 */
+	public function run_purge(): void {
+		$this->purge();
 	}
 
 	/**
