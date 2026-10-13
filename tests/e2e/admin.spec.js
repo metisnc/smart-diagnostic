@@ -63,7 +63,9 @@ test( 'build a diagnostic visually, test it and save it', async ( {
 
 	// Mode test : le score suit la réponse simulée.
 	await tab( page, 'Test' ).click();
+	// L'aperçu affiche aussi la question : on cible le formulaire de test.
 	await page
+		.locator( '.sd-b-test' )
 		.getByLabel( 'Quelle couleur ?' )
 		.selectOption( { label: 'Answer A' } );
 	await expect( page.locator( 'td[data-score="axis_1"]' ) ).toHaveText(
