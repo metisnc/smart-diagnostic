@@ -5,6 +5,12 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 ## [Unreleased]
 
 ### Added
+- M5 : statistiques anonymes (événements start / step_view / answer / capture / submit /
+  abandon, table `sd_events`, tableau de bord avec entonnoir, abandons, profils et CTA),
+  événement DOM `sd:event`, envoi au `dataLayer`, action PHP `sd_event` ; langue courante
+  WPML / Polylang (`sd_current_language`) ; traduction française complète de l'interface ;
+  marque blanche : réglage « Nom affiché », auteur masqué, identifiants neutres côté
+  visiteur, filtre `sd_rest_namespace`.
 - M4 : emails visiteur (résultat + lien) et administrateur, modèles surchargeables par le
   thème (`<thème>/smart-diagnostic/emails/`) ; webhooks signés HMAC (`X-SD-Signature`),
   mapping de champs, réessais (1 min, 5 min, 30 min), secrets hors config ; admin
