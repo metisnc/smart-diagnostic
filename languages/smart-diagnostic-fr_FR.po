@@ -1,0 +1,720 @@
+# Copyright (C) 2026 metisnc
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Smart Diagnostic 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/smart-diagnostic\n"
+"Last-Translator: metisnc\n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"POT-Creation-Date: 2026-10-13T20:59:12+00:00\n"
+"PO-Revision-Date: 2026-10-13 23:00+0000\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: smart-diagnostic\n"
+
+#. Plugin Name of the plugin
+#: smart-diagnostic.php
+#: src/Branding.php:35
+msgid "Smart Diagnostic"
+msgstr "Smart Diagnostic"
+
+#. Description of the plugin
+#: smart-diagnostic.php
+msgid "Moteur de questionnaires de diagnostic interactifs, entièrement configurable."
+msgstr "Moteur de questionnaires de diagnostic interactifs, entièrement configurable."
+
+#. Author of the plugin
+#: smart-diagnostic.php
+msgid "metisnc"
+msgstr "metisnc"
+
+#: smart-diagnostic.php:31
+msgid "Smart Diagnostic: dependencies are missing. Run \"composer install\" in the plugin folder."
+msgstr "Smart Diagnostic : dépendances manquantes. Lancez « composer install » dans le dossier du plugin."
+
+#: src/Admin/ConfigEditor.php:42
+msgid "Configuration (JSON)"
+msgstr "Configuration (JSON)"
+
+#: src/Admin/ConfigEditor.php:65
+msgid "Live preview"
+msgstr "Aperçu en direct"
+
+#. translators: %s: shortcode.
+#: src/Admin/ConfigEditor.php:73
+#, php-format
+msgid "Insert this diagnostic with the \"Diagnostic\" block or the shortcode %s."
+msgstr "Insérez ce diagnostic avec le bloc « Diagnostic » ou le shortcode %s."
+
+#: src/Admin/ConfigEditor.php:122
+msgid "The configuration was not saved: it contains errors. The previous valid version remains online."
+msgstr "La configuration n’a pas été enregistrée : elle contient des erreurs. La dernière version valide reste en ligne."
+
+#: src/Admin/ConfigEditor.php:163
+msgid "Valid configuration."
+msgstr "Configuration valide."
+
+#: src/Admin/ConfigEditor.php:164
+msgid "Errors:"
+msgstr "Erreurs :"
+
+#: src/Admin/ConfigEditor.php:165
+msgid "Invalid JSON:"
+msgstr "JSON invalide :"
+
+#: src/Admin/ConfigEditor.php:184
+msgid "Section 1"
+msgstr "Section 1"
+
+#: src/Admin/ConfigEditor.php:193
+msgid "First question"
+msgstr "Première question"
+
+#: src/Admin/ConfigEditor.php:197
+msgid "Answer A"
+msgstr "Réponse A"
+
+#: src/Admin/ConfigEditor.php:201
+msgid "Answer B"
+msgstr "Réponse B"
+
+#: src/Admin/SettingsPage.php:31
+#: src/Admin/SettingsPage.php:32
+msgid "Settings"
+msgstr "Réglages"
+
+#: src/Admin/SettingsPage.php:50
+msgid "Anti-spam"
+msgstr "Anti-spam"
+
+#: src/Admin/SettingsPage.php:53
+msgid "Captcha"
+msgstr "Captcha"
+
+#: src/Admin/SettingsPage.php:54
+msgid "Site key"
+msgstr "Clé du site"
+
+#: src/Admin/SettingsPage.php:55
+msgid "Secret key"
+msgstr "Clé secrète"
+
+#: src/Admin/SettingsPage.php:56
+msgid "Max submissions per visitor"
+msgstr "Envois maximum par visiteur"
+
+#: src/Admin/SettingsPage.php:57
+msgid "Time window (seconds)"
+msgstr "Période (secondes)"
+
+#: src/Admin/SettingsPage.php:59
+msgid "Privacy (GDPR)"
+msgstr "Confidentialité (RGPD)"
+
+#: src/Admin/SettingsPage.php:62
+msgid "Keep submissions for (days)"
+msgstr "Conserver les réponses pendant (jours)"
+
+#: src/Admin/SettingsPage.php:64
+#: src/Admin/StatsPage.php:39
+#: src/Admin/StatsPage.php:40
+#: src/Admin/StatsPage.php:68
+msgid "Statistics"
+msgstr "Statistiques"
+
+#: src/Admin/SettingsPage.php:67
+msgid "White label"
+msgstr "Marque blanche"
+
+#: src/Admin/SettingsPage.php:68
+msgid "Displayed name"
+msgstr "Nom affiché"
+
+#: src/Admin/SettingsPage.php:115
+msgid "None"
+msgstr "Aucun"
+
+#: src/Admin/SettingsPage.php:124
+msgid "Active only when both keys are filled in."
+msgstr "Actif seulement si les deux clés sont renseignées."
+
+#: src/Admin/SettingsPage.php:133
+msgid "Record anonymous journey events (funnel, drop-offs)."
+msgstr "Enregistrer les événements anonymes du parcours (entonnoir, abandons)."
+
+#: src/Admin/SettingsPage.php:134
+msgid "No personal data and no cookie: a random identifier per questionnaire run."
+msgstr "Aucune donnée personnelle ni cookie : un identifiant aléatoire par passage dans le questionnaire."
+
+#: src/Admin/SettingsPage.php:147
+msgid "Replaces the plugin name in the admin menus and plugin list. The SD_BRAND_NAME constant (wp-config.php) takes precedence."
+msgstr "Remplace le nom du plugin dans les menus d’administration et la liste des extensions. La constante SD_BRAND_NAME (wp-config.php) est prioritaire."
+
+#: src/Admin/SettingsPage.php:150
+msgid "0 = keep until deleted. Older submissions are purged daily. Personal data can also be exported or erased from Tools → Export / Erase Personal Data."
+msgstr "0 = conservation jusqu’à suppression. Les réponses plus anciennes sont supprimées chaque jour. Les données personnelles peuvent aussi être exportées ou effacées depuis Outils → Exporter / Effacer les données personnelles."
+
+#: src/Admin/StatsPage.php:70
+msgid "Statistics are disabled in the settings."
+msgstr "Les statistiques sont désactivées dans les réglages."
+
+#: src/Admin/StatsPage.php:75
+msgid "No diagnostic yet."
+msgstr "Aucun diagnostic pour le moment."
+
+#: src/Admin/StatsPage.php:91
+msgid "Profiles"
+msgstr "Profils"
+
+#: src/Admin/StatsPage.php:92
+msgid "Recommended CTAs"
+msgstr "CTA recommandés"
+
+#: src/Admin/StatsPage.php:103
+#: src/Admin/SubmissionsTable.php:66
+#: src/Admin/SubmissionsTable.php:205
+#: src/PostType/DiagnosticPostType.php:36
+#: src/Privacy/Privacy.php:113
+#: assets/src/block/index.js:36
+msgid "Diagnostic"
+msgstr "Diagnostic"
+
+#: src/Admin/StatsPage.php:110
+#: src/Admin/SubmissionsTable.php:225
+msgid "From"
+msgstr "Du"
+
+#: src/Admin/StatsPage.php:112
+#: src/Admin/SubmissionsTable.php:227
+msgid "to"
+msgstr "au"
+
+#: src/Admin/StatsPage.php:115
+msgid "Show"
+msgstr "Afficher"
+
+#: src/Admin/StatsPage.php:124
+msgid "Started"
+msgstr "Démarrés"
+
+#: src/Admin/StatsPage.php:125
+msgid "Completed"
+msgstr "Terminés"
+
+#: src/Admin/StatsPage.php:126
+msgid "Completion rate"
+msgstr "Taux de complétion"
+
+#: src/Admin/StatsPage.php:127
+msgid "Leads captured"
+msgstr "Contacts collectés"
+
+#: src/Admin/StatsPage.php:141
+msgid "Funnel"
+msgstr "Entonnoir"
+
+#: src/Admin/StatsPage.php:141
+msgid "Step"
+msgstr "Étape"
+
+#: src/Admin/StatsPage.php:141
+msgid "Visitors"
+msgstr "Visiteurs"
+
+#: src/Admin/StatsPage.php:145
+msgid "Results"
+msgstr "Résultat"
+
+#: src/Admin/StatsPage.php:154
+msgid "Drop-offs (last step seen)"
+msgstr "Abandons (dernière étape vue)"
+
+#: src/Admin/StatsPage.php:161
+msgid "Welcome screen"
+msgstr "Écran d’accueil"
+
+#: src/Admin/SubmissionsPage.php:65
+#: src/Admin/SubmissionsPage.php:66
+#: src/Admin/SubmissionsPage.php:121
+msgid "Submissions"
+msgstr "Réponses"
+
+#: src/Admin/SubmissionsPage.php:90
+#: src/Admin/SubmissionsPage.php:252
+msgid "You are not allowed to do this."
+msgstr "Vous n’avez pas l’autorisation de faire cela."
+
+#: src/Admin/SubmissionsPage.php:122
+msgid "Export CSV"
+msgstr "Exporter en CSV"
+
+#. translators: %d: number of deleted submissions.
+#: src/Admin/SubmissionsPage.php:126
+#, php-format
+msgid "%d submission deleted."
+msgid_plural "%d submissions deleted."
+msgstr[0] "%d réponse supprimée."
+msgstr[1] "%d réponses supprimées."
+
+#: src/Admin/SubmissionsPage.php:130
+msgid "Search name or email"
+msgstr "Rechercher un nom ou un email"
+
+#: src/Admin/SubmissionsPage.php:155
+msgid "All submissions"
+msgstr "Toutes les réponses"
+
+#: src/Admin/SubmissionsPage.php:157
+msgid "Submission not found."
+msgstr "Réponse introuvable."
+
+#: src/Admin/SubmissionsPage.php:168
+msgid "Result page"
+msgstr "Page de résultat"
+
+#: src/Admin/SubmissionsPage.php:171
+#: src/Admin/SubmissionsTable.php:65
+msgid "Contact"
+msgstr "Contact"
+
+#: src/Admin/SubmissionsPage.php:173
+#: src/Admin/SubmissionsTable.php:69
+#: src/Privacy/Privacy.php:121
+msgid "Consent"
+msgstr "Consentement"
+
+#: src/Admin/SubmissionsPage.php:175
+msgid "Given"
+msgstr "Donné"
+
+#: src/Admin/SubmissionsPage.php:175
+#: src/Admin/SubmissionsPage.php:239
+#: src/Admin/SubmissionsTable.php:173
+#: src/Front/Strings.php:44
+msgid "Yes"
+msgstr "Oui"
+
+#: src/Admin/SubmissionsPage.php:175
+#: src/Admin/SubmissionsPage.php:239
+#: src/Admin/SubmissionsTable.php:174
+#: src/Front/Strings.php:45
+#: src/Privacy/Privacy.php:122
+msgid "No"
+msgstr "Non"
+
+#: src/Admin/SubmissionsPage.php:176
+#: src/Admin/SubmissionsTable.php:64
+#: src/Privacy/Privacy.php:117
+msgid "Date"
+msgstr "Date"
+
+#: src/Admin/SubmissionsPage.php:177
+msgid "Version"
+msgstr "Version"
+
+#: src/Admin/SubmissionsPage.php:181
+#: src/Admin/SubmissionsTable.php:67
+#: src/Privacy/Privacy.php:125
+#: templates/emails/admin.php:21
+msgid "Profile"
+msgstr "Profil"
+
+#: src/Admin/SubmissionsPage.php:188
+#: src/Admin/SubmissionsTable.php:68
+msgid "CTA"
+msgstr "CTA"
+
+#: src/Admin/SubmissionsPage.php:189
+msgid "Result"
+msgstr "Résultat"
+
+#: src/Admin/SubmissionsPage.php:195
+#: templates/emails/admin.php:28
+msgid "Answers"
+msgstr "Réponses"
+
+#: src/Admin/SubmissionsPage.php:198
+#: src/Front/Strings.php:65
+msgid "Language"
+msgstr "Langue"
+
+#: src/Admin/SubmissionsPage.php:199
+msgid "Source page"
+msgstr "Page d’origine"
+
+#: src/Admin/SubmissionsPage.php:200
+msgid "Result email"
+msgstr "Email du résultat"
+
+#. translators: %s: webhook key.
+#: src/Admin/SubmissionsPage.php:207
+#, php-format
+msgid "Webhook %s"
+msgstr "Webhook %s"
+
+#: src/Admin/SubmissionsPage.php:209
+msgid "Details"
+msgstr "Détails"
+
+#: src/Admin/SubmissionsPage.php:223
+#: src/Admin/SubmissionsTable.php:142
+msgid "Delete this submission permanently?"
+msgstr "Supprimer définitivement cette réponse ?"
+
+#: src/Admin/SubmissionsPage.php:224
+#: src/Admin/SubmissionsTable.php:88
+#: src/Admin/SubmissionsTable.php:143
+msgid "Delete"
+msgstr "Supprimer"
+
+#: src/Admin/SubmissionsTable.php:138
+msgid "View"
+msgstr "Voir"
+
+#: src/Admin/SubmissionsTable.php:156
+msgid "Anonymous"
+msgstr "Anonyme"
+
+#: src/Admin/SubmissionsTable.php:206
+msgid "All diagnostics"
+msgstr "Tous les diagnostics"
+
+#: src/Admin/SubmissionsTable.php:213
+msgid "All profiles"
+msgstr "Tous les profils"
+
+#: src/Admin/SubmissionsTable.php:214
+msgid "All CTAs"
+msgstr "Tous les CTA"
+
+#: src/Admin/SubmissionsTable.php:230
+msgid "Filter"
+msgstr "Filtrer"
+
+#: src/Admin/SubmissionsTable.php:235
+msgid "No submissions yet."
+msgstr "Aucune réponse pour le moment."
+
+#: src/Admin/WebhookSecrets.php:34
+msgid "Webhook secrets"
+msgstr "Secrets des webhooks"
+
+#: src/Admin/WebhookSecrets.php:41
+msgid "No webhook in the configuration (integrations.webhooks)."
+msgstr "Aucun webhook dans la configuration (integrations.webhooks)."
+
+#: src/Admin/WebhookSecrets.php:45
+msgid "Used to sign requests (X-SD-Signature: sha256=HMAC of the body). Leave empty to keep the current secret."
+msgstr "Sert à signer les requêtes (X-SD-Signature : sha256=HMAC du corps). Laissez vide pour conserver le secret actuel."
+
+#: src/Admin/WebhookSecrets.php:52
+msgid "Secret set"
+msgstr "Secret défini"
+
+#: src/Admin/WebhookSecrets.php:54
+msgid "•••••••• (unchanged)"
+msgstr "•••••••• (inchangé)"
+
+#. translators: %s: JSON parser error message.
+#: src/Config/SchemaValidator.php:37
+#, php-format
+msgid "Invalid JSON: %s"
+msgstr "JSON invalide : %s"
+
+#: src/Front/Renderer.php:120
+msgid "Please enable JavaScript to take this questionnaire."
+msgstr "Activez JavaScript pour répondre à ce questionnaire."
+
+#: src/Front/Renderer.php:165
+msgid "Diagnostic not found or not published."
+msgstr "Diagnostic introuvable ou non publié."
+
+#: src/Front/Strings.php:22
+msgid "Start"
+msgstr "Commencer"
+
+#: src/Front/Strings.php:23
+msgid "Next"
+msgstr "Suivant"
+
+#: src/Front/Strings.php:24
+msgid "Back"
+msgstr "Retour"
+
+#: src/Front/Strings.php:25
+msgid "See my results"
+msgstr "Voir mes résultats"
+
+#: src/Front/Strings.php:26
+msgid "Skip"
+msgstr "Passer"
+
+#: src/Front/Strings.php:27
+msgid "Welcome back!"
+msgstr "Bon retour !"
+
+#: src/Front/Strings.php:28
+msgid "Would you like to continue where you left off?"
+msgstr "Voulez-vous reprendre là où vous vous étiez arrêté ?"
+
+#: src/Front/Strings.php:29
+msgid "Continue"
+msgstr "Continuer"
+
+#: src/Front/Strings.php:30
+msgid "Start over"
+msgstr "Recommencer"
+
+#: src/Front/Strings.php:31
+msgid "Step {current} of {total}"
+msgstr "Étape {current} sur {total}"
+
+#: src/Front/Strings.php:32
+msgid "This field is required."
+msgstr "Ce champ est obligatoire."
+
+#: src/Front/Strings.php:33
+msgid "Please enter a valid email address."
+msgstr "Veuillez saisir une adresse email valide."
+
+#: src/Front/Strings.php:34
+msgid "Please enter a valid phone number."
+msgstr "Veuillez saisir un numéro de téléphone valide."
+
+#: src/Front/Strings.php:35
+msgid "Please enter a number."
+msgstr "Veuillez saisir un nombre."
+
+#: src/Front/Strings.php:36
+msgid "The minimum value is {min}."
+msgstr "La valeur minimale est {min}."
+
+#: src/Front/Strings.php:37
+msgid "The maximum value is {max}."
+msgstr "La valeur maximale est {max}."
+
+#: src/Front/Strings.php:38
+msgid "Please enter at least {min} characters."
+msgstr "Veuillez saisir au moins {min} caractères."
+
+#: src/Front/Strings.php:39
+msgid "Please enter at most {max} characters."
+msgstr "Veuillez saisir au plus {max} caractères."
+
+#: src/Front/Strings.php:40
+msgid "The format is not valid."
+msgstr "Le format n’est pas valide."
+
+#: src/Front/Strings.php:41
+msgid "Please select at least {min} options."
+msgstr "Veuillez choisir au moins {min} options."
+
+#: src/Front/Strings.php:42
+msgid "Please select at most {max} options."
+msgstr "Veuillez choisir au plus {max} options."
+
+#: src/Front/Strings.php:43
+msgid "Please accept to continue."
+msgstr "Veuillez accepter pour continuer."
+
+#: src/Front/Strings.php:46
+msgid "Choose…"
+msgstr "Choisir…"
+
+#: src/Front/Strings.php:47
+#: src/Integrations/Mailer.php:64
+#: src/Integrations/Mailer.php:203
+msgid "Your results"
+msgstr "Votre résultat"
+
+#: src/Front/Strings.php:48
+msgid "Your scores"
+msgstr "Vos scores"
+
+#: src/Front/Strings.php:49
+msgid "Print / save as PDF"
+msgstr "Imprimer / enregistrer en PDF"
+
+#: src/Front/Strings.php:50
+msgid "Saving your results…"
+msgstr "Enregistrement de votre résultat…"
+
+#: src/Front/Strings.php:51
+msgid "Your personal link"
+msgstr "Votre lien personnel"
+
+#: src/Front/Strings.php:52
+msgid "Keep this link to view your results again."
+msgstr "Conservez ce lien pour revoir votre résultat."
+
+#: src/Front/Strings.php:53
+msgid "Copy link"
+msgstr "Copier le lien"
+
+#: src/Front/Strings.php:54
+msgid "Link copied!"
+msgstr "Lien copié !"
+
+#: src/Front/Strings.php:55
+msgid "Your results could not be saved. Please try again later."
+msgstr "Votre résultat n’a pas pu être enregistré. Réessayez plus tard."
+
+#: src/Front/Strings.php:56
+msgid "Send"
+msgstr "Envoyer"
+
+#: src/Front/Strings.php:57
+msgid "Thank you! Your details have been saved."
+msgstr "Merci ! Vos coordonnées ont bien été enregistrées."
+
+#: src/Front/Strings.php:59
+msgid "/ day"
+msgstr "/ jour"
+
+#: src/Front/Strings.php:60
+msgid "/ week"
+msgstr "/ semaine"
+
+#: src/Front/Strings.php:61
+msgid "/ month"
+msgstr "/ mois"
+
+#: src/Front/Strings.php:62
+msgid "/ quarter"
+msgstr "/ trimestre"
+
+#: src/Front/Strings.php:63
+msgid "/ year"
+msgstr "/ an"
+
+#: src/Front/Strings.php:64
+msgid "Total"
+msgstr "Total"
+
+#. translators: 1: diagnostic title, 2: first name or email.
+#: src/Integrations/Mailer.php:91
+#, php-format
+msgid "New submission: %1$s (%2$s)"
+msgstr "Nouvelle réponse : %1$s (%2$s)"
+
+#: src/PostType/DiagnosticPostType.php:37
+msgid "Diagnostics"
+msgstr "Diagnostics"
+
+#: src/PostType/DiagnosticPostType.php:38
+#: src/PostType/DiagnosticPostType.php:39
+msgid "Add diagnostic"
+msgstr "Ajouter un diagnostic"
+
+#: src/PostType/DiagnosticPostType.php:40
+msgid "Edit diagnostic"
+msgstr "Modifier le diagnostic"
+
+#: src/PostType/DiagnosticPostType.php:41
+msgid "New diagnostic"
+msgstr "Nouveau diagnostic"
+
+#: src/PostType/DiagnosticPostType.php:42
+msgid "Search diagnostics"
+msgstr "Rechercher des diagnostics"
+
+#: src/PostType/DiagnosticPostType.php:43
+msgid "No diagnostics found."
+msgstr "Aucun diagnostic trouvé."
+
+#: src/PostType/DiagnosticPostType.php:44
+msgid "No diagnostics found in Trash."
+msgstr "Aucun diagnostic dans la corbeille."
+
+#: src/PostType/DiagnosticPostType.php:69
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: src/Privacy/Privacy.php:180
+msgid "When you take one of our questionnaires, we store your answers, your results and, if you provide them, your contact details, together with the date and version of the consent you gave. Your IP address is never stored in clear text: only a non-reversible fingerprint is kept, to prevent abuse."
+msgstr "Lorsque vous répondez à l’un de nos questionnaires, nous enregistrons vos réponses, votre résultat et, si vous les indiquez, vos coordonnées, ainsi que la date et la version du consentement que vous avez donné. Votre adresse IP n’est jamais conservée en clair : seule une empreinte non réversible est gardée, pour prévenir les abus."
+
+#. translators: %d: number of days.
+#: src/Privacy/Privacy.php:183
+#, php-format
+msgid "These data are automatically deleted after %d days."
+msgstr "Ces données sont supprimées automatiquement au bout de %d jours."
+
+#: src/Privacy/Privacy.php:184
+msgid "These data are kept until you ask us to delete them."
+msgstr "Ces données sont conservées jusqu’à ce que vous nous demandiez de les supprimer."
+
+#: src/Rest/SubmitController.php:165
+msgid "Your session has expired. Please try again."
+msgstr "Votre session a expiré. Veuillez réessayer."
+
+#: src/Rest/SubmitController.php:168
+msgid "Too many submissions. Please try again later."
+msgstr "Trop d’envois. Veuillez réessayer plus tard."
+
+#: src/Rest/SubmitController.php:171
+msgid "The anti-spam check failed. Please try again."
+msgstr "La vérification anti-spam a échoué. Veuillez réessayer."
+
+#: src/Rest/SubmitController.php:200
+#: src/Rest/SubmitController.php:290
+msgid "Diagnostic not found."
+msgstr "Diagnostic introuvable."
+
+#: src/Rest/SubmitController.php:215
+msgid "Some answers are missing or invalid."
+msgstr "Certaines réponses sont manquantes ou invalides."
+
+#: src/Rest/SubmitController.php:246
+msgid "Your answers could not be saved. Please try again."
+msgstr "Vos réponses n’ont pas pu être enregistrées. Veuillez réessayer."
+
+#: src/Rest/SubmitController.php:277
+msgid "Result not found."
+msgstr "Résultat introuvable."
+
+#: src/Rest/SubmitController.php:295
+msgid "Some fields are missing or invalid."
+msgstr "Certains champs sont manquants ou invalides."
+
+#: templates/emails/admin.php:18
+msgid "First name"
+msgstr "Prénom"
+
+#: templates/emails/admin.php:19
+msgid "Email"
+msgstr "Email"
+
+#: templates/emails/admin.php:36
+msgid "View in the admin"
+msgstr "Voir dans l’administration"
+
+#: templates/emails/admin.php:37
+msgid "View the result page"
+msgstr "Voir la page de résultat"
+
+#: templates/emails/user.php:72
+msgid "View your results online at any time:"
+msgstr "Retrouvez votre résultat en ligne à tout moment :"
+
+#: assets/src/block/index.js:25
+msgid "Choose a diagnostic…"
+msgstr "Choisir un diagnostic…"
+
+#: assets/src/block/index.js:42
+msgid "Diagnostic to display"
+msgstr "Diagnostic à afficher"
+
+#: blocks/diagnostic/block.json
+msgctxt "block title"
+msgid "Diagnostic"
+msgstr "Diagnostic"
+
+#: blocks/diagnostic/block.json
+msgctxt "block description"
+msgid "Insère un questionnaire de diagnostic."
+msgstr "Insère un questionnaire de diagnostic."
