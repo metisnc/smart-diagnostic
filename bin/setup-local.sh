@@ -84,6 +84,11 @@ log "Activation du plugin"
 wp plugin activate smart-diagnostic
 
 # --- 4. Contenu de test ------------------------------------------------------------
+# Environnement de test : limite de soumissions relevée (les tests E2E soumettent souvent).
+if ! wp option get sd_settings >/dev/null 2>&1; then
+	wp option add sd_settings '{"rate_limit":1000,"rate_window":600}' --format=json >/dev/null
+fi
+
 DIAGNOSTIC_ID=""
 if wp help smart-diagnostic import >/dev/null 2>&1; then
 	log "Import de examples/demo.json"

@@ -7,6 +7,8 @@ import { formatValue, withUtm } from '../format';
 import { RichText, safeUrl } from '../html';
 import { BarChart, GaugeChart, RadarChart } from './Charts';
 import { Heading } from './Screens';
+import { FormStep, validateForm } from './Form';
+import { useState } from 'preact/hooks';
 
 const DEFAULT_BLOCKS = [
 	{ type: 'profile' },
@@ -15,7 +17,141 @@ const DEFAULT_BLOCKS = [
 	{ type: 'variables' },
 	{ type: 'actions' },
 	{ type: 'cta' },
+	{ type: 'share' },
 ];
+
+const afterResultsForms = ( config ) =>
+	( config.steps ?? [] ).filter(
+		( step ) => step.kind === 'form' && step.placement === 'after_results'
+	);
+
+/**
+ * Lien unique vers le résultat enregistré, avec bouton « copier ».
+ */
+function ShareBlock( { block, submission, ui } ) {
+	const [ copied, setCopied ] = useState( false );
+	if ( ! submission ) {
+		return null;
+	}
+	if ( submission.status === 'pending' ) {
+		return (
+			<p className="sd-block sd-share sd-share--pending" role="status">
+				{ ui.t( 'saving' ) }
+			</p>
+		);
+	}
+	if ( submission.status === 'error' ) {
+		return (
+			<p className="sd-block sd-share sd-error" role="alert">
+				{ submission.message }
+			</p>
+		);
+	}
+	const copy = async () => {
+		try {
+			await window.navigator.clipboard.writeText( submission.url );
+			setCopied( true );
+		} catch ( error ) {
+			// Copie impossible : le lien reste sélectionnable.
+		}
+	};
+	return (
+		<section className="sd-block sd-share">
+			<h3>{ ui.tx( block.title ) || ui.t( 'shareTitle' ) }</h3>
+			<p>{ ui.t( 'shareText' ) }</p>
+			<div className="sd-share__row">
+				<input
+					className="sd-input"
+					type="url"
+					readOnly
+					value={ submission.url }
+					aria-label={ ui.t( 'shareTitle' ) }
+					onFocus={ ( event ) => event.target.select() }
+				/>
+				<button
+					type="button"
+					className="sd-button sd-button--ghost"
+					onClick={ copy }
+				>
+					{ ui.t( copied ? 'copied' : 'copy' ) }
+				</button>
+			</div>
+		</section>
+	);
+}
+
+/**
+ * Formulaires affichés sous le résultat : complètent la soumission déjà enregistrée.
+ */
+function AfterResultsForms( { config, ui, submission, onSubmit, idBase } ) {
+	const [ values, setValues ] = useState( {} );
+	const [ consent, setConsent ] = useState( false );
+	const [ errors, setErrors ] = useState( {} );
+	const [ status, setStatus ] = useState( 'idle' );
+	const [ message, setMessage ] = useState( '' );
+	const forms = afterResultsForms( config );
+
+	if ( ! forms.length || submission?.status !== 'done' || ! onSubmit ) {
+		return null;
+	}
+	if ( status === 'done' ) {
+		return (
+			<p className="sd-block sd-form-done" role="status">
+				{ ui.t( 'contactSaved' ) }
+			</p>
+		);
+	}
+
+	const submit = async ( event ) => {
+		event.preventDefault();
+		const problems = Object.assign(
+			{},
+			...forms.map( ( form ) => validateForm( form, values, consent ) )
+		);
+		setErrors( problems );
+		if ( Object.keys( problems ).length ) {
+			return;
+		}
+		setStatus( 'sending' );
+		const error = await onSubmit( values, consent );
+		setStatus( error ? 'idle' : 'done' );
+		setMessage( error ?? '' );
+	};
+
+	return (
+		<form className="sd-block sd-after-form" onSubmit={ submit } noValidate>
+			{ forms.map( ( form ) => (
+				<FormStep
+					key={ form.key }
+					step={ form }
+					contact={ values }
+					consent={ consent }
+					errors={ errors }
+					onChange={ ( field, value ) =>
+						setValues( { ...values, [ field ]: value } )
+					}
+					onConsent={ setConsent }
+					ui={ ui }
+					idBase={ `${ idBase }-${ form.key }` }
+				/>
+			) ) }
+			{ message && (
+				<p className="sd-error" role="alert">
+					{ message }
+				</p>
+			) }
+			<div className="sd-actions">
+				<button
+					type="submit"
+					className="sd-button sd-button--primary"
+					disabled={ status === 'sending' }
+				>
+					{ ui.tx( forms[ 0 ].submitLabel ) || ui.t( 'send' ) }
+				</button>
+			</div>
+		</form>
+	);
+}
 
 const byKey = ( items, keys ) =>
 	keys
@@ -183,26 +319,39 @@ function CtaBlock( { config, result, ui } ) {
 
 /**
  * @param {Object}   props
- * @param {Object}   props.config     Config.
- * @param {Object}   props.result     Résultat de computeResult().
- * @param {Object}   props.answers    Réponses (pour les showIf de blocs).
- * @param {Object}   props.contact    Contact.
- * @param {Object}   props.ui         Helpers d'affichage.
- * @param {Function} props.onRestart  Recommencer.
- * @param {Object}   props.headingRef Ref du titre (focus).
+ * @param {Object}   props.config          Config.
+ * @param {Object}   props.result          Résultat de computeResult().
+ * @param {Object}   props.answers         Réponses (pour les showIf de blocs).
+ * @param {Object}   props.contact         Contact.
+ * @param {Object}   props.submission      Envoi au serveur (statut, lien unique).
+ * @param {Function} props.onSubmitContact Envoi du formulaire sous le résultat.
+ * @param {string}   props.idBase          Préfixe des identifiants HTML.
+ * @param {Object}   props.ui              Helpers d'affichage.
+ * @param {Function} props.onRestart       Recommencer.
+ * @param {Object}   props.headingRef      Ref du titre (focus).
  */
 export function Results( {
 	config,
 	result,
 	answers,
 	contact,
+	submission,
+	onSubmitContact,
+	idBase,
 	ui,
 	onRestart,
 	headingRef,
 } ) {
 	const blocks = config.results?.blocks?.length
-		? config.results.blocks
-		: DEFAULT_BLOCKS;
+		? [ ...config.results.blocks ]
+		: [ ...DEFAULT_BLOCKS ];
+	// Un formulaire « sous le résultat » s'affiche même sans bloc form explicite.
+	if (
+		! blocks.some( ( block ) => block.type === 'form' ) &&
+		afterResultsForms( config ).length
+	) {
+		blocks.push( { type: 'form' } );
+	}
 	const context = createContext( {
 		config,
 		answers,
@@ -259,8 +408,22 @@ export function Results( {
 						html={ ui.tx( block.body ) }
 					/>
 				);
+			case 'share':
+				return config.results?.shareLink === false ? null : (
+					<ShareBlock { ...props } submission={ submission } />
+				);
+			case 'form':
+				return (
+					<AfterResultsForms
+						key={ index }
+						config={ config }
+						ui={ ui }
+						submission={ submission }
+						onSubmit={ onSubmitContact }
+						idBase={ idBase }
+					/>
+				);
 			default:
-				// share et form : envoi au serveur (M3).
 				return null;
 		}
 	};

@@ -18,6 +18,7 @@ final class Lifecycle {
 
 	public static function activate(): void {
 		update_option( self::OPTION_VERSION, SMART_DIAGNOSTIC_VERSION, false );
+		Storage\Schema::install();
 		flush_rewrite_rules();
 	}
 

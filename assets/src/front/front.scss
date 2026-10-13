@@ -688,6 +688,35 @@
 	text-align: center;
 }
 
+.sd-share__row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+
+	.sd-input {
+		flex: 1 1 240px;
+	}
+}
+
+.sd-share--pending {
+	color: var(--sd-muted);
+}
+
+.sd-after-form {
+	padding: 1.25rem;
+	border: 1px solid var(--sd-border);
+	border-radius: var(--sd-radius);
+}
+
+// Pot de miel anti-robots : hors écran, jamais affiché.
+.sd-hp {
+	position: absolute !important;
+	left: -9999px !important;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
 .sd-legal {
 	margin-top: 2rem;
 	color: var(--sd-muted);
