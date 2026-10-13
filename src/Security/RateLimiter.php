@@ -19,9 +19,9 @@ final class RateLimiter {
 	/**
 	 * Enregistre une tentative ; faux si la limite est dépassée.
 	 */
-	public function hit( string $bucket ): bool {
+	public function hit( string $bucket, ?int $limit = null ): bool {
 		/** Nombre de soumissions autorisées par fenêtre. */
-		$limit  = (int) apply_filters( 'sd_rate_limit', Settings::get( 'rate_limit' ) );
+		$limit  = $limit ?? (int) apply_filters( 'sd_rate_limit', Settings::get( 'rate_limit' ) );
 		$window = (int) Settings::get( 'rate_window' );
 		$key    = 'sd_rl_' . md5( $bucket );
 

@@ -14,12 +14,17 @@ namespace SmartDiagnostic\Storage;
  */
 final class Schema {
 
-	public const VERSION        = 2;
+	public const VERSION        = 3;
 	public const OPTION_VERSION = 'sd_db_version';
 
 	public static function submissions_table(): string {
 		global $wpdb;
 		return $wpdb->prefix . 'sd_submissions';
+	}
+
+	public static function events_table(): string {
+		global $wpdb;
+		return $wpdb->prefix . 'sd_events';
 	}
 
 	public static function maybe_upgrade(): void {
@@ -69,6 +74,22 @@ final class Schema {
 				KEY profile (profile),
 				KEY cta (cta),
 				KEY email (email)
+			) {$charset};"
+		);
+
+		// Événements anonymes (aucune donnée personnelle) : entonnoir et abandons.
+		$events = self::events_table();
+		dbDelta(
+			"CREATE TABLE {$events} (
+				id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+				diagnostic_id bigint(20) unsigned NOT NULL,
+				session char(32) NOT NULL,
+				event varchar(20) NOT NULL,
+				step varchar(64) NOT NULL DEFAULT '',
+				created_at datetime NOT NULL,
+				PRIMARY KEY  (id),
+				KEY diagnostic_created (diagnostic_id, created_at),
+				KEY session (session)
 			) {$charset};"
 		);
 
