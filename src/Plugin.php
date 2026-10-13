@@ -48,7 +48,12 @@ final class Plugin {
 				Front\Block::class,
 				Admin\ConfigEditor::class,
 				Admin\SettingsPage::class,
+				Admin\SubmissionsPage::class,
+				Admin\WebhookSecrets::class,
 				Rest\SubmitController::class,
+				Integrations\Mailer::class,
+				Integrations\Webhooks::class,
+				Privacy\Privacy::class,
 			)
 		);
 

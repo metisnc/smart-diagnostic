@@ -76,6 +76,10 @@ final class Renderer {
 		wp_enqueue_script( self::SCRIPT_HANDLE );
 		wp_enqueue_style( self::SCRIPT_HANDLE );
 
+		// Côté visiteur, rien des intégrations (emails admin, URL de webhooks) n'est exposé.
+		$config = clone $config;
+		unset( $config->integrations );
+
 		$payload = array(
 			'id'      => $post_id,
 			'locale'  => determine_locale(),

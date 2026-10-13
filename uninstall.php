@@ -15,6 +15,8 @@ global $wpdb;
 delete_option( 'sd_version' );
 delete_option( 'sd_settings' );
 delete_option( 'sd_db_version' );
+wp_clear_scheduled_hook( 'sd_purge_submissions' );
+wp_unschedule_hook( 'sd_webhook_retry' );
 
 // Diagnostics (CPT sd_diagnostic) et leurs métadonnées.
 $smart_diagnostic_ids = get_posts(

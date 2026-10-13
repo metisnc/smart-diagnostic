@@ -23,6 +23,8 @@ final class Lifecycle {
 	}
 
 	public static function deactivate(): void {
+		Privacy\Privacy::unschedule();
+		wp_unschedule_hook( Integrations\Webhooks::RETRY_HOOK );
 		flush_rewrite_rules();
 	}
 }

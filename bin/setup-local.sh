@@ -84,6 +84,12 @@ log "Activation du plugin"
 wp plugin activate smart-diagnostic
 
 # --- 4. Contenu de test ------------------------------------------------------------
+# Environnement de test : aides E2E (capture des emails, récepteur de webhooks).
+if [[ "${SD_TEST_HELPERS:-0}" == "1" ]]; then
+	log "Installation des aides de test (mu-plugin)"
+	docker compose run --rm -T wpcli sh -c 'mkdir -p wp-content/mu-plugins && cp wp-content/plugins/smart-diagnostic/tests/e2e/mu-plugins/sd-test-helpers.php wp-content/mu-plugins/'
+fi
+
 # Environnement de test : limite de soumissions relevée (les tests E2E soumettent souvent).
 if ! wp option get sd_settings >/dev/null 2>&1; then
 	wp option add sd_settings '{"rate_limit":1000,"rate_window":600}' --format=json >/dev/null

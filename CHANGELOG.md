@@ -5,6 +5,15 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 ## [Unreleased]
 
 ### Added
+- M4 : emails visiteur (résultat + lien) et administrateur, modèles surchargeables par le
+  thème (`<thème>/smart-diagnostic/emails/`) ; webhooks signés HMAC (`X-SD-Signature`),
+  mapping de champs, réessais (1 min, 5 min, 30 min), secrets hors config ; admin
+  « Réponses » (filtres diagnostic / profil / CTA / dates / recherche, détail, export CSV
+  protégé contre les formules, suppression) ; RGPD : durée de conservation + purge
+  quotidienne, exporteur et effaceur de données personnelles WordPress, texte de politique
+  de confidentialité ; filtres `sd_config`, `sd_webhook_secret`, `sd_email_headers`,
+  `sd_submissions_capability`.
+
 - M3 : API REST `smart-diagnostic/v1/submit` (nonce renouvelable, pot de miel, limitation
   par visiteur, Turnstile / reCAPTCHA v3 en option, nettoyage et validation serveur,
   recalcul systématique), table `sd_submissions` versionnée (dbDelta), consentement
@@ -24,3 +33,7 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 - Environnement Docker (WordPress, MariaDB, phpMyAdmin, WP-CLI), `.wp-env.json`,
   `bin/setup-local.sh` et `bin/deploy-test.sh`.
 - CI GitHub Actions (lint, tests, E2E Docker) et zip de release sur les tags `v*`.
+
+### Security
+- La section `integrations` de la config (emails admin, URL de webhooks) n'est plus
+  transmise au navigateur.

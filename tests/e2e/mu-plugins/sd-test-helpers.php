@@ -1,0 +1,107 @@
+<?php
+/**
+ * Aides aux tests E2E — installé UNIQUEMENT sur les environnements de test
+ * par bin/setup-local.sh (SD_TEST_HELPERS=1). Ne jamais déployer en production.
+ *
+ * - capture les emails au lieu de les envoyer ;
+ * - ajoute au diagnostic « demo » un webhook vers un récepteur local ;
+ * - expose le journal : GET/DELETE ?rest_route=/sd-test/v1/log
+ *
+ * @package SmartDiagnostic
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+const SD_TEST_SECRET = 'sd-test-secret';
+
+add_filter(
+	'pre_wp_mail',
+	static function ( $short, array $atts ) {
+		$log   = get_option( 'sd_test_mails', array() );
+		$log[] = array(
+			'to'      => $atts['to'],
+			'subject' => $atts['subject'],
+			'message' => $atts['message'],
+		);
+		update_option( 'sd_test_mails', $log, false );
+		return true;
+	},
+	10,
+	2
+);
+
+add_filter(
+	'sd_config',
+	static function ( $config, $post_id ) {
+		if ( 'demo' !== get_post_field( 'post_name', $post_id ) ) {
+			return $config;
+		}
+		$config->integrations = (object) array(
+			'webhooks' => array(
+				(object) array(
+					'key'    => 'sd_test',
+					'url'    => 'http://localhost/?rest_route=/sd-test/v1/webhook',
+					'events' => array( 'submit', 'capture' ),
+				),
+			),
+		);
+		return $config;
+	},
+	10,
+	2
+);
+
+add_filter(
+	'sd_webhook_secret',
+	static fn( $secret, $diagnostic_id, $key ) => 'sd_test' === $key ? SD_TEST_SECRET : $secret,
+	10,
+	3
+);
+
+add_action(
+	'rest_api_init',
+	static function () {
+		register_rest_route(
+			'sd-test/v1',
+			'/webhook',
+			array(
+				'methods'             => 'POST',
+				'permission_callback' => '__return_true',
+				'callback'            => static function ( WP_REST_Request $request ) {
+					$log   = get_option( 'sd_test_webhooks', array() );
+					$log[] = array(
+						'event'     => $request->get_header( 'x_sd_event' ),
+						'signature' => $request->get_header( 'x_sd_signature' ),
+						'body'      => $request->get_body(),
+					);
+					update_option( 'sd_test_webhooks', $log, false );
+					return array( 'ok' => true );
+				},
+			)
+		);
+		register_rest_route(
+			'sd-test/v1',
+			'/log',
+			array(
+				array(
+					'methods'             => 'GET',
+					'permission_callback' => '__return_true',
+					'callback'            => static fn() => array(
+						'mails'    => get_option( 'sd_test_mails', array() ),
+						'webhooks' => get_option( 'sd_test_webhooks', array() ),
+						'secret'   => SD_TEST_SECRET,
+					),
+				),
+				array(
+					'methods'             => 'DELETE',
+					'permission_callback' => '__return_true',
+					'callback'            => static function () {
+						delete_option( 'sd_test_mails' );
+						delete_option( 'sd_test_webhooks' );
+						return array( 'ok' => true );
+					},
+				),
+			)
+		);
+	}
+);

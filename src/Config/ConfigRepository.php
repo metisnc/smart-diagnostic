@@ -36,10 +36,29 @@ final class ConfigRepository {
 			return null;
 		}
 		try {
-			return $this->migrator->migrate( $config );
+			$config = $this->migrator->migrate( $config );
 		} catch ( \InvalidArgumentException $e ) {
 			return null;
 		}
+		/**
+		 * Config d'un diagnostic, après migration (front, calcul serveur, intégrations).
+		 *
+		 * @param \stdClass $config  Config (objets).
+		 * @param int       $post_id Diagnostic.
+		 */
+		/** @var mixed $filtered Une extension peut renvoyer n'importe quoi. */
+		$filtered = apply_filters( 'sd_config', $config, $post_id );
+		return $filtered instanceof \stdClass ? $filtered : $config;
+	}
+
+	/**
+	 * Config migrée en tableaux associatifs (format attendu par le moteur PHP).
+	 *
+	 * @return array<string, mixed>|null
+	 */
+	public function get_array( int $post_id ): ?array {
+		$config = $this->get( $post_id );
+		return null === $config ? null : json_decode( (string) wp_json_encode( $config ), true );
 	}
 
 	/**
