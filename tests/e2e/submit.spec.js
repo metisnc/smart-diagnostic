@@ -89,6 +89,8 @@ test.describe( 'REST API', () => {
 				answers: validAnswers,
 				contact: { email: 'chloe@example.com' },
 				consent: true,
+				// Comme le navigateur : la page d'origine sert de base au lien unique.
+				source_url: page.url(),
 				nonce: await nonce( request ),
 			},
 		} );
