@@ -46,6 +46,7 @@ const blockConfig = {
 	...defaultConfig,
 	entry: {
 		block: path.resolve( __dirname, 'assets/src/block/index.js' ),
+		builder: path.resolve( __dirname, 'assets/src/builder/index.js' ),
 	},
 	output,
 	plugins: basePlugins,

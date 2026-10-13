@@ -20,7 +20,8 @@ use SmartDiagnostic\PostType\DiagnosticPostType;
  */
 final class ConfigEditor {
 
-	public const SCRIPT_HANDLE = 'smart-diagnostic-admin';
+	public const SCRIPT_HANDLE  = 'smart-diagnostic-admin';
+	public const BUILDER_HANDLE = 'smart-diagnostic-builder';
 
 	private const NONCE_ACTION = 'sd_save_config';
 	private const NONCE_FIELD  = 'sd_config_nonce';
@@ -56,17 +57,10 @@ final class ConfigEditor {
 
 		wp_nonce_field( self::NONCE_ACTION, self::NONCE_FIELD );
 		?>
-		<div class="sd-editor">
-			<div class="sd-editor__code">
-				<textarea id="sd-config-field" name="<?php echo esc_attr( self::FIELD ); ?>" rows="30" class="large-text code" spellcheck="false"><?php echo esc_textarea( $json ); ?></textarea>
-				<div id="sd-config-status" class="sd-editor__status" aria-live="polite"></div>
-			</div>
-			<div class="sd-editor__preview">
-				<h3><?php esc_html_e( 'Live preview', 'smart-diagnostic' ); ?></h3>
-				<div id="sd-config-preview" class="sd-editor__preview-frame"></div>
-			</div>
-		</div>
-		<p class="description">
+		<?php // Le constructeur visuel (React) édite ce champ, enregistré avec le diagnostic. ?>
+		<div id="sd-builder"></div>
+		<textarea id="sd-config-field" name="<?php echo esc_attr( self::FIELD ); ?>" class="sd-config-source" rows="20" spellcheck="false"><?php echo esc_textarea( $json ); ?></textarea>
+		<p class="description" style="padding:0 12px 12px">
 			<?php
 			printf(
 				/* translators: %s: shortcode. */
@@ -138,36 +132,31 @@ final class ConfigEditor {
 		}
 		$asset = require $asset_file;
 
-		$code_editor = wp_enqueue_code_editor( array( 'type' => 'application/json' ) );
-
-		wp_enqueue_script(
-			self::SCRIPT_HANDLE,
-			SMART_DIAGNOSTIC_URL . 'build/admin.js',
-			array_merge( $asset['dependencies'], array( 'code-editor' ) ),
-			$asset['version'],
-			true
-		);
-		// admin.css inclut aussi les styles du front, pour l'aperçu.
-		wp_enqueue_style( self::SCRIPT_HANDLE, SMART_DIAGNOSTIC_URL . 'build/admin.css', array( 'code-editor' ), $asset['version'] );
+		// Aperçu (Preact, styles du site inclus dans admin.css).
+		wp_enqueue_script( self::SCRIPT_HANDLE, SMART_DIAGNOSTIC_URL . 'build/admin.js', $asset['dependencies'], $asset['version'], true );
+		wp_enqueue_style( self::SCRIPT_HANDLE, SMART_DIAGNOSTIC_URL . 'build/admin.css', array(), $asset['version'] );
 
 		$schema = file_get_contents( SchemaValidator::schema_path() ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		wp_add_inline_script(
 			self::SCRIPT_HANDLE,
 			'window.sdAdmin = ' . wp_json_encode(
 				array(
-					'schema'     => json_decode( (string) $schema ),
-					'strings'    => Strings::defaults(),
-					'locale'     => determine_locale(),
-					'codeEditor' => $code_editor,
-					'i18n'       => array(
-						'valid'       => __( 'Valid configuration.', 'smart-diagnostic' ),
-						'invalid'     => __( 'Errors:', 'smart-diagnostic' ),
-						'invalidJson' => __( 'Invalid JSON:', 'smart-diagnostic' ),
-					),
+					'schema'  => json_decode( (string) $schema ),
+					'strings' => Strings::defaults(),
+					'locale'  => determine_locale(),
 				)
 			) . ';',
 			'before'
 		);
+
+		// Constructeur visuel (React, composants WordPress).
+		$builder_file = SMART_DIAGNOSTIC_DIR . 'build/builder.asset.php';
+		if ( is_readable( $builder_file ) ) {
+			$builder = require $builder_file;
+			wp_enqueue_script( self::BUILDER_HANDLE, SMART_DIAGNOSTIC_URL . 'build/builder.js', array_merge( $builder['dependencies'], array( self::SCRIPT_HANDLE ) ), $builder['version'], true );
+			wp_enqueue_style( self::BUILDER_HANDLE, SMART_DIAGNOSTIC_URL . 'build/builder.css', array( 'wp-components' ), $builder['version'] );
+			wp_set_script_translations( self::BUILDER_HANDLE, 'smart-diagnostic', SMART_DIAGNOSTIC_DIR . 'languages' );
+		}
 	}
 
 	private function draft_key( int $post_id ): string {

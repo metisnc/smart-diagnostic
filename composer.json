@@ -4,12 +4,13 @@
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
   "require": {
-    "php": ">=8.1",
-    "opis/json-schema": "^2.3"
+    "php": ">=8.1"
   },
   "require-dev": {
     "brain/monkey": "^2.6",
+    "brianhenryie/strauss": "^0.31.1",
     "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "opis/json-schema": "^2.3",
     "php-stubs/wp-cli-stubs": "^2.11",
     "phpstan/extension-installer": "^1.4",
     "phpstan/phpstan": "^1.12",
@@ -38,7 +39,21 @@
       "phpstan/extension-installer": true
     }
   },
+  "extra": {
+    "strauss": {
+      "target_directory": "vendor-prefixed",
+      "namespace_prefix": "SmartDiagnostic\\Vendor\\",
+      "classmap_prefix": "SmartDiagnostic_Vendor_",
+      "constant_prefix": "SMART_DIAGNOSTIC_VENDOR_",
+      "packages": ["opis/json-schema"],
+      "delete_vendor_packages": false,
+      "delete_vendor_files": false
+    }
+  },
   "scripts": {
+    "prefix-namespaces": "@php vendor/bin/strauss",
+    "post-install-cmd": ["@prefix-namespaces"],
+    "post-update-cmd": ["@prefix-namespaces"],
     "lint": "phpcs",
     "lint:fix": "phpcbf",
     "analyse": "phpstan analyse --memory-limit=1G",

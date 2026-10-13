@@ -23,7 +23,7 @@ define( 'SMART_DIAGNOSTIC_FILE', __FILE__ );
 define( 'SMART_DIAGNOSTIC_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SMART_DIAGNOSTIC_URL', plugin_dir_url( __FILE__ ) );
 
-if ( ! is_readable( SMART_DIAGNOSTIC_DIR . 'vendor/autoload.php' ) ) {
+if ( ! is_readable( SMART_DIAGNOSTIC_DIR . 'vendor/autoload.php' ) || ! is_readable( SMART_DIAGNOSTIC_DIR . 'vendor-prefixed/autoload.php' ) ) {
 	add_action(
 		'admin_notices',
 		static function (): void {
@@ -36,6 +36,7 @@ if ( ! is_readable( SMART_DIAGNOSTIC_DIR . 'vendor/autoload.php' ) ) {
 }
 
 require_once SMART_DIAGNOSTIC_DIR . 'vendor/autoload.php';
+require_once SMART_DIAGNOSTIC_DIR . 'vendor-prefixed/autoload.php';
 
 register_activation_hook( __FILE__, array( \SmartDiagnostic\Lifecycle::class, 'activate' ) );
 register_deactivation_hook( __FILE__, array( \SmartDiagnostic\Lifecycle::class, 'deactivate' ) );

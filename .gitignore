@@ -6,6 +6,7 @@ CLAUDE.local.md
 
 # Dépendances
 /vendor/
+/vendor-prefixed/
 /node_modules/
 
 # Build et artefacts
