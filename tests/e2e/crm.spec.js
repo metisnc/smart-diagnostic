@@ -136,10 +136,12 @@ test( 'admin lists, filters, exports and deletes submissions', async ( {
 	).toHaveLength( 2 ); // email + contact.email
 
 	// Suppression.
-	await page
+	// Le lien n'apparaît qu'au survol : on suit directement son adresse (nonce inclus).
+	const deleteUrl = await page
 		.locator( 'tbody tr', { hasText: email } )
 		.getByRole( 'link', { name: 'Delete' } )
-		.click( { force: true } );
+		.getAttribute( 'href' );
+	await page.goto( deleteUrl );
 	await expect( page.locator( '.notice-success' ) ).toBeVisible();
 	await page.goto( list );
 	await expect( page.locator( 'tbody tr', { hasText: email } ) ).toHaveCount(
