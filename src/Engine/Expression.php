@@ -282,6 +282,7 @@ final class Expression {
 
 	/**
 	 * @return array<string, mixed>
+	 * @throws ExpressionError Jeton inattendu ou fonction inconnue.
 	 */
 	private function primary(): array {
 		$token = $this->peek();
@@ -333,6 +334,7 @@ final class Expression {
 	/**
 	 * @param array<string, mixed>    $node    Nœud.
 	 * @param callable(string): mixed $resolve Résolution des chemins.
+	 * @throws ExpressionError Nœud inconnu.
 	 */
 	private static function evaluate_node( array $node, callable $resolve ): mixed {
 		switch ( $node['type'] ) {
@@ -405,6 +407,7 @@ final class Expression {
 	}
 
 	/**
+	 * @param string      $name Fonction.
 	 * @param list<mixed> $args Arguments évalués.
 	 */
 	private static function call( string $name, array $args ): mixed {
