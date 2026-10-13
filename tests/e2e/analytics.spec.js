@@ -19,10 +19,13 @@ test( 'journey events reach the dataLayer and the funnel', async ( {
 	await page.evaluate( () => window.localStorage.clear() );
 	await page.reload();
 
-	// Marque blanche : aucun nom du plugin dans le HTML visiteur (hors chemins d'URL).
-	const html = await page.content();
-	expect( html ).not.toContain( 'Smart Diagnostic' );
-	expect( html ).not.toContain( 'smart-diagnostic-front' );
+	// Marque blanche : ni le nom du plugin dans le questionnaire, ni dans les
+	// identifiants des scripts (le titre du site de test, lui, peut le contenir).
+	const widget = await page
+		.locator( '[data-sd-diagnostic]' )
+		.evaluate( ( el ) => el.outerHTML );
+	expect( widget ).not.toContain( 'Smart Diagnostic' );
+	expect( await page.content() ).not.toContain( 'smart-diagnostic-front' );
 
 	// Le lot d'événements part après un court délai.
 	const sent = page.waitForResponse(
