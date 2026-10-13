@@ -109,11 +109,11 @@ final class Calculator {
 
 	/**
 	 * @param array<string, mixed> $step Étape.
-	 * @param array<string, mixed> $exit Réglage de sortie.
+	 * @param array<string, mixed> $exit_setting Réglage de sortie.
 	 * @return array<string, float>
 	 */
-	private static function exit_points( array $step, array $exit ): array {
-		$mode = $exit['mode'] ?? 'ignore';
+	private static function exit_points( array $step, array $exit_setting ): array {
+		$mode = $exit_setting['mode'] ?? 'ignore';
 		if ( 'ignore' === $mode ) {
 			return array();
 		}
@@ -132,7 +132,7 @@ final class Calculator {
 			} elseif ( 'min' === $mode ) {
 				$points[ $axis ] = min( $values );
 			} elseif ( 'fixed' === $mode ) {
-				$points[ $axis ] = Values::to_number( $exit['value'] ?? null );
+				$points[ $axis ] = Values::to_number( $exit_setting['value'] ?? null );
 			}
 		}
 		return $points;
