@@ -10,6 +10,9 @@ declare(strict_types=1);
 namespace SmartDiagnostic\Front;
 
 use SmartDiagnostic\Config\ConfigRepository;
+use SmartDiagnostic\Rest\SubmitController;
+use SmartDiagnostic\Settings;
+use SmartDiagnostic\Storage\SubmissionRepository;
 
 /**
  * Produit un conteneur que l'app front monte, avec la config embarquée en JSON.
@@ -19,10 +22,14 @@ final class Renderer {
 
 	public const SCRIPT_HANDLE = 'smart-diagnostic-front';
 
-	public function __construct( private ConfigRepository $configs = new ConfigRepository() ) {}
+	public function __construct(
+		private ConfigRepository $configs = new ConfigRepository(),
+		private SubmissionRepository $submissions = new SubmissionRepository()
+	) {}
 
 	public function register(): void {
 		add_action( 'init', array( $this, 'register_assets' ) );
+		add_filter( 'wp_robots', array( $this, 'noindex_results' ) );
 	}
 
 	public function register_assets(): void {
@@ -74,7 +81,21 @@ final class Renderer {
 			'locale'  => determine_locale(),
 			'strings' => Strings::defaults(),
 			'config'  => $config,
+			'api'     => array(
+				'root'  => esc_url_raw( rest_url( SubmitController::NAMESPACE . '/' ) ),
+				'nonce' => wp_create_nonce( SubmitController::NONCE_ACTION ),
+			),
 		);
+		if ( Settings::captcha_enabled() ) {
+			$payload['captcha'] = array(
+				'provider' => Settings::get( 'captcha_provider' ),
+				'siteKey'  => Settings::get( 'captcha_site_key' ),
+			);
+		}
+		$submission = $this->requested_submission( $post_id );
+		if ( null !== $submission ) {
+			$payload['submission'] = $submission;
+		}
 
 		/**
 		 * Données transmises à l'app front.
@@ -91,6 +112,45 @@ final class Renderer {
 			wp_json_encode( $payload, JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ),
 			esc_html__( 'Please enable JavaScript to take this questionnaire.', 'smart-diagnostic' )
 		);
+	}
+
+	/**
+	 * Résultat enregistré demandé via le lien unique (?sd_result=jeton), pour ce diagnostic.
+	 *
+	 * @return array<string, mixed>|null
+	 */
+	private function requested_submission( int $post_id ): ?array {
+		$token = isset( $_GET[ SubmitController::RESULT_PARAM ] ) ? sanitize_key( wp_unslash( $_GET[ SubmitController::RESULT_PARAM ] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- lien public, le jeton fait office de secret.
+		if ( '' === $token ) {
+			return null;
+		}
+		$row = $this->submissions->find_by_token( $token );
+		if ( null === $row || $row['diagnostic_id'] !== $post_id ) {
+			return null;
+		}
+		// Seules les données utiles à l'affichage sont exposées (pas d'email ni de téléphone).
+		return array(
+			'token'     => $row['token'],
+			'url'       => SubmitController::result_url( $row ),
+			'answers'   => $row['answers'],
+			'contact'   => array( 'first_name' => $row['first_name'] ),
+			'result'    => $row['result'],
+			'createdAt' => $row['created_at'],
+		);
+	}
+
+	/**
+	 * Le lien unique ne doit pas être indexé.
+	 *
+	 * @param array<string, bool|string> $robots Directives.
+	 * @return array<string, bool|string>
+	 */
+	public function noindex_results( array $robots ): array {
+		if ( isset( $_GET[ SubmitController::RESULT_PARAM ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$robots['noindex']  = true;
+			$robots['nofollow'] = true;
+		}
+		return $robots;
 	}
 
 	private function not_found(): string {

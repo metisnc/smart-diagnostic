@@ -47,9 +47,12 @@ final class Plugin {
 				Front\Shortcode::class,
 				Front\Block::class,
 				Admin\ConfigEditor::class,
+				Admin\SettingsPage::class,
+				Rest\SubmitController::class,
 			)
 		);
 
+		Storage\Schema::maybe_upgrade();
 		Cli\Command::register_command();
 
 		foreach ( $classes as $class_name ) {

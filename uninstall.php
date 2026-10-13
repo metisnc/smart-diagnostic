@@ -1,9 +1,7 @@
 <?php
 /**
- * Désinstallation : supprime les données du plugin.
- *
- * Les tables (sd_submissions, sd_events) et le CPT sd_diagnostic seront
- * ajoutés ici dans les milestones qui les créent.
+ * Désinstallation : supprime toutes les données du plugin
+ * (diagnostics, soumissions, réglages).
  *
  * @package SmartDiagnostic
  */
@@ -12,7 +10,11 @@ declare(strict_types=1);
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
+global $wpdb;
+
 delete_option( 'sd_version' );
+delete_option( 'sd_settings' );
+delete_option( 'sd_db_version' );
 
 // Diagnostics (CPT sd_diagnostic) et leurs métadonnées.
 $smart_diagnostic_ids = get_posts(
@@ -26,3 +28,6 @@ $smart_diagnostic_ids = get_posts(
 foreach ( $smart_diagnostic_ids as $smart_diagnostic_id ) {
 	wp_delete_post( (int) $smart_diagnostic_id, true );
 }
+
+// Soumissions.
+$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}sd_submissions" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared

@@ -5,6 +5,12 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 ## [Unreleased]
 
 ### Added
+- M3 : API REST `smart-diagnostic/v1/submit` (nonce renouvelable, pot de miel, limitation
+  par visiteur, Turnstile / reCAPTCHA v3 en option, nettoyage et validation serveur,
+  recalcul systématique), table `sd_submissions` versionnée (dbDelta), consentement
+  horodaté + version, UTM, IP hachée, lien unique de résultat (`?sd_result=…`, non indexé),
+  formulaire après résultat, page Réglages (anti-spam), hooks `sd_submission_created`
+  et `sd_submission_contact_updated`.
 - M2 : moteur de règles et de formules en JS et en PHP (chemin rejoué, scores par axe,
   réponses de sortie, plages, comptage, multiplicateurs, plafonds, variables, profils,
   textes, actions, CTA), tests de parité sur fixtures, écran de résultat (radar, barres,

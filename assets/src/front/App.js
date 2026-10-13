@@ -33,6 +33,8 @@ import {
 import { Results } from './components/Results';
 import { computeResult } from '../engine/calculator';
 import { RichText } from './html';
+import { currentUtm, post } from './api';
+import { captchaToken } from './captcha';
 
 const AUTO_ADVANCE_DELAY = 300;
 
@@ -84,11 +86,27 @@ export function App( { payload, preview = false } ) {
 
 	const [ state, setState ] = useState( () => {
 		const fresh = freshState( config, emptyContext );
+		// Lien unique : résultat enregistré affiché directement.
+		if ( payload.submission ) {
+			return {
+				...fresh,
+				screen: 'results',
+				current: null,
+				answers: payload.submission.answers ?? {},
+				contact: payload.submission.contact ?? {},
+			};
+		}
 		const saved = persist ? loadProgress( key ) : null;
 		return saved?.current || saved?.pendingNext
 			? { ...fresh, screen: 'resume', saved }
 			: fresh;
 	} );
+	// Envoi au serveur : { status: pending | done | error, token, url, result, message }.
+	const [ submission, setSubmission ] = useState( () =>
+		payload.submission ? { status: 'done', ...payload.submission } : null
+	);
+	const honeypot = useRef( null );
+	const utm = useMemo( currentUtm, [] );
 	const [ error, setError ] = useState( null );
 	const [ formErrors, setFormErrors ] = useState( {} );
 	const [ autoAdvance, setAutoAdvance ] = useState( false );
@@ -101,13 +119,15 @@ export function App( { payload, preview = false } ) {
 	const steps = config.steps ?? [];
 	const step = steps.find( ( candidate ) => candidate.key === current );
 
-	const result = useMemo(
+	// Le résultat du serveur (source de vérité) remplace l'aperçu calculé localement.
+	const localResult = useMemo(
 		() =>
 			screen === 'results' || screen === 'transition'
 				? computeResult( config, answers, contact )
 				: null,
 		[ screen, config, answers, contact ]
 	);
+	const result = submission?.result ?? localResult;
 	const pathAnswers = answersOnPath(
 		result ? result.path : [ ...history, current ].filter( Boolean ),
 		answers
@@ -191,6 +211,47 @@ export function App( { payload, preview = false } ) {
 			history: [],
 		} );
 
+	const send = async () => {
+		if ( preview || ! payload.api ) {
+			return;
+		}
+		setSubmission( { status: 'pending' } );
+		const response = await post( payload.api, 'submit', {
+			diagnostic_id: id,
+			answers,
+			contact,
+			consent: state.consent,
+			lang,
+			utm,
+			source_url: window.location.href,
+			website: honeypot.current?.value ?? '',
+			captcha: await captchaToken( payload.captcha ),
+		} );
+		if ( response.ok && response.data.token ) {
+			setSubmission( { status: 'done', ...response.data } );
+		} else {
+			setSubmission( {
+				status: 'error',
+				message: response.data?.message ?? ui.t( 'submitError' ),
+			} );
+		}
+	};
+
+	const sendContact = async ( formContact, formConsent ) => {
+		const response = await post(
+			payload.api,
+			`submissions/${ submission.token }/contact`,
+			{
+				contact: formContact,
+				consent: formConsent,
+				website: honeypot.current?.value ?? '',
+			}
+		);
+		return response.ok
+			? null
+			: ( response.data?.message ?? ui.t( 'submitError' ) );
+	};
+
 	const finish = () => {
 		if ( persist ) {
 			clearProgress( key );
@@ -199,14 +260,22 @@ export function App( { payload, preview = false } ) {
 			screen: config.flow?.transition?.enabled ? 'transition' : 'results',
 			current: null,
 		} );
+		send();
 	};
 
 	const restart = () => {
 		if ( persist ) {
 			clearProgress( key );
 		}
+		if ( payload.submission ) {
+			// On quitte le résultat partagé : l'adresse ne doit plus pointer dessus.
+			const url = new URL( window.location.href );
+			url.searchParams.delete( 'sd_result' );
+			window.history.replaceState( null, '', url.toString() );
+		}
 		setError( null );
 		setFormErrors( {} );
+		setSubmission( null );
 		setState( freshState( config, emptyContext ) );
 	};
 
@@ -374,6 +443,9 @@ export function App( { payload, preview = false } ) {
 				result={ result }
 				answers={ pathAnswers }
 				contact={ contact }
+				submission={ submission }
+				onSubmitContact={ sendContact }
+				idBase={ `sd-${ id }-results` }
 				ui={ ui }
 				onRestart={ restart }
 				headingRef={ headingRef }
@@ -595,6 +667,19 @@ export function App( { payload, preview = false } ) {
 				</div>
 			) }
 			{ body }
+			{ /* Pot de miel : invisible pour les humains, rempli par les robots. */ }
+			<div className="sd-hp" aria-hidden="true">
+				<label>
+					Website
+					<input
+						ref={ honeypot }
+						type="text"
+						name="website"
+						tabIndex={ -1 }
+						autoComplete="off"
+					/>
+				</label>
+			</div>
 			{ config.ui?.legal && (
 				<RichText
 					className="sd-legal"
