@@ -15,7 +15,7 @@ defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 delete_option( 'sd_version' );
 
 // Diagnostics (CPT sd_diagnostic) et leurs métadonnées.
-$sd_diagnostic_ids = get_posts(
+$smart_diagnostic_ids = get_posts(
 	array(
 		'post_type'      => 'sd_diagnostic',
 		'post_status'    => 'any',
@@ -23,6 +23,6 @@ $sd_diagnostic_ids = get_posts(
 		'fields'         => 'ids',
 	)
 );
-foreach ( $sd_diagnostic_ids as $sd_diagnostic_id ) {
-	wp_delete_post( (int) $sd_diagnostic_id, true );
+foreach ( $smart_diagnostic_ids as $smart_diagnostic_id ) {
+	wp_delete_post( (int) $smart_diagnostic_id, true );
 }

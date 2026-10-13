@@ -9,6 +9,9 @@ declare(strict_types=1);
 
 namespace SmartDiagnostic\Front;
 
+/**
+ * Bloc dynamique : rendu côté serveur via Renderer.
+ */
 final class Block {
 
 	public const EDITOR_HANDLE = 'smart-diagnostic-block-editor';

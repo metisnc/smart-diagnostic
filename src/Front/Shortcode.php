@@ -9,6 +9,9 @@ declare(strict_types=1);
 
 namespace SmartDiagnostic\Front;
 
+/**
+ * Shortcode acceptant un ID ou un slug de diagnostic.
+ */
 final class Shortcode {
 
 	public const TAG = 'smart_diagnostic';

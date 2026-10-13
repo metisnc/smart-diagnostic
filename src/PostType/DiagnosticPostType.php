@@ -11,6 +11,9 @@ namespace SmartDiagnostic\PostType;
 
 use SmartDiagnostic\Branding;
 
+/**
+ * Enregistre le CPT et la colonne « Shortcode » de la liste.
+ */
 final class DiagnosticPostType {
 
 	public const NAME = 'sd_diagnostic';

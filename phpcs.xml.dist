@@ -20,6 +20,10 @@
 		<!-- Les types natifs PHP 8 remplacent les @param redondants. -->
 		<exclude name="Squiz.Commenting.FunctionComment.Missing"/>
 		<exclude name="Squiz.Commenting.FunctionComment.MissingParamTag"/>
+		<!-- Les génériques PHPStan (list<string>, array<string, mixed>) sont voulus. -->
+		<exclude name="Squiz.Commenting.FunctionComment.IncorrectTypeHint"/>
+		<!-- Les propriétés de la config JSON sont en camelCase (schemaVersion…). -->
+		<exclude name="WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase"/>
 		<exclude name="Squiz.Commenting.VariableComment.Missing"/>
 		<exclude name="Generic.Commenting.DocComment.MissingShort"/>
 		<!-- Syntaxe moderne autorisée. -->
