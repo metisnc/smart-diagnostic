@@ -35,6 +35,7 @@ import { computeResult } from '../engine/calculator';
 import { RichText } from './html';
 import { currentUtm, post } from './api';
 import { captchaToken } from './captcha';
+import { createTracker, newSession } from './analytics';
 
 const AUTO_ADVANCE_DELAY = 300;
 
@@ -107,6 +108,20 @@ export function App( { payload, preview = false } ) {
 	);
 	const honeypot = useRef( null );
 	const utm = useMemo( currentUtm, [] );
+	const tracker = useMemo(
+		() =>
+			createTracker( {
+				api: payload.api,
+				diagnosticId: id,
+				enabled:
+					Boolean( payload.analytics ) &&
+					! preview &&
+					! payload.submission,
+			} ),
+		[] // eslint-disable-line react-hooks/exhaustive-deps
+	);
+	// État courant lisible depuis les écouteurs (fermeture de page).
+	const live = useRef( null );
 	const [ error, setError ] = useState( null );
 	const [ formErrors, setFormErrors ] = useState( {} );
 	const [ autoAdvance, setAutoAdvance ] = useState( false );
@@ -116,6 +131,7 @@ export function App( { payload, preview = false } ) {
 	const firstRender = useRef( true );
 
 	const { screen, current, history, answers, contact } = state;
+	live.current = state;
 	const steps = config.steps ?? [];
 	const step = steps.find( ( candidate ) => candidate.key === current );
 
@@ -185,6 +201,38 @@ export function App( { payload, preview = false } ) {
 		}
 	}, [ screen, current ] );
 
+	// Statistiques : démarrage (nouvelle session) puis chaque étape affichée.
+	useEffect( () => {
+		if ( screen !== 'step' || ! current ) {
+			return;
+		}
+		let session = state.session;
+		if ( ! session ) {
+			session = newSession();
+			update( { session } );
+			tracker.track( 'start', { session } );
+		}
+		tracker.track( 'step_view', { step: current, session } );
+	}, [ screen, current ] ); // eslint-disable-line react-hooks/exhaustive-deps
+
+	// Abandon : la page est quittée en plein parcours.
+	useEffect( () => {
+		const onHide = () => {
+			const now = live.current;
+			if (
+				now.session &&
+				( now.screen === 'step' || now.screen === 'interstitial' )
+			) {
+				tracker.track( 'abandon', {
+					step: now.current ?? '',
+					session: now.session,
+				} );
+			}
+		};
+		window.addEventListener( 'pagehide', onHide );
+		return () => window.removeEventListener( 'pagehide', onHide );
+	}, [] ); // eslint-disable-line react-hooks/exhaustive-deps
+
 	useEffect( () => {
 		if ( ! autoAdvance ) {
 			return undefined;
@@ -226,9 +274,14 @@ export function App( { payload, preview = false } ) {
 			source_url: window.location.href,
 			website: honeypot.current?.value ?? '',
 			captcha: await captchaToken( payload.captcha ),
+			session: state.session ?? '',
 		} );
 		if ( response.ok && response.data.token ) {
 			setSubmission( { status: 'done', ...response.data } );
+			tracker.track( 'submit', {
+				session: state.session,
+				extra: { sd_profile: response.data.result?.profile ?? '' },
+			} );
 		} else {
 			setSubmission( {
 				status: 'error',
@@ -247,9 +300,11 @@ export function App( { payload, preview = false } ) {
 				website: honeypot.current?.value ?? '',
 			}
 		);
-		return response.ok
-			? null
-			: ( response.data?.message ?? ui.t( 'submitError' ) );
+		if ( response.ok ) {
+			tracker.track( 'capture', { session: state.session } );
+			return null;
+		}
+		return response.data?.message ?? ui.t( 'submitError' );
 	};
 
 	const finish = () => {
@@ -310,6 +365,10 @@ export function App( { payload, preview = false } ) {
 			if ( problem ) {
 				return;
 			}
+			tracker.track( 'answer', {
+				step: step.key,
+				session: state.session,
+			} );
 		}
 		if ( step.kind === 'form' ) {
 			const problems = validateForm( step, contact, state.consent );
@@ -321,6 +380,10 @@ export function App( { payload, preview = false } ) {
 					?.focus();
 				return;
 			}
+			tracker.track( 'capture', {
+				step: step.key,
+				session: state.session,
+			} );
 		}
 
 		const next = nextStepKey( config, step.key, context );

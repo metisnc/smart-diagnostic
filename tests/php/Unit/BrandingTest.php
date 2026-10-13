@@ -22,6 +22,24 @@ final class BrandingTest extends TestCase {
 		Monkey\setUp();
 		Functions\stubTranslationFunctions();
 		Functions\when( 'plugin_basename' )->justReturn( 'smart-diagnostic/smart-diagnostic.php' );
+		Functions\when( 'get_option' )->justReturn( array() );
+	}
+
+	public function test_brand_setting_is_used_and_hides_author(): void {
+		Functions\when( 'get_option' )->justReturn( array( 'brand_name' => 'Audit Pro' ) );
+
+		$plugins = ( new Branding() )->rename_in_plugin_list(
+			array(
+				'smart-diagnostic/smart-diagnostic.php' => array(
+					'Name'   => 'Smart Diagnostic',
+					'Title'  => 'Smart Diagnostic',
+					'Author' => 'metisnc',
+				),
+			)
+		);
+
+		$this->assertSame( 'Audit Pro', $plugins['smart-diagnostic/smart-diagnostic.php']['Name'] );
+		$this->assertSame( '', $plugins['smart-diagnostic/smart-diagnostic.php']['Author'] );
 	}
 
 	protected function tearDown(): void {

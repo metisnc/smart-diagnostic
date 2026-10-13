@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace SmartDiagnostic\Front;
 
 use SmartDiagnostic\Config\ConfigRepository;
+use SmartDiagnostic\I18n;
 use SmartDiagnostic\Rest\SubmitController;
 use SmartDiagnostic\Settings;
 use SmartDiagnostic\Storage\SubmissionRepository;
@@ -20,7 +21,8 @@ use SmartDiagnostic\Storage\SubmissionRepository;
  */
 final class Renderer {
 
-	public const SCRIPT_HANDLE = 'smart-diagnostic-front';
+	// Identifiant neutre : il apparaît dans le HTML visiteur (marque blanche).
+	public const SCRIPT_HANDLE = 'sd-front';
 
 	public function __construct(
 		private ConfigRepository $configs = new ConfigRepository(),
@@ -81,14 +83,15 @@ final class Renderer {
 		unset( $config->integrations );
 
 		$payload = array(
-			'id'      => $post_id,
-			'locale'  => determine_locale(),
-			'strings' => Strings::defaults(),
-			'config'  => $config,
-			'api'     => array(
-				'root'  => esc_url_raw( rest_url( SubmitController::NAMESPACE . '/' ) ),
+			'id'        => $post_id,
+			'locale'    => I18n::current_language(),
+			'strings'   => Strings::defaults(),
+			'config'    => $config,
+			'api'       => array(
+				'root'  => esc_url_raw( rest_url( SubmitController::rest_namespace() . '/' ) ),
 				'nonce' => wp_create_nonce( SubmitController::NONCE_ACTION ),
 			),
+			'analytics' => (bool) Settings::get( 'analytics' ),
 		);
 		if ( Settings::captcha_enabled() ) {
 			$payload['captcha'] = array(

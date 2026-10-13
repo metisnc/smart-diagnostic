@@ -14,6 +14,7 @@ use SmartDiagnostic\Branding;
 use SmartDiagnostic\Config\ConfigRepository;
 use SmartDiagnostic\Engine\Text;
 use SmartDiagnostic\Settings;
+use SmartDiagnostic\Storage\EventRepository;
 use SmartDiagnostic\Storage\SubmissionRepository;
 
 /**
@@ -64,7 +65,9 @@ final class Privacy {
 		if ( $days <= 0 ) {
 			return 0;
 		}
-		return $this->submissions->delete_before( gmdate( 'Y-m-d H:i:s', time() - $days * DAY_IN_SECONDS ) );
+		$before = gmdate( 'Y-m-d H:i:s', time() - $days * DAY_IN_SECONDS );
+		( new EventRepository() )->delete_before( $before );
+		return $this->submissions->delete_before( $before );
 	}
 
 	/**

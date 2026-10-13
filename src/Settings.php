@@ -17,7 +17,7 @@ final class Settings {
 	public const OPTION = 'sd_settings';
 
 	/**
-	 * @return array{captcha_provider: string, captcha_site_key: string, captcha_secret_key: string, rate_limit: int, rate_window: int, retention_days: int}
+	 * @return array{captcha_provider: string, captcha_site_key: string, captcha_secret_key: string, rate_limit: int, rate_window: int, retention_days: int, analytics: bool, brand_name: string}
 	 */
 	public static function all(): array {
 		$saved = get_option( self::OPTION, array() );
@@ -29,6 +29,8 @@ final class Settings {
 			'rate_limit'         => max( 1, (int) ( $saved['rate_limit'] ?? 10 ) ),
 			'rate_window'        => max( 60, (int) ( $saved['rate_window'] ?? 600 ) ),
 			'retention_days'     => max( 0, (int) ( $saved['retention_days'] ?? 0 ) ),
+			'analytics'          => (bool) ( $saved['analytics'] ?? true ),
+			'brand_name'         => (string) ( $saved['brand_name'] ?? '' ),
 		);
 	}
 

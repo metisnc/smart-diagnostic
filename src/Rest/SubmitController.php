@@ -14,6 +14,8 @@ use SmartDiagnostic\Engine\Calculator;
 use SmartDiagnostic\Engine\Flow;
 use SmartDiagnostic\Security\Captcha;
 use SmartDiagnostic\Security\RateLimiter;
+use SmartDiagnostic\Settings;
+use SmartDiagnostic\Storage\EventRepository;
 use SmartDiagnostic\Storage\SubmissionRepository;
 use SmartDiagnostic\Submission\Sanitizer;
 use WP_Error;
@@ -42,9 +44,21 @@ final class SubmitController {
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 	}
 
+	/**
+	 * Espace de noms de l'API (marque blanche : filtre sd_rest_namespace).
+	 */
+	public static function rest_namespace(): string {
+		/**
+		 * Espace de noms REST, ex. « mon-diagnostic/v1 ».
+		 *
+		 * @param string $namespace Espace de noms.
+		 */
+		return (string) apply_filters( 'sd_rest_namespace', self::NAMESPACE );
+	}
+
 	public function register_routes(): void {
 		register_rest_route(
-			self::NAMESPACE,
+			self::rest_namespace(),
 			'/nonce',
 			array(
 				'methods'             => 'GET',
@@ -54,7 +68,7 @@ final class SubmitController {
 		);
 
 		register_rest_route(
-			self::NAMESPACE,
+			self::rest_namespace(),
 			'/submit',
 			array(
 				'methods'             => 'POST',
@@ -101,12 +115,16 @@ final class SubmitController {
 						'type'    => 'string',
 						'default' => '',
 					),
+					'session'       => array(
+						'type'    => 'string',
+						'default' => '',
+					),
 				),
 			)
 		);
 
 		register_rest_route(
-			self::NAMESPACE,
+			self::rest_namespace(),
 			'/submissions/(?P<token>[a-f0-9]{32})/contact',
 			array(
 				'methods'             => 'POST',
@@ -235,6 +253,13 @@ final class SubmitController {
 		 * @param array<string, mixed> $config Config du diagnostic.
 		 */
 		do_action( 'sd_submission_created', $row, $config );
+
+		// Entonnoir : la soumission est comptée côté serveur (source de vérité).
+		$session = (string) $request['session'];
+		if ( Settings::get( 'analytics' ) && 1 === preg_match( '/^[a-f0-9]{32}$/', $session ) ) {
+			( new EventRepository() )->insert_many( $diagnostic_id, $session, array( array( 'event' => 'submit' ) ) );
+			EventsController::announce( 'submit', $diagnostic_id, $session );
+		}
 
 		return new WP_REST_Response(
 			array(

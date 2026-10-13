@@ -33,3 +33,4 @@ foreach ( $smart_diagnostic_ids as $smart_diagnostic_id ) {
 
 // Soumissions.
 $wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}sd_submissions" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}sd_events" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
