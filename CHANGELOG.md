@@ -4,7 +4,17 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-10-14
+
+Première version publique.
+
 ### Added
+- M6 : constructeur visuel (parcours en glisser-déposer, éditeur de chaque type de question,
+  règles de calcul, formules, conditions, résultats, apparence, intégrations), onglet Test
+  (simulation des réponses avec le moteur du site), onglet JSON, aperçu en direct ;
+  import / export JSON et duplication de diagnostics ; librairie PHP embarquée préfixée
+  (Strauss) ; traduction française du constructeur ; tests E2E de l'admin ;
+  `docs/hooks.md`.
 - M5 : statistiques anonymes (événements start / step_view / answer / capture / submit /
   abandon, table `sd_events`, tableau de bord avec entonnoir, abandons, profils et CTA),
   événement DOM `sd:event`, envoi au `dataLayer`, action PHP `sd_event` ; langue courante
