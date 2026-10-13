@@ -56,13 +56,19 @@ final class SettingsPage {
 			'rate_limit'         => __( 'Max submissions per visitor', 'smart-diagnostic' ),
 			'rate_window'        => __( 'Time window (seconds)', 'smart-diagnostic' ),
 		);
+		add_settings_section( 'sd_privacy', __( 'Privacy (GDPR)', 'smart-diagnostic' ), '__return_null', self::PAGE );
+		$sections = array_fill_keys( array_keys( $fields ), 'sd_antispam' );
+
+		$fields['retention_days']   = __( 'Keep submissions for (days)', 'smart-diagnostic' );
+		$sections['retention_days'] = 'sd_privacy';
+
 		foreach ( $fields as $key => $label ) {
 			add_settings_field(
 				$key,
 				$label,
 				array( $this, 'render_field' ),
 				self::PAGE,
-				'sd_antispam',
+				$sections[ $key ],
 				array(
 					'key'       => $key,
 					'label_for' => 'sd-' . $key,
@@ -83,6 +89,7 @@ final class SettingsPage {
 			'captcha_secret_key' => sanitize_text_field( (string) ( $input['captcha_secret_key'] ?? '' ) ),
 			'rate_limit'         => max( 1, absint( $input['rate_limit'] ?? 10 ) ),
 			'rate_window'        => max( 60, absint( $input['rate_window'] ?? 600 ) ),
+			'retention_days'     => absint( $input['retention_days'] ?? 0 ),
 		);
 	}
 
@@ -109,7 +116,7 @@ final class SettingsPage {
 			echo '<p class="description">' . esc_html__( 'Active only when both keys are filled in.', 'smart-diagnostic' ) . '</p>';
 			return;
 		}
-		$type = in_array( $key, array( 'rate_limit', 'rate_window' ), true ) ? 'number' : ( 'captcha_secret_key' === $key ? 'password' : 'text' );
+		$type = in_array( $key, array( 'rate_limit', 'rate_window', 'retention_days' ), true ) ? 'number' : ( 'captcha_secret_key' === $key ? 'password' : 'text' );
 		printf(
 			'<input type="%s" id="%s" name="%s" value="%s" class="regular-text" autocomplete="off" />',
 			esc_attr( $type ),
@@ -117,6 +124,9 @@ final class SettingsPage {
 			esc_attr( $name ),
 			esc_attr( (string) $value )
 		);
+		if ( 'retention_days' === $key ) {
+			echo '<p class="description">' . esc_html__( '0 = keep until deleted. Older submissions are purged daily. Personal data can also be exported or erased from Tools → Export / Erase Personal Data.', 'smart-diagnostic' ) . '</p>';
+		}
 	}
 
 	public function render(): void {
