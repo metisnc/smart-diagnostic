@@ -92,7 +92,7 @@ test( 'complete journey with conditional step, auto-advance and form', async ( {
 		page.getByRole( 'row', { name: /Axe Y.*15/ } )
 	).toBeAttached();
 	// Écart = cible (curseur par défaut : 5000) - valeur actuelle (1200).
-	await expect( page.getByText( /3[,\s ]?800/ ).first() ).toBeVisible();
+	await expect( page.getByText( /3[,\s\u202f]?800/ ).first() ).toBeVisible();
 	const cta = page.getByRole( 'link', { name: 'Action recommandée' } );
 	await expect( cta ).toHaveAttribute( 'href', /utm_campaign=demo/ );
 } );
