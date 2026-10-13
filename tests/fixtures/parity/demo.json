@@ -1,0 +1,118 @@
+{
+	"description": "examples/demo.json : chemins conditionnels, réponse neutre, plages, comptage, profils.",
+	"configFile": "examples/demo.json",
+	"cases": [
+		{
+			"name": "option A, suivi oui, échelle 4",
+			"answers": {
+				"first_name": "Alice",
+				"q_choice": "a",
+				"q_multi": [ "one", "two" ],
+				"q_follow_up": true,
+				"q_scale": 4,
+				"q_current": 1200,
+				"q_target": 2000
+			},
+			"expected": {
+				"path": [
+					"first_name",
+					"q_choice",
+					"q_multi",
+					"q_follow_up",
+					"intermission",
+					"q_scale",
+					"q_current",
+					"q_target",
+					"contact"
+				],
+				"scores": { "axis_x": 75, "axis_y": 15 },
+				"vars": { "gap": 800 },
+				"profile": "profile_low",
+				"texts": [],
+				"actions": [],
+				"cta": "cta_demo"
+			}
+		},
+		{
+			"name": "réponse « Je ne sais pas » neutre, étape masquée ignorée",
+			"answers": {
+				"q_choice": "unknown",
+				"q_multi": [ "one", "two", "three" ],
+				"q_follow_up": true,
+				"q_scale": 2,
+				"q_current": 3000,
+				"q_target": 1000
+			},
+			"expected": {
+				"path": [
+					"first_name",
+					"q_choice",
+					"q_multi",
+					"intermission",
+					"q_scale",
+					"q_current",
+					"q_target",
+					"contact"
+				],
+				"scores": { "axis_x": 25, "axis_y": 50 },
+				"vars": { "gap": 0 },
+				"profile": "profile_low",
+				"texts": [ "weakest_x" ],
+				"actions": [],
+				"cta": "cta_demo"
+			}
+		},
+		{
+			"name": "option C, montants absents",
+			"answers": { "q_choice": "c", "q_multi": [ "none" ], "q_scale": 5 },
+			"expected": {
+				"path": [
+					"first_name",
+					"q_choice",
+					"q_multi",
+					"intermission",
+					"q_scale",
+					"q_current",
+					"q_target",
+					"contact"
+				],
+				"scores": { "axis_x": 25, "axis_y": 55 },
+				"vars": { "gap": 0 },
+				"profile": "profile_low",
+				"texts": [ "weakest_x" ],
+				"actions": [],
+				"cta": "cta_demo"
+			}
+		},
+		{
+			"name": "profil élevé, montant saisi en texte",
+			"answers": {
+				"q_choice": "a",
+				"q_follow_up": true,
+				"q_multi": [ "one", "two", "three" ],
+				"q_scale": 5,
+				"q_current": "1500",
+				"q_target": 2500
+			},
+			"expected": {
+				"path": [
+					"first_name",
+					"q_choice",
+					"q_multi",
+					"q_follow_up",
+					"intermission",
+					"q_scale",
+					"q_current",
+					"q_target",
+					"contact"
+				],
+				"scores": { "axis_x": 75, "axis_y": 30 },
+				"vars": { "gap": 1000 },
+				"profile": "profile_high",
+				"texts": [],
+				"actions": [],
+				"cta": "cta_demo"
+			}
+		}
+	]
+}

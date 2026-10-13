@@ -38,7 +38,19 @@ final class Plugin {
 		 *
 		 * @param array<class-string> $services Classes de services.
 		 */
-		$classes = apply_filters( 'sd_services', array( Branding::class ) );
+		$classes = apply_filters(
+			'sd_services',
+			array(
+				Branding::class,
+				PostType\DiagnosticPostType::class,
+				Front\Renderer::class,
+				Front\Shortcode::class,
+				Front\Block::class,
+				Admin\ConfigEditor::class,
+			)
+		);
+
+		Cli\Command::register_command();
 
 		foreach ( $classes as $class_name ) {
 			$service = new $class_name();

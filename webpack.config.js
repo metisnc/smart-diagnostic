@@ -1,22 +1,26 @@
 /**
- * Build front (Preact) : le visiteur ne charge pas React.
- * Les entrées admin (éditeur, bloc) arriveront en M1 avec la config React par défaut.
+ * Deux builds :
+ *  - front + admin (éditeur JSON) en Preact : le visiteur ne charge pas React ;
+ *  - bloc Gutenberg avec la config par défaut (React fourni par WordPress).
  */
 const path = require( 'path' );
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const DependencyExtractionWebpackPlugin = require( '@wordpress/dependency-extraction-webpack-plugin' );
 
 const REACT_REQUESTS = [ 'react', 'react-dom', 'react/jsx-runtime' ];
+const output = { ...defaultConfig.output, path: path.resolve( __dirname, 'build' ) };
+// Les deux builds écrivent dans build/ en parallèle : pas de nettoyage automatique.
+const basePlugins = defaultConfig.plugins.filter(
+	( plugin ) => plugin.constructor.name !== 'CleanWebpackPlugin'
+);
 
-module.exports = {
+const preactConfig = {
 	...defaultConfig,
 	entry: {
 		front: path.resolve( __dirname, 'assets/src/front/index.js' ),
+		admin: path.resolve( __dirname, 'assets/src/admin/index.js' ),
 	},
-	output: {
-		...defaultConfig.output,
-		path: path.resolve( __dirname, 'build' ),
-	},
+	output,
 	resolve: {
 		...defaultConfig.resolve,
 		alias: {
@@ -27,7 +31,7 @@ module.exports = {
 		},
 	},
 	plugins: [
-		...defaultConfig.plugins.filter(
+		...basePlugins.filter(
 			( plugin ) => ! ( plugin instanceof DependencyExtractionWebpackPlugin )
 		),
 		new DependencyExtractionWebpackPlugin( {
@@ -37,3 +41,14 @@ module.exports = {
 		} ),
 	],
 };
+
+const blockConfig = {
+	...defaultConfig,
+	entry: {
+		block: path.resolve( __dirname, 'assets/src/block/index.js' ),
+	},
+	output,
+	plugins: basePlugins,
+};
+
+module.exports = [ preactConfig, blockConfig ];
