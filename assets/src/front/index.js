@@ -1,18 +1,28 @@
 /**
  * Point d'entrée front : monte une app sur chaque conteneur [data-sd-diagnostic].
- * Le parcours complet arrive en M1 ; M0 valide la chaîne de build Preact.
  */
 import { render } from 'preact';
 import { App } from './App';
+import './front.scss';
+
+function mount( el ) {
+	if ( el.dataset.sdMounted ) {
+		return;
+	}
+	const script = el.querySelector( 'script.sd-payload' );
+	let payload;
+	try {
+		payload = JSON.parse( script?.textContent ?? '' );
+	} catch ( error ) {
+		return;
+	}
+	el.dataset.sdMounted = '1';
+	el.textContent = '';
+	render( <App payload={ payload } />, el );
+}
 
 function mountAll() {
-	document.querySelectorAll( '[data-sd-diagnostic]' ).forEach( ( el ) => {
-		if ( el.dataset.sdMounted ) {
-			return;
-		}
-		el.dataset.sdMounted = '1';
-		render( <App id={ el.dataset.sdDiagnostic } />, el );
-	} );
+	document.querySelectorAll( '[data-sd-diagnostic]' ).forEach( mount );
 }
 
 if ( document.readyState === 'loading' ) {

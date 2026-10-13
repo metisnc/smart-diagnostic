@@ -6,3 +6,5 @@ parameters:
     - src
   bootstrapFiles:
     - tests/php/phpstan-constants.php
+  scanFiles:
+    - vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
