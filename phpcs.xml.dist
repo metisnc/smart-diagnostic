@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ruleset name="SmartDiagnostic">
+	<description>WordPress Coding Standards pour Smart Diagnostic.</description>
+
+	<file>smart-diagnostic.php</file>
+	<file>uninstall.php</file>
+	<file>src</file>
+
+	<arg name="extensions" value="php"/>
+	<arg name="cache" value=".phpcs-cache"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<config name="testVersion" value="8.1-"/>
+	<config name="minimum_wp_version" value="6.4"/>
+
+	<rule ref="WordPress">
+		<!-- PSR-4 : noms de fichiers = noms de classes. -->
+		<exclude name="WordPress.Files.FileName"/>
+		<!-- Les types natifs PHP 8 remplacent les @param redondants. -->
+		<exclude name="Squiz.Commenting.FunctionComment.Missing"/>
+		<exclude name="Squiz.Commenting.FunctionComment.MissingParamTag"/>
+		<exclude name="Squiz.Commenting.VariableComment.Missing"/>
+		<exclude name="Generic.Commenting.DocComment.MissingShort"/>
+		<!-- Syntaxe moderne autorisée. -->
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+		<exclude name="Universal.Operators.DisallowShortTernary"/>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="smart-diagnostic"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<!-- Les hooks publics sont préfixés "sd_" (cahier des charges), préfixe que WPCS juge trop court. -->
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound"/>
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="SmartDiagnostic"/>
+				<element value="smart_diagnostic"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>

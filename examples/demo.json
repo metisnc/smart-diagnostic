@@ -1,0 +1,240 @@
+{
+	"schemaVersion": 1,
+	"meta": {
+		"title": {
+			"fr": "Diagnostic de démonstration",
+			"en": "Demo diagnostic"
+		},
+		"description": "Exemple neutre servant à tester le moteur."
+	},
+	"i18n": {
+		"defaultLanguage": "fr",
+		"languages": [ "fr", "en" ],
+		"switcher": false
+	},
+	"welcome": {
+		"title": { "fr": "Testez le moteur", "en": "Try the engine" },
+		"subtitle": "Quelques questions pour vérifier chaque type de champ.",
+		"benefits": [ "6 questions", "Résultat immédiat" ],
+		"startLabel": { "fr": "Commencer", "en": "Start" }
+	},
+	"flow": {
+		"progress": { "bar": true, "counter": true, "sectionName": true },
+		"autoAdvance": true,
+		"optionLetters": true,
+		"encouragements": [
+			{ "atPercent": 50, "text": "À mi-chemin, {first_name} !" }
+		],
+		"transition": {
+			"enabled": true,
+			"durationMs": 2000,
+			"steps": [ "Calcul des scores", "Préparation du résultat" ]
+		}
+	},
+	"sections": [
+		{ "key": "alpha", "label": "Section A" },
+		{ "key": "beta", "label": "Section B" }
+	],
+	"axes": [
+		{ "key": "axis_x", "label": "Axe X", "base": 0, "min": 0, "max": 100 },
+		{ "key": "axis_y", "label": "Axe Y", "base": 0, "min": 0, "max": 100 }
+	],
+	"steps": [
+		{
+			"key": "first_name",
+			"kind": "question",
+			"section": "alpha",
+			"type": "text",
+			"label": "Votre prénom ?",
+			"placeholder": "Prénom",
+			"required": false
+		},
+		{
+			"key": "q_choice",
+			"kind": "question",
+			"section": "alpha",
+			"type": "single",
+			"label": "Choisissez une option",
+			"options": [
+				{
+					"value": "a",
+					"label": "Option A",
+					"scores": { "axis_x": 40 }
+				},
+				{
+					"value": "b",
+					"label": "Option B",
+					"scores": { "axis_x": 20, "axis_y": 20 }
+				},
+				{
+					"value": "c",
+					"label": "Option C",
+					"scores": { "axis_y": 40 }
+				},
+				{
+					"value": "unknown",
+					"label": "Je ne sais pas",
+					"exit": { "mode": "neutral" }
+				}
+			]
+		},
+		{
+			"key": "q_multi",
+			"kind": "question",
+			"section": "alpha",
+			"type": "multi",
+			"label": "Cochez ce qui s'applique",
+			"help": "Plusieurs réponses possibles.",
+			"options": [
+				{ "value": "one", "label": "Élément 1" },
+				{ "value": "two", "label": "Élément 2" },
+				{ "value": "three", "label": "Élément 3" },
+				{ "value": "none", "label": "Aucun", "exclusive": true }
+			]
+		},
+		{
+			"key": "q_follow_up",
+			"kind": "question",
+			"section": "alpha",
+			"type": "yes_no",
+			"label": "Question affichée seulement si l'option A a été choisie",
+			"showIf": { "left": "answer.q_choice", "op": "eq", "value": "a" },
+			"options": [
+				{ "value": true, "label": "Oui", "scores": { "axis_x": 10 } },
+				{ "value": false, "label": "Non" }
+			]
+		},
+		{
+			"key": "intermission",
+			"kind": "content",
+			"section": "beta",
+			"variant": "quote",
+			"body": "Écran intermédiaire de démonstration.",
+			"author": "Auteur fictif"
+		},
+		{
+			"key": "q_scale",
+			"kind": "question",
+			"section": "beta",
+			"type": "scale",
+			"label": "Sur une échelle de 1 à 5 ?",
+			"validation": { "min": 1, "max": 5 },
+			"scaleLabels": { "min": "Pas du tout", "max": "Tout à fait" }
+		},
+		{
+			"key": "q_current",
+			"kind": "question",
+			"section": "beta",
+			"type": "amount",
+			"label": "Valeur actuelle",
+			"currency": "EUR",
+			"period": "month",
+			"validation": { "min": 0 }
+		},
+		{
+			"key": "q_target",
+			"kind": "question",
+			"section": "beta",
+			"type": "slider",
+			"label": "Valeur cible",
+			"unit": "€",
+			"validation": { "min": 0, "max": 10000, "step": 100 }
+		},
+		{
+			"key": "contact",
+			"kind": "form",
+			"section": "beta",
+			"title": "Recevoir le résultat",
+			"fields": [
+				{ "key": "first_name", "type": "text", "label": "Prénom" },
+				{
+					"key": "email",
+					"type": "email",
+					"label": "Email",
+					"required": true
+				}
+			],
+			"consent": {
+				"text": "J'accepte que mes réponses soient utilisées pour m'envoyer le résultat.",
+				"version": "demo-1"
+			}
+		}
+	],
+	"scoring": {
+		"rules": [
+			{
+				"type": "count",
+				"axis": "axis_y",
+				"question": "q_multi",
+				"ranges": [
+					{ "min": 1, "max": 3, "points": 15 },
+					{ "min": 3, "points": 30 }
+				]
+			},
+			{
+				"type": "range",
+				"axis": "axis_x",
+				"question": "q_scale",
+				"ranges": [
+					{ "min": 1, "max": 3, "points": 5 },
+					{ "min": 3, "points": 25 }
+				]
+			}
+		]
+	},
+	"variables": [
+		{
+			"key": "gap",
+			"label": "Écart",
+			"expr": "max(0, answer.q_target - answer.q_current)",
+			"format": { "style": "currency", "currency": "EUR", "decimals": 0 }
+		}
+	],
+	"outcomes": {
+		"profiles": [
+			{
+				"key": "profile_high",
+				"label": "Profil 1",
+				"text": "Score moyen élevé.",
+				"when": { "expr": "(score.axis_x + score.axis_y) / 2 >= 50" },
+				"priority": 10
+			},
+			{
+				"key": "profile_low",
+				"label": "Profil 2",
+				"text": "Score moyen modéré."
+			}
+		],
+		"texts": [
+			{
+				"key": "weakest_x",
+				"title": "Point d'attention",
+				"body": "Votre axe le plus faible est l'axe X.",
+				"when": { "left": "weakestAxis", "op": "eq", "value": "axis_x" }
+			}
+		],
+		"ctas": [
+			{
+				"key": "cta_demo",
+				"label": "Action recommandée",
+				"url": "https://example.com/",
+				"utm": {
+					"source": "smart-diagnostic",
+					"medium": "result",
+					"campaign": "demo"
+				}
+			}
+		]
+	},
+	"results": {
+		"title": "Votre résultat, {first_name}",
+		"blocks": [
+			{ "type": "profile" },
+			{ "type": "scores", "display": "radar" },
+			{ "type": "variables", "keys": [ "gap" ], "chart": "compare" },
+			{ "type": "texts" },
+			{ "type": "cta" },
+			{ "type": "share" }
+		]
+	}
+}

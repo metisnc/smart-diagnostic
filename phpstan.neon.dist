@@ -1,0 +1,8 @@
+parameters:
+  level: 6
+  paths:
+    - smart-diagnostic.php
+    - uninstall.php
+    - src
+  bootstrapFiles:
+    - tests/php/phpstan-constants.php

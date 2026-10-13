@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          tools: composer:v2
+          coverage: none
+      - run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+      - run: npm ci && npm run build
+      - name: Build zip
+        run: |
+          mkdir -p dist/smart-diagnostic
+          rsync -a --exclude-from=.distignore ./ dist/smart-diagnostic/
+          cd dist && zip -qr "smart-diagnostic-${GITHUB_REF_NAME}.zip" smart-diagnostic
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smart-diagnostic-${{ github.ref_name }}
+          path: dist/smart-diagnostic-${{ github.ref_name }}.zip
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/smart-diagnostic-${{ github.ref_name }}.zip
+          generate_release_notes: true
