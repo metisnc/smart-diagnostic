@@ -161,7 +161,9 @@ test( 'JSON and HTML modes, then back to the default template', async ( {
 	).toHaveValue( 'Titre depuis le JSON' );
 
 	// HTML avancé : on part du rendu des blocs.
-	await editor.getByLabel( 'HTML (advanced)' ).check();
+	// Conversion par le serveur : le mode change à la réponse.
+	await editor.getByLabel( 'HTML (advanced)' ).click();
+	await expect( editor.getByLabel( 'HTML (advanced)' ) ).toBeChecked();
 	const html = editor.getByLabel( 'Email body (HTML)' );
 	await expect( html ).toHaveValue( /Titre depuis le JSON<\/h1>/ );
 	await expect( html ).toHaveValue( /\{scores\}/ );
