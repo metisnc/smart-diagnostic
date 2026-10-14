@@ -10,6 +10,13 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
   crée un brouillon modifiable ; le modèle n'est jamais modifié. Filtre `sd_templates`,
   action `sd_template_used`, commandes `wp smart-diagnostic templates` et
   `create-from-template`.
+- Éditeur d'emails sans code : blocs (titre, texte, bouton, image, séparateur, espace,
+  résultat / profil, scores, textes, plan d'action, recommandation, réponses), menu « Insérer
+  une variable », style (logo, couleurs, police), aperçu en direct ordinateur / mobile, envoi
+  d'essai, mode JSON des blocs et mode HTML avancé, 3 modèles de départ (résultat visiteur,
+  notification équipe, relance). Emails adaptés aux petits écrans.
+- Relance du visiteur quelques jours après sa réponse (`integrations.emails.followUp`,
+  désactivée par défaut).
 
 ### Changed
 - Le diagnostic de démonstration devient un fichier de test (`tests/fixtures/demo.json`) ; le

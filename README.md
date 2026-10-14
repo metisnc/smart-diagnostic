@@ -19,7 +19,8 @@ d'éligibilité…
   multiplicateurs, plafonds), réponses « Je ne sais pas », formules, profils, textes
   conditionnels, plan d'action, CTA recommandé avec UTM. Moteur identique en JS (aperçu) et
   en PHP (source de vérité), avec tests de parité.
-- **Résultat** : radar, barres ou jauges en SVG, impression / PDF, lien personnel, email.
+- **Résultat** : radar, barres ou jauges en SVG, impression / PDF, lien personnel, emails personnalisables sans code
+  (éditeur visuel par blocs), relance automatique.
 - **Leads** : API REST sécurisée (nonce, anti-robot, limitation, captcha optionnel), admin
   « Réponses » avec filtres et export CSV, emails, webhooks signés (Make, Zapier, n8n, CRM).
 - **Statistiques** : entonnoir, abandons, profils, CTA ; événements pour GA4 / GTM / Meta.

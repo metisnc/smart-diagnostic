@@ -441,12 +441,23 @@
 								},
 								"body": {
 									"$ref": "#/$defs/text",
-									"description": "Modèle personnalisé : corps HTML avec variables ({first_name}, {profile}, {scores}, {texts}, {actions}, {cta}, {result_button}, {result_link}, {answers}…). Absent = modèle par défaut."
+									"description": "Mode HTML avancé : corps HTML avec variables ({first_name}, {profile}, {scores}, {texts}, {actions}, {cta}, {result_button}, {result_link}, {answers}…). Prioritaire sur « blocks ». Absent avec « blocks » absent = modèle par défaut."
 								},
 								"fullHtml": {
 									"type": "boolean",
 									"default": false,
 									"description": "true : le corps est un document HTML complet, sans le cadre du plugin."
+								},
+								"blocks": {
+									"type": "array",
+									"maxItems": 60,
+									"items": {
+										"$ref": "#/$defs/emailBlock"
+									},
+									"description": "Éditeur visuel : blocs de l'email. Ignoré si « body » est renseigné (mode HTML avancé)."
+								},
+								"style": {
+									"$ref": "#/$defs/emailStyle"
 								}
 							}
 						},
@@ -473,7 +484,59 @@
 								},
 								"body": {
 									"$ref": "#/$defs/text",
-									"description": "Modèle personnalisé : corps HTML avec variables ({first_name}, {profile}, {scores}, {texts}, {actions}, {cta}, {result_button}, {result_link}, {answers}…). Absent = modèle par défaut."
+									"description": "Mode HTML avancé : corps HTML avec variables ({first_name}, {profile}, {scores}, {texts}, {actions}, {cta}, {result_button}, {result_link}, {answers}…). Prioritaire sur « blocks ». Absent avec « blocks » absent = modèle par défaut."
+								},
+								"fullHtml": {
+									"type": "boolean",
+									"default": false,
+									"description": "true : le corps est un document HTML complet, sans le cadre du plugin."
+								},
+								"blocks": {
+									"type": "array",
+									"maxItems": 60,
+									"items": {
+										"$ref": "#/$defs/emailBlock"
+									},
+									"description": "Éditeur visuel : blocs de l'email. Ignoré si « body » est renseigné (mode HTML avancé)."
+								},
+								"style": {
+									"$ref": "#/$defs/emailStyle"
+								}
+							}
+						},
+						"followUp": {
+							"type": "object",
+							"additionalProperties": false,
+							"description": "Relance : email envoyé au visiteur quelques jours après sa réponse (désactivée par défaut).",
+							"properties": {
+								"enabled": {
+									"type": "boolean",
+									"default": false
+								},
+								"delayDays": {
+									"type": "integer",
+									"minimum": 1,
+									"maximum": 60,
+									"default": 3,
+									"description": "Délai d'envoi après la réponse, en jours."
+								},
+								"subject": {
+									"$ref": "#/$defs/text"
+								},
+								"blocks": {
+									"type": "array",
+									"maxItems": 60,
+									"items": {
+										"$ref": "#/$defs/emailBlock"
+									},
+									"description": "Éditeur visuel : blocs de l'email. Ignoré si « body » est renseigné (mode HTML avancé)."
+								},
+								"style": {
+									"$ref": "#/$defs/emailStyle"
+								},
+								"body": {
+									"$ref": "#/$defs/text",
+									"description": "Mode HTML avancé : corps HTML avec variables ({first_name}, {profile}, {scores}, {texts}, {actions}, {cta}, {result_button}, {result_link}, {answers}…). Prioritaire sur « blocks ». Absent avec « blocks » absent = modèle par défaut."
 								},
 								"fullHtml": {
 									"type": "boolean",
@@ -1413,6 +1476,90 @@
 					}
 				}
 			]
+		},
+		"emailBlock": {
+			"type": "object",
+			"additionalProperties": false,
+			"required": [ "type" ],
+			"description": "Bloc d'email (éditeur visuel). Les blocs « scores », « profile », « texts », « actions », « cta », « answers » sont remplis avec le résultat du visiteur.",
+			"properties": {
+				"type": {
+					"enum": [
+						"heading",
+						"text",
+						"button",
+						"image",
+						"divider",
+						"spacer",
+						"scores",
+						"profile",
+						"texts",
+						"actions",
+						"cta",
+						"answers"
+					]
+				},
+				"text": {
+					"$ref": "#/$defs/text",
+					"description": "Titre, texte (lignes vides = paragraphes, **gras**) ou libellé du bouton. Variables autorisées."
+				},
+				"url": {
+					"type": "string",
+					"maxLength": 2000,
+					"description": "Bouton : lien (https://…, mailto:… ou {result_link}). Image : adresse de l'image."
+				},
+				"link": {
+					"type": "string",
+					"maxLength": 2000,
+					"description": "Image : lien facultatif au clic."
+				},
+				"alt": {
+					"$ref": "#/$defs/text"
+				},
+				"align": {
+					"enum": [ "left", "center", "right" ]
+				},
+				"size": {
+					"enum": [ "small", "medium", "large" ],
+					"description": "Titre : taille ; espace : hauteur."
+				},
+				"width": {
+					"type": "integer",
+					"minimum": 16,
+					"maximum": 600,
+					"description": "Image : largeur maximale en pixels."
+				}
+			}
+		},
+		"emailStyle": {
+			"type": "object",
+			"additionalProperties": false,
+			"description": "Style de l'email : chaque valeur absente reprend l'apparence du questionnaire.",
+			"properties": {
+				"logo": {
+					"type": "string",
+					"maxLength": 2000,
+					"description": "Adresse du logo (https://…)."
+				},
+				"primary": {
+					"$ref": "#/$defs/color"
+				},
+				"background": {
+					"$ref": "#/$defs/color",
+					"description": "Fond du contenu."
+				},
+				"surface": {
+					"$ref": "#/$defs/color",
+					"description": "Fond autour du contenu."
+				},
+				"text": {
+					"$ref": "#/$defs/color"
+				},
+				"fontFamily": {
+					"type": "string",
+					"maxLength": 200
+				}
+			}
 		}
 	}
 }

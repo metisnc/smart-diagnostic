@@ -9,7 +9,7 @@ import {
 import { __ } from '@wordpress/i18n';
 import { I18nText, KeyField, ListEditor, NumberField } from '../fields';
 import { uniqueKey } from '../utils';
-import { EmailTemplateEditor } from '../EmailTemplateEditor';
+import { EmailEditor } from '../EmailEditor';
 
 function TextList( { label, items, onChange, languages, addLabel } ) {
 	return (
@@ -522,7 +522,7 @@ export function IntegrationsTab( { config, set, languages } ) {
 					set( [ 'integrations', 'emails', 'user', 'subject' ], v )
 				}
 			/>
-			<EmailTemplateEditor
+			<EmailEditor
 				kind="user"
 				config={ config }
 				set={ set }
@@ -573,12 +573,87 @@ export function IntegrationsTab( { config, set, languages } ) {
 					set( [ 'integrations', 'emails', 'admin', 'subject' ], v )
 				}
 			/>
-			<EmailTemplateEditor
+			<EmailEditor
 				kind="admin"
 				config={ config }
 				set={ set }
 				languages={ languages }
 			/>
+
+			<h3>{ __( 'Follow-up email', 'smart-diagnostic' ) }</h3>
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __(
+					'Send a follow-up email to the visitor a few days later',
+					'smart-diagnostic'
+				) }
+				help={ __(
+					'Only to visitors who left their email address.',
+					'smart-diagnostic'
+				) }
+				checked={ Boolean( emails.followUp?.enabled ) }
+				onChange={ ( on ) =>
+					set(
+						[ 'integrations', 'emails', 'followUp', 'enabled' ],
+						on || undefined
+					)
+				}
+			/>
+			{ emails.followUp?.enabled && (
+				<>
+					<NumberField
+						label={ __(
+							'Days after the answer',
+							'smart-diagnostic'
+						) }
+						min={ 1 }
+						max={ 60 }
+						step={ 1 }
+						value={ emails.followUp?.delayDays ?? 3 }
+						onChange={ ( days ) =>
+							set(
+								[
+									'integrations',
+									'emails',
+									'followUp',
+									'delayDays',
+								],
+								days === 3 || days === undefined
+									? undefined
+									: Math.max(
+											1,
+											Math.min( 60, Math.round( days ) )
+										)
+							)
+						}
+					/>
+					<I18nText
+						label={ __(
+							'Subject of the follow-up email',
+							'smart-diagnostic'
+						) }
+						value={ emails.followUp?.subject }
+						languages={ languages }
+						onChange={ ( v ) =>
+							set(
+								[
+									'integrations',
+									'emails',
+									'followUp',
+									'subject',
+								],
+								v
+							)
+						}
+					/>
+					<EmailEditor
+						kind="followUp"
+						config={ config }
+						set={ set }
+						languages={ languages }
+					/>
+				</>
+			) }
 
 			<ListEditor
 				label={ __(

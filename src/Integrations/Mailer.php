@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace SmartDiagnostic\Integrations;
 
 use SmartDiagnostic\Branding;
+use SmartDiagnostic\Config\ConfigRepository;
 use SmartDiagnostic\Engine\Text;
 use SmartDiagnostic\Rest\SubmitController;
 use SmartDiagnostic\Storage\SubmissionRepository;
@@ -20,6 +21,9 @@ use SmartDiagnostic\Storage\SubmissionRepository;
  */
 final class Mailer {
 
+	/** Événement planifié de la relance (argument : ID de la soumission). */
+	public const FOLLOW_UP_HOOK = 'sd_send_follow_up';
+
 	public function __construct(
 		private SubmissionRepository $submissions = new SubmissionRepository(),
 		private MailTransport $transport = new MailTransport()
@@ -28,6 +32,7 @@ final class Mailer {
 	public function register(): void {
 		add_action( 'sd_submission_created', array( $this, 'on_created' ), 10, 2 );
 		add_action( 'sd_submission_contact_updated', array( $this, 'on_contact_updated' ), 10, 2 );
+		add_action( self::FOLLOW_UP_HOOK, array( $this, 'send_follow_up' ) );
 	}
 
 	/**
@@ -37,6 +42,7 @@ final class Mailer {
 	public function on_created( array $submission, array $config ): void {
 		$this->send_user( $submission, $config );
 		$this->send_admin( $submission, $config );
+		$this->schedule_follow_up( $submission, $config );
 	}
 
 	/**
@@ -47,6 +53,52 @@ final class Mailer {
 	 */
 	public function on_contact_updated( array $submission, array $config ): void {
 		$this->send_user( $submission, $config );
+		$this->schedule_follow_up( $submission, $config );
+	}
+
+	/**
+	 * Planifie la relance du visiteur (si activée et si le visiteur a laissé son email).
+	 *
+	 * @param array<string, mixed> $submission Soumission.
+	 * @param array<string, mixed> $config     Config.
+	 */
+	public function schedule_follow_up( array $submission, array $config ): bool {
+		$settings = $config['integrations']['emails']['followUp'] ?? array();
+		$email    = (string) ( $submission['email'] ?? '' );
+		$id       = (int) ( $submission['id'] ?? 0 );
+		if ( empty( $settings['enabled'] ) || $id <= 0 || '' === $email || ! is_email( $email ) ) {
+			return false;
+		}
+		if ( false !== wp_next_scheduled( self::FOLLOW_UP_HOOK, array( $id ) ) ) {
+			return false;
+		}
+		$days = max( 1, min( 60, (int) ( $settings['delayDays'] ?? 3 ) ) );
+		return true === wp_schedule_single_event( time() + $days * DAY_IN_SECONDS, self::FOLLOW_UP_HOOK, array( $id ) );
+	}
+
+	/**
+	 * Envoi de la relance planifiée : rien si la réponse a été effacée, si la relance a été
+	 * désactivée entre-temps ou si elle est déjà partie.
+	 */
+	public function send_follow_up( int $submission_id ): bool {
+		$submission = $this->submissions->find( $submission_id );
+		if ( null === $submission ) {
+			return false;
+		}
+		$config = ( new ConfigRepository() )->get_array( (int) $submission['diagnostic_id'] );
+		if ( null === $config ) {
+			return false;
+		}
+		$settings = $config['integrations']['emails']['followUp'] ?? array();
+		$email    = (string) ( $submission['email'] ?? '' );
+		$sent     = 'sent' === ( $submission['emails']['followup']['status'] ?? '' );
+		if ( empty( $settings['enabled'] ) || $sent || '' === $email || ! is_email( $email ) ) {
+			return false;
+		}
+		$email_content = $this->compose( 'followUp', $submission, $config );
+		$result        = $this->transport->send( $email, $email_content['subject'], $email_content['body'] );
+		$this->record( $submission, 'followup', $email, $result );
+		return $result['ok'];
 	}
 
 	/**
@@ -93,26 +145,45 @@ final class Mailer {
 	/**
 	 * Objet et corps d'un email : modèle personnalisé du diagnostic s'il existe, sinon modèle par défaut.
 	 *
-	 * @param string               $kind       user | admin.
+	 * Ordre : HTML avancé (body), puis éditeur visuel (blocks), puis modèle par défaut.
+	 * Une relance sans contenu utilise le modèle de départ « relance ».
+	 *
+	 * @param string               $kind       user | admin | followUp.
 	 * @param array<string, mixed> $submission Soumission.
 	 * @param array<string, mixed> $config     Config.
 	 * @return array{subject: string, body: string, custom: bool}
 	 */
 	public function compose( string $kind, array $submission, array $config ): array {
-		$settings = $config['integrations']['emails'][ $kind ] ?? array();
-		$subject  = $this->text( $settings['subject'] ?? null, $config, $submission );
+		$settings = (array) ( $config['integrations']['emails'][ $kind ] ?? array() );
+		$lang     = (string) ( $submission['lang'] ?? '' );
+		$fallback = (string) ( $config['i18n']['defaultLanguage'] ?? '' );
+		$custom   = Text::resolve( $settings['body'] ?? null, $lang, $fallback );
+		if ( 'followUp' === $kind && empty( $settings['blocks'] ) && '' === trim( $custom ) ) {
+			$preset                = EmailBlocks::presets()['followUp'];
+			$settings['blocks']    = $preset['blocks'];
+			$settings['subject'] ??= $preset['subject'];
+		}
+		$config  = EmailBlocks::with_style( $config, (array) ( $settings['style'] ?? array() ) );
+		$subject = $this->text( $settings['subject'] ?? null, $config, $submission );
 		if ( '' === $subject ) {
-			$subject = 'user' === $kind
-				? __( 'Your results', 'smart-diagnostic' )
+			$subject = 'admin' === $kind
 				/* translators: 1: diagnostic title, 2: first name or email. */
-				: sprintf( __( 'New submission: %1$s (%2$s)', 'smart-diagnostic' ), get_the_title( (int) ( $submission['diagnostic_id'] ?? 0 ) ), $submission['first_name'] ?: $submission['email'] ?: '—' ); // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
+				? sprintf( __( 'New submission: %1$s (%2$s)', 'smart-diagnostic' ), get_the_title( (int) ( $submission['diagnostic_id'] ?? 0 ) ), $submission['first_name'] ?: $submission['email'] ?: '—' ) // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
+				: __( 'Your results', 'smart-diagnostic' );
 		}
 
-		$custom = Text::resolve( $settings['body'] ?? null, (string) ( $submission['lang'] ?? '' ), (string) ( $config['i18n']['defaultLanguage'] ?? '' ) );
 		if ( '' !== trim( $custom ) ) {
 			return array(
 				'subject' => $subject,
 				'body'    => CustomEmail::render( $custom, ! empty( $settings['fullHtml'] ), $submission, $config ),
+				'custom'  => true,
+			);
+		}
+		if ( ! empty( $settings['blocks'] ) && is_array( $settings['blocks'] ) ) {
+			$html = EmailBlocks::html( array_values( $settings['blocks'] ), $lang, $fallback, self::email_theme( $config ) );
+			return array(
+				'subject' => $subject,
+				'body'    => CustomEmail::render( $html, false, $submission, $config ),
 				'custom'  => true,
 			);
 		}
@@ -181,7 +252,7 @@ final class Mailer {
 	 * Statut d'envoi conservé dans la soumission (visible dans l'admin « Réponses »).
 	 *
 	 * @param array<string, mixed>                        $submission Soumission.
-	 * @param string                                      $kind       user | admin.
+	 * @param string                                      $kind       user | admin | followup.
 	 * @param string                                      $to         Destinataire(s).
 	 * @param array{ok: bool, error: string, via: string} $result     Résultat de l'envoi.
 	 */

@@ -31,10 +31,26 @@ l'apparence du questionnaire (onglet **Apparence**) : couleurs, polices (avec re
 Arial / Helvetica, car beaucoup de messageries n'ont pas les polices du site), arrondi des
 angles (en `px`) et logo.
 
-### Modèle personnalisé
+### Éditeur d'emails
 
-Constructeur → **Intégrations** → « Modèle personnalisé », pour l'email au visiteur et / ou à
-l'équipe : objet et corps HTML libres, avec des variables insérées d'un clic.
+Constructeur → **Intégrations**, pour l'email au visiteur, à l'équipe et la relance. Trois
+modes, au choix :
+
+- **Modèle par défaut** : construit à partir du résultat, sans rien saisir ;
+- **Éditeur visuel** (sans code) : une liste de blocs à ajouter, déplacer, dupliquer ou
+  supprimer — titre, texte, bouton, image, séparateur, espace, et blocs remplis avec le
+  résultat du visiteur : résultat / profil, scores, textes personnalisés, plan d'action,
+  recommandation / appel à l'action, tableau des réponses. Le menu **Insérer une variable**
+  ajoute le prénom, une réponse, un score… au curseur. **Style** : logo, couleurs, police
+  (vide = l'apparence du questionnaire). **Partir d'un modèle** : résultat visiteur,
+  notification équipe, relance. **Modifier en JSON** affiche les blocs en JSON (aller vite,
+  coller un contenu préparé avec une IA) et revient à l'éditeur visuel sans perte ;
+- **HTML (avancé)** : corps HTML libre, pré-rempli avec le rendu des blocs. Revenir à
+  l'éditeur visuel abandonne les modifications HTML (les blocs sont conservés).
+
+**Aperçu** (données d'exemple), sur ordinateur ou mobile, mis à jour à chaque modification,
+et **M'envoyer cet email**. Les emails sont construits en tableaux avec styles en ligne et
+s'adaptent aux petits écrans (compatibles avec les principales messageries).
 
 | Variable | Contenu |
 |---|---|
@@ -44,12 +60,41 @@ l'équipe : objet et corps HTML libres, avec des variables insérées d'un clic.
 | `{cta}`, `{result_button}`, `{result_link}` | Bouton d'appel à l'action, bouton et adresse de la page de résultat |
 | `{score:axe}`, `{answer:question}`, `{var:cle}`, `{contact:champ}` | Valeurs ponctuelles |
 
-Le corps est placé dans le cadre du plugin (`templates/emails/custom.php`, surchargeable) ;
-l'option « Document HTML complet » le remplace entièrement (`<html>`, `<head>`, `<style>`
-autorisés). Le HTML saisi est filtré et les valeurs saisies par les visiteurs sont
-toujours échappées. **Aperçu** (données d'exemple) et **M'envoyer cet email** permettent de
-vérifier le rendu avant d'enregistrer. Format JSON : `integrations.emails.user.body`
-(texte ou objet par langue) et `fullHtml`.
+En mode HTML, le corps est placé dans le cadre du plugin (`templates/emails/custom.php`,
+surchargeable) ; l'option « Document HTML complet » le remplace entièrement (`<html>`,
+`<head>`, `<style>` autorisés). Le HTML saisi est filtré et les valeurs saisies par les
+visiteurs sont toujours échappées.
+
+Format JSON (`integrations.emails.user`, `.admin` ou `.followUp`) :
+
+```json
+"user": {
+  "subject": "Votre résultat, {first_name}",
+  "style": { "primary": "#ff5500", "logo": "https://exemple.fr/logo.png" },
+  "blocks": [
+    { "type": "heading", "text": "Bonjour {first_name}", "size": "large" },
+    { "type": "text", "text": "Merci !\n\nVoici **votre résultat** :" },
+    { "type": "profile" },
+    { "type": "scores" },
+    { "type": "button", "text": "Voir mon rapport", "url": "{result_link}", "align": "center" }
+  ]
+}
+```
+
+Types de blocs : `heading` (`text`, `size`), `text` (`text` ; ligne vide = paragraphe,
+`**gras**`), `button` (`text`, `url` : https://, mailto: ou `{result_link}`), `image`
+(`url`, `alt`, `link`, `width`), `divider`, `spacer` (`size`), `profile`, `scores`,
+`texts`, `actions`, `cta`, `answers` ; `align` : `left`, `center`, `right`. Priorité :
+`body` (HTML), puis `blocks`, puis le modèle par défaut.
+
+### Relance
+
+`integrations.emails.followUp` : `{ "enabled": true, "delayDays": 3 }` envoie au visiteur
+(s'il a laissé son email) un email quelques jours après sa réponse, par une tâche planifiée
+de WordPress (WP-Cron : une tâche cron système est recommandée sur un site peu visité). Sans
+contenu, le modèle de départ « relance » est utilisé. Pas d'envoi si la réponse a été
+effacée entre-temps ou si la relance a été désactivée. Son statut apparaît dans le détail
+de la réponse.
 
 ### Réglages → Emails
 

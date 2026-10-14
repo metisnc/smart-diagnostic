@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace SmartDiagnostic\Rest;
 
+use SmartDiagnostic\Integrations\EmailBlocks;
 use SmartDiagnostic\Integrations\Mailer;
 use SmartDiagnostic\Integrations\MailTransport;
 use WP_Error;
@@ -40,12 +41,16 @@ final class EmailPreviewController {
 					),
 					'kind'          => array(
 						'type'    => 'string',
-						'enum'    => array( 'user', 'admin' ),
+						'enum'    => array( 'user', 'admin', 'followUp' ),
 						'default' => 'user',
 					),
 					'diagnostic_id' => array(
 						'type'    => 'integer',
 						'default' => 0,
+					),
+					'lang'          => array(
+						'type'    => 'string',
+						'default' => '',
 					),
 					'send'          => array(
 						'type'    => 'boolean',
@@ -73,6 +78,15 @@ final class EmailPreviewController {
 			'html'    => $email['body'],
 			'custom'  => $email['custom'],
 		);
+
+		// Passage de l'éditeur visuel au mode HTML : HTML des blocs, variables non remplacées.
+		$settings = (array) ( $config['integrations']['emails'][ (string) $request['kind'] ] ?? array() );
+		if ( ! empty( $settings['blocks'] ) && is_array( $settings['blocks'] ) ) {
+			$lang              = (string) ( $request['lang'] ?? '' );
+			$fallback          = (string) ( $config['i18n']['defaultLanguage'] ?? '' );
+			$styled            = EmailBlocks::with_style( $config, (array) ( $settings['style'] ?? array() ) );
+			$payload['source'] = EmailBlocks::html( array_values( $settings['blocks'] ), '' !== $lang ? $lang : $fallback, $fallback, Mailer::email_theme( $styled ) );
+		}
 
 		if ( $request['send'] ) {
 			$to = wp_get_current_user()->user_email;
