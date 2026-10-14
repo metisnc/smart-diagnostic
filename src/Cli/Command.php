@@ -52,7 +52,7 @@ final class Command {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp smart-diagnostic import examples/demo.json --slug=demo
+	 *     wp smart-diagnostic import mon-diagnostic.json --slug=mon-diagnostic
 	 *
 	 * @param list<string>          $args       Arguments.
 	 * @param array<string, string> $assoc_args Options.

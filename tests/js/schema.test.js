@@ -16,17 +16,17 @@ describe( 'diagnostic.schema.json', () => {
 	const validate = ajv.compile( readJson( 'schema/diagnostic.schema.json' ) );
 
 	const examples = fs
-		.readdirSync( path.join( root, 'examples' ) )
+		.readdirSync( path.join( root, 'tests/fixtures' ) )
 		.filter( ( file ) => file.endsWith( '.json' ) );
 
-	it.each( examples )( 'examples/%s is valid', ( file ) => {
-		const valid = validate( readJson( `examples/${ file }` ) );
+	it.each( examples )( 'tests/fixtures/%s is valid', ( file ) => {
+		const valid = validate( readJson( `tests/fixtures/${ file }` ) );
 		expect( validate.errors ).toBeNull();
 		expect( valid ).toBe( true );
 	} );
 
 	it( 'rejects an unknown question type', () => {
-		const config = readJson( 'examples/demo.json' );
+		const config = readJson( 'tests/fixtures/demo.json' );
 		config.steps[ 0 ].type = 'unknown_type';
 		expect( validate( config ) ).toBe( false );
 	} );

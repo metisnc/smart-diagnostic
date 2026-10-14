@@ -34,7 +34,7 @@ final class SanitizerTest extends TestCase {
 				'is_email'                => static fn( $value ) => false !== filter_var( $value, FILTER_VALIDATE_EMAIL ),
 			)
 		);
-		$this->config = json_decode( (string) file_get_contents( dirname( __DIR__, 3 ) . '/examples/demo.json' ), true );
+		$this->config = json_decode( (string) file_get_contents( dirname( __DIR__, 3 ) . '/tests/fixtures/demo.json' ), true );
 	}
 
 	protected function tearDown(): void {

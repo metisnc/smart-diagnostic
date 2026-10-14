@@ -1,5 +1,5 @@
 /**
- * Parcours complet sur la page de test (examples/demo.json importé par setup-local.sh).
+ * Parcours complet sur la page de test (tests/fixtures/demo.json, importé par setup-local.sh).
  */
 const { test, expect } = require( '@playwright/test' );
 

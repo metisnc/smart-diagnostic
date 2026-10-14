@@ -40,7 +40,7 @@ final class IntegrationsTest extends TestCase {
 				'home_url'       => 'https://example.test/',
 			)
 		);
-		$json         = (string) file_get_contents( dirname( __DIR__, 3 ) . '/examples/demo.json' );
+		$json         = (string) file_get_contents( dirname( __DIR__, 3 ) . '/tests/fixtures/demo.json' );
 		$this->config = json_decode( $json, true );
 		Functions\when( 'get_post_meta' )->justReturn( $json );
 
