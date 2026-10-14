@@ -12,8 +12,13 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
   (texte et titres), les coins et la largeur (avec valeur personnalisée), alerte de lisibilité
   (contraste), logo depuis la médiathèque (choisir ou téléverser) avec aperçu et description.
 - Réglages : bouton « i » à côté de chaque réglage, qui explique simplement à quoi il sert.
+- Onglet « Parcours » simplifié : étapes numérotées, réponses en cartes avec les points par
+  thème (nom du thème au lieu de la clé), libellés dans toutes les langues, logique
+  (conditions, sauts) et options avancées (clés, valeurs, « Je ne sais pas ») repliées.
 
 ### Fixed
+- Constructeur : chevauchements et textes illisibles avec le zoom du navigateur ; la mise en
+  page suit la place réellement disponible (aperçu déduit).
 - Le constructeur ne peut plus se retrouver dans la colonne latérale (panneau fixe sous le
   titre) ; en-tête, onglets et tableau des réponses plus lisibles ; shortcode dans une boîte
   « Insertion ».
