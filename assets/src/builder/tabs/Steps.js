@@ -257,7 +257,9 @@ function OptionsEditor( { step, axes, languages, advanced, onChange } ) {
 										key={ axis.key }
 										className="sd-b-answer__point"
 									>
-										<span>{ axisName( axis ) }</span>
+										<span title={ axisName( axis ) }>
+											{ axisName( axis ) }
+										</span>
 										<input
 											type="number"
 											step="any"

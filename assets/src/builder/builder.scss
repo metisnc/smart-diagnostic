@@ -351,6 +351,13 @@
 		margin: 0 0 12px;
 		padding: 0;
 		list-style: none;
+
+		// Une seule colonne : liste à hauteur fixe, l'éditeur reste proche.
+		@container (max-width: 819px) {
+			max-height: 340px;
+			overflow-y: auto;
+			padding: 2px;
+		}
 	}
 
 	&__item {
