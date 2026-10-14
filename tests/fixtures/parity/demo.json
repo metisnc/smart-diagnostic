@@ -1,6 +1,6 @@
 {
-	"description": "examples/demo.json : chemins conditionnels, réponse neutre, plages, comptage, profils.",
-	"configFile": "examples/demo.json",
+	"description": "tests/fixtures/demo.json : chemins conditionnels, réponse neutre, plages, comptage, profils.",
+	"configFile": "tests/fixtures/demo.json",
 	"cases": [
 		{
 			"name": "option A, suivi oui, échelle 4",

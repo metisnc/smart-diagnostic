@@ -30,7 +30,7 @@ final class ConfigTest extends TestCase {
 	}
 
 	private function demo(): string {
-		return (string) file_get_contents( dirname( __DIR__, 3 ) . '/examples/demo.json' );
+		return (string) file_get_contents( dirname( __DIR__, 3 ) . '/tests/fixtures/demo.json' );
 	}
 
 	public function test_demo_example_is_valid(): void {

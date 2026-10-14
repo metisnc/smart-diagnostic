@@ -12,8 +12,8 @@
     "start": "wp-scripts start",
     "lint": "npm run lint:js && npm run format:check",
     "lint:js": "wp-scripts lint-js assets/src tests/js tests/e2e",
-    "format": "prettier --write \"assets/src/**/*.{js,jsx,scss}\" \"tests/**/*.js\" \"examples/*.json\" \"schema/*.json\"",
-    "format:check": "prettier --check \"assets/src/**/*.{js,jsx,scss}\" \"tests/**/*.js\" \"examples/*.json\" \"schema/*.json\"",
+    "format": "prettier --write \"assets/src/**/*.{js,jsx,scss}\" \"tests/**/*.js\" \"schema/*.json\"",
+    "format:check": "prettier --check \"assets/src/**/*.{js,jsx,scss}\" \"tests/**/*.js\" \"schema/*.json\"",
     "test": "wp-scripts test-unit-js",
     "test:e2e": "playwright test",
     "size": "node bin/check-bundle-size.js"

@@ -44,7 +44,7 @@ peu de trafic (réessais des webhooks, purge RGPD).
 
 | Sujet | Document |
 |---|---|
-| Format JSON | [`schema/diagnostic.schema.json`](schema/diagnostic.schema.json), exemple [`examples/demo.json`](examples/demo.json) |
+| Format JSON | [`schema/diagnostic.schema.json`](schema/diagnostic.schema.json) ; diagnostic de test des suites automatiques : [`tests/fixtures/demo.json`](tests/fixtures/demo.json) |
 | Moteur de calcul, expressions, conditions | [`docs/moteur.md`](docs/moteur.md) |
 | API REST, soumissions, stockage | [`docs/api.md`](docs/api.md) |
 | Emails, webhooks, réponses, RGPD | [`docs/integrations.md`](docs/integrations.md) |
@@ -65,8 +65,10 @@ bin/setup-local.sh
 ```
 
 Le script crée `.env` (mots de passe aléatoires, non versionné), installe les dépendances,
-compile les assets, démarre WordPress + MariaDB + phpMyAdmin, active le plugin, importe
-`examples/demo.json` et crée la page `/diagnostic-test/`.
+compile les assets, démarre WordPress + MariaDB + phpMyAdmin + Mailpit et active le plugin.
+Avec `SD_TEST_HELPERS=1` (environnement des tests automatiques), il importe aussi le
+diagnostic de test `tests/fixtures/demo.json`, crée la page `/diagnostic-test/` et un compte
+`e2e` ; avec `SD_TEST_HELPERS=0`, le site reste vierge.
 
 | Service    | Adresse par défaut |
 |------------|--------------------|

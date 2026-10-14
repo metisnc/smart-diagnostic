@@ -7,8 +7,9 @@
 # 2. installe les dépendances PHP/JS et compile les assets (via Docker si
 #    composer/node ne sont pas installés) ;
 # 3. démarre les conteneurs, installe WordPress, active le plugin ;
-# 4. crée une page de test et importe examples/demo.json (dès que la
-#    commande WP-CLI d'import existe, M1).
+# 4. environnement de tests seulement (SD_TEST_HELPERS=1) : compte e2e, aides de test,
+#    limite de soumissions relevée, import de tests/fixtures/demo.json et page
+#    /diagnostic-test/. Avec SD_TEST_HELPERS=0, le site reste vierge.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
@@ -109,23 +110,19 @@ if [[ "${SD_TEST_HELPERS:-0}" == "1" ]]; then
 	wp user update "$E2E_ADMIN_USER" --user_pass="$E2E_ADMIN_PASSWORD" --locale=en_US --skip-email >/dev/null
 	log "Installation des aides de test (mu-plugin)"
 	docker compose run --rm -T wpcli sh -c 'mkdir -p wp-content/mu-plugins && cp wp-content/plugins/smart-diagnostic/tests/e2e/mu-plugins/sd-test-helpers.php wp-content/mu-plugins/'
-fi
 
-# Environnement de test : limite de soumissions relevée (les tests E2E soumettent souvent).
-if ! wp option get sd_settings >/dev/null 2>&1; then
-	wp option add sd_settings '{"rate_limit":1000,"rate_window":600}' --format=json >/dev/null
-fi
+	# Limite de soumissions relevée (les tests E2E soumettent souvent).
+	if ! wp option get sd_settings >/dev/null 2>&1; then
+		wp option add sd_settings '{"rate_limit":1000,"rate_window":600}' --format=json >/dev/null
+	fi
 
-DIAGNOSTIC_ID=""
-if wp help smart-diagnostic import >/dev/null 2>&1; then
-	log "Import de examples/demo.json"
-	DIAGNOSTIC_ID="$(wp smart-diagnostic import wp-content/plugins/smart-diagnostic/examples/demo.json --slug=demo --porcelain)"
-fi
-
-if ! wp post list --post_type=page --name=diagnostic-test --field=ID | grep -q .; then
-	log "Création de la page de test"
-	wp post create --post_type=page --post_status=publish --post_title='Diagnostic test' \
-		--post_name=diagnostic-test --post_content="[smart_diagnostic id=\"${DIAGNOSTIC_ID:-demo}\"]" >/dev/null
+	log "Import du diagnostic de test (tests/fixtures/demo.json)"
+	DIAGNOSTIC_ID="$(wp smart-diagnostic import wp-content/plugins/smart-diagnostic/tests/fixtures/demo.json --slug=demo --porcelain)"
+	if ! wp post list --post_type=page --name=diagnostic-test --field=ID | grep -q .; then
+		log "Création de la page de test"
+		wp post create --post_type=page --post_status=publish --post_title='Diagnostic test' \
+			--post_name=diagnostic-test --post_content="[smart_diagnostic id=\"${DIAGNOSTIC_ID}\"]" >/dev/null
+	fi
 fi
 
 log "Prêt : ${WP_URL} (admin : ${WP_URL}/wp-admin, identifiants dans .env)"

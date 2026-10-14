@@ -4,6 +4,11 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Unreleased]
 
+### Changed
+- Le diagnostic de démonstration devient un fichier de test (`tests/fixtures/demo.json`) ; le
+  dossier `examples/` est retiré. `setup-local.sh` n'ajoute du contenu de test qu'avec
+  `SD_TEST_HELPERS=1` : un site de travail reste vierge.
+
 ## [1.2.0] - 2026-10-14
 
 ### Added
