@@ -296,7 +296,7 @@ final class SubmissionsPage {
 	 * @param ConfigRepository           $configs Configs (libellés des réponses).
 	 */
 	public static function csv( array $rows, ConfigRepository $configs ): string {
-		$out = fopen( 'php://temp', 'w+' );
+		$out = fopen( 'php://temp', 'w+' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- flux en mémoire.
 		if ( false === $out ) {
 			return '';
 		}

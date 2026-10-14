@@ -126,9 +126,10 @@ final class SubmissionRepository {
 	/**
 	 * Répartition des réponses d'un diagnostic par profil ou par CTA, sur une période.
 	 *
-	 * @param string $column profile | cta.
-	 * @param string $from   Date de début AAAA-MM-JJ (GMT).
-	 * @param string $to     Date de fin AAAA-MM-JJ (GMT), incluse.
+	 * @param string $column        profile | cta.
+	 * @param int    $diagnostic_id Diagnostic.
+	 * @param string $from          Date de début AAAA-MM-JJ (GMT).
+	 * @param string $to            Date de fin AAAA-MM-JJ (GMT), incluse.
 	 * @return array<string, int> Valeur => nombre, du plus fréquent au moins fréquent.
 	 */
 	public function count_by( string $column, int $diagnostic_id, string $from, string $to ): array {

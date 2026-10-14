@@ -349,7 +349,7 @@ final class Abilities {
 			array(
 				'post_type'      => DiagnosticPostType::NAME,
 				'post_status'    => array( 'publish', 'draft', 'pending', 'private', 'future' ),
-				'posts_per_page' => 200,
+				'posts_per_page' => 100,
 				'orderby'        => 'title',
 				'order'          => 'ASC',
 				's'              => (string) ( $input['search'] ?? '' ),
