@@ -38,9 +38,8 @@ async function saveSettings( page, values ) {
 		}
 	}
 	await page.locator( '#submit' ).first().click();
-	await expect(
-		page.locator( '#setting-error-settings_updated' )
-	).toBeVisible();
+	// Enregistré (avec ou sans avertissement de validation).
+	await expect( page ).toHaveURL( /settings-updated=true/ );
 }
 
 // Réglages trouvés au début des tests, restaurés à la fin (le site de test peut servir à
@@ -180,6 +179,21 @@ test( 'dedicated SMTP sends through its own server', async ( {
 	await saveSettings( page, { 'SMTP server': 'smtp.invalid' } );
 	const failure = await sendTestEmail( page, to );
 	await expect( failure ).toContainText( 'could not be sent' );
+
+	// Une adresse email à la place du serveur : refusée, SMTP dédié laissé désactivé.
+	await saveSettings( page, {
+		'Dedicated SMTP': true,
+		'SMTP server': 'quelqu.un@example.test',
+	} );
+	await expect( page.locator( '#setting-error-sd_smtp_host' ) ).toContainText(
+		'contains an email address'
+	);
+	await expect(
+		page.getByLabel( 'Dedicated SMTP', { exact: true } )
+	).not.toBeChecked();
+	await expect( page.locator( '.sd-smtp-status' ) ).toContainText(
+		'Not active'
+	);
 
 	// Remise des réglages trouvés au départ.
 	await saveSettings( page, original );

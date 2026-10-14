@@ -53,7 +53,14 @@ final class Settings {
 	 */
 	public static function smtp_enabled(): bool {
 		$settings = self::all();
-		return $settings['smtp_enabled'] && '' !== $settings['smtp_host'];
+		return $settings['smtp_enabled'] && self::valid_smtp_host( $settings['smtp_host'] );
+	}
+
+	/**
+	 * Adresse de serveur plausible (nom de domaine ou IP), et non une adresse email.
+	 */
+	public static function valid_smtp_host( string $host ): bool {
+		return 1 === preg_match( '/^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$/i', $host );
 	}
 
 	/**
