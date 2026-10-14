@@ -38,8 +38,13 @@ async function saveSettings( page, values ) {
 		}
 	}
 	await page.locator( '#submit' ).first().click();
-	// Enregistré (avec ou sans avertissement de validation).
-	await expect( page ).toHaveURL( /settings-updated=true/ );
+	// Enregistré : confirmation, ou avertissement de validation (WordPress retire
+	// settings-updated de l'adresse, on vérifie donc le message).
+	await expect(
+		page.locator(
+			'#setting-error-settings_updated, #setting-error-sd_smtp_host'
+		)
+	).toBeVisible();
 }
 
 // Réglages trouvés au début des tests, restaurés à la fin (le site de test peut servir à
