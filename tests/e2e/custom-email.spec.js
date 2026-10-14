@@ -217,11 +217,13 @@ test( 'follow-up email sent a few days later', async ( { page, request } ) => {
 
 	const email = `suivi+${ Date.now() }@example.com`;
 	await submit( page, request, id, email );
+	// Avant la relance : seul l'email du résultat est parti.
+	expect( await mailsTo( request, email ) ).toHaveLength( 1 );
 	await request.post( RUN_FOLLOW_UPS );
-	const followUps = ( await mailsTo( request, email ) ).filter( ( m ) =>
-		String( m.subject ).includes( 'next steps' )
-	);
-	expect( followUps ).toHaveLength( 1 );
+	const mails = await mailsTo( request, email );
+	expect( mails ).toHaveLength( 2 );
+	// Objet du modèle de départ (traduit selon la langue du site).
+	const followUps = mails.slice( 1 );
 	expect( followUps[ 0 ].subject ).toContain( 'Léa' );
 	expect( followUps[ 0 ].message ).toContain( 'Profil 2' );
 
