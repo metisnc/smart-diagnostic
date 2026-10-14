@@ -17,7 +17,7 @@ final class Settings {
 	public const OPTION = 'sd_settings';
 
 	/**
-	 * @return array{captcha_provider: string, captcha_site_key: string, captcha_secret_key: string, rate_limit: int, rate_window: int, retention_days: int, analytics: bool, brand_name: string}
+	 * @return array{captcha_provider: string, captcha_site_key: string, captcha_secret_key: string, rate_limit: int, rate_window: int, retention_days: int, analytics: bool, brand_name: string, mail_from_name: string, mail_from_email: string, mail_reply_to: string, smtp_enabled: bool, smtp_host: string, smtp_port: int, smtp_encryption: string, smtp_user: string, smtp_password: string}
 	 */
 	public static function all(): array {
 		$saved = get_option( self::OPTION, array() );
@@ -31,11 +31,29 @@ final class Settings {
 			'retention_days'     => max( 0, (int) ( $saved['retention_days'] ?? 0 ) ),
 			'analytics'          => (bool) ( $saved['analytics'] ?? true ),
 			'brand_name'         => (string) ( $saved['brand_name'] ?? '' ),
+			'mail_from_name'     => (string) ( $saved['mail_from_name'] ?? '' ),
+			'mail_from_email'    => (string) ( $saved['mail_from_email'] ?? '' ),
+			'mail_reply_to'      => (string) ( $saved['mail_reply_to'] ?? '' ),
+			'smtp_enabled'       => (bool) ( $saved['smtp_enabled'] ?? false ),
+			'smtp_host'          => (string) ( $saved['smtp_host'] ?? '' ),
+			'smtp_port'          => (int) ( $saved['smtp_port'] ?? 587 ),
+			'smtp_encryption'    => in_array( $saved['smtp_encryption'] ?? '', array( 'tls', 'ssl', 'none' ), true ) ? $saved['smtp_encryption'] : 'tls',
+			'smtp_user'          => (string) ( $saved['smtp_user'] ?? '' ),
+			// Prioritaire : constante SD_SMTP_PASSWORD dans wp-config.php (le mot de passe ne va pas en base).
+			'smtp_password'      => defined( 'SD_SMTP_PASSWORD' ) ? (string) SD_SMTP_PASSWORD : (string) ( $saved['smtp_password'] ?? '' ),
 		);
 	}
 
 	public static function get( string $key ): mixed {
 		return self::all()[ $key ] ?? null;
+	}
+
+	/**
+	 * SMTP dédié actif (réglage coché et serveur renseigné).
+	 */
+	public static function smtp_enabled(): bool {
+		$settings = self::all();
+		return $settings['smtp_enabled'] && '' !== $settings['smtp_host'];
 	}
 
 	/**

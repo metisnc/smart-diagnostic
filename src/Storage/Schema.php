@@ -14,7 +14,7 @@ namespace SmartDiagnostic\Storage;
  */
 final class Schema {
 
-	public const VERSION        = 3;
+	public const VERSION        = 4;
 	public const OPTION_VERSION = 'sd_db_version';
 
 	public static function submissions_table(): string {
@@ -68,6 +68,7 @@ final class Schema {
 				config_hash char(32) NOT NULL DEFAULT '',
 				user_email_sent_at datetime NULL DEFAULT NULL,
 				webhooks longtext NULL,
+				emails longtext NULL,
 				PRIMARY KEY  (id),
 				UNIQUE KEY token (token),
 				KEY diagnostic_created (diagnostic_id, created_at),

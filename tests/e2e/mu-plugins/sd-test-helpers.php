@@ -22,6 +22,7 @@ add_filter(
 			'to'      => $atts['to'],
 			'subject' => $atts['subject'],
 			'message' => $atts['message'],
+			'headers' => implode( "\n", (array) $atts['headers'] ),
 		);
 		update_option( 'sd_test_mails', $log, false );
 		return true;

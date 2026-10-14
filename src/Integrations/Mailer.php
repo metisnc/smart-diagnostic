@@ -20,7 +20,10 @@ use SmartDiagnostic\Storage\SubmissionRepository;
  */
 final class Mailer {
 
-	public function __construct( private SubmissionRepository $submissions = new SubmissionRepository() ) {}
+	public function __construct(
+		private SubmissionRepository $submissions = new SubmissionRepository(),
+		private MailTransport $transport = new MailTransport()
+	) {}
 
 	public function register(): void {
 		add_action( 'sd_submission_created', array( $this, 'on_created' ), 10, 2 );
@@ -63,12 +66,9 @@ final class Mailer {
 		$subject = $this->text( $settings['subject'] ?? null, $config, $submission )
 			?: __( 'Your results', 'smart-diagnostic' ); // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
 		$body    = $this->render( (string) ( $settings['template'] ?? 'user' ), $submission, $config );
-		$sent    = $this->mail( $email, $subject, $body );
-
-		if ( $sent && ! empty( $submission['id'] ) ) {
-			$this->submissions->update( (int) $submission['id'], array( 'user_email_sent_at' => current_time( 'mysql', true ) ) );
-		}
-		return $sent;
+		$result  = $this->transport->send( $email, $subject, $body );
+		$this->record( $submission, 'user', $email, $result );
+		return $result['ok'];
 	}
 
 	/**
@@ -90,8 +90,11 @@ final class Mailer {
 			/* translators: 1: diagnostic title, 2: first name or email. */
 			$subject = sprintf( __( 'New submission: %1$s (%2$s)', 'smart-diagnostic' ), get_the_title( (int) $submission['diagnostic_id'] ), $submission['first_name'] ?: $submission['email'] ?: '—' ); // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
 		}
-		$body = $this->render( (string) ( $settings['template'] ?? 'admin' ), $submission, $config );
-		return $this->mail( implode( ',', $recipients ), $subject, $body );
+		$body   = $this->render( (string) ( $settings['template'] ?? 'admin' ), $submission, $config );
+		$to     = implode( ',', $recipients );
+		$result = $this->transport->send( $to, $subject, $body );
+		$this->record( $submission, 'admin', $to, $result );
+		return $result['ok'];
 	}
 
 	/**
@@ -104,15 +107,45 @@ final class Mailer {
 		return wp_strip_all_tags( Text::interpolate( $resolved, $config, $submission ) );
 	}
 
-	private function mail( string $to, string $subject, string $body ): bool {
-		$headers = array( 'Content-Type: text/html; charset=UTF-8' );
-		/**
-		 * En-têtes des emails (ex. Reply-To, From).
-		 *
-		 * @param list<string> $headers En-têtes.
-		 */
-		$headers = (array) apply_filters( 'sd_email_headers', $headers );
-		return wp_mail( $to, $subject, $body, $headers );
+	/**
+	 * Statut d'envoi conservé dans la soumission (visible dans l'admin « Réponses »).
+	 *
+	 * @param array<string, mixed>                        $submission Soumission.
+	 * @param string                                      $kind       user | admin.
+	 * @param string                                      $to         Destinataire(s).
+	 * @param array{ok: bool, error: string, via: string} $result     Résultat de l'envoi.
+	 */
+	private function record( array $submission, string $kind, string $to, array $result ): void {
+		if ( empty( $submission['id'] ) ) {
+			return;
+		}
+		$now   = current_time( 'mysql', true );
+		$fresh = $this->submissions->find( (int) $submission['id'] );
+		$state = (array) ( $fresh['emails'] ?? array() );
+
+		$state[ $kind ] = array(
+			'status' => $result['ok'] ? 'sent' : 'failed',
+			'to'     => $to,
+			'via'    => $result['via'],
+			'error'  => $result['error'],
+			'at'     => $now,
+		);
+		$update         = array( 'emails' => $state );
+		if ( 'user' === $kind && $result['ok'] ) {
+			$update['user_email_sent_at'] = $now;
+		}
+		$this->submissions->update( (int) $submission['id'], $update );
+	}
+
+	/**
+	 * Email de test (bouton des réglages) : même chemin d'envoi que les vrais emails.
+	 *
+	 * @return array{ok: bool, error: string, via: string}
+	 */
+	public function send_test( string $to ): array {
+		$body = '<p>' . esc_html__( 'This is a test email. If you are reading it, the emails of your diagnostics will be delivered.', 'smart-diagnostic' ) . '</p>';
+		/* translators: %s: plugin name. */
+		return $this->transport->send( $to, sprintf( __( '%s: test email', 'smart-diagnostic' ), Branding::name() ), $body );
 	}
 
 	/**

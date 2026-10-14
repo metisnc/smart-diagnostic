@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smart Diagnostic 0.1.0\n"
+"Project-Id-Version: Smart Diagnostic 1.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/smart-diagnostic\n"
 "Last-Translator: metisnc\n"
 "Language-Team: French\n"
@@ -11,8 +11,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"POT-Creation-Date: 2026-10-13T21:24:32+00:00\n"
-"PO-Revision-Date: 2026-10-14 01:00+0000\n"
+"POT-Creation-Date: 2026-10-14T06:40:47+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: smart-diagnostic\n"
 
@@ -89,8 +89,9 @@ msgstr "Exporter en JSON"
 #: src/Admin/ImportExport.php:91
 #: src/Admin/ImportExport.php:110
 #: src/Admin/ImportExport.php:121
+#: src/Admin/SettingsPage.php:286
 #: src/Admin/SubmissionsPage.php:90
-#: src/Admin/SubmissionsPage.php:252
+#: src/Admin/SubmissionsPage.php:277
 msgid "You are not allowed to do this."
 msgstr "Vous n’avez pas l’autorisation de faire cela."
 
@@ -145,81 +146,192 @@ msgstr "Fichier JSON"
 msgid "Or paste the JSON"
 msgstr "Ou collez le JSON"
 
-#: src/Admin/SettingsPage.php:31
-#: src/Admin/SettingsPage.php:32
+#: src/Admin/SettingsPage.php:34
+#: src/Admin/SettingsPage.php:35
 msgid "Settings"
 msgstr "Réglages"
 
-#: src/Admin/SettingsPage.php:50
+#: src/Admin/SettingsPage.php:53
 msgid "Anti-spam"
 msgstr "Anti-spam"
 
-#: src/Admin/SettingsPage.php:53
+#: src/Admin/SettingsPage.php:56
 msgid "Captcha"
 msgstr "Captcha"
 
-#: src/Admin/SettingsPage.php:54
+#: src/Admin/SettingsPage.php:57
 msgid "Site key"
 msgstr "Clé du site"
 
-#: src/Admin/SettingsPage.php:55
+#: src/Admin/SettingsPage.php:58
 msgid "Secret key"
 msgstr "Clé secrète"
 
-#: src/Admin/SettingsPage.php:56
+#: src/Admin/SettingsPage.php:59
 msgid "Max submissions per visitor"
 msgstr "Envois maximum par visiteur"
 
-#: src/Admin/SettingsPage.php:57
+#: src/Admin/SettingsPage.php:60
 msgid "Time window (seconds)"
 msgstr "Période (secondes)"
 
-#: src/Admin/SettingsPage.php:59
+#: src/Admin/SettingsPage.php:62
 msgid "Privacy (GDPR)"
 msgstr "Confidentialité (RGPD)"
 
-#: src/Admin/SettingsPage.php:62
+#: src/Admin/SettingsPage.php:65
 msgid "Keep submissions for (days)"
 msgstr "Conserver les réponses pendant (jours)"
 
-#: src/Admin/SettingsPage.php:64
+#: src/Admin/SettingsPage.php:67
 #: src/Admin/StatsPage.php:39
 #: src/Admin/StatsPage.php:40
 #: src/Admin/StatsPage.php:68
 msgid "Statistics"
 msgstr "Statistiques"
 
-#: src/Admin/SettingsPage.php:67
+#: src/Admin/SettingsPage.php:70
 msgid "White label"
 msgstr "Marque blanche"
 
-#: src/Admin/SettingsPage.php:68
+#: src/Admin/SettingsPage.php:71
 msgid "Displayed name"
 msgstr "Nom affiché"
 
-#: src/Admin/SettingsPage.php:115
+#: src/Admin/SettingsPage.php:74
+#: assets/src/builder/tabs/General.js:498
+msgid "Emails"
+msgstr "Emails"
+
+#: src/Admin/SettingsPage.php:76
+msgid "Sender name"
+msgstr "Nom de l’expéditeur"
+
+#: src/Admin/SettingsPage.php:77
+msgid "Sender address"
+msgstr "Adresse de l’expéditeur"
+
+#: src/Admin/SettingsPage.php:78
+msgid "Reply-to address"
+msgstr "Adresse de réponse"
+
+#: src/Admin/SettingsPage.php:79
+msgid "Dedicated SMTP"
+msgstr "SMTP dédié"
+
+#: src/Admin/SettingsPage.php:80
+msgid "SMTP server"
+msgstr "Serveur SMTP"
+
+#: src/Admin/SettingsPage.php:81
+msgid "Port"
+msgstr "Port"
+
+#: src/Admin/SettingsPage.php:82
+msgid "Encryption"
+msgstr "Chiffrement"
+
+#: src/Admin/SettingsPage.php:83
+msgid "Username"
+msgstr "Identifiant"
+
+#: src/Admin/SettingsPage.php:84
+msgid "Password"
+msgstr "Mot de passe"
+
+#: src/Admin/SettingsPage.php:140
+msgid "By default, emails are sent by WordPress, and therefore by the SMTP plugin of the site if there is one. Enable the dedicated SMTP only to send the emails of the diagnostics through another server."
+msgstr "Par défaut, les emails sont envoyés par WordPress, donc par le plugin SMTP du site s’il y en a un. N’activez le SMTP dédié que pour envoyer les emails des diagnostics par un autre serveur."
+
+#: src/Admin/SettingsPage.php:154
+#: src/Admin/SettingsPage.php:170
 msgid "None"
 msgstr "Aucun"
 
-#: src/Admin/SettingsPage.php:124
+#: src/Admin/SettingsPage.php:163
 msgid "Active only when both keys are filled in."
 msgstr "Actif seulement si les deux clés sont renseignées."
 
-#: src/Admin/SettingsPage.php:133
+#: src/Admin/SettingsPage.php:181
+msgid "Defined by the SD_SMTP_PASSWORD constant (wp-config.php)."
+msgstr "Défini par la constante SD_SMTP_PASSWORD (wp-config.php)."
+
+#: src/Admin/SettingsPage.php:188
+#: src/Admin/WebhookSecrets.php:54
+msgid "•••••••• (unchanged)"
+msgstr "•••••••• (inchangé)"
+
+#: src/Admin/SettingsPage.php:189
+msgid "Leave empty to keep the current password. More secure: define it in wp-config.php with the SD_SMTP_PASSWORD constant."
+msgstr "Laissez vide pour conserver le mot de passe actuel. Plus sûr : définissez-le dans wp-config.php avec la constante SD_SMTP_PASSWORD."
+
+#: src/Admin/SettingsPage.php:199
+msgid "Send the emails of the diagnostics through the server below (instead of WordPress / the SMTP plugin)."
+msgstr "Envoyer les emails des diagnostics par le serveur ci-dessous (au lieu de WordPress / du plugin SMTP)."
+
+#: src/Admin/SettingsPage.php:209
 msgid "Record anonymous journey events (funnel, drop-offs)."
 msgstr "Enregistrer les événements anonymes du parcours (entonnoir, abandons)."
 
-#: src/Admin/SettingsPage.php:134
+#: src/Admin/SettingsPage.php:210
 msgid "No personal data and no cookie: a random identifier per questionnaire run."
 msgstr "Aucune donnée personnelle ni cookie : un identifiant aléatoire par passage dans le questionnaire."
 
-#: src/Admin/SettingsPage.php:147
+#: src/Admin/SettingsPage.php:226
+msgid "Empty: the sender set by WordPress or by the SMTP plugin. Use an address of your domain, otherwise emails may end up in spam."
+msgstr "Vide : l’expéditeur défini par WordPress ou par le plugin SMTP. Utilisez une adresse de votre domaine, sinon les emails risquent d’arriver en spam."
+
+#: src/Admin/SettingsPage.php:229
+msgid "Where replies from visitors go (for example your sales team)."
+msgstr "Là où arrivent les réponses des visiteurs (par exemple votre équipe commerciale)."
+
+#: src/Admin/SettingsPage.php:232
 msgid "Replaces the plugin name in the admin menus and plugin list. The SD_BRAND_NAME constant (wp-config.php) takes precedence."
 msgstr "Remplace le nom du plugin dans les menus d’administration et la liste des extensions. La constante SD_BRAND_NAME (wp-config.php) est prioritaire."
 
-#: src/Admin/SettingsPage.php:150
+#: src/Admin/SettingsPage.php:235
 msgid "0 = keep until deleted. Older submissions are purged daily. Personal data can also be exported or erased from Tools → Export / Erase Personal Data."
 msgstr "0 = conservation jusqu’à suppression. Les réponses plus anciennes sont supprimées chaque jour. Les données personnelles peuvent aussi être exportées ou effacées depuis Outils → Exporter / Effacer les données personnelles."
+
+#: src/Admin/SettingsPage.php:260
+#: src/Admin/SettingsPage.php:279
+msgid "Send a test email"
+msgstr "Envoyer un email de test"
+
+#. translators: 1: recipient, 2: sending method.
+#: src/Admin/SettingsPage.php:264
+#, php-format
+msgid "Test email sent to %1$s (%2$s). Check the inbox, and the spam folder."
+msgstr "Email de test envoyé à %1$s (%2$s). Vérifiez la boîte de réception, ainsi que les spams."
+
+#. translators: %s: error message.
+#: src/Admin/SettingsPage.php:267
+#, php-format
+msgid "The test email could not be sent: %s"
+msgstr "L’email de test n’a pas pu être envoyé : %s"
+
+#: src/Admin/SettingsPage.php:276
+msgid "Recipient"
+msgstr "Destinataire"
+
+#: src/Admin/SettingsPage.php:280
+msgid "Uses the saved settings: save your changes before testing."
+msgstr "Utilise les réglages enregistrés : enregistrez vos modifications avant de tester."
+
+#: src/Admin/SettingsPage.php:294
+#: src/Front/Strings.php:33
+msgid "Please enter a valid email address."
+msgstr "Veuillez saisir une adresse email valide."
+
+#: src/Admin/SettingsPage.php:299
+#: src/Admin/SubmissionsPage.php:244
+msgid "dedicated SMTP"
+msgstr "SMTP dédié"
+
+#: src/Admin/SettingsPage.php:299
+#: src/Admin/SubmissionsPage.php:244
+msgid "WordPress / SMTP plugin"
+msgstr "WordPress / plugin SMTP"
 
 #: src/Admin/StatsPage.php:70
 msgid "Statistics are disabled in the settings."
@@ -356,7 +468,7 @@ msgid "Given"
 msgstr "Donné"
 
 #: src/Admin/SubmissionsPage.php:175
-#: src/Admin/SubmissionsPage.php:239
+#: src/Admin/SubmissionsPage.php:264
 #: src/Admin/SubmissionsTable.php:173
 #: src/Front/Strings.php:44
 #: assets/src/builder/ConditionEditor.js:142
@@ -365,7 +477,7 @@ msgid "Yes"
 msgstr "Oui"
 
 #: src/Admin/SubmissionsPage.php:175
-#: src/Admin/SubmissionsPage.php:239
+#: src/Admin/SubmissionsPage.php:264
 #: src/Admin/SubmissionsTable.php:174
 #: src/Front/Strings.php:45
 #: src/Privacy/Privacy.php:122
@@ -417,31 +529,51 @@ msgstr "Langue"
 msgid "Source page"
 msgstr "Page d’origine"
 
-#: src/Admin/SubmissionsPage.php:200
-msgid "Result email"
-msgstr "Email du résultat"
+#: src/Admin/SubmissionsPage.php:202
+msgid "Email to the visitor"
+msgstr "Email au visiteur"
+
+#: src/Admin/SubmissionsPage.php:203
+msgid "Email to the team"
+msgstr "Email à l’équipe"
 
 #. translators: %s: webhook key.
-#: src/Admin/SubmissionsPage.php:207
+#: src/Admin/SubmissionsPage.php:213
 #, php-format
 msgid "Webhook %s"
 msgstr "Webhook %s"
 
-#: src/Admin/SubmissionsPage.php:209
+#: src/Admin/SubmissionsPage.php:215
 msgid "Details"
 msgstr "Détails"
 
-#: src/Admin/SubmissionsPage.php:223
+#: src/Admin/SubmissionsPage.php:229
 #: src/Admin/SubmissionsTable.php:142
 msgid "Delete this submission permanently?"
 msgstr "Supprimer définitivement cette réponse ?"
 
-#: src/Admin/SubmissionsPage.php:224
+#: src/Admin/SubmissionsPage.php:230
 #: src/Admin/SubmissionsTable.php:88
 #: src/Admin/SubmissionsTable.php:143
 #: assets/src/builder/tabs/Steps.js:1190
 msgid "Delete"
 msgstr "Supprimer"
+
+#: src/Admin/SubmissionsPage.php:241
+msgid "Not sent"
+msgstr "Non envoyé"
+
+#. translators: 1: recipient, 2: date, 3: sending method.
+#: src/Admin/SubmissionsPage.php:247
+#, php-format
+msgid "Sent to %1$s on %2$s (%3$s)"
+msgstr "Envoyé à %1$s le %2$s (%3$s)"
+
+#. translators: 1: recipient, 2: date, 3: error message.
+#: src/Admin/SubmissionsPage.php:250
+#, php-format
+msgid "Failed for %1$s on %2$s: %3$s"
+msgstr "Échec pour %1$s le %2$s : %3$s"
 
 #: src/Admin/SubmissionsTable.php:138
 msgid "View"
@@ -486,10 +618,6 @@ msgstr "Sert à signer les requêtes (X-SD-Signature : sha256=HMAC du corps). La
 #: src/Admin/WebhookSecrets.php:52
 msgid "Secret set"
 msgstr "Secret défini"
-
-#: src/Admin/WebhookSecrets.php:54
-msgid "•••••••• (unchanged)"
-msgstr "•••••••• (inchangé)"
 
 #. translators: %s: JSON parser error message.
 #: src/Config/SchemaValidator.php:38
@@ -549,10 +677,6 @@ msgstr "Étape {current} sur {total}"
 msgid "This field is required."
 msgstr "Ce champ est obligatoire."
 
-#: src/Front/Strings.php:33
-msgid "Please enter a valid email address."
-msgstr "Veuillez saisir une adresse email valide."
-
 #: src/Front/Strings.php:34
 msgid "Please enter a valid phone number."
 msgstr "Veuillez saisir un numéro de téléphone valide."
@@ -598,8 +722,8 @@ msgid "Choose…"
 msgstr "Choisir…"
 
 #: src/Front/Strings.php:47
-#: src/Integrations/Mailer.php:64
-#: src/Integrations/Mailer.php:203
+#: src/Integrations/Mailer.php:67
+#: src/Integrations/Mailer.php:236
 msgid "Your results"
 msgstr "Votre résultat"
 
@@ -672,6 +796,20 @@ msgstr "Total"
 #, php-format
 msgid "New submission: %1$s (%2$s)"
 msgstr "Nouvelle réponse : %1$s (%2$s)"
+
+#: src/Integrations/Mailer.php:146
+msgid "This is a test email. If you are reading it, the emails of your diagnostics will be delivered."
+msgstr "Ceci est un email de test. Si vous le lisez, les emails de vos diagnostics seront bien distribués."
+
+#. translators: %s: plugin name.
+#: src/Integrations/Mailer.php:148
+#, php-format
+msgid "%s: test email"
+msgstr "%s : email de test"
+
+#: src/Integrations/MailTransport.php:96
+msgid "WordPress could not send the email."
+msgstr "WordPress n’a pas pu envoyer l’email."
 
 #: src/PostType/DiagnosticPostType.php:37
 msgid "Diagnostics"
@@ -1220,10 +1358,6 @@ msgstr "Remplacer un libellé"
 #: assets/src/builder/tabs/Steps.js:809
 msgid "Label"
 msgstr "Libellé"
-
-#: assets/src/builder/tabs/General.js:498
-msgid "Emails"
-msgstr "Emails"
 
 #: assets/src/builder/tabs/General.js:501
 msgid "Send the results to the visitor"

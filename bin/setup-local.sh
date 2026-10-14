@@ -63,7 +63,7 @@ fi
 
 # --- 3. Conteneurs et WordPress ---------------------------------------------------
 log "Démarrage des conteneurs"
-docker compose up -d --wait db wordpress phpmyadmin
+docker compose up -d --wait db wordpress phpmyadmin mailpit
 
 wp() { docker compose run --rm -T wpcli wp "$@"; }
 

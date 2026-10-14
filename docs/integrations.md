@@ -24,6 +24,27 @@ les textes, le plan d'action, le CTA, le lien du résultat et les réponses.
 `template` permet d'utiliser un autre modèle (`emails/<nom>.php`). En-têtes : filtre
 `sd_email_headers`.
 
+### Réglages → Emails
+
+- **Expéditeur** (nom, adresse) et **adresse de réponse** : vides = l'expéditeur défini par
+  WordPress ou par le plugin SMTP. Utiliser une adresse du domaine du site (SPF / DKIM).
+- **Mode d'envoi par défaut** : `wp_mail`, donc le plugin SMTP du site (WP Mail SMTP,
+  FluentSMTP…) s'il y en a un — rien à configurer de plus.
+- **SMTP dédié** (facultatif) : serveur, port, chiffrement (TLS / SSL / aucun),
+  identifiant, mot de passe. Il ne concerne que les emails des diagnostics et passe par
+  PHPMailer directement (il fonctionne donc même si un plugin SMTP remplace `wp_mail`).
+  Mot de passe : de préférence dans `wp-config.php` :
+  ```php
+  define( 'SD_SMTP_PASSWORD', '…' );
+  ```
+- **Envoyer un email de test** : même chemin que les vrais emails ; le résultat (ou l'erreur
+  du serveur) s'affiche dans la page.
+- **Statut d'envoi** : le détail de chaque réponse indique, pour l'email au visiteur et à
+  l'équipe, « Envoyé à … le … (mode d'envoi) » ou « Échec … » avec la raison.
+
+En développement, Mailpit (http://127.0.0.1:8025) reçoit tous les emails envoyés par le
+SMTP dédié réglé sur `mailpit`, port `1025`, sans chiffrement.
+
 ## Webhooks
 
 ```json
