@@ -44,9 +44,9 @@ test( 'build a diagnostic visually, test it and save it', async ( {
 		.getByLabel( 'Question', { exact: true } )
 		.fill( 'Avez-vous un site ?' );
 
-	// L'aperçu suit les modifications.
+	// L'aperçu montre l'étape en cours de modification.
 	await expect( page.locator( '.sd-builder__preview' ) ).toContainText(
-		'Quelle couleur ?'
+		'Avez-vous un site ?'
 	);
 	await expect( page.locator( '.sd-builder__status' ) ).toContainText(
 		'Valid configuration.'

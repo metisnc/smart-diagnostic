@@ -38,8 +38,11 @@ test( 'the preview follows what is being edited', async ( { page } ) => {
 	);
 
 	// Modification : l'aperçu de l'étape suit.
+	// Diagnostic bilingue : champ français de la question.
 	await page
-		.getByLabel( 'Question', { exact: true } )
+		.locator( 'fieldset.sd-b-i18n' )
+		.filter( { has: page.locator( 'legend', { hasText: /^Question$/ } ) } )
+		.getByLabel( 'FR' )
 		.fill( 'Cochez ce qui convient' );
 	await expect( preview.locator( '.sd-step' ) ).toContainText(
 		'Cochez ce qui convient'
