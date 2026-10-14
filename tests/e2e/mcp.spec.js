@@ -5,6 +5,7 @@
 const { test, expect } = require( '@playwright/test' );
 
 const ENDPOINT = '/wp-json/smart-diagnostic/mcp';
+const PROTOCOL = '2025-06-18';
 const SETTINGS = '/wp-admin/edit.php?post_type=sd_diagnostic&page=sd-settings';
 
 test.describe.configure( { mode: 'serial' } );
@@ -57,7 +58,13 @@ async function mcpClient( playwright, baseURL, password ) {
 	let session = '';
 	const call = async ( method, params = {} ) => {
 		const response = await context.post( ENDPOINT, {
-			headers: session ? { 'Mcp-Session-Id': session } : {},
+			// Après « initialize » : session et version du protocole sur chaque requête.
+			headers: session
+				? {
+						'Mcp-Session-Id': session,
+						'MCP-Protocol-Version': PROTOCOL,
+					}
+				: {},
 			data: { jsonrpc: '2.0', id: ++id, method, params },
 		} );
 		expect( response.status(), await response.text() ).toBeLessThan( 300 );
@@ -66,12 +73,15 @@ async function mcpClient( playwright, baseURL, password ) {
 		return body.result ?? body;
 	};
 	await call( 'initialize', {
-		protocolVersion: '2025-06-18',
+		protocolVersion: PROTOCOL,
 		capabilities: {},
 		clientInfo: { name: 'e2e', version: '1.0.0' },
 	} );
 	await context.post( ENDPOINT, {
-		headers: { 'Mcp-Session-Id': session },
+		headers: {
+			'Mcp-Session-Id': session,
+			'MCP-Protocol-Version': PROTOCOL,
+		},
 		data: { jsonrpc: '2.0', method: 'notifications/initialized' },
 	} );
 	const tools = async () =>
