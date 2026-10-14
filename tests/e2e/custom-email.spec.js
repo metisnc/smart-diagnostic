@@ -168,7 +168,8 @@ test( 'JSON and HTML modes, then back to the default template', async ( {
 
 	// Retour à l'éditeur visuel (confirmation) : les blocs sont toujours là.
 	page.once( 'dialog', ( dialog ) => dialog.accept() );
-	await editor.getByLabel( 'Visual editor' ).check();
+	await editor.getByLabel( 'Visual editor' ).click();
+	await expect( editor.getByLabel( 'Visual editor' ) ).toBeChecked();
 	await expect(
 		editor.locator( '.sd-b-email__block' ).first().getByLabel( 'Heading' )
 	).toHaveValue( 'Titre depuis le JSON' );
@@ -211,6 +212,9 @@ test( 'follow-up email sent a few days later', async ( { page, request } ) => {
 	expect( followUps[ 0 ].message ).toContain( 'Profil 2' );
 
 	// Remise en état : relance désactivée.
+	await page
+		.getByRole( 'tab', { name: 'Integrations', exact: true } )
+		.click();
 	await page
 		.getByLabel( 'Send a follow-up email to the visitor a few days later' )
 		.uncheck();
