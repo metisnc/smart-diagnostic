@@ -24,7 +24,11 @@ async function login( page ) {
 async function saveMcpSettings( page, { enabled, write } ) {
 	await page.goto( SETTINGS );
 	await page.getByLabel( 'Enable the MCP connector' ).setChecked( enabled );
-	await page.getByLabel( write ? /^Read and write/ : /^Read only/ ).check();
+	await page
+		.getByRole( 'radio', {
+			name: write ? /^Read and write/ : /^Read only/,
+		} )
+		.check();
 	await page.click( '#submit' );
 	await expect(
 		page.locator( '#setting-error-settings_updated' )
