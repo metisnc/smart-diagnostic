@@ -140,29 +140,37 @@ final class CustomEmail {
 	 * @return array<string, string>
 	 */
 	private static function blocks( array $data, array $submission ): array {
-		$color  = esc_attr( (string) $data['color'] );
+		$t      = $data['theme'];
+		$color  = esc_attr( $t['primary'] );
+		$on     = esc_attr( $t['primary_text'] );
+		$radius = esc_attr( $t['radius'] );
+		$track  = esc_attr( $t['surface'] );
+		$hfont  = esc_attr( $t['heading_font'] );
 		$button = static fn( string $url, string $label ): string => '' === $url ? '' : sprintf(
-			'<table role="presentation" cellpadding="0" cellspacing="0" style="margin:16px 0;"><tr><td style="border-radius:8px;background:%1$s;"><a href="%2$s" style="display:inline-block;padding:14px 28px;color:#ffffff;text-decoration:none;font-weight:bold;">%3$s</a></td></tr></table>',
+			'<table role="presentation" cellpadding="0" cellspacing="0" style="margin:16px 0;"><tr><td style="border-radius:%4$s;background:%1$s;"><a href="%2$s" style="display:inline-block;padding:14px 28px;color:%5$s;text-decoration:none;font-weight:bold;border-radius:%4$s;">%3$s</a></td></tr></table>',
 			$color,
 			esc_url( $url ),
-			esc_html( $label )
+			esc_html( $label ),
+			$radius,
+			$on
 		);
 
 		$scores = '';
 		foreach ( $data['scores'] as $score ) {
 			$percent = $score['max'] > 0 ? max( 0, min( 100, round( $score['value'] / $score['max'] * 100 ) ) ) : 0;
 			$scores .= sprintf(
-				'<div style="margin:8px 0;"><div style="font-size:14px;margin-bottom:4px;">%1$s — <strong>%2$s</strong></div><div style="height:8px;background:#e5e7eb;border-radius:4px;"><div style="height:8px;width:%3$d%%;background:%4$s;border-radius:4px;"></div></div></div>',
+				'<div style="margin:8px 0;"><div style="font-size:14px;margin-bottom:4px;">%1$s — <strong>%2$s</strong></div><div style="height:8px;background:%5$s;border-radius:4px;"><div style="height:8px;width:%3$d%%;background:%4$s;border-radius:4px;"></div></div></div>',
 				esc_html( $score['label'] ),
 				esc_html( $score['value'] . ' / ' . $score['max'] ),
 				(int) $percent,
-				$color
+				$color,
+				$track
 			);
 		}
 
 		$texts = '';
 		foreach ( $data['texts'] as $item ) {
-			$texts .= ( '' !== $item['title'] ? '<h3 style="font-size:16px;margin:16px 0 6px;">' . esc_html( $item['title'] ) . '</h3>' : '' ) . wp_kses_post( wpautop( $item['body'] ) );
+			$texts .= ( '' !== $item['title'] ? '<h3 style="font-size:16px;margin:16px 0 6px;font-family:' . $hfont . ';">' . esc_html( $item['title'] ) . '</h3>' : '' ) . wp_kses_post( wpautop( $item['body'] ) );
 		}
 
 		$actions = '';
@@ -179,7 +187,7 @@ final class CustomEmail {
 			$answers = '<table role="presentation" cellpadding="6" cellspacing="0" style="border-collapse:collapse;font-size:14px;width:100%;">';
 			foreach ( $data['answers'] as $answer ) {
 				$answers .= sprintf(
-					'<tr><th align="left" style="border-bottom:1px solid #e5e7eb;">%s</th><td style="border-bottom:1px solid #e5e7eb;">%s</td></tr>',
+					'<tr><th align="left" style="border-bottom:1px solid ' . $track . ';">%s</th><td style="border-bottom:1px solid ' . $track . ';">%s</td></tr>',
 					esc_html( $answer['label'] ),
 					esc_html( $answer['value'] )
 				);

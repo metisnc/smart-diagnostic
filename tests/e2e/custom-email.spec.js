@@ -128,3 +128,25 @@ test( 'back to the default template', async ( { page } ) => {
 	);
 	expect( json.integrations?.emails?.user?.body ).toBeUndefined();
 } );
+
+test( 'the default email reuses the questionnaire appearance', async ( {
+	page,
+} ) => {
+	await openDemo( page );
+
+	// Couleur principale choisie dans l'onglet Apparence (non enregistrée : aperçu seulement).
+	await page.getByRole( 'tab', { name: 'Appearance', exact: true } ).click();
+	await page
+		.locator( '.sd-b-color', { hasText: 'Main colour' } )
+		.locator( 'input[type="color"]' )
+		.fill( '#ff5500' );
+
+	await page
+		.getByRole( 'tab', { name: 'Integrations', exact: true } )
+		.click();
+	await userEmail( page ).getByRole( 'button', { name: 'Preview' } ).click();
+	const frame = page.frameLocator( '.sd-b-email--user .sd-b-email__frame' );
+	const cta = frame.getByRole( 'link', { name: 'Action recommandée' } );
+	await expect( cta ).toBeVisible();
+	await expect( cta ).toHaveCSS( 'background-color', 'rgb(255, 85, 0)' );
+} );

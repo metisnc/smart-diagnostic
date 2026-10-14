@@ -298,11 +298,12 @@ final class Mailer {
 			)
 		);
 
-		$color = (string) ( $config['ui']['theme']['colors']['primary'] ?? '' );
+		$theme = self::email_theme( $config );
 
 		return array(
 			'brand'      => Branding::name(),
-			'color'      => 1 === preg_match( '/^#[0-9a-f]{3,8}$/i', $color ) ? $color : '#2563eb',
+			'color'      => $theme['primary'],
+			'theme'      => $theme,
 			'title'      => $tx( $config['results']['title'] ?? '' ) ?: __( 'Your results', 'smart-diagnostic' ), // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
 			'first_name' => (string) ( $submission['first_name'] ?? '' ),
 			'email'      => (string) ( $submission['email'] ?? '' ),
@@ -322,6 +323,51 @@ final class Mailer {
 			'answers'    => $answers,
 			'submission' => $submission,
 			'config'     => $config,
+		);
+	}
+
+	/**
+	 * Apparence du questionnaire (onglet « Apparence »), validée pour un usage dans les emails.
+	 * Mêmes valeurs par défaut que le questionnaire.
+	 *
+	 * @param array<string, mixed> $config Config.
+	 * @return array{primary: string, primary_text: string, background: string, surface: string, text: string, muted: string, font: string, heading_font: string, radius: string, logo: string, logo_alt: string}
+	 */
+	public static function email_theme( array $config ): array {
+		$theme  = (array) ( $config['ui']['theme'] ?? array() );
+		$colors = (array) ( $theme['colors'] ?? array() );
+		$color  = static function ( string $key, string $fallback ) use ( $colors ): string {
+			$value = (string) ( $colors[ $key ] ?? '' );
+			return 1 === preg_match( '/^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i', $value ) ? $value : $fallback;
+		};
+		$font   = static function ( mixed $value, string $fallback ): string {
+			$value = trim( (string) $value );
+			if ( '' === $value || 1 !== preg_match( '/^[\w\s,\'"-]+$/u', $value ) ) {
+				return $fallback;
+			}
+			// Repli sur des polices standard : beaucoup de messageries n'ont pas les polices du site.
+			return $value . ', Arial, Helvetica, sans-serif';
+		};
+		$radius = (string) ( $theme['radius'] ?? '' );
+		$logo   = (string) ( $config['ui']['logo']['url'] ?? '' );
+		if ( str_starts_with( $logo, '/' ) && ! str_starts_with( $logo, '//' ) ) {
+			$logo = home_url( $logo ); // Une image d'email doit avoir une adresse complète.
+		}
+
+		$base = $font( $theme['fontFamily'] ?? '', 'Arial, Helvetica, sans-serif' );
+		return array(
+			'primary'      => $color( 'primary', '#2563eb' ),
+			'primary_text' => $color( 'primaryText', '#ffffff' ),
+			'background'   => $color( 'background', '#ffffff' ),
+			'surface'      => $color( 'surface', '#f5f7fa' ),
+			'text'         => $color( 'text', '#1f2937' ),
+			'muted'        => $color( 'muted', '#6b7280' ),
+			'font'         => $base,
+			'heading_font' => '' !== trim( (string) ( $theme['headingFontFamily'] ?? '' ) ) ? $font( $theme['headingFontFamily'], $base ) : $base,
+			// Les messageries gèrent mal les unités relatives : px uniquement.
+			'radius'       => 1 === preg_match( '/^\d+(\.\d+)?px$/', $radius ) ? $radius : '12px',
+			'logo'         => 1 === preg_match( '#^https?://#i', $logo ) ? $logo : '',
+			'logo_alt'     => wp_strip_all_tags( Text::resolve( $config['ui']['logo']['alt'] ?? '' ) ),
 		);
 	}
 
