@@ -96,49 +96,77 @@ export function Builder( { initial, initialText, field, schema } ) {
 
 	return (
 		<div className={ `sd-builder${ showPreview ? ' has-preview' : '' }` }>
-			<div className="sd-builder__status" aria-live="polite">
-				{ jsonError && (
-					<Notice status="error" isDismissible={ false }>
-						{ __( 'Invalid JSON:', 'smart-diagnostic' ) }{ ' ' }
-						{ jsonError }
-					</Notice>
-				) }
-				{ ! jsonError && valid && (
-					<Notice status="success" isDismissible={ false }>
-						{ __( 'Valid configuration.', 'smart-diagnostic' ) }
-					</Notice>
-				) }
-				{ ! jsonError && ! valid && (
-					<Notice status="warning" isDismissible={ false }>
-						<strong>
+			<div className="sd-builder__header">
+				<h2 className="sd-builder__title">
+					{ __( 'Diagnostic builder', 'smart-diagnostic' ) }
+				</h2>
+				<div className="sd-builder__status" aria-live="polite">
+					{ jsonError && (
+						<span className="sd-builder__badge is-error">
+							{ __( 'Invalid JSON', 'smart-diagnostic' ) }
+						</span>
+					) }
+					{ ! jsonError && valid && (
+						<span className="sd-builder__badge is-valid">
+							{ __( 'Valid configuration.', 'smart-diagnostic' ) }
+						</span>
+					) }
+					{ ! jsonError && ! valid && (
+						<span className="sd-builder__badge is-warning">
 							{ sprintf(
 								/* translators: %d: number of errors. */
 								_n(
-									'%d error: the configuration will not be saved until it is fixed.',
-									'%d errors: the configuration will not be saved until they are fixed.',
+									'%d error to fix',
+									'%d errors to fix',
 									errors.length,
 									'smart-diagnostic'
 								),
 								errors.length
 							) }
-						</strong>
-						<ul>
-							{ errors.slice( 0, 8 ).map( ( error, i ) => (
-								<li key={ i }>
-									<code>{ error.instancePath || '/' }</code>{ ' ' }
-									{ error.message }
-								</li>
-							) ) }
-						</ul>
-					</Notice>
-				) }
+						</span>
+					) }
+				</div>
 				<ToggleControl
 					__nextHasNoMarginBottom
+					className="sd-builder__preview-toggle"
 					label={ __( 'Live preview', 'smart-diagnostic' ) }
 					checked={ showPreview }
 					onChange={ setShowPreview }
 				/>
 			</div>
+			{ jsonError && (
+				<Notice
+					className="sd-builder__issues"
+					status="error"
+					isDismissible={ false }
+				>
+					{ __( 'Invalid JSON:', 'smart-diagnostic' ) } { jsonError }
+				</Notice>
+			) }
+			{ ! jsonError && ! valid && (
+				<Notice
+					className="sd-builder__issues"
+					status="warning"
+					isDismissible={ false }
+				>
+					<strong>
+						{ _n(
+							'The configuration will not be saved until this error is fixed:',
+							'The configuration will not be saved until these errors are fixed:',
+							errors.length,
+							'smart-diagnostic'
+						) }
+					</strong>
+					<ul>
+						{ errors.slice( 0, 8 ).map( ( error, i ) => (
+							<li key={ i }>
+								<code>{ error.instancePath || '/' }</code>{ ' ' }
+								{ error.message }
+							</li>
+						) ) }
+					</ul>
+				</Notice>
+			) }
 			<div className="sd-builder__main">
 				<TabPanel
 					className="sd-builder__tabs"
@@ -200,6 +228,9 @@ export function Builder( { initial, initialText, field, schema } ) {
 						className="sd-builder__preview"
 						aria-label={ __( 'Live preview', 'smart-diagnostic' ) }
 					>
+						<p className="sd-builder__preview-title">
+							{ __( 'Preview', 'smart-diagnostic' ) }
+						</p>
 						<div ref={ previewRef } />
 					</aside>
 				) }

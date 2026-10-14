@@ -34,24 +34,33 @@ final class ConfigEditor {
 	public function __construct( private ConfigRepository $configs = new ConfigRepository() ) {}
 
 	public function register(): void {
+		add_action( 'edit_form_after_title', array( $this, 'render_panel' ) );
 		add_action( 'add_meta_boxes_' . DiagnosticPostType::NAME, array( $this, 'add_meta_box' ) );
 		add_action( 'save_post_' . DiagnosticPostType::NAME, array( $this, 'save' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action( 'admin_notices', array( $this, 'errors_notice' ) );
 	}
 
+	/**
+	 * Boîte « Insertion » (colonne latérale) : shortcode du diagnostic.
+	 */
 	public function add_meta_box(): void {
-		add_meta_box(
-			'sd-config',
-			__( 'Configuration (JSON)', 'smart-diagnostic' ),
-			array( $this, 'render_meta_box' ),
-			DiagnosticPostType::NAME,
-			'normal',
-			'high'
-		);
+		add_meta_box( 'sd-embed', __( 'Insertion', 'smart-diagnostic' ), array( $this, 'render_embed' ), DiagnosticPostType::NAME, 'side', 'high' );
 	}
 
-	public function render_meta_box( \WP_Post $post ): void {
+	public function render_embed( \WP_Post $post ): void {
+		echo '<p>' . esc_html__( 'Insert this diagnostic in a page with the "Diagnostic" block, or with this shortcode:', 'smart-diagnostic' ) . '</p>';
+		printf( '<p><input type="text" class="widefat code sd-embed__code" readonly value="%s" onfocus="this.select()" /></p>', esc_attr( '[smart_diagnostic id="' . (int) $post->ID . '"]' ) );
+	}
+
+	/**
+	 * Constructeur : panneau fixe sous le titre, dans la colonne principale. Ce n'est pas
+	 * une boîte déplaçable : il ne peut pas se retrouver dans la colonne latérale.
+	 */
+	public function render_panel( \WP_Post $post ): void {
+		if ( DiagnosticPostType::NAME !== $post->post_type ) {
+			return;
+		}
 		$draft = get_transient( $this->draft_key( $post->ID ) );
 		$json  = is_array( $draft ) && isset( $draft['json'] ) ? (string) $draft['json'] : $this->configs->get_raw( $post->ID );
 		if ( '' === $json ) {
@@ -61,17 +70,10 @@ final class ConfigEditor {
 		wp_nonce_field( self::NONCE_ACTION, self::NONCE_FIELD );
 		?>
 		<?php // Le constructeur visuel (React) édite ce champ, enregistré avec le diagnostic. ?>
-		<div id="sd-builder"></div>
-		<textarea id="sd-config-field" name="<?php echo esc_attr( self::FIELD ); ?>" class="sd-config-source" rows="20" spellcheck="false"><?php echo esc_textarea( $json ); ?></textarea>
-		<p class="description" style="padding:0 12px 12px">
-			<?php
-			printf(
-				/* translators: %s: shortcode. */
-				esc_html__( 'Insert this diagnostic with the "Diagnostic" block or the shortcode %s.', 'smart-diagnostic' ),
-				'<code>[smart_diagnostic id="' . (int) $post->ID . '"]</code>'
-			);
-			?>
-		</p>
+		<div id="sd-config" class="sd-config-panel">
+			<div id="sd-builder"></div>
+			<textarea id="sd-config-field" name="<?php echo esc_attr( self::FIELD ); ?>" class="sd-config-source" rows="20" spellcheck="false"><?php echo esc_textarea( $json ); ?></textarea>
+		</div>
 		<?php
 	}
 
