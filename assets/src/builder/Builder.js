@@ -18,6 +18,7 @@ import { ScoringTab } from './tabs/Scoring';
 import { ResultsTab } from './tabs/Results';
 import { DesignTab, GeneralTab, IntegrationsTab } from './tabs/General';
 import { TestTab } from './tabs/Test';
+import { GuideTab } from './tabs/Guide';
 
 const PREVIEW_DELAY_MS = 300;
 
@@ -48,6 +49,23 @@ export function Builder( { initial, initialText, field, schema } ) {
 		}
 	} );
 	const [ showPreview, setShowPreview ] = useState( true );
+	// Onglet ouvert : changer « key » remonte les onglets sur l'onglet demandé (boutons du guide).
+	const [ tabState, setTabState ] = useState( () => {
+		let name = window.sdAdmin?.isNew ? 'guide' : 'steps';
+		try {
+			JSON.parse( initialText );
+		} catch ( error ) {
+			name = 'json';
+		}
+		return { key: 0, name };
+	} );
+	const mainRef = useRef( null );
+	const goTo = ( name ) => {
+		setTabState( ( state ) => ( { key: state.key + 1, name } ) );
+		window.requestAnimationFrame( () =>
+			mainRef.current?.scrollIntoView( { block: 'start' } )
+		);
+	};
 	const previewRef = useRef( null );
 	const validate = useValidator( schema );
 	const valid = validate( config );
@@ -80,6 +98,7 @@ export function Builder( { initial, initialText, field, schema } ) {
 	}, [ config, showPreview ] );
 
 	const tabs = [
+		{ name: 'guide', title: __( 'Guide', 'smart-diagnostic' ) },
 		{ name: 'steps', title: __( 'Journey', 'smart-diagnostic' ) },
 		{ name: 'scoring', title: __( 'Calculation', 'smart-diagnostic' ) },
 		{ name: 'results', title: __( 'Results', 'smart-diagnostic' ) },
@@ -167,14 +186,22 @@ export function Builder( { initial, initialText, field, schema } ) {
 					</ul>
 				</Notice>
 			) }
-			<div className="sd-builder__main">
+			<div className="sd-builder__main" ref={ mainRef }>
 				<TabPanel
+					key={ tabState.key }
 					className="sd-builder__tabs"
 					tabs={ tabs }
-					initialTabName={ jsonError ? 'json' : 'steps' }
+					initialTabName={ tabState.name }
 				>
 					{ ( tab ) => (
 						<div className="sd-builder__panel">
+							{ tab.name === 'guide' && (
+								<GuideTab
+									config={ config }
+									valid={ ! jsonError && valid }
+									goTo={ goTo }
+								/>
+							) }
 							{ tab.name === 'steps' && (
 								<StepsTab { ...props } />
 							) }

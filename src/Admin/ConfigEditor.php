@@ -153,6 +153,9 @@ final class ConfigEditor {
 					'emailPresets'      => EmailBlocks::presets(),
 					'previewPath'       => '/' . SubmitController::rest_namespace() . '/email-preview',
 					'postId'            => (int) get_the_ID(),
+					// Nouveau diagnostic : le constructeur s'ouvre sur l'onglet « Guide ».
+					'isNew'             => 'auto-draft' === get_post_status(),
+					'templatesUrl'      => TemplatesPage::url(),
 				)
 			) . ';',
 			'before'
