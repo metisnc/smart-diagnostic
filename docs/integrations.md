@@ -24,6 +24,33 @@ les textes, le plan d'action, le CTA, le lien du résultat et les réponses.
 `template` permet d'utiliser un autre modèle (`emails/<nom>.php`). En-têtes : filtre
 `sd_email_headers`.
 
+### Apparence
+
+Les emails (modèles par défaut, cadre et blocs des modèles personnalisés) reprennent
+l'apparence du questionnaire (onglet **Apparence**) : couleurs, polices (avec repli sur
+Arial / Helvetica, car beaucoup de messageries n'ont pas les polices du site), arrondi des
+angles (en `px`) et logo.
+
+### Modèle personnalisé
+
+Constructeur → **Intégrations** → « Modèle personnalisé », pour l'email au visiteur et / ou à
+l'équipe : objet et corps HTML libres, avec des variables insérées d'un clic.
+
+| Variable | Contenu |
+|---|---|
+| `{first_name}`, `{email}`, `{diagnostic}`, `{date}` | Prénom, email, nom du diagnostic, date |
+| `{profile}`, `{profile_text}` | Nom et texte du profil |
+| `{scores}`, `{texts}`, `{actions}`, `{answers}` | Barres de scores, textes conditionnels, plan d'action, tableau des réponses |
+| `{cta}`, `{result_button}`, `{result_link}` | Bouton d'appel à l'action, bouton et adresse de la page de résultat |
+| `{score:axe}`, `{answer:question}`, `{var:cle}`, `{contact:champ}` | Valeurs ponctuelles |
+
+Le corps est placé dans le cadre du plugin (`templates/emails/custom.php`, surchargeable) ;
+l'option « Document HTML complet » le remplace entièrement (`<html>`, `<head>`, `<style>`
+autorisés). Le HTML saisi est filtré et les valeurs saisies par les visiteurs sont
+toujours échappées. **Aperçu** (données d'exemple) et **M'envoyer cet email** permettent de
+vérifier le rendu avant d'enregistrer. Format JSON : `integrations.emails.user.body`
+(texte ou objet par langue) et `fullHtml`.
+
 ### Réglages → Emails
 
 - **Expéditeur** (nom, adresse) et **adresse de réponse** : vides = l'expéditeur défini par
