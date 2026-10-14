@@ -1,7 +1,7 @@
 /**
  * Onglet « Parcours » : sections et étapes (glisser-déposer), éditeur de l'étape choisie.
  */
-import { useState } from '@wordpress/element';
+import { useEffect, useState } from '@wordpress/element';
 import {
 	Button,
 	CheckboxControl,
@@ -1051,11 +1051,12 @@ function JumpEditor( { step, steps, config, onChange } ) {
 
 /**
  * @param {Object}   props
- * @param {Object}   props.config    Config.
- * @param {Function} props.set       ( path, value ) => void.
- * @param {string[]} props.languages Langues.
+ * @param {Object}   props.config         Config.
+ * @param {Function} props.set            ( path, value ) => void.
+ * @param {string[]} props.languages      Langues.
+ * @param {Function} [props.onSelectStep] ( clé | null ) => void : étape sélectionnée (aperçu).
  */
-export function StepsTab( { config, set, languages } ) {
+export function StepsTab( { config, set, languages, onSelectStep } ) {
 	const steps = config.steps ?? [];
 	const sections = config.sections ?? [];
 	const [ selected, setSelected ] = useState( steps[ 0 ]?.key ?? null );
@@ -1067,6 +1068,12 @@ export function StepsTab( { config, set, languages } ) {
 	const setStep = ( path, value ) =>
 		set( [ 'steps', index, ...path ], value );
 	const kinds = KIND_LABELS();
+
+	// L'aperçu montre l'étape sélectionnée.
+	useEffect( () => {
+		onSelectStep?.( step ? selected : null );
+	}, [ selected, step, onSelectStep ] );
+
 	const titleOf = ( item ) =>
 		resolveText( item.label ?? item.title ?? item.body, languages[ 0 ] )
 			.replace( /<[^>]+>/g, '' )

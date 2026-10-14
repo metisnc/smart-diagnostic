@@ -69,8 +69,10 @@ function freshState( config, context ) {
  * @param {Object}  props
  * @param {Object}  props.payload         Données du serveur : { id, locale, strings, config }.
  * @param {boolean} [props.preview=false] Aperçu admin : pas de sauvegarde.
+ * @param {Object}  [props.start]         Aperçu admin : écran de départ
+ *                                        ({ step }, { screen: 'welcome' } ou { screen: 'results', answers }).
  */
-export function App( { payload, preview = false } ) {
+export function App( { payload, preview = false, start: startAt = null } ) {
 	const { id, config, locale } = payload;
 	const languages = config.i18n?.languages ?? [];
 	const defaultLang = config.i18n?.defaultLanguage ?? languages[ 0 ];
@@ -95,6 +97,21 @@ export function App( { payload, preview = false } ) {
 				current: null,
 				answers: payload.submission.answers ?? {},
 				contact: payload.submission.contact ?? {},
+			};
+		}
+		// Aperçu de l'admin : l'étape, l'accueil ou le résultat en cours de modification.
+		if ( preview && startAt?.step ) {
+			return { ...fresh, screen: 'step', current: startAt.step };
+		}
+		if ( preview && startAt?.screen === 'welcome' ) {
+			return fresh;
+		}
+		if ( preview && startAt?.screen === 'results' ) {
+			return {
+				...fresh,
+				screen: 'results',
+				current: null,
+				answers: startAt.answers ?? {},
 			};
 		}
 		const saved = persist ? loadProgress( key ) : null;

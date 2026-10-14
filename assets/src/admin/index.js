@@ -9,14 +9,62 @@ import './admin.scss';
 
 let previewKey = 0;
 
+/**
+ * Réponses d'exemple (aperçu du résultat) : première réponse des choix, milieu des échelles.
+ *
+ * @param {Object} config Config.
+ * @return {Object} Réponses.
+ */
+export function sampleAnswers( config ) {
+	const answers = {};
+	for ( const step of config.steps ?? [] ) {
+		if ( step.kind !== 'question' ) {
+			continue;
+		}
+		const rules = step.validation ?? {};
+		const first = step.options?.[ 0 ]?.value;
+		switch ( step.type ) {
+			case 'single':
+			case 'dropdown':
+			case 'image_choice':
+				if ( first !== undefined ) {
+					answers[ step.key ] = first;
+				}
+				break;
+			case 'multi':
+				if ( first !== undefined ) {
+					answers[ step.key ] = [ first ];
+				}
+				break;
+			case 'yes_no':
+				answers[ step.key ] = first ?? true;
+				break;
+			case 'scale':
+			case 'slider':
+			case 'number':
+			case 'amount': {
+				const min = rules.min ?? ( step.type === 'scale' ? 1 : 0 );
+				const max = rules.max ?? ( step.type === 'scale' ? 5 : 100 );
+				answers[ step.key ] = Math.round( ( min + max ) / 2 );
+				break;
+			}
+			default:
+				break;
+		}
+	}
+	return answers;
+}
+
 window.sdPreview = {
 	/**
 	 * Affiche (ou rafraîchit) l'aperçu d'une config dans un élément.
 	 *
 	 * @param {HTMLElement} element Conteneur.
 	 * @param {Object}      config  Config.
+	 * @param {Object}      [start] Écran de départ : { step }, { screen: 'welcome' } ou
+	 *                              { screen: 'results' } (réponses d'exemple).
 	 */
-	render( element, config ) {
+	render( element, config, start = null ) {
 		const settings = window.sdAdmin ?? {};
 		previewKey++;
 		try {
@@ -24,6 +72,11 @@ window.sdPreview = {
 				<App
 					key={ previewKey }
 					preview
+					start={
+						start?.screen === 'results'
+							? { ...start, answers: sampleAnswers( config ) }
+							: start
+					}
 					payload={ {
 						id: 'preview',
 						locale: settings.locale,

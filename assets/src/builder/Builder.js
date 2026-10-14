@@ -4,6 +4,7 @@
  */
 import { useEffect, useMemo, useRef, useState } from '@wordpress/element';
 import {
+	Button,
 	Notice,
 	TabPanel,
 	TextareaControl,
@@ -88,17 +89,57 @@ export function Builder( { initial, initialText, field, schema } ) {
 		field.value = jsonError ? json : JSON.stringify( config, null, 2 );
 	}, [ config, json, jsonError, field ] );
 
+	// Aperçu ciblé : l'étape en cours de modification (Parcours), l'accueil (Général),
+	// le résultat (Résultat) ; sinon, ou si on le demande, tout le parcours depuis le début.
+	const [ selectedStep, setSelectedStep ] = useState( null );
+	const [ previewAll, setPreviewAll ] = useState( false );
+	const stepIndex = ( config.steps ?? [] ).findIndex(
+		( step ) => step.key === selectedStep
+	);
+	let focus = null;
+	if ( currentTab === 'steps' && stepIndex >= 0 ) {
+		focus = {
+			start: { step: selectedStep },
+			label: sprintf(
+				/* translators: %d: step number. */
+				__( 'Step %d', 'smart-diagnostic' ),
+				stepIndex + 1
+			),
+		};
+	} else if (
+		currentTab === 'general' &&
+		config.welcome &&
+		config.welcome.enabled !== false
+	) {
+		focus = {
+			start: { screen: 'welcome' },
+			label: __( 'Welcome screen', 'smart-diagnostic' ),
+		};
+	} else if ( currentTab === 'results' ) {
+		focus = {
+			start: { screen: 'results' },
+			label: __( 'Result (example answers)', 'smart-diagnostic' ),
+		};
+	}
+	const start = focus && ! previewAll ? focus.start : null;
+	const startKey = JSON.stringify( start );
+
 	useEffect( () => {
 		if ( ! showPreview || ! previewRef.current || ! window.sdPreview ) {
 			return undefined;
 		}
 		const timer = setTimeout(
-			() => window.sdPreview.render( previewRef.current, config ),
+			() =>
+				window.sdPreview.render(
+					previewRef.current,
+					config,
+					JSON.parse( startKey )
+				),
 			PREVIEW_DELAY_MS
 		);
 		return () => clearTimeout( timer );
 		// currentTab : l'aperçu réapparaît en quittant l'onglet « Guide ».
-	}, [ config, showPreview, currentTab ] );
+	}, [ config, showPreview, currentTab, startKey ] );
 
 	const tabs = [
 		{ name: 'guide', title: __( 'Guide', 'smart-diagnostic' ) },
@@ -211,7 +252,10 @@ export function Builder( { initial, initialText, field, schema } ) {
 								/>
 							) }
 							{ tab.name === 'steps' && (
-								<StepsTab { ...props } />
+								<StepsTab
+									{ ...props }
+									onSelectStep={ setSelectedStep }
+								/>
 							) }
 							{ tab.name === 'scoring' && (
 								<ScoringTab { ...props } />
@@ -264,9 +308,60 @@ export function Builder( { initial, initialText, field, schema } ) {
 						className="sd-builder__preview"
 						aria-label={ __( 'Live preview', 'smart-diagnostic' ) }
 					>
-						<p className="sd-builder__preview-title">
-							{ __( 'Preview', 'smart-diagnostic' ) }
-						</p>
+						<div className="sd-builder__preview-head">
+							<p className="sd-builder__preview-title">
+								{ focus && ! previewAll
+									? sprintf(
+											/* translators: %s: what is previewed (step, welcome screen…). */
+											__(
+												'Preview: %s',
+												'smart-diagnostic'
+											),
+											focus.label
+										)
+									: __(
+											'Preview: whole journey',
+											'smart-diagnostic'
+										) }
+							</p>
+							{ focus && (
+								<div
+									className="sd-builder__preview-mode"
+									role="group"
+									aria-label={ __(
+										'What to preview',
+										'smart-diagnostic'
+									) }
+								>
+									<Button
+										size="small"
+										variant={
+											previewAll ? 'secondary' : 'primary'
+										}
+										aria-pressed={ ! previewAll }
+										onClick={ () => setPreviewAll( false ) }
+									>
+										{ __(
+											'This part',
+											'smart-diagnostic'
+										) }
+									</Button>
+									<Button
+										size="small"
+										variant={
+											previewAll ? 'primary' : 'secondary'
+										}
+										aria-pressed={ previewAll }
+										onClick={ () => setPreviewAll( true ) }
+									>
+										{ __(
+											'Whole journey',
+											'smart-diagnostic'
+										) }
+									</Button>
+								</div>
+							) }
+						</div>
 						<div ref={ previewRef } />
 					</aside>
 				) }
