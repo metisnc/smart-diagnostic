@@ -396,6 +396,22 @@
 		background: #fcfcfc;
 	}
 
+	&__block-toggle.components-button {
+		flex: 1 1 auto;
+		gap: 8px;
+		min-width: 0;
+		height: auto;
+		padding: 4px 0;
+		text-align: left;
+		white-space: nowrap;
+	}
+
+	&__excerpt {
+		overflow: hidden;
+		color: #646970;
+		text-overflow: ellipsis;
+	}
+
 	&__block-bar {
 		display: flex;
 		align-items: center;

@@ -61,6 +61,14 @@ const FONTS = [
 	'Times New Roman',
 ];
 
+// Couleurs par défaut du questionnaire (mêmes valeurs que Mailer::email_theme()).
+const DEFAULT_COLORS = {
+	primary: '#2563eb',
+	text: '#1f2937',
+	background: '#ffffff',
+	surface: '#f5f7fa',
+};
+
 const STYLE_COLORS = () => [
 	[ 'primary', __( 'Main colour (buttons)', 'smart-diagnostic' ) ],
 	[ 'text', __( 'Text', 'smart-diagnostic' ) ],
@@ -86,6 +94,19 @@ const newBlock = ( type ) => {
 			return { type };
 	}
 };
+
+/**
+ * Résumé d'un bloc replié : début du texte, ou adresse de l'image.
+ *
+ * @param {Object}   block Bloc.
+ * @param {Function} text  ( value ) => texte de la langue affichée.
+ * @return {string} Résumé.
+ */
+function excerpt( block, text ) {
+	const value =
+		block.type === 'image' ? ( block.url ?? '' ) : text( block.text ?? '' );
+	return value.length > 60 ? value.slice( 0, 60 ) + '…' : value;
+}
 
 /**
  * Variables proposées : générales, puis une par question et par axe.
@@ -534,7 +555,7 @@ function StyleSettings( { style, theme, onChange } ) {
 							value={
 								style[ key ] ??
 								theme.colors?.[ key ] ??
-								( key === 'text' ? '#1f2937' : '#ffffff' )
+								DEFAULT_COLORS[ key ]
 							}
 							onChange={ ( event ) =>
 								setKey( key, event.target.value )
@@ -597,6 +618,7 @@ export function EmailEditor( { kind, config, set, languages } ) {
 	const [ busy, setBusy ] = useState( false );
 	const [ json, setJson ] = useState( null );
 	const [ jsonMode, setJsonMode ] = useState( false );
+	const [ open, setOpen ] = useState( null );
 	const groups = variables( config, lang );
 
 	let mode = 'default';
@@ -895,10 +917,26 @@ export function EmailEditor( { kind, config, set, languages } ) {
 										className="sd-b-email__block"
 									>
 										<div className="sd-b-email__block-bar">
-											<strong>
-												{ blockLabel[ block.type ] ??
-													block.type }
-											</strong>
+											<Button
+												className="sd-b-email__block-toggle"
+												aria-expanded={ open === index }
+												onClick={ () =>
+													setOpen(
+														open === index
+															? null
+															: index
+													)
+												}
+											>
+												<strong>
+													{ blockLabel[
+														block.type
+													] ?? block.type }
+												</strong>
+												<span className="sd-b-email__excerpt">
+													{ excerpt( block, text ) }
+												</span>
+											</Button>
 											<span className="sd-b-list__actions">
 												<Button
 													size="small"
@@ -908,15 +946,16 @@ export function EmailEditor( { kind, config, set, languages } ) {
 														'smart-diagnostic'
 													) }
 													disabled={ index === 0 }
-													onClick={ () =>
+													onClick={ () => {
 														setBlocks(
 															move(
 																blocks,
 																index,
 																index - 1
 															)
-														)
-													}
+														);
+														setOpen( null );
+													} }
 												/>
 												<Button
 													size="small"
@@ -929,15 +968,16 @@ export function EmailEditor( { kind, config, set, languages } ) {
 														index ===
 														blocks.length - 1
 													}
-													onClick={ () =>
+													onClick={ () => {
 														setBlocks(
 															move(
 																blocks,
 																index,
 																index + 1
 															)
-														)
-													}
+														);
+														setOpen( null );
+													} }
 												/>
 												<Button
 													size="small"
@@ -978,13 +1018,15 @@ export function EmailEditor( { kind, config, set, languages } ) {
 												/>
 											</span>
 										</div>
-										<BlockSettings
-											block={ block }
-											update={ updateBlock( index ) }
-											text={ text }
-											withText={ withText }
-											groups={ groups }
-										/>
+										{ open === index && (
+											<BlockSettings
+												block={ block }
+												update={ updateBlock( index ) }
+												text={ text }
+												withText={ withText }
+												groups={ groups }
+											/>
+										) }
 									</li>
 								) ) }
 							</ol>
@@ -1008,6 +1050,9 @@ export function EmailEditor( { kind, config, set, languages } ) {
 															...blocks,
 															newBlock( type ),
 														] );
+														setOpen(
+															blocks.length
+														);
 														onClose();
 													} }
 												>

@@ -63,6 +63,18 @@ const mailsTo = async ( request, email ) =>
 	);
 
 const userEmail = ( page ) => page.locator( '.sd-b-email--user' );
+
+// Ouvre le premier bloc (replié par défaut) et renvoie son champ « Heading ».
+async function firstHeading( editor ) {
+	const toggle = editor.locator( '.sd-b-email__block-toggle' ).first();
+	if ( ( await toggle.getAttribute( 'aria-expanded' ) ) !== 'true' ) {
+		await toggle.click();
+	}
+	return editor
+		.locator( '.sd-b-email__block' )
+		.first()
+		.getByLabel( 'Heading' );
+}
 const frameOf = ( page ) =>
 	page.frameLocator( '.sd-b-email--user .sd-b-email__frame' );
 
@@ -156,9 +168,9 @@ test( 'JSON and HTML modes, then back to the default template', async ( {
 	parsed.blocks[ 0 ].text = 'Titre depuis le JSON';
 	await json.fill( JSON.stringify( parsed ) );
 	await editor.getByLabel( 'Edit as JSON' ).uncheck();
-	await expect(
-		editor.locator( '.sd-b-email__block' ).first().getByLabel( 'Heading' )
-	).toHaveValue( 'Titre depuis le JSON' );
+	await expect( await firstHeading( editor ) ).toHaveValue(
+		'Titre depuis le JSON'
+	);
 
 	// HTML avancé : on part du rendu des blocs.
 	// Conversion par le serveur : le mode change à la réponse.
@@ -172,9 +184,9 @@ test( 'JSON and HTML modes, then back to the default template', async ( {
 	page.once( 'dialog', ( dialog ) => dialog.accept() );
 	await editor.getByLabel( 'Visual editor' ).click();
 	await expect( editor.getByLabel( 'Visual editor' ) ).toBeChecked();
-	await expect(
-		editor.locator( '.sd-b-email__block' ).first().getByLabel( 'Heading' )
-	).toHaveValue( 'Titre depuis le JSON' );
+	await expect( await firstHeading( editor ) ).toHaveValue(
+		'Titre depuis le JSON'
+	);
 
 	await editor
 		.getByLabel( 'Default template (built from the results)' )

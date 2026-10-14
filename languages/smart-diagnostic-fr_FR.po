@@ -34,35 +34,35 @@ msgstr "metisnc"
 msgid "Smart Diagnostic: dependencies are missing. Run \"composer install\" in the plugin folder."
 msgstr "Smart Diagnostic : dépendances manquantes. Lancez « composer install » dans le dossier du plugin."
 
-#: src/Admin/ConfigEditor.php:45
+#: src/Admin/ConfigEditor.php:46
 #: assets/src/builder/Builder.js:173
 msgid "Configuration (JSON)"
 msgstr "Configuration (JSON)"
 
 #. translators: %s: shortcode.
-#: src/Admin/ConfigEditor.php:69
+#: src/Admin/ConfigEditor.php:70
 #, php-format
 msgid "Insert this diagnostic with the \"Diagnostic\" block or the shortcode %s."
 msgstr "Insérez ce diagnostic avec le bloc « Diagnostic » ou le shortcode %s."
 
-#: src/Admin/ConfigEditor.php:118
+#: src/Admin/ConfigEditor.php:119
 msgid "The configuration was not saved: it contains errors. The previous valid version remains online."
 msgstr "La configuration n’a pas été enregistrée : elle contient des erreurs. La dernière version valide reste en ligne."
 
-#: src/Admin/ConfigEditor.php:178
+#: src/Admin/ConfigEditor.php:183
 msgid "Section 1"
 msgstr "Section 1"
 
-#: src/Admin/ConfigEditor.php:187
+#: src/Admin/ConfigEditor.php:192
 msgid "First question"
 msgstr "Première question"
 
-#: src/Admin/ConfigEditor.php:191
+#: src/Admin/ConfigEditor.php:196
 #: assets/src/builder/tabs/Steps.js:72
 msgid "Answer A"
 msgstr "Réponse A"
 
-#: src/Admin/ConfigEditor.php:195
+#: src/Admin/ConfigEditor.php:200
 #: assets/src/builder/tabs/Steps.js:73
 msgid "Answer B"
 msgstr "Réponse B"
@@ -75,6 +75,7 @@ msgstr "Importer"
 
 #: src/Admin/ImportExport.php:65
 #: src/Admin/ImportExport.php:79
+#: assets/src/builder/EmailEditor.js:945
 #: assets/src/builder/tabs/Steps.js:1172
 msgid "Duplicate"
 msgstr "Dupliquer"
@@ -89,7 +90,7 @@ msgstr "Exporter en JSON"
 #: src/Admin/ImportExport.php:121
 #: src/Admin/SettingsPage.php:310
 #: src/Admin/SubmissionsPage.php:90
-#: src/Admin/SubmissionsPage.php:277
+#: src/Admin/SubmissionsPage.php:280
 #: src/Admin/TemplatesPage.php:93
 msgid "You are not allowed to do this."
 msgstr "Vous n’avez pas l’autorisation de faire cela."
@@ -125,6 +126,7 @@ msgid "The configuration is not valid:"
 msgstr "La configuration n’est pas valide :"
 
 #: src/Admin/ImportExport.php:191
+#: assets/src/builder/EmailEditor.js:74
 #: assets/src/builder/tabs/General.js:119
 #: assets/src/builder/tabs/Results.js:106
 #: assets/src/builder/tabs/Results.js:286
@@ -341,12 +343,12 @@ msgid "Please enter a valid email address."
 msgstr "Veuillez saisir une adresse email valide."
 
 #: src/Admin/SettingsPage.php:323
-#: src/Admin/SubmissionsPage.php:244
+#: src/Admin/SubmissionsPage.php:247
 msgid "dedicated SMTP"
 msgstr "SMTP dédié"
 
 #: src/Admin/SettingsPage.php:323
-#: src/Admin/SubmissionsPage.php:244
+#: src/Admin/SubmissionsPage.php:247
 msgid "WordPress / SMTP plugin"
 msgstr "WordPress / plugin SMTP"
 
@@ -485,7 +487,7 @@ msgid "Given"
 msgstr "Donné"
 
 #: src/Admin/SubmissionsPage.php:175
-#: src/Admin/SubmissionsPage.php:264
+#: src/Admin/SubmissionsPage.php:267
 #: src/Admin/SubmissionsTable.php:173
 #: src/Front/Strings.php:44
 #: assets/src/builder/ConditionEditor.js:142
@@ -494,7 +496,7 @@ msgid "Yes"
 msgstr "Oui"
 
 #: src/Admin/SubmissionsPage.php:175
-#: src/Admin/SubmissionsPage.php:264
+#: src/Admin/SubmissionsPage.php:267
 #: src/Admin/SubmissionsTable.php:174
 #: src/Front/Strings.php:45
 #: src/Privacy/Privacy.php:122
@@ -518,7 +520,7 @@ msgstr "Version"
 #: src/Admin/SubmissionsPage.php:181
 #: src/Admin/SubmissionsTable.php:67
 #: src/Privacy/Privacy.php:125
-#: templates/emails/admin.php:31
+#: templates/emails/admin.php:36
 #: assets/src/builder/tabs/Results.js:17
 #: assets/src/builder/tabs/Test.js:236
 msgid "Profile"
@@ -534,13 +536,14 @@ msgid "Result"
 msgstr "Résultat"
 
 #: src/Admin/SubmissionsPage.php:195
-#: templates/emails/admin.php:38
+#: templates/emails/admin.php:43
+#: assets/src/builder/EmailEditor.js:121
 msgid "Answers"
 msgstr "Réponses"
 
 #: src/Admin/SubmissionsPage.php:198
 #: src/Front/Strings.php:65
-#: assets/src/builder/EmailTemplateEditor.js:195
+#: assets/src/builder/EmailEditor.js:804
 msgid "Language"
 msgstr "Langue"
 
@@ -557,39 +560,39 @@ msgid "Email to the team"
 msgstr "Email à l’équipe"
 
 #. translators: %s: webhook key.
-#: src/Admin/SubmissionsPage.php:213
+#: src/Admin/SubmissionsPage.php:216
 #, php-format
 msgid "Webhook %s"
 msgstr "Webhook %s"
 
-#: src/Admin/SubmissionsPage.php:215
+#: src/Admin/SubmissionsPage.php:218
 msgid "Details"
 msgstr "Détails"
 
-#: src/Admin/SubmissionsPage.php:229
+#: src/Admin/SubmissionsPage.php:232
 #: src/Admin/SubmissionsTable.php:142
 msgid "Delete this submission permanently?"
 msgstr "Supprimer définitivement cette réponse ?"
 
-#: src/Admin/SubmissionsPage.php:230
+#: src/Admin/SubmissionsPage.php:233
 #: src/Admin/SubmissionsTable.php:88
 #: src/Admin/SubmissionsTable.php:143
 #: assets/src/builder/tabs/Steps.js:1190
 msgid "Delete"
 msgstr "Supprimer"
 
-#: src/Admin/SubmissionsPage.php:241
+#: src/Admin/SubmissionsPage.php:244
 msgid "Not sent"
 msgstr "Non envoyé"
 
 #. translators: 1: recipient, 2: date, 3: sending method.
-#: src/Admin/SubmissionsPage.php:247
+#: src/Admin/SubmissionsPage.php:250
 #, php-format
 msgid "Sent to %1$s on %2$s (%3$s)"
 msgstr "Envoyé à %1$s le %2$s (%3$s)"
 
 #. translators: 1: recipient, 2: date, 3: error message.
-#: src/Admin/SubmissionsPage.php:250
+#: src/Admin/SubmissionsPage.php:253
 #, php-format
 msgid "Failed for %1$s on %2$s: %3$s"
 msgstr "Échec pour %1$s le %2$s : %3$s"
@@ -737,12 +740,14 @@ msgid "Please accept to continue."
 msgstr "Veuillez accepter pour continuer."
 
 #: src/Front/Strings.php:46
+#: assets/src/builder/EmailEditor.js:828
 msgid "Choose…"
 msgstr "Choisir…"
 
 #: src/Front/Strings.php:47
-#: src/Integrations/Mailer.php:106
-#: src/Integrations/Mailer.php:307
+#: src/Integrations/EmailBlocks.php:74
+#: src/Integrations/Mailer.php:171
+#: src/Integrations/Mailer.php:377
 msgid "Your results"
 msgstr "Votre résultat"
 
@@ -811,12 +816,12 @@ msgid "Total"
 msgstr "Total"
 
 #: src/Integrations/CustomEmail.php:27
-#: templates/emails/admin.php:28
+#: templates/emails/admin.php:33
 msgid "First name"
 msgstr "Prénom"
 
 #: src/Integrations/CustomEmail.php:28
-#: templates/emails/admin.php:29
+#: templates/emails/admin.php:34
 #: assets/src/builder/tabs/Steps.js:40
 #: assets/src/builder/tabs/Steps.js:91
 msgid "Email"
@@ -844,6 +849,7 @@ msgid "Conditional texts"
 msgstr "Textes conditionnels"
 
 #: src/Integrations/CustomEmail.php:35
+#: assets/src/builder/EmailEditor.js:31
 #: assets/src/builder/tabs/Results.js:24
 #: assets/src/builder/tabs/Results.js:434
 #: assets/src/builder/tabs/Test.js:258
@@ -887,22 +893,22 @@ msgid "View my results"
 msgstr "Voir mon résultat"
 
 #. translators: 1: diagnostic title, 2: first name or email.
-#: src/Integrations/Mailer.php:108
+#: src/Integrations/Mailer.php:170
 #, php-format
 msgid "New submission: %1$s (%2$s)"
 msgstr "Nouvelle réponse : %1$s (%2$s)"
 
-#: src/Integrations/Mailer.php:151
-#: src/Integrations/Mailer.php:154
+#: src/Integrations/Mailer.php:221
+#: src/Integrations/Mailer.php:224
 msgid "Marie"
 msgstr "Marie"
 
-#: src/Integrations/Mailer.php:216
+#: src/Integrations/Mailer.php:286
 msgid "This is a test email. If you are reading it, the emails of your diagnostics will be delivered."
 msgstr "Ceci est un email de test. Si vous le lisez, les emails de vos diagnostics seront bien distribués."
 
 #. translators: %s: plugin name.
-#: src/Integrations/Mailer.php:218
+#: src/Integrations/Mailer.php:288
 #, php-format
 msgid "%s: test email"
 msgstr "%s : email de test"
@@ -958,12 +964,12 @@ msgstr "Ces données sont supprimées automatiquement au bout de %d jours."
 msgid "These data are kept until you ask us to delete them."
 msgstr "Ces données sont conservées jusqu’à ce que vous nous demandiez de les supprimer."
 
-#: src/Rest/EmailPreviewController.php:62
+#: src/Rest/EmailPreviewController.php:67
 msgid "Invalid configuration."
 msgstr "Configuration invalide."
 
 #. translators: %s: email subject.
-#: src/Rest/EmailPreviewController.php:80
+#: src/Rest/EmailPreviewController.php:94
 #, php-format
 msgid "[Preview] %s"
 msgstr "[Aperçu] %s"
@@ -1001,16 +1007,15 @@ msgstr "Résultat introuvable."
 msgid "Some fields are missing or invalid."
 msgstr "Certains champs sont manquants ou invalides."
 
-#: templates/emails/admin.php:46
+#: templates/emails/admin.php:51
 msgid "View in the admin"
 msgstr "Voir dans l’administration"
 
-#: templates/emails/admin.php:47
+#: templates/emails/admin.php:52
 msgid "View the result page"
 msgstr "Voir la page de résultat"
 
-#: templates/emails/user.php:78
-#: assets/src/builder/EmailTemplateEditor.js:32
+#: templates/emails/user.php:83
 msgid "View your results online at any time:"
 msgstr "Retrouvez votre résultat en ligne à tout moment :"
 
@@ -1139,7 +1144,7 @@ msgstr "Valeurs, séparées par des virgules"
 
 #: assets/src/builder/ConditionEditor.js:150
 #: assets/src/builder/ConditionEditor.js:195
-#: assets/src/builder/tabs/General.js:701
+#: assets/src/builder/tabs/General.js:776
 #: assets/src/builder/tabs/Steps.js:125
 #: assets/src/builder/tabs/Steps.js:150
 msgid "Value"
@@ -1200,76 +1205,54 @@ msgstr "Ajouter une condition"
 msgid "Example: score.axis_1 >= 50 and answer.q2 == \"yes\""
 msgstr "Exemple : score.axe_1 >= 50 and answer.q2 == \"oui\""
 
-#: assets/src/builder/EmailTemplateEditor.js:18
+#: src/Integrations/EmailBlocks.php:78
+#: src/Integrations/EmailBlocks.php:132
 msgid "Hello {first_name},"
 msgstr "Bonjour {first_name},"
 
-#: assets/src/builder/EmailTemplateEditor.js:22
-msgid "Thank you for taking the diagnostic. Here are your results:"
-msgstr "Merci d’avoir répondu au diagnostic. Voici votre résultat :"
-
-#: assets/src/builder/EmailTemplateEditor.js:40
-msgid "New submission: {first_name} ({email})"
-msgstr "Nouvelle réponse : {first_name} ({email})"
-
 #. translators: %s: email address.
-#: assets/src/builder/EmailTemplateEditor.js:127
+#: assets/src/builder/EmailEditor.js:669
 #, js-format
 msgid "Preview sent to %s."
 msgstr "Aperçu envoyé à %s."
 
-#: assets/src/builder/EmailTemplateEditor.js:146
-msgid "Email template"
-msgstr "Modèle de l’email"
-
-#: assets/src/builder/EmailTemplateEditor.js:151
+#: assets/src/builder/EmailEditor.js:783
 msgid "Default template (built from the results)"
 msgstr "Modèle par défaut (construit à partir du résultat)"
 
-#: assets/src/builder/EmailTemplateEditor.js:158
-msgid "Custom template"
-msgstr "Modèle personnalisé"
-
-#: assets/src/builder/EmailTemplateEditor.js:178
+#: assets/src/builder/EmailEditor.js:1030
 msgid "Complete HTML document (without the plugin frame)"
 msgstr "Document HTML complet (sans le cadre du plugin)"
 
-#: assets/src/builder/EmailTemplateEditor.js:182
+#: assets/src/builder/EmailEditor.js:1034
 msgid "For an entirely custom layout: <html>, <head>, <style>… are then allowed."
 msgstr "Pour une mise en page entièrement libre : <html>, <head>, <style>… sont alors autorisés."
 
-#: assets/src/builder/EmailTemplateEditor.js:209
+#: assets/src/builder/EmailEditor.js:1046
 msgid "Email body (HTML)"
 msgstr "Corps de l’email (HTML)"
 
-#: assets/src/builder/EmailTemplateEditor.js:224
+#: assets/src/builder/EmailEditor.js:138
+#: assets/src/builder/EmailEditor.js:139
 msgid "Insert a variable"
 msgstr "Insérer une variable"
 
-#: assets/src/builder/EmailTemplateEditor.js:244
-msgid "Click a variable to insert it at the cursor. In {score:key}, {answer:key}… replace \"key\" by the key of the axis or of the question."
-msgstr "Cliquez sur une variable pour l’insérer au curseur. Dans {score:key}, {answer:key}… remplacez « key » par la clé de l’axe ou de la question."
-
 #: src/Admin/TemplatesPage.php:133
-#: assets/src/builder/EmailTemplateEditor.js:259
+#: assets/src/builder/EmailEditor.js:1070
 msgid "Preview"
 msgstr "Aperçu"
 
-#: assets/src/builder/EmailTemplateEditor.js:267
+#: assets/src/builder/EmailEditor.js:1078
 msgid "Send me this email"
 msgstr "M’envoyer cet email"
 
-#: assets/src/builder/EmailTemplateEditor.js:279
+#: assets/src/builder/EmailEditor.js:1091
 msgid "Subject:"
 msgstr "Objet :"
 
-#: assets/src/builder/EmailTemplateEditor.js:286
+#: assets/src/builder/EmailEditor.js:1129
 msgid "Email preview"
 msgstr "Aperçu de l’email"
-
-#: assets/src/builder/EmailTemplateEditor.js:292
-msgid "Example data: first profile, mid-scale scores, all texts and actions."
-msgstr "Données d’exemple : premier profil, scores à mi-échelle, tous les textes et actions."
 
 #: assets/src/builder/fields.js:121
 msgid "Lowercase letters, digits and _ only, starting with a letter."
@@ -1287,17 +1270,20 @@ msgstr "Clé"
 msgid "Technical identifier used in rules and exports."
 msgstr "Identifiant technique utilisé dans les règles et les exports."
 
+#: assets/src/builder/EmailEditor.js:906
 #: assets/src/builder/fields.js:229
 #: assets/src/builder/tabs/Steps.js:313
 #: assets/src/builder/tabs/Steps.js:1081
 msgid "Move up"
 msgstr "Monter"
 
+#: assets/src/builder/EmailEditor.js:924
 #: assets/src/builder/fields.js:243
 #: assets/src/builder/tabs/Steps.js:1096
 msgid "Move down"
 msgstr "Descendre"
 
+#: assets/src/builder/EmailEditor.js:966
 #: assets/src/builder/fields.js:258
 #: assets/src/builder/fields.js:360
 #: assets/src/builder/tabs/Steps.js:328
@@ -1467,6 +1453,9 @@ msgstr "Fond"
 msgid "Panels"
 msgstr "Encadrés"
 
+#: assets/src/builder/EmailEditor.js:23
+#: assets/src/builder/EmailEditor.js:66
+#: assets/src/builder/EmailEditor.js:344
 #: assets/src/builder/tabs/General.js:341
 #: assets/src/builder/tabs/General.js:481
 #: assets/src/builder/tabs/Steps.js:647
@@ -1482,10 +1471,12 @@ msgstr "Texte secondaire"
 msgid "Colours"
 msgstr "Couleurs"
 
+#: assets/src/builder/EmailEditor.js:550
 #: assets/src/builder/tabs/General.js:376
 msgid "Reset"
 msgstr "Réinitialiser"
 
+#: assets/src/builder/EmailEditor.js:559
 #: assets/src/builder/tabs/General.js:386
 msgid "Font"
 msgstr "Police"
@@ -1555,44 +1546,46 @@ msgstr "Vide : l’email d’administration du site."
 msgid "Subject of the team email"
 msgstr "Objet de l’email à l’équipe"
 
-#: assets/src/builder/tabs/General.js:584
+#: assets/src/builder/tabs/General.js:659
 msgid "Webhooks (CRM, Make, Zapier, n8n…)"
 msgstr "Webhooks (CRM, Make, Zapier, n8n…)"
 
-#: assets/src/builder/tabs/General.js:600
+#: assets/src/builder/tabs/General.js:675
 msgid "Add a webhook"
 msgstr "Ajouter un webhook"
 
-#: assets/src/builder/tabs/General.js:612
+#: assets/src/builder/tabs/General.js:687
 msgid "URL"
 msgstr "URL"
 
-#: assets/src/builder/tabs/General.js:620
+#: assets/src/builder/tabs/General.js:695
 msgid "On submission"
 msgstr "À la soumission"
 
-#: assets/src/builder/tabs/General.js:624
+#: assets/src/builder/tabs/General.js:699
 msgid "When contact details are added after the results"
 msgstr "Quand des coordonnées sont ajoutées après le résultat"
 
-#: assets/src/builder/tabs/General.js:655
+#: assets/src/builder/tabs/General.js:730
 msgid "Field mapping (empty: everything is sent)"
 msgstr "Correspondance des champs (vide : tout est envoyé)"
 
-#: assets/src/builder/tabs/General.js:683
+#: assets/src/builder/tabs/General.js:758
 #: assets/src/builder/tabs/Steps.js:535
 #: assets/src/builder/tabs/Steps.js:777
 msgid "Add a field"
 msgstr "Ajouter un champ"
 
-#: assets/src/builder/tabs/General.js:689
+#: assets/src/builder/tabs/General.js:764
 msgid "Sent as"
 msgstr "Envoyé sous le nom"
 
-#: assets/src/builder/tabs/General.js:715
+#: assets/src/builder/tabs/General.js:790
 msgid "The signing secret is entered in the “Webhook secrets” box, after saving."
 msgstr "Le secret de signature se saisit dans la boîte « Secrets des webhooks », après l’enregistrement."
 
+#: assets/src/builder/EmailEditor.js:22
+#: assets/src/builder/EmailEditor.js:328
 #: assets/src/builder/tabs/Results.js:16
 msgid "Heading"
 msgstr "Intertitre"
@@ -1657,6 +1650,7 @@ msgstr "Nom"
 msgid "Text (basic HTML allowed)"
 msgstr "Texte (HTML simple autorisé)"
 
+#: assets/src/builder/EmailEditor.js:368
 #: assets/src/builder/tabs/Results.js:157
 msgid "Link"
 msgstr "Lien"
@@ -1690,6 +1684,8 @@ msgstr "Envoyer le résultat par email"
 msgid "Results page layout"
 msgstr "Mise en page du résultat"
 
+#: assets/src/builder/EmailEditor.js:993
+#: assets/src/builder/EmailEditor.js:997
 #: assets/src/builder/tabs/Results.js:262
 msgid "Add a block"
 msgstr "Ajouter un bloc"
@@ -2104,6 +2100,7 @@ msgstr "Présentation"
 msgid "Quote"
 msgstr "Citation"
 
+#: assets/src/builder/EmailEditor.js:25
 #: assets/src/builder/tabs/Steps.js:654
 msgid "Image"
 msgstr "Image"
@@ -2124,6 +2121,7 @@ msgstr "Auteur"
 msgid "Author role"
 msgstr "Fonction de l’auteur"
 
+#: assets/src/builder/EmailEditor.js:360
 #: assets/src/builder/tabs/Steps.js:707
 #: assets/src/builder/tabs/Steps.js:895
 msgid "Button label"
@@ -2312,3 +2310,308 @@ msgstr "Fermer"
 #: src/Templates/Library.php:96
 msgid "Unknown template."
 msgstr "Modèle inconnu."
+
+#: src/Admin/SubmissionsPage.php:206
+#: assets/src/builder/tabs/General.js:583
+msgid "Follow-up email"
+msgstr "Email de relance"
+
+#: src/Integrations/EmailBlocks.php:72
+msgid "Results for the visitor"
+msgstr "Résultat pour le visiteur"
+
+#: src/Integrations/EmailBlocks.php:83
+msgid "Thank you for taking the diagnostic. Here is your personalised result."
+msgstr "Merci d’avoir répondu au diagnostic. Voici votre résultat personnalisé."
+
+#: src/Integrations/EmailBlocks.php:93
+msgid "Your detailed report stays available online:"
+msgstr "Votre rapport détaillé reste disponible en ligne :"
+
+#: src/Integrations/EmailBlocks.php:97
+#: assets/src/builder/EmailEditor.js:80
+msgid "View my report"
+msgstr "Voir mon rapport"
+
+#: src/Integrations/EmailBlocks.php:103
+msgid "Notification for the team"
+msgstr "Notification à l’équipe"
+
+#: src/Integrations/EmailBlocks.php:105
+msgid "New submission: {first_name}"
+msgstr "Nouvelle réponse : {first_name}"
+
+#: src/Integrations/EmailBlocks.php:109
+msgid "New submission"
+msgstr "Nouvelle réponse"
+
+#: src/Integrations/EmailBlocks.php:114
+msgid ""
+"**{first_name}** ({email}) has completed the diagnostic.\n"
+"Profile: **{profile}**"
+msgstr "**{first_name}** ({email}) a répondu au diagnostic.\nProfil : **{profile}**"
+
+#: src/Integrations/EmailBlocks.php:120
+msgid "View the report"
+msgstr "Voir le rapport"
+
+#: src/Integrations/EmailBlocks.php:126
+msgid "Follow-up a few days later"
+msgstr "Relance quelques jours après"
+
+#: src/Integrations/EmailBlocks.php:128
+msgid "{first_name}, what are your next steps?"
+msgstr "{first_name}, quelles sont vos prochaines étapes ?"
+
+#: src/Integrations/EmailBlocks.php:137
+msgid ""
+"A few days ago, you took our diagnostic. Your profile: **{profile}**.\n"
+"\n"
+"Have you started putting the recommendations into practice? Here is a reminder of your action plan."
+msgstr "Il y a quelques jours, vous avez répondu à notre diagnostic. Votre profil : **{profile}**.\n\nAvez-vous commencé à mettre en pratique les recommandations ? Voici un rappel de votre plan d’action."
+
+#: src/Integrations/EmailBlocks.php:143
+msgid "See my results again"
+msgstr "Revoir mon résultat"
+
+#: src/Integrations/EmailBlocks.php:149
+msgid "Just reply to this email if you have any questions."
+msgstr "Une question ? Répondez simplement à cet email."
+
+#: assets/src/builder/EmailEditor.js:24
+msgid "Button"
+msgstr "Bouton"
+
+#: assets/src/builder/EmailEditor.js:26
+msgid "Separator"
+msgstr "Séparateur"
+
+#: assets/src/builder/EmailEditor.js:27
+msgid "Space"
+msgstr "Espace"
+
+#: assets/src/builder/EmailEditor.js:28
+msgid "Result / profile"
+msgstr "Résultat / profil"
+
+#: assets/src/builder/EmailEditor.js:29
+#: assets/src/builder/EmailEditor.js:122
+msgid "Scores"
+msgstr "Scores"
+
+#: assets/src/builder/EmailEditor.js:30
+msgid "Personalised texts"
+msgstr "Textes personnalisés"
+
+#: assets/src/builder/EmailEditor.js:32
+msgid "Recommendation / call to action"
+msgstr "Recommandation / appel à l’action"
+
+#: assets/src/builder/EmailEditor.js:33
+msgid "Answers table"
+msgstr "Tableau des réponses"
+
+#: assets/src/builder/EmailEditor.js:37
+msgid "Name and description of the profile obtained by the visitor."
+msgstr "Nom et description du profil obtenu par le visiteur."
+
+#: assets/src/builder/EmailEditor.js:41
+msgid "One bar per axis, with the score."
+msgstr "Une barre par axe, avec le score."
+
+#: assets/src/builder/EmailEditor.js:42
+msgid "Conditional texts matching the answers."
+msgstr "Textes conditionnels correspondant aux réponses."
+
+#: assets/src/builder/EmailEditor.js:43
+msgid "Recommended actions, as a numbered list."
+msgstr "Actions recommandées, en liste numérotée."
+
+#: assets/src/builder/EmailEditor.js:47
+msgid "Button of the recommended call to action."
+msgstr "Bouton de l’appel à l’action recommandé."
+
+#: assets/src/builder/EmailEditor.js:48
+msgid "All the questions and answers (useful for the team)."
+msgstr "Toutes les questions et réponses (utile pour l’équipe)."
+
+#: assets/src/builder/EmailEditor.js:65
+msgid "Main colour (buttons)"
+msgstr "Couleur principale (boutons)"
+
+#: assets/src/builder/EmailEditor.js:67
+msgid "Content background"
+msgstr "Fond du contenu"
+
+#: assets/src/builder/EmailEditor.js:68
+msgid "Background around"
+msgstr "Fond autour"
+
+#: assets/src/builder/EmailEditor.js:118
+msgid "Visitor and result"
+msgstr "Visiteur et résultat"
+
+#: assets/src/builder/EmailEditor.js:248
+#: assets/src/builder/EmailEditor.js:260
+msgid "Choose an image"
+msgstr "Choisir une image"
+
+#: assets/src/builder/EmailEditor.js:284
+msgid "Alignment"
+msgstr "Alignement"
+
+#: assets/src/builder/EmailEditor.js:287
+msgid "Left"
+msgstr "Gauche"
+
+#: assets/src/builder/EmailEditor.js:288
+msgid "Centre"
+msgstr "Centré"
+
+#: assets/src/builder/EmailEditor.js:289
+msgid "Right"
+msgstr "Droite"
+
+#: assets/src/builder/EmailEditor.js:303
+msgid "Size"
+msgstr "Taille"
+
+#: assets/src/builder/EmailEditor.js:318
+msgid "Small"
+msgstr "Petite"
+
+#: assets/src/builder/EmailEditor.js:319
+msgid "Medium"
+msgstr "Moyenne"
+
+#: assets/src/builder/EmailEditor.js:320
+msgid "Large"
+msgstr "Grande"
+
+#: assets/src/builder/EmailEditor.js:348
+msgid "An empty line starts a new paragraph. **Text between double asterisks** is shown in bold."
+msgstr "Une ligne vide commence un nouveau paragraphe. **Un texte entre doubles astérisques** est affiché en gras."
+
+#: assets/src/builder/EmailEditor.js:375
+msgid "Visitor’s results page"
+msgstr "Page de résultat du visiteur"
+
+#: assets/src/builder/EmailEditor.js:382
+msgid "Another address"
+msgstr "Autre adresse"
+
+#: assets/src/builder/EmailEditor.js:403
+msgid "Address"
+msgstr "Adresse"
+
+#: assets/src/builder/EmailEditor.js:419
+msgid "Image address (https://…)"
+msgstr "Adresse de l’image (https://…)"
+
+#: assets/src/builder/EmailEditor.js:431
+msgid "Description (for accessibility)"
+msgstr "Description (pour l’accessibilité)"
+
+#: assets/src/builder/EmailEditor.js:442
+msgid "Link when clicked (optional)"
+msgstr "Lien au clic (facultatif)"
+
+#: assets/src/builder/EmailEditor.js:456
+msgid "Maximum width (pixels)"
+msgstr "Largeur maximale (pixels)"
+
+#: assets/src/builder/EmailEditor.js:511
+msgid "Style"
+msgstr "Style"
+
+#: assets/src/builder/EmailEditor.js:513
+msgid "By default, the email uses the appearance of the questionnaire."
+msgstr "Par défaut, l’email reprend l’apparence du questionnaire."
+
+#: assets/src/builder/EmailEditor.js:523
+msgid "Logo (https://…)"
+msgstr "Logo (https://…)"
+
+#: assets/src/builder/EmailEditor.js:564
+msgid "Same as the questionnaire"
+msgstr "Comme le questionnaire"
+
+#: assets/src/builder/EmailEditor.js:714
+msgid "Back to the visual editor: the changes made in HTML will be lost. Continue?"
+msgstr "Retour à l’éditeur visuel : les modifications faites en HTML seront perdues. Continuer ?"
+
+#: assets/src/builder/EmailEditor.js:752
+msgid "Replace the current blocks with this template?"
+msgstr "Remplacer les blocs actuels par ce modèle ?"
+
+#: assets/src/builder/EmailEditor.js:772
+msgid "Email content"
+msgstr "Contenu de l’email"
+
+#: assets/src/builder/EmailEditor.js:779
+msgid "Standard follow-up template"
+msgstr "Modèle de relance standard"
+
+#: assets/src/builder/EmailEditor.js:790
+msgid "Visual editor"
+msgstr "Éditeur visuel"
+
+#: assets/src/builder/EmailEditor.js:794
+msgid "HTML (advanced)"
+msgstr "HTML (avancé)"
+
+#: assets/src/builder/EmailEditor.js:820
+msgid "Start from a template"
+msgstr "Partir d’un modèle"
+
+#: assets/src/builder/EmailEditor.js:841
+msgid "Edit as JSON"
+msgstr "Modifier en JSON"
+
+#: assets/src/builder/EmailEditor.js:1055
+msgid "Variables such as {scores} or {cta} are replaced by the visitor’s results."
+msgstr "Les variables comme {scores} ou {cta} sont remplacées par les résultats du visiteur."
+
+#: assets/src/builder/EmailEditor.js:1100
+msgid "Screen"
+msgstr "Écran"
+
+#: assets/src/builder/EmailEditor.js:1105
+msgid "Computer"
+msgstr "Ordinateur"
+
+#: assets/src/builder/EmailEditor.js:1109
+msgid "Mobile"
+msgstr "Mobile"
+
+#: assets/src/builder/EmailEditor.js:1135
+msgid "Example data: first profile, mid-scale scores, all texts and actions. The preview follows your changes."
+msgstr "Données d’exemple : premier profil, scores à mi-échelle, tous les textes et actions. L’aperçu suit vos modifications."
+
+#: assets/src/builder/EmailEditor.js:1160
+msgid "Blocks and style (JSON)"
+msgstr "Blocs et style (JSON)"
+
+#: assets/src/builder/EmailEditor.js:1163
+msgid "Handy to go fast or to paste content prepared with an AI. Turn the option off to go back to the visual editor."
+msgstr "Pratique pour aller vite ou coller un contenu préparé avec une IA. Désactivez l’option pour revenir à l’éditeur visuel."
+
+#: assets/src/builder/EmailEditor.js:1170
+msgid "Invalid JSON: the last valid version is kept."
+msgstr "JSON invalide : la dernière version valide est conservée."
+
+#: assets/src/builder/tabs/General.js:586
+msgid "Send a follow-up email to the visitor a few days later"
+msgstr "Envoyer un email de relance au visiteur quelques jours après"
+
+#: assets/src/builder/tabs/General.js:590
+msgid "Only to visitors who left their email address."
+msgstr "Uniquement aux visiteurs qui ont laissé leur adresse email."
+
+#: assets/src/builder/tabs/General.js:605
+msgid "Days after the answer"
+msgstr "Jours après la réponse"
+
+#: assets/src/builder/tabs/General.js:631
+msgid "Subject of the follow-up email"
+msgstr "Objet de l’email de relance"
