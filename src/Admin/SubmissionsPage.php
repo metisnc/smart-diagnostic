@@ -202,6 +202,9 @@ final class SubmissionsPage {
 			'user'  => __( 'Email to the visitor', 'smart-diagnostic' ),
 			'admin' => __( 'Email to the team', 'smart-diagnostic' ),
 		);
+		if ( ! empty( $row['emails']['followup'] ) ) {
+			$email_labels['followup'] = __( 'Follow-up email', 'smart-diagnostic' );
+		}
 		foreach ( $email_labels as $kind => $label ) {
 			$meta[ $label ] = $this->email_status( (array) ( $row['emails'][ $kind ] ?? array() ) );
 		}

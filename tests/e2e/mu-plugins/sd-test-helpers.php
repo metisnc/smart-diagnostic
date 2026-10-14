@@ -5,7 +5,8 @@
  *
  * - capture les emails au lieu de les envoyer ;
  * - ajoute au diagnostic « demo » un webhook vers un récepteur local ;
- * - expose le journal : GET/DELETE ?rest_route=/sd-test/v1/log
+ * - expose le journal : GET/DELETE ?rest_route=/sd-test/v1/log ;
+ * - envoie les relances planifiées : POST ?rest_route=/sd-test/v1/run-follow-ups
  *
  * @package SmartDiagnostic
  */
@@ -78,6 +79,29 @@ add_action(
 					);
 					update_option( 'sd_test_webhooks', $log, false );
 					return array( 'ok' => true );
+				},
+			)
+		);
+		// Relances planifiées envoyées tout de suite (sans attendre leur date).
+		register_rest_route(
+			'sd-test/v1',
+			'/run-follow-ups',
+			array(
+				'methods'             => 'POST',
+				'permission_callback' => '__return_true',
+				'callback'            => static function () {
+					$hook = SmartDiagnostic\Integrations\Mailer::FOLLOW_UP_HOOK;
+					$ids  = array();
+					foreach ( _get_cron_array() as $events ) {
+						foreach ( $events[ $hook ] ?? array() as $event ) {
+							$ids[] = (int) $event['args'][0];
+						}
+					}
+					foreach ( $ids as $id ) {
+						wp_unschedule_event( (int) wp_next_scheduled( $hook, array( $id ) ), $hook, array( $id ) );
+						do_action( $hook, $id );
+					}
+					return array( 'sent' => count( $ids ) );
 				},
 			)
 		);

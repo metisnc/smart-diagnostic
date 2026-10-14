@@ -338,27 +338,85 @@
 	border-radius: 4px;
 	background: #fff;
 
-	&__label {
-		display: block;
-		margin-bottom: 4px;
-		font-weight: 600;
+	&__field {
+		margin: 8px 0 12px;
 	}
 
-	&__textarea {
-		width: 100%;
-		font-family: Menlo, Consolas, monospace;
-		font-size: 12px;
-	}
-
-	&__tokens {
+	&__field-head {
 		display: flex;
-		flex-wrap: wrap;
-		gap: 4px;
-		margin: 6px 0;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+		margin-bottom: 4px;
 
-		.components-button {
-			font-family: Menlo, Consolas, monospace;
+		label {
+			font-weight: 600;
 		}
+	}
+
+	&__input {
+		width: 100%;
+
+		&.is-code {
+			font-family: Menlo, Consolas, monospace;
+			font-size: 12px;
+		}
+	}
+
+	&__toolbar {
+		display: grid;
+		gap: 12px;
+		margin: 8px 0;
+	}
+
+	&__style {
+		margin: 8px 0 12px;
+		padding: 8px 12px;
+		border: 1px solid #f0f0f1;
+		border-radius: 4px;
+
+		summary {
+			cursor: pointer;
+			font-weight: 600;
+		}
+	}
+
+	&__blocks {
+		margin: 8px 0 12px;
+		padding: 0;
+		list-style: none;
+	}
+
+	&__block {
+		margin: 0 0 8px;
+		padding: 8px 12px;
+		border: 1px solid #dcdcde;
+		border-left: 3px solid var(--wp-admin-theme-color, #2271b1);
+		border-radius: 4px;
+		background: #fcfcfc;
+	}
+
+	&__block-toggle.components-button {
+		flex: 1 1 auto;
+		gap: 8px;
+		min-width: 0;
+		height: auto;
+		padding: 4px 0;
+		text-align: left;
+		white-space: nowrap;
+	}
+
+	&__excerpt {
+		overflow: hidden;
+		color: #646970;
+		text-overflow: ellipsis;
+	}
+
+	&__block-bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
 	}
 
 	&__actions {
@@ -369,10 +427,23 @@
 		}
 	}
 
+	&__devices {
+		display: flex;
+		flex: 0 0 auto;
+		gap: 4px;
+	}
+
 	&__frame {
+		display: block;
 		width: 100%;
-		height: 520px;
+		height: 560px;
+		margin: 0 auto;
 		border: 1px solid #dcdcde;
 		background: #f5f7fa;
+
+		&.is-mobile {
+			max-width: 375px;
+			height: 680px;
+		}
 	}
 }

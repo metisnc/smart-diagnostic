@@ -13,6 +13,7 @@ use SmartDiagnostic\Config\ConfigRepository;
 use SmartDiagnostic\Config\SchemaValidator;
 use SmartDiagnostic\Front\Strings;
 use SmartDiagnostic\Integrations\CustomEmail;
+use SmartDiagnostic\Integrations\EmailBlocks;
 use SmartDiagnostic\Rest\SubmitController;
 use SmartDiagnostic\PostType\DiagnosticPostType;
 
@@ -147,12 +148,16 @@ final class ConfigEditor {
 					'strings'           => Strings::defaults(),
 					'locale'            => determine_locale(),
 					'emailPlaceholders' => CustomEmail::placeholders(),
+					'emailPresets'      => EmailBlocks::presets(),
 					'previewPath'       => '/' . SubmitController::rest_namespace() . '/email-preview',
 					'postId'            => (int) get_the_ID(),
 				)
 			) . ';',
 			'before'
 		);
+
+		// Médiathèque (logo et images des emails).
+		wp_enqueue_media();
 
 		// Constructeur visuel (React, composants WordPress).
 		$builder_file = SMART_DIAGNOSTIC_DIR . 'build/builder.asset.php';
