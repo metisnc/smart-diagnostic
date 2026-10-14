@@ -1,20 +1,75 @@
 // Constructeur visuel (admin).
 
 .sd-builder {
-	margin: -6px -12px -12px;
+	// La mise en page suit la largeur du panneau (et non celle de l'écran).
+	container-type: inline-size;
+
+	&__header {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px 16px;
+		padding: 12px 20px;
+		background: #f6f7f7;
+		border-bottom: 1px solid #dcdcde;
+	}
+
+	// Sélecteur renforcé : WordPress ajoute une marge aux h2 de l'écran d'édition.
+	& &__title {
+		flex: 1 1 auto;
+		margin: 0;
+		padding: 0;
+		font-size: 15px;
+		font-weight: 600;
+	}
 
 	&__status {
 		display: flex;
-		flex-wrap: wrap;
-		align-items: flex-start;
-		gap: 12px;
-		padding: 8px 12px;
-		border-bottom: 1px solid #dcdcde;
+		align-items: center;
+	}
 
-		.components-notice {
-			flex: 1;
-			margin: 0;
+	&__badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 3px 10px;
+		border-radius: 999px;
+		font-size: 12px;
+		font-weight: 600;
+		line-height: 1.6;
+		white-space: nowrap;
+
+		&::before {
+			content: "";
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: currentColor;
 		}
+
+		&.is-valid {
+			color: #00703c;
+			background: #e6f4ea;
+		}
+
+		&.is-warning {
+			color: #8a5a00;
+			background: #fcf3e0;
+		}
+
+		&.is-error {
+			color: #b32d2e;
+			background: #fcebea;
+		}
+	}
+
+	&__preview-toggle {
+		flex: 0 0 auto;
+	}
+
+	&__issues.components-notice {
+		margin: 0;
+		border-bottom: 1px solid #dcdcde;
 
 		ul {
 			margin: 4px 0 0 16px;
@@ -25,22 +80,32 @@
 	&__main {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
+	}
 
-		.has-preview & {
-			@media (min-width: 1400px) {
-				grid-template-columns: minmax(0, 3fr) minmax(360px, 2fr);
-			}
+	// Aperçu à côté du formulaire dès que le panneau est assez large.
+	@container (min-width: 960px) {
+		&.has-preview &__main {
+			grid-template-columns: minmax(0, 3fr) minmax(340px, 2fr);
 		}
 	}
 
 	&__tabs .components-tab-panel__tabs {
-		flex-wrap: wrap;
+		overflow-x: auto;
+		padding: 0 12px;
 		border-bottom: 1px solid #dcdcde;
-		padding: 0 8px;
+		scrollbar-width: thin;
+
+		.components-tab-panel__tabs-item {
+			flex: 0 0 auto;
+			height: 48px;
+			padding: 0 14px;
+			font-weight: 500;
+		}
 	}
 
 	&__panel {
-		padding: 16px;
+		max-width: 920px;
+		padding: 20px;
 	}
 
 	&__preview {
@@ -49,9 +114,23 @@
 		align-self: start;
 		max-height: calc(100vh - 60px);
 		overflow: auto;
-		border-left: 1px solid #dcdcde;
-		background: #f6f7f7;
 		padding: 16px;
+		background: #f6f7f7;
+		border-top: 1px solid #dcdcde;
+
+		@container (min-width: 960px) {
+			border-top: 0;
+			border-left: 1px solid #dcdcde;
+		}
+	}
+
+	&__preview-title {
+		margin: 0 0 12px;
+		color: #646970;
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
 	}
 
 	&__json textarea {
@@ -184,20 +263,50 @@
 
 .sd-b-table {
 	width: 100%;
-	border-collapse: collapse;
 	margin-bottom: 8px;
+	border-collapse: separate;
+	border-spacing: 0 6px;
 
-	th,
-	td {
-		padding: 4px;
+	th {
+		padding: 0 4px;
+		color: #50575e;
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 0.02em;
 		text-align: left;
-		vertical-align: top;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+
+	td {
+		padding: 0 4px;
+		vertical-align: middle;
+
+		// Boutons de la ligne (monter, supprimer) côte à côte.
+		&:last-child {
+			width: 1%;
+			white-space: nowrap;
+		}
 	}
 
 	input:not([type="checkbox"]),
 	select {
+		box-sizing: border-box;
 		width: 100%;
 		min-width: 70px;
+		height: 36px;
+		margin: 0;
+		padding: 0 8px;
+		border: 1px solid #8c8f94;
+		border-radius: 4px;
+		font-size: 13px;
+	}
+
+	input:not([type="checkbox"]):focus,
+	select:focus {
+		border-color: var(--wp-admin-theme-color, #2271b1);
+		box-shadow: 0 0 0 1px var(--wp-admin-theme-color, #2271b1);
+		outline: none;
 	}
 
 	.sd-b-narrow {
@@ -209,8 +318,8 @@
 	display: grid;
 	gap: 20px;
 
-	@media (min-width: 1100px) {
-		grid-template-columns: minmax(260px, 1fr) minmax(0, 2fr);
+	@container (min-width: 760px) {
+		grid-template-columns: minmax(240px, 1fr) minmax(0, 2fr);
 	}
 
 	&__items {

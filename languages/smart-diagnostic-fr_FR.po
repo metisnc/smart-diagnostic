@@ -36,35 +36,28 @@ msgstr "metisnc"
 msgid "Smart Diagnostic: dependencies are missing. Run \"composer install\" in the plugin folder."
 msgstr "Smart Diagnostic : dépendances manquantes. Lancez « composer install » dans le dossier du plugin."
 
-#: src/Admin/ConfigEditor.php:46
-#: assets/src/builder/Builder.js:173
+#: assets/src/builder/Builder.js:201
 msgid "Configuration (JSON)"
 msgstr "Configuration (JSON)"
 
-#. translators: %s: shortcode.
-#: src/Admin/ConfigEditor.php:70
-#, php-format
-msgid "Insert this diagnostic with the \"Diagnostic\" block or the shortcode %s."
-msgstr "Insérez ce diagnostic avec le bloc « Diagnostic » ou le shortcode %s."
-
-#: src/Admin/ConfigEditor.php:119
+#: src/Admin/ConfigEditor.php:121
 msgid "The configuration was not saved: it contains errors. The previous valid version remains online."
 msgstr "La configuration n’a pas été enregistrée : elle contient des erreurs. La dernière version valide reste en ligne."
 
-#: src/Admin/ConfigEditor.php:183
+#: src/Admin/ConfigEditor.php:185
 msgid "Section 1"
 msgstr "Section 1"
 
-#: src/Admin/ConfigEditor.php:192
+#: src/Admin/ConfigEditor.php:194
 msgid "First question"
 msgstr "Première question"
 
-#: src/Admin/ConfigEditor.php:196
+#: src/Admin/ConfigEditor.php:198
 #: assets/src/builder/tabs/Steps.js:72
 msgid "Answer A"
 msgstr "Réponse A"
 
-#: src/Admin/ConfigEditor.php:200
+#: src/Admin/ConfigEditor.php:202
 #: assets/src/builder/tabs/Steps.js:73
 msgid "Answer B"
 msgstr "Réponse B"
@@ -1060,28 +1053,20 @@ msgstr "Intégrations"
 msgid "Test"
 msgstr "Test"
 
-#: assets/src/builder/Builder.js:102
+#: assets/src/builder/Builder.js:143
 msgid "Invalid JSON:"
 msgstr "JSON invalide :"
 
-#: assets/src/builder/Builder.js:108
+#: assets/src/builder/Builder.js:111
 msgid "Valid configuration."
 msgstr "Configuration valide."
 
-#. translators: %d: number of errors.
-#: assets/src/builder/Builder.js:116
-#, js-format
-msgid "%d error: the configuration will not be saved until it is fixed."
-msgid_plural "%d errors: the configuration will not be saved until they are fixed."
-msgstr[0] "%d erreur : la configuration ne sera pas enregistrée tant qu’elle n’est pas corrigée."
-msgstr[1] "%d erreurs : la configuration ne sera pas enregistrée tant qu’elles ne sont pas corrigées."
-
-#: assets/src/builder/Builder.js:137
-#: assets/src/builder/Builder.js:201
+#: assets/src/builder/Builder.js:132
+#: assets/src/builder/Builder.js:229
 msgid "Live preview"
 msgstr "Aperçu en direct"
 
-#: assets/src/builder/Builder.js:177
+#: assets/src/builder/Builder.js:205
 msgid "Format documented in schema/diagnostic.schema.json. Changes are applied to the other tabs as soon as the JSON is valid."
 msgstr "Format documenté dans schema/diagnostic.schema.json. Les modifications s’appliquent aux autres onglets dès que le JSON est valide."
 
@@ -1246,6 +1231,7 @@ msgid "Insert a variable"
 msgstr "Insérer une variable"
 
 #: src/Admin/TemplatesPage.php:133
+#: assets/src/builder/Builder.js:232
 #: assets/src/builder/EmailEditor.js:1115
 msgid "Preview"
 msgstr "Aperçu"
@@ -2852,3 +2838,33 @@ msgstr "Diagnostic créé depuis le modèle."
 #: src/Mcp/Server.php:56
 msgid "Create, modify and analyse the diagnostics of this site."
 msgstr "Créer, modifier et analyser les diagnostics de ce site."
+
+#: src/Admin/ConfigEditor.php:48
+msgid "Insertion"
+msgstr "Insertion"
+
+#: src/Admin/ConfigEditor.php:52
+msgid "Insert this diagnostic in a page with the \"Diagnostic\" block, or with this shortcode:"
+msgstr "Insérez ce diagnostic dans une page avec le bloc « Diagnostic », ou avec ce shortcode :"
+
+#: assets/src/builder/Builder.js:101
+msgid "Diagnostic builder"
+msgstr "Constructeur du diagnostic"
+
+#: assets/src/builder/Builder.js:106
+msgid "Invalid JSON"
+msgstr "JSON invalide"
+
+#. translators: %d: number of errors.
+#: assets/src/builder/Builder.js:118
+#, js-format
+msgid "%d error to fix"
+msgid_plural "%d errors to fix"
+msgstr[0] "%d erreur à corriger"
+msgstr[1] "%d erreurs à corriger"
+
+#: assets/src/builder/Builder.js:153
+msgid "The configuration will not be saved until this error is fixed:"
+msgid_plural "The configuration will not be saved until these errors are fixed:"
+msgstr[0] "La configuration ne sera pas enregistrée tant que cette erreur n’est pas corrigée :"
+msgstr[1] "La configuration ne sera pas enregistrée tant que ces erreurs ne sont pas corrigées :"
