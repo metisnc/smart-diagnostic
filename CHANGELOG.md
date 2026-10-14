@@ -4,6 +4,8 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-14
+
 ### Added
 - Réglages → Emails : nom et adresse d'expéditeur, adresse de réponse, bouton « Envoyer un
   email de test », SMTP dédié facultatif (mot de passe possible via `SD_SMTP_PASSWORD`) ;
