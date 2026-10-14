@@ -285,16 +285,28 @@ final class SubmissionsPage {
 		header( 'Content-Type: text/csv; charset=utf-8' );
 		header( 'Content-Disposition: attachment; filename="submissions-' . gmdate( 'Y-m-d' ) . '.csv"' );
 
-		$out = fopen( 'php://output', 'w' );
+		echo "\xEF\xBB\xBF" . self::csv( $rows, $this->configs ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- fichier CSV téléchargé (cellules neutralisées).
+		exit;
+	}
+
+	/**
+	 * Contenu CSV (séparateur « ; ») des réponses, cellules neutralisées pour les tableurs.
+	 *
+	 * @param list<array<string, mixed>> $rows    Réponses.
+	 * @param ConfigRepository           $configs Configs (libellés des réponses).
+	 */
+	public static function csv( array $rows, ConfigRepository $configs ): string {
+		$out = fopen( 'php://temp', 'w+' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- flux en mémoire.
 		if ( false === $out ) {
-			exit;
+			return '';
 		}
-		fwrite( $out, "\xEF\xBB\xBF" ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fwrite
-		foreach ( self::csv_rows( $rows, $this->configs ) as $line ) {
+		foreach ( self::csv_rows( $rows, $configs ) as $line ) {
 			fputcsv( $out, array_map( array( self::class, 'csv_cell' ), $line ), ';' );
 		}
+		rewind( $out );
+		$csv = (string) stream_get_contents( $out );
 		fclose( $out ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
-		exit;
+		return $csv;
 	}
 
 	/**

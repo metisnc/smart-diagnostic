@@ -6,7 +6,8 @@
  * - capture les emails au lieu de les envoyer ;
  * - ajoute au diagnostic « demo » un webhook vers un récepteur local ;
  * - expose le journal : GET/DELETE ?rest_route=/sd-test/v1/log ;
- * - envoie les relances planifiées : POST ?rest_route=/sd-test/v1/run-follow-ups
+ * - envoie les relances planifiées : POST ?rest_route=/sd-test/v1/run-follow-ups ;
+ * - autorise les mots de passe d’application en HTTP (connecteur MCP)
  *
  * @package SmartDiagnostic
  */
@@ -53,6 +54,9 @@ add_filter(
 	10,
 	2
 );
+
+// Mots de passe d'application en HTTP (sinon réservés au HTTPS) : tests du connecteur MCP.
+add_filter( 'wp_is_application_passwords_available', '__return_true' );
 
 add_filter(
 	'sd_webhook_secret',

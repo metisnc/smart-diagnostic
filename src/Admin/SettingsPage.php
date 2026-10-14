@@ -11,6 +11,9 @@ namespace SmartDiagnostic\Admin;
 
 use SmartDiagnostic\PostType\DiagnosticPostType;
 use SmartDiagnostic\Integrations\Mailer;
+use SmartDiagnostic\Mcp\Abilities;
+use SmartDiagnostic\Mcp\ActionLog;
+use SmartDiagnostic\Mcp\Server;
 use SmartDiagnostic\Settings;
 
 /**
@@ -88,6 +91,12 @@ final class SettingsPage {
 			$sections[ $key ] = 'sd_emails';
 		}
 
+		add_settings_section( 'sd_mcp', __( 'MCP connector (AI assistants)', 'smart-diagnostic' ), array( $this, 'render_mcp_intro' ), self::PAGE );
+		$fields['mcp_enabled']   = __( 'MCP connector', 'smart-diagnostic' );
+		$sections['mcp_enabled'] = 'sd_mcp';
+		$fields['mcp_write']     = __( 'Access', 'smart-diagnostic' );
+		$sections['mcp_write']   = 'sd_mcp';
+
 		foreach ( $fields as $key => $label ) {
 			add_settings_field(
 				$key,
@@ -145,12 +154,45 @@ final class SettingsPage {
 			'smtp_user'          => sanitize_text_field( (string) ( $input['smtp_user'] ?? '' ) ),
 			// Champ laissé vide = mot de passe inchangé.
 			'smtp_password'      => '' !== (string) ( $input['smtp_password'] ?? '' ) ? (string) $input['smtp_password'] : $this->saved_smtp_password(),
+			'mcp_enabled'        => ! empty( $input['mcp_enabled'] ),
+			'mcp_write'          => ! empty( $input['mcp_write'] ),
 		);
 	}
 
 	private function saved_smtp_password(): string {
 		$saved = get_option( Settings::OPTION, array() );
 		return is_array( $saved ) ? (string) ( $saved['smtp_password'] ?? '' ) : '';
+	}
+
+	/**
+	 * Connecteur MCP : prérequis, adresse de connexion, aide.
+	 */
+	public function render_mcp_intro(): void {
+		echo '<p>' . esc_html__( 'Lets an AI assistant compatible with MCP (for example Claude Desktop) work with your diagnostics: list, read, preview, create or modify them, read the submissions and statistics. Nothing can be deleted through MCP, and every action is logged below.', 'smart-diagnostic' ) . '</p>';
+		$checks = array(
+			array( Abilities::available(), __( 'WordPress 6.9 or later (Abilities API)', 'smart-diagnostic' ) ),
+			array( Server::adapter_active(), __( 'The "MCP Adapter" plugin is installed and active', 'smart-diagnostic' ) ),
+		);
+		echo '<ul class="sd-mcp-checks">';
+		foreach ( $checks as [ $ok, $label ] ) {
+			printf( '<li>%s %s</li>', $ok ? '✅' : '❌', esc_html( $label ) );
+		}
+		echo '</ul>';
+		if ( Settings::get( 'mcp_enabled' ) ) {
+			printf(
+				'<p>%s <code class="sd-mcp-endpoint">%s</code></p><p>%s</p>',
+				esc_html__( 'Connection address:', 'smart-diagnostic' ),
+				esc_html( Server::endpoint() ),
+				wp_kses(
+					sprintf(
+						/* translators: %s: link to the user profile. */
+						__( 'The assistant connects with your username and an <a href="%s">application password</a> (Users → Profile → Application passwords), with your own rights. See the README for the Claude Desktop configuration.', 'smart-diagnostic' ),
+						esc_url( admin_url( 'profile.php#application-passwords-section' ) )
+					),
+					array( 'a' => array( 'href' => true ) )
+				)
+			);
+		}
 	}
 
 	public function render_emails_intro(): void {
@@ -205,6 +247,32 @@ final class SettingsPage {
 				'' !== (string) $value ? esc_attr__( '•••••••• (unchanged)', 'smart-diagnostic' ) : '',
 				esc_html__( 'Leave empty to keep the current password. More secure: define it in wp-config.php with the SD_SMTP_PASSWORD constant.', 'smart-diagnostic' )
 			);
+			return;
+		}
+		if ( 'mcp_enabled' === $key ) {
+			printf(
+				'<label><input type="checkbox" id="%s" name="%s" value="1" %s /> %s</label>',
+				esc_attr( $id ),
+				esc_attr( $name ),
+				checked( (bool) $value, true, false ),
+				esc_html__( 'Enable the MCP connector', 'smart-diagnostic' )
+			);
+			return;
+		}
+		if ( 'mcp_write' === $key ) {
+			$choices = array(
+				'0' => __( 'Read only (recommended): list, read, preview, submissions, statistics', 'smart-diagnostic' ),
+				'1' => __( 'Read and write: also create and modify diagnostics (never delete)', 'smart-diagnostic' ),
+			);
+			foreach ( $choices as $choice => $label ) {
+				printf(
+					'<label style="display:block;margin-bottom:4px;"><input type="radio" name="%s" value="%s" %s /> %s</label>',
+					esc_attr( $name ),
+					esc_attr( (string) $choice ),
+					checked( (bool) $value, (bool) $choice, false ),
+					esc_html( $label )
+				);
+			}
 			return;
 		}
 		if ( 'smtp_enabled' === $key ) {
@@ -273,7 +341,41 @@ final class SettingsPage {
 		submit_button();
 		echo '</form>';
 		$this->render_test_form();
+		$this->render_mcp_log();
 		echo '</div>';
+	}
+
+	/**
+	 * Journal des actions MCP (les plus récentes d'abord).
+	 */
+	private function render_mcp_log(): void {
+		$log = array_reverse( ActionLog::all() );
+		if ( ! $log && ! Settings::get( 'mcp_enabled' ) ) {
+			return;
+		}
+		echo '<hr /><h2>' . esc_html__( 'MCP connector log', 'smart-diagnostic' ) . '</h2>';
+		if ( ! $log ) {
+			echo '<p>' . esc_html__( 'No action yet.', 'smart-diagnostic' ) . '</p>';
+			return;
+		}
+		echo '<table class="widefat striped sd-mcp-log"><thead><tr>';
+		foreach ( array( __( 'Date', 'smart-diagnostic' ), __( 'User', 'smart-diagnostic' ), __( 'Action', 'smart-diagnostic' ), __( 'Parameters', 'smart-diagnostic' ), __( 'Result', 'smart-diagnostic' ) ) as $title ) {
+			echo '<th scope="col">' . esc_html( $title ) . '</th>';
+		}
+		echo '</tr></thead><tbody>';
+		foreach ( array_slice( $log, 0, 50 ) as $entry ) {
+			$user = get_userdata( $entry['user'] );
+			printf(
+				'<tr><td>%s</td><td>%s</td><td><code>%s</code></td><td>%s</td><td>%s %s</td></tr>',
+				esc_html( get_date_from_gmt( $entry['at'], 'Y-m-d H:i' ) ),
+				esc_html( $user ? $user->user_login : '#' . $entry['user'] ),
+				esc_html( $entry['ability'] ),
+				esc_html( $entry['input'] ),
+				$entry['ok'] ? '✅' : '❌',
+				esc_html( $entry['message'] )
+			);
+		}
+		echo '</tbody></table>';
 	}
 
 	private function render_test_form(): void {

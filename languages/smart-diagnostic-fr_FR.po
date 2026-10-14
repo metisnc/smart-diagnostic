@@ -17,6 +17,8 @@ msgstr ""
 #. Plugin Name of the plugin
 #: smart-diagnostic.php
 #: src/Branding.php:35
+#: src/Mcp/Abilities.php:66
+#: src/Mcp/Server.php:55
 msgid "Smart Diagnostic"
 msgstr "Smart Diagnostic"
 
@@ -75,7 +77,7 @@ msgstr "Importer"
 
 #: src/Admin/ImportExport.php:65
 #: src/Admin/ImportExport.php:79
-#: assets/src/builder/EmailEditor.js:945
+#: assets/src/builder/EmailEditor.js:985
 #: assets/src/builder/tabs/Steps.js:1172
 msgid "Duplicate"
 msgstr "Dupliquer"
@@ -88,10 +90,11 @@ msgstr "Exporter en JSON"
 #: src/Admin/ImportExport.php:91
 #: src/Admin/ImportExport.php:110
 #: src/Admin/ImportExport.php:121
-#: src/Admin/SettingsPage.php:310
+#: src/Admin/SettingsPage.php:412
 #: src/Admin/SubmissionsPage.php:90
 #: src/Admin/SubmissionsPage.php:280
 #: src/Admin/TemplatesPage.php:93
+#: src/Mcp/Abilities.php:640
 msgid "You are not allowed to do this."
 msgstr "Vous n’avez pas l’autorisation de faire cela."
 
@@ -122,11 +125,12 @@ msgid "The imported diagnostic is created as a draft. Webhook secrets are never 
 msgstr "Le diagnostic importé est créé en brouillon. Les secrets des webhooks ne font jamais partie d’un export : saisissez-les à nouveau après l’import."
 
 #: src/Admin/ImportExport.php:181
+#: src/Mcp/Abilities.php:708
 msgid "The configuration is not valid:"
 msgstr "La configuration n’est pas valide :"
 
 #: src/Admin/ImportExport.php:191
-#: assets/src/builder/EmailEditor.js:74
+#: assets/src/builder/EmailEditor.js:82
 #: assets/src/builder/tabs/General.js:119
 #: assets/src/builder/tabs/Results.js:106
 #: assets/src/builder/tabs/Results.js:286
@@ -147,207 +151,207 @@ msgstr "Fichier JSON"
 msgid "Or paste the JSON"
 msgstr "Ou collez le JSON"
 
-#: src/Admin/SettingsPage.php:34
-#: src/Admin/SettingsPage.php:35
+#: src/Admin/SettingsPage.php:37
+#: src/Admin/SettingsPage.php:38
 msgid "Settings"
 msgstr "Réglages"
 
-#: src/Admin/SettingsPage.php:53
+#: src/Admin/SettingsPage.php:56
 msgid "Anti-spam"
 msgstr "Anti-spam"
 
-#: src/Admin/SettingsPage.php:56
+#: src/Admin/SettingsPage.php:59
 msgid "Captcha"
 msgstr "Captcha"
 
-#: src/Admin/SettingsPage.php:57
+#: src/Admin/SettingsPage.php:60
 msgid "Site key"
 msgstr "Clé du site"
 
-#: src/Admin/SettingsPage.php:58
+#: src/Admin/SettingsPage.php:61
 msgid "Secret key"
 msgstr "Clé secrète"
 
-#: src/Admin/SettingsPage.php:59
+#: src/Admin/SettingsPage.php:62
 msgid "Max submissions per visitor"
 msgstr "Envois maximum par visiteur"
 
-#: src/Admin/SettingsPage.php:60
+#: src/Admin/SettingsPage.php:63
 msgid "Time window (seconds)"
 msgstr "Période (secondes)"
 
-#: src/Admin/SettingsPage.php:62
+#: src/Admin/SettingsPage.php:65
 msgid "Privacy (GDPR)"
 msgstr "Confidentialité (RGPD)"
 
-#: src/Admin/SettingsPage.php:65
+#: src/Admin/SettingsPage.php:68
 msgid "Keep submissions for (days)"
 msgstr "Conserver les réponses pendant (jours)"
 
-#: src/Admin/SettingsPage.php:67
+#: src/Admin/SettingsPage.php:70
 #: src/Admin/StatsPage.php:39
 #: src/Admin/StatsPage.php:40
 #: src/Admin/StatsPage.php:68
 msgid "Statistics"
 msgstr "Statistiques"
 
-#: src/Admin/SettingsPage.php:70
+#: src/Admin/SettingsPage.php:73
 msgid "White label"
 msgstr "Marque blanche"
 
-#: src/Admin/SettingsPage.php:71
+#: src/Admin/SettingsPage.php:74
 msgid "Displayed name"
 msgstr "Nom affiché"
 
-#: src/Admin/SettingsPage.php:74
+#: src/Admin/SettingsPage.php:77
 #: assets/src/builder/tabs/General.js:499
 msgid "Emails"
 msgstr "Emails"
 
-#: src/Admin/SettingsPage.php:76
+#: src/Admin/SettingsPage.php:79
 msgid "Sender name"
 msgstr "Nom de l’expéditeur"
 
-#: src/Admin/SettingsPage.php:77
+#: src/Admin/SettingsPage.php:80
 msgid "Sender address"
 msgstr "Adresse de l’expéditeur"
 
-#: src/Admin/SettingsPage.php:78
+#: src/Admin/SettingsPage.php:81
 msgid "Reply-to address"
 msgstr "Adresse de réponse"
 
-#: src/Admin/SettingsPage.php:79
+#: src/Admin/SettingsPage.php:82
 msgid "Dedicated SMTP"
 msgstr "SMTP dédié"
 
-#: src/Admin/SettingsPage.php:80
+#: src/Admin/SettingsPage.php:83
 msgid "SMTP server"
 msgstr "Serveur SMTP"
 
-#: src/Admin/SettingsPage.php:81
+#: src/Admin/SettingsPage.php:84
 msgid "Port"
 msgstr "Port"
 
-#: src/Admin/SettingsPage.php:82
+#: src/Admin/SettingsPage.php:85
 msgid "Encryption"
 msgstr "Chiffrement"
 
-#: src/Admin/SettingsPage.php:83
+#: src/Admin/SettingsPage.php:86
 msgid "Username"
 msgstr "Identifiant"
 
-#: src/Admin/SettingsPage.php:84
+#: src/Admin/SettingsPage.php:87
 msgid "Password"
 msgstr "Mot de passe"
 
-#: src/Admin/SettingsPage.php:123
+#: src/Admin/SettingsPage.php:132
 msgid "Dedicated SMTP not enabled: the \"SMTP server\" field contains an email address. Enter the address of the server (for example smtp.office365.com or ssl0.ovh.net); the email address goes in \"Username\"."
 msgstr "SMTP dédié non activé : le champ « Serveur SMTP » contient une adresse email. Indiquez l’adresse du serveur (par exemple smtp.office365.com ou ssl0.ovh.net) ; l’adresse email se met dans « Identifiant »."
 
-#: src/Admin/SettingsPage.php:124
+#: src/Admin/SettingsPage.php:133
 msgid "Dedicated SMTP not enabled: enter a valid server address in \"SMTP server\" (for example smtp.office365.com)."
 msgstr "SMTP dédié non activé : indiquez une adresse de serveur valide dans « Serveur SMTP » (par exemple smtp.office365.com)."
 
-#: src/Admin/SettingsPage.php:157
+#: src/Admin/SettingsPage.php:199
 msgid "By default, emails are sent by WordPress, and therefore by the SMTP plugin of the site if there is one. Enable the dedicated SMTP only to send the emails of the diagnostics through another server."
 msgstr "Par défaut, les emails sont envoyés par WordPress, donc par le plugin SMTP du site s’il y en a un. N’activez le SMTP dédié que pour envoyer les emails des diagnostics par un autre serveur."
 
-#: src/Admin/SettingsPage.php:171
-#: src/Admin/SettingsPage.php:187
+#: src/Admin/SettingsPage.php:213
+#: src/Admin/SettingsPage.php:229
 msgid "None"
 msgstr "Aucun"
 
-#: src/Admin/SettingsPage.php:180
+#: src/Admin/SettingsPage.php:222
 msgid "Active only when both keys are filled in."
 msgstr "Actif seulement si les deux clés sont renseignées."
 
-#: src/Admin/SettingsPage.php:198
+#: src/Admin/SettingsPage.php:240
 msgid "Defined by the SD_SMTP_PASSWORD constant (wp-config.php)."
 msgstr "Défini par la constante SD_SMTP_PASSWORD (wp-config.php)."
 
-#: src/Admin/SettingsPage.php:205
+#: src/Admin/SettingsPage.php:247
 #: src/Admin/WebhookSecrets.php:54
 msgid "•••••••• (unchanged)"
 msgstr "•••••••• (inchangé)"
 
-#: src/Admin/SettingsPage.php:206
+#: src/Admin/SettingsPage.php:248
 msgid "Leave empty to keep the current password. More secure: define it in wp-config.php with the SD_SMTP_PASSWORD constant."
 msgstr "Laissez vide pour conserver le mot de passe actuel. Plus sûr : définissez-le dans wp-config.php avec la constante SD_SMTP_PASSWORD."
 
-#: src/Admin/SettingsPage.php:216
+#: src/Admin/SettingsPage.php:284
 msgid "Send the emails of the diagnostics through the server below (instead of WordPress / the SMTP plugin)."
 msgstr "Envoyer les emails des diagnostics par le serveur ci-dessous (au lieu de WordPress / du plugin SMTP)."
 
 #. translators: 1: server, 2: port.
-#: src/Admin/SettingsPage.php:221
+#: src/Admin/SettingsPage.php:289
 #, php-format
 msgid "Active: the emails of the diagnostics are sent through %1$s, port %2$d."
 msgstr "Actif : les emails des diagnostics partent par %1$s, port %2$d."
 
-#: src/Admin/SettingsPage.php:223
+#: src/Admin/SettingsPage.php:291
 msgid "Not active: the emails are sent by WordPress / the SMTP plugin of the site."
 msgstr "Inactif : les emails partent par WordPress / le plugin SMTP du site."
 
-#: src/Admin/SettingsPage.php:233
+#: src/Admin/SettingsPage.php:301
 msgid "Record anonymous journey events (funnel, drop-offs)."
 msgstr "Enregistrer les événements anonymes du parcours (entonnoir, abandons)."
 
-#: src/Admin/SettingsPage.php:234
+#: src/Admin/SettingsPage.php:302
 msgid "No personal data and no cookie: a random identifier per questionnaire run."
 msgstr "Aucune donnée personnelle ni cookie : un identifiant aléatoire par passage dans le questionnaire."
 
-#: src/Admin/SettingsPage.php:250
+#: src/Admin/SettingsPage.php:318
 msgid "Empty: the sender set by WordPress or by the SMTP plugin. Use an address of your domain, otherwise emails may end up in spam."
 msgstr "Vide : l’expéditeur défini par WordPress ou par le plugin SMTP. Utilisez une adresse de votre domaine, sinon les emails risquent d’arriver en spam."
 
-#: src/Admin/SettingsPage.php:253
+#: src/Admin/SettingsPage.php:321
 msgid "Where replies from visitors go (for example your sales team)."
 msgstr "Là où arrivent les réponses des visiteurs (par exemple votre équipe commerciale)."
 
-#: src/Admin/SettingsPage.php:256
+#: src/Admin/SettingsPage.php:324
 msgid "Replaces the plugin name in the admin menus and plugin list. The SD_BRAND_NAME constant (wp-config.php) takes precedence."
 msgstr "Remplace le nom du plugin dans les menus d’administration et la liste des extensions. La constante SD_BRAND_NAME (wp-config.php) est prioritaire."
 
-#: src/Admin/SettingsPage.php:259
+#: src/Admin/SettingsPage.php:327
 msgid "0 = keep until deleted. Older submissions are purged daily. Personal data can also be exported or erased from Tools → Export / Erase Personal Data."
 msgstr "0 = conservation jusqu’à suppression. Les réponses plus anciennes sont supprimées chaque jour. Les données personnelles peuvent aussi être exportées ou effacées depuis Outils → Exporter / Effacer les données personnelles."
 
-#: src/Admin/SettingsPage.php:284
-#: src/Admin/SettingsPage.php:303
+#: src/Admin/SettingsPage.php:386
+#: src/Admin/SettingsPage.php:405
 msgid "Send a test email"
 msgstr "Envoyer un email de test"
 
 #. translators: 1: recipient, 2: sending method.
-#: src/Admin/SettingsPage.php:288
+#: src/Admin/SettingsPage.php:390
 #, php-format
 msgid "Test email sent to %1$s (%2$s). Check the inbox, and the spam folder."
 msgstr "Email de test envoyé à %1$s (%2$s). Vérifiez la boîte de réception, ainsi que les spams."
 
 #. translators: %s: error message.
-#: src/Admin/SettingsPage.php:291
+#: src/Admin/SettingsPage.php:393
 #, php-format
 msgid "The test email could not be sent: %s"
 msgstr "L’email de test n’a pas pu être envoyé : %s"
 
-#: src/Admin/SettingsPage.php:300
+#: src/Admin/SettingsPage.php:402
 msgid "Recipient"
 msgstr "Destinataire"
 
-#: src/Admin/SettingsPage.php:304
+#: src/Admin/SettingsPage.php:406
 msgid "Uses the saved settings: save your changes before testing."
 msgstr "Utilise les réglages enregistrés : enregistrez vos modifications avant de tester."
 
-#: src/Admin/SettingsPage.php:318
+#: src/Admin/SettingsPage.php:420
 #: src/Front/Strings.php:33
 msgid "Please enter a valid email address."
 msgstr "Veuillez saisir une adresse email valide."
 
-#: src/Admin/SettingsPage.php:323
+#: src/Admin/SettingsPage.php:425
 #: src/Admin/SubmissionsPage.php:247
 msgid "dedicated SMTP"
 msgstr "SMTP dédié"
 
-#: src/Admin/SettingsPage.php:323
+#: src/Admin/SettingsPage.php:425
 #: src/Admin/SubmissionsPage.php:247
 msgid "WordPress / SMTP plugin"
 msgstr "WordPress / plugin SMTP"
@@ -505,6 +509,7 @@ msgstr "Oui"
 msgid "No"
 msgstr "Non"
 
+#: src/Admin/SettingsPage.php:362
 #: src/Admin/SubmissionsPage.php:176
 #: src/Admin/SubmissionsTable.php:64
 #: src/Integrations/CustomEmail.php:30
@@ -531,19 +536,20 @@ msgstr "Profil"
 msgid "CTA"
 msgstr "CTA"
 
+#: src/Admin/SettingsPage.php:362
 #: src/Admin/SubmissionsPage.php:189
 msgid "Result"
 msgstr "Résultat"
 
 #: src/Admin/SubmissionsPage.php:195
 #: templates/emails/admin.php:43
-#: assets/src/builder/EmailEditor.js:121
+#: assets/src/builder/EmailEditor.js:142
 msgid "Answers"
 msgstr "Réponses"
 
 #: src/Admin/SubmissionsPage.php:198
 #: src/Front/Strings.php:65
-#: assets/src/builder/EmailEditor.js:804
+#: assets/src/builder/EmailEditor.js:826
 msgid "Language"
 msgstr "Langue"
 
@@ -740,7 +746,7 @@ msgid "Please accept to continue."
 msgstr "Veuillez accepter pour continuer."
 
 #: src/Front/Strings.php:46
-#: assets/src/builder/EmailEditor.js:828
+#: assets/src/builder/EmailEditor.js:850
 msgid "Choose…"
 msgstr "Choisir…"
 
@@ -986,6 +992,8 @@ msgstr "Trop d’envois. Veuillez réessayer plus tard."
 msgid "The anti-spam check failed. Please try again."
 msgstr "La vérification anti-spam a échoué. Veuillez réessayer."
 
+#: src/Mcp/Abilities.php:637
+#: src/Mcp/Abilities.php:654
 #: src/Rest/SubmitController.php:200
 #: src/Rest/SubmitController.php:290
 msgid "Diagnostic not found."
@@ -1211,46 +1219,46 @@ msgid "Hello {first_name},"
 msgstr "Bonjour {first_name},"
 
 #. translators: %s: email address.
-#: assets/src/builder/EmailEditor.js:669
+#: assets/src/builder/EmailEditor.js:691
 #, js-format
 msgid "Preview sent to %s."
 msgstr "Aperçu envoyé à %s."
 
-#: assets/src/builder/EmailEditor.js:783
+#: assets/src/builder/EmailEditor.js:805
 msgid "Default template (built from the results)"
 msgstr "Modèle par défaut (construit à partir du résultat)"
 
-#: assets/src/builder/EmailEditor.js:1030
+#: assets/src/builder/EmailEditor.js:1075
 msgid "Complete HTML document (without the plugin frame)"
 msgstr "Document HTML complet (sans le cadre du plugin)"
 
-#: assets/src/builder/EmailEditor.js:1034
+#: assets/src/builder/EmailEditor.js:1079
 msgid "For an entirely custom layout: <html>, <head>, <style>… are then allowed."
 msgstr "Pour une mise en page entièrement libre : <html>, <head>, <style>… sont alors autorisés."
 
-#: assets/src/builder/EmailEditor.js:1046
+#: assets/src/builder/EmailEditor.js:1091
 msgid "Email body (HTML)"
 msgstr "Corps de l’email (HTML)"
 
-#: assets/src/builder/EmailEditor.js:138
-#: assets/src/builder/EmailEditor.js:139
+#: assets/src/builder/EmailEditor.js:159
+#: assets/src/builder/EmailEditor.js:160
 msgid "Insert a variable"
 msgstr "Insérer une variable"
 
 #: src/Admin/TemplatesPage.php:133
-#: assets/src/builder/EmailEditor.js:1070
+#: assets/src/builder/EmailEditor.js:1115
 msgid "Preview"
 msgstr "Aperçu"
 
-#: assets/src/builder/EmailEditor.js:1078
+#: assets/src/builder/EmailEditor.js:1123
 msgid "Send me this email"
 msgstr "M’envoyer cet email"
 
-#: assets/src/builder/EmailEditor.js:1091
+#: assets/src/builder/EmailEditor.js:1136
 msgid "Subject:"
 msgstr "Objet :"
 
-#: assets/src/builder/EmailEditor.js:1129
+#: assets/src/builder/EmailEditor.js:1174
 msgid "Email preview"
 msgstr "Aperçu de l’email"
 
@@ -1270,20 +1278,20 @@ msgstr "Clé"
 msgid "Technical identifier used in rules and exports."
 msgstr "Identifiant technique utilisé dans les règles et les exports."
 
-#: assets/src/builder/EmailEditor.js:906
+#: assets/src/builder/EmailEditor.js:944
 #: assets/src/builder/fields.js:229
 #: assets/src/builder/tabs/Steps.js:313
 #: assets/src/builder/tabs/Steps.js:1081
 msgid "Move up"
 msgstr "Monter"
 
-#: assets/src/builder/EmailEditor.js:924
+#: assets/src/builder/EmailEditor.js:963
 #: assets/src/builder/fields.js:243
 #: assets/src/builder/tabs/Steps.js:1096
 msgid "Move down"
 msgstr "Descendre"
 
-#: assets/src/builder/EmailEditor.js:966
+#: assets/src/builder/EmailEditor.js:1006
 #: assets/src/builder/fields.js:258
 #: assets/src/builder/fields.js:360
 #: assets/src/builder/tabs/Steps.js:328
@@ -1454,8 +1462,8 @@ msgid "Panels"
 msgstr "Encadrés"
 
 #: assets/src/builder/EmailEditor.js:23
-#: assets/src/builder/EmailEditor.js:66
-#: assets/src/builder/EmailEditor.js:344
+#: assets/src/builder/EmailEditor.js:74
+#: assets/src/builder/EmailEditor.js:365
 #: assets/src/builder/tabs/General.js:341
 #: assets/src/builder/tabs/General.js:481
 #: assets/src/builder/tabs/Steps.js:647
@@ -1471,12 +1479,12 @@ msgstr "Texte secondaire"
 msgid "Colours"
 msgstr "Couleurs"
 
-#: assets/src/builder/EmailEditor.js:550
+#: assets/src/builder/EmailEditor.js:571
 #: assets/src/builder/tabs/General.js:376
 msgid "Reset"
 msgstr "Réinitialiser"
 
-#: assets/src/builder/EmailEditor.js:559
+#: assets/src/builder/EmailEditor.js:580
 #: assets/src/builder/tabs/General.js:386
 msgid "Font"
 msgstr "Police"
@@ -1585,7 +1593,7 @@ msgid "The signing secret is entered in the “Webhook secrets” box, after sav
 msgstr "Le secret de signature se saisit dans la boîte « Secrets des webhooks », après l’enregistrement."
 
 #: assets/src/builder/EmailEditor.js:22
-#: assets/src/builder/EmailEditor.js:328
+#: assets/src/builder/EmailEditor.js:349
 #: assets/src/builder/tabs/Results.js:16
 msgid "Heading"
 msgstr "Intertitre"
@@ -1650,7 +1658,7 @@ msgstr "Nom"
 msgid "Text (basic HTML allowed)"
 msgstr "Texte (HTML simple autorisé)"
 
-#: assets/src/builder/EmailEditor.js:368
+#: assets/src/builder/EmailEditor.js:389
 #: assets/src/builder/tabs/Results.js:157
 msgid "Link"
 msgstr "Lien"
@@ -1684,8 +1692,8 @@ msgstr "Envoyer le résultat par email"
 msgid "Results page layout"
 msgstr "Mise en page du résultat"
 
-#: assets/src/builder/EmailEditor.js:993
-#: assets/src/builder/EmailEditor.js:997
+#: assets/src/builder/EmailEditor.js:1035
+#: assets/src/builder/EmailEditor.js:1039
 #: assets/src/builder/tabs/Results.js:262
 msgid "Add a block"
 msgstr "Ajouter un bloc"
@@ -2121,7 +2129,7 @@ msgstr "Auteur"
 msgid "Author role"
 msgstr "Fonction de l’auteur"
 
-#: assets/src/builder/EmailEditor.js:360
+#: assets/src/builder/EmailEditor.js:381
 #: assets/src/builder/tabs/Steps.js:707
 #: assets/src/builder/tabs/Steps.js:895
 msgid "Button label"
@@ -2329,7 +2337,7 @@ msgid "Your detailed report stays available online:"
 msgstr "Votre rapport détaillé reste disponible en ligne :"
 
 #: src/Integrations/EmailBlocks.php:97
-#: assets/src/builder/EmailEditor.js:80
+#: assets/src/builder/EmailEditor.js:88
 msgid "View my report"
 msgstr "Voir mon rapport"
 
@@ -2349,7 +2357,9 @@ msgstr "Nouvelle réponse"
 msgid ""
 "**{first_name}** ({email}) has completed the diagnostic.\n"
 "Profile: **{profile}**"
-msgstr "**{first_name}** ({email}) a répondu au diagnostic.\nProfil : **{profile}**"
+msgstr ""
+"**{first_name}** ({email}) a répondu au diagnostic.\n"
+"Profil : **{profile}**"
 
 #: src/Integrations/EmailBlocks.php:120
 msgid "View the report"
@@ -2368,7 +2378,10 @@ msgid ""
 "A few days ago, you took our diagnostic. Your profile: **{profile}**.\n"
 "\n"
 "Have you started putting the recommendations into practice? Here is a reminder of your action plan."
-msgstr "Il y a quelques jours, vous avez répondu à notre diagnostic. Votre profil : **{profile}**.\n\nAvez-vous commencé à mettre en pratique les recommandations ? Voici un rappel de votre plan d’action."
+msgstr ""
+"Il y a quelques jours, vous avez répondu à notre diagnostic. Votre profil : **{profile}**.\n"
+"\n"
+"Avez-vous commencé à mettre en pratique les recommandations ? Voici un rappel de votre plan d’action."
 
 #: src/Integrations/EmailBlocks.php:143
 msgid "See my results again"
@@ -2395,7 +2408,7 @@ msgid "Result / profile"
 msgstr "Résultat / profil"
 
 #: assets/src/builder/EmailEditor.js:29
-#: assets/src/builder/EmailEditor.js:122
+#: assets/src/builder/EmailEditor.js:143
 msgid "Scores"
 msgstr "Scores"
 
@@ -2435,168 +2448,168 @@ msgstr "Bouton de l’appel à l’action recommandé."
 msgid "All the questions and answers (useful for the team)."
 msgstr "Toutes les questions et réponses (utile pour l’équipe)."
 
-#: assets/src/builder/EmailEditor.js:65
+#: assets/src/builder/EmailEditor.js:73
 msgid "Main colour (buttons)"
 msgstr "Couleur principale (boutons)"
 
-#: assets/src/builder/EmailEditor.js:67
+#: assets/src/builder/EmailEditor.js:75
 msgid "Content background"
 msgstr "Fond du contenu"
 
-#: assets/src/builder/EmailEditor.js:68
+#: assets/src/builder/EmailEditor.js:76
 msgid "Background around"
 msgstr "Fond autour"
 
-#: assets/src/builder/EmailEditor.js:118
+#: assets/src/builder/EmailEditor.js:139
 msgid "Visitor and result"
 msgstr "Visiteur et résultat"
 
-#: assets/src/builder/EmailEditor.js:248
-#: assets/src/builder/EmailEditor.js:260
+#: assets/src/builder/EmailEditor.js:269
+#: assets/src/builder/EmailEditor.js:281
 msgid "Choose an image"
 msgstr "Choisir une image"
 
-#: assets/src/builder/EmailEditor.js:284
+#: assets/src/builder/EmailEditor.js:305
 msgid "Alignment"
 msgstr "Alignement"
 
-#: assets/src/builder/EmailEditor.js:287
+#: assets/src/builder/EmailEditor.js:308
 msgid "Left"
 msgstr "Gauche"
 
-#: assets/src/builder/EmailEditor.js:288
+#: assets/src/builder/EmailEditor.js:309
 msgid "Centre"
 msgstr "Centré"
 
-#: assets/src/builder/EmailEditor.js:289
+#: assets/src/builder/EmailEditor.js:310
 msgid "Right"
 msgstr "Droite"
 
-#: assets/src/builder/EmailEditor.js:303
+#: assets/src/builder/EmailEditor.js:324
 msgid "Size"
 msgstr "Taille"
 
-#: assets/src/builder/EmailEditor.js:318
+#: assets/src/builder/EmailEditor.js:339
 msgid "Small"
 msgstr "Petite"
 
-#: assets/src/builder/EmailEditor.js:319
+#: assets/src/builder/EmailEditor.js:340
 msgid "Medium"
 msgstr "Moyenne"
 
-#: assets/src/builder/EmailEditor.js:320
+#: assets/src/builder/EmailEditor.js:341
 msgid "Large"
 msgstr "Grande"
 
-#: assets/src/builder/EmailEditor.js:348
+#: assets/src/builder/EmailEditor.js:369
 msgid "An empty line starts a new paragraph. **Text between double asterisks** is shown in bold."
 msgstr "Une ligne vide commence un nouveau paragraphe. **Un texte entre doubles astérisques** est affiché en gras."
 
-#: assets/src/builder/EmailEditor.js:375
+#: assets/src/builder/EmailEditor.js:396
 msgid "Visitor’s results page"
 msgstr "Page de résultat du visiteur"
 
-#: assets/src/builder/EmailEditor.js:382
+#: assets/src/builder/EmailEditor.js:403
 msgid "Another address"
 msgstr "Autre adresse"
 
-#: assets/src/builder/EmailEditor.js:403
+#: assets/src/builder/EmailEditor.js:424
 msgid "Address"
 msgstr "Adresse"
 
-#: assets/src/builder/EmailEditor.js:419
+#: assets/src/builder/EmailEditor.js:440
 msgid "Image address (https://…)"
 msgstr "Adresse de l’image (https://…)"
 
-#: assets/src/builder/EmailEditor.js:431
+#: assets/src/builder/EmailEditor.js:452
 msgid "Description (for accessibility)"
 msgstr "Description (pour l’accessibilité)"
 
-#: assets/src/builder/EmailEditor.js:442
+#: assets/src/builder/EmailEditor.js:463
 msgid "Link when clicked (optional)"
 msgstr "Lien au clic (facultatif)"
 
-#: assets/src/builder/EmailEditor.js:456
+#: assets/src/builder/EmailEditor.js:477
 msgid "Maximum width (pixels)"
 msgstr "Largeur maximale (pixels)"
 
-#: assets/src/builder/EmailEditor.js:511
+#: assets/src/builder/EmailEditor.js:532
 msgid "Style"
 msgstr "Style"
 
-#: assets/src/builder/EmailEditor.js:513
+#: assets/src/builder/EmailEditor.js:534
 msgid "By default, the email uses the appearance of the questionnaire."
 msgstr "Par défaut, l’email reprend l’apparence du questionnaire."
 
-#: assets/src/builder/EmailEditor.js:523
+#: assets/src/builder/EmailEditor.js:544
 msgid "Logo (https://…)"
 msgstr "Logo (https://…)"
 
-#: assets/src/builder/EmailEditor.js:564
+#: assets/src/builder/EmailEditor.js:585
 msgid "Same as the questionnaire"
 msgstr "Comme le questionnaire"
 
-#: assets/src/builder/EmailEditor.js:714
+#: assets/src/builder/EmailEditor.js:736
 msgid "Back to the visual editor: the changes made in HTML will be lost. Continue?"
 msgstr "Retour à l’éditeur visuel : les modifications faites en HTML seront perdues. Continuer ?"
 
-#: assets/src/builder/EmailEditor.js:752
+#: assets/src/builder/EmailEditor.js:774
 msgid "Replace the current blocks with this template?"
 msgstr "Remplacer les blocs actuels par ce modèle ?"
 
-#: assets/src/builder/EmailEditor.js:772
+#: assets/src/builder/EmailEditor.js:794
 msgid "Email content"
 msgstr "Contenu de l’email"
 
-#: assets/src/builder/EmailEditor.js:779
+#: assets/src/builder/EmailEditor.js:801
 msgid "Standard follow-up template"
 msgstr "Modèle de relance standard"
 
-#: assets/src/builder/EmailEditor.js:790
+#: assets/src/builder/EmailEditor.js:812
 msgid "Visual editor"
 msgstr "Éditeur visuel"
 
-#: assets/src/builder/EmailEditor.js:794
+#: assets/src/builder/EmailEditor.js:816
 msgid "HTML (advanced)"
 msgstr "HTML (avancé)"
 
-#: assets/src/builder/EmailEditor.js:820
+#: assets/src/builder/EmailEditor.js:842
 msgid "Start from a template"
 msgstr "Partir d’un modèle"
 
-#: assets/src/builder/EmailEditor.js:841
+#: assets/src/builder/EmailEditor.js:863
 msgid "Edit as JSON"
 msgstr "Modifier en JSON"
 
-#: assets/src/builder/EmailEditor.js:1055
+#: assets/src/builder/EmailEditor.js:1100
 msgid "Variables such as {scores} or {cta} are replaced by the visitor’s results."
 msgstr "Les variables comme {scores} ou {cta} sont remplacées par les résultats du visiteur."
 
-#: assets/src/builder/EmailEditor.js:1100
+#: assets/src/builder/EmailEditor.js:1145
 msgid "Screen"
 msgstr "Écran"
 
-#: assets/src/builder/EmailEditor.js:1105
+#: assets/src/builder/EmailEditor.js:1150
 msgid "Computer"
 msgstr "Ordinateur"
 
-#: assets/src/builder/EmailEditor.js:1109
+#: assets/src/builder/EmailEditor.js:1154
 msgid "Mobile"
 msgstr "Mobile"
 
-#: assets/src/builder/EmailEditor.js:1135
+#: assets/src/builder/EmailEditor.js:1180
 msgid "Example data: first profile, mid-scale scores, all texts and actions. The preview follows your changes."
 msgstr "Données d’exemple : premier profil, scores à mi-échelle, tous les textes et actions. L’aperçu suit vos modifications."
 
-#: assets/src/builder/EmailEditor.js:1160
+#: assets/src/builder/EmailEditor.js:1205
 msgid "Blocks and style (JSON)"
 msgstr "Blocs et style (JSON)"
 
-#: assets/src/builder/EmailEditor.js:1163
+#: assets/src/builder/EmailEditor.js:1208
 msgid "Handy to go fast or to paste content prepared with an AI. Turn the option off to go back to the visual editor."
 msgstr "Pratique pour aller vite ou coller un contenu préparé avec une IA. Désactivez l’option pour revenir à l’éditeur visuel."
 
-#: assets/src/builder/EmailEditor.js:1170
+#: assets/src/builder/EmailEditor.js:1215
 msgid "Invalid JSON: the last valid version is kept."
 msgstr "JSON invalide : la dernière version valide est conservée."
 
@@ -2615,3 +2628,227 @@ msgstr "Jours après la réponse"
 #: assets/src/builder/tabs/General.js:631
 msgid "Subject of the follow-up email"
 msgstr "Objet de l’email de relance"
+
+#: src/Admin/SettingsPage.php:94
+msgid "MCP connector (AI assistants)"
+msgstr "Connecteur MCP (assistants IA)"
+
+#: src/Admin/SettingsPage.php:95
+msgid "MCP connector"
+msgstr "Connecteur MCP"
+
+#: src/Admin/SettingsPage.php:97
+msgid "Access"
+msgstr "Accès"
+
+#: src/Admin/SettingsPage.php:171
+msgid "Lets an AI assistant compatible with MCP (for example Claude Desktop) work with your diagnostics: list, read, preview, create or modify them, read the submissions and statistics. Nothing can be deleted through MCP, and every action is logged below."
+msgstr "Permet à un assistant IA compatible MCP (par exemple Claude Desktop) de travailler avec vos diagnostics : les lister, lire, prévisualiser, créer ou modifier, consulter les réponses et les statistiques. Rien ne peut être supprimé via MCP, et chaque action est journalisée ci-dessous."
+
+#: src/Admin/SettingsPage.php:173
+msgid "WordPress 6.9 or later (Abilities API)"
+msgstr "WordPress 6.9 ou plus récent (Abilities API)"
+
+#: src/Admin/SettingsPage.php:174
+msgid "The \"MCP Adapter\" plugin is installed and active"
+msgstr "Le plugin « MCP Adapter » est installé et activé"
+
+#: src/Admin/SettingsPage.php:184
+msgid "Connection address:"
+msgstr "Adresse de connexion :"
+
+#. translators: %s: link to the user profile.
+#: src/Admin/SettingsPage.php:189
+#, php-format
+msgid "The assistant connects with your username and an <a href=\"%s\">application password</a> (Users → Profile → Application passwords), with your own rights. See the README for the Claude Desktop configuration."
+msgstr "L’assistant se connecte avec votre identifiant et un <a href=\"%s\">mot de passe d’application</a> (Comptes → Profil → Mots de passe d’application), avec vos propres droits. Voir le README pour la configuration de Claude Desktop."
+
+#: src/Admin/SettingsPage.php:258
+msgid "Enable the MCP connector"
+msgstr "Activer le connecteur MCP"
+
+#: src/Admin/SettingsPage.php:264
+msgid "Read only (recommended): list, read, preview, submissions, statistics"
+msgstr "Lecture seule (recommandé) : lister, lire, prévisualiser, réponses, statistiques"
+
+#: src/Admin/SettingsPage.php:265
+msgid "Read and write: also create and modify diagnostics (never delete)"
+msgstr "Lecture et écriture : créer et modifier aussi des diagnostics (jamais de suppression)"
+
+#: src/Admin/SettingsPage.php:356
+msgid "MCP connector log"
+msgstr "Journal du connecteur MCP"
+
+#: src/Admin/SettingsPage.php:358
+msgid "No action yet."
+msgstr "Aucune action pour l’instant."
+
+#: src/Admin/SettingsPage.php:362
+msgid "User"
+msgstr "Utilisateur"
+
+#: src/Admin/SettingsPage.php:362
+msgid "Action"
+msgstr "Action"
+
+#: src/Admin/SettingsPage.php:362
+msgid "Parameters"
+msgstr "Paramètres"
+
+#: src/Mcp/Abilities.php:67
+msgid "Diagnostics, templates, submissions and statistics."
+msgstr "Diagnostics, modèles, réponses et statistiques."
+
+#: src/Mcp/Abilities.php:149
+msgid "Unknown action."
+msgstr "Action inconnue."
+
+#: src/Mcp/Abilities.php:167
+msgid "ID or slug of the diagnostic."
+msgstr "ID ou identifiant (slug) du diagnostic."
+
+#: src/Mcp/Abilities.php:180
+msgid "Complete diagnostic configuration (JSON object or JSON text), validated against the plugin JSON Schema. Start from get-diagnostic or a template to see the format."
+msgstr "Configuration complète du diagnostic (objet JSON ou texte JSON), validée par le JSON Schema du plugin. Partir de get-diagnostic ou d’un modèle pour voir le format."
+
+#: src/Mcp/Abilities.php:190
+msgid "List the diagnostics"
+msgstr "Lister les diagnostics"
+
+#: src/Mcp/Abilities.php:191
+msgid "Lists the diagnostics (questionnaires) of the site with their ID, title, status and number of questions."
+msgstr "Liste les diagnostics (questionnaires) du site avec leur ID, titre, statut et nombre de questions."
+
+#: src/Mcp/Abilities.php:202
+msgid "Read a diagnostic"
+msgstr "Lire un diagnostic"
+
+#: src/Mcp/Abilities.php:203
+msgid "Returns the complete JSON configuration of a diagnostic: questions, scoring, profiles, results, emails, appearance."
+msgstr "Renvoie la configuration JSON complète d’un diagnostic : questions, calcul, profils, résultats, emails, apparence."
+
+#: src/Mcp/Abilities.php:213
+msgid "List the templates"
+msgstr "Lister les modèles"
+
+#: src/Mcp/Abilities.php:214
+msgid "Lists the ready-made diagnostic templates (ID, title, description, number of questions, duration)."
+msgstr "Liste les modèles de diagnostics prêts à l’emploi (ID, titre, description, nombre de questions, durée)."
+
+#: src/Mcp/Abilities.php:220
+msgid "Preview a diagnostic"
+msgstr "Prévisualiser un diagnostic"
+
+#: src/Mcp/Abilities.php:221
+msgid "Lists the questions of a diagnostic and, if answers are given (object question key => value), computes the result exactly as for a visitor: path, scores, profile, texts, actions, recommended CTA. Nothing is saved."
+msgstr "Liste les questions d’un diagnostic et, si des réponses sont fournies (objet clé de question => valeur), calcule le résultat exactement comme pour un visiteur : parcours, scores, profil, textes, actions, CTA recommandé. Rien n’est enregistré."
+
+#: src/Mcp/Abilities.php:235
+msgid "List the submissions"
+msgstr "Lister les réponses"
+
+#: src/Mcp/Abilities.php:236
+msgid "Lists the submissions (leads) with contact, profile, scores and answers. Filters: diagnostic, dates (YYYY-MM-DD), profile, search. Contains personal data."
+msgstr "Liste les réponses (leads) avec contact, profil, scores et réponses. Filtres : diagnostic, dates (AAAA-MM-JJ), profil, recherche. Contient des données personnelles."
+
+#: src/Mcp/Abilities.php:262
+msgid "Export the submissions"
+msgstr "Exporter les réponses"
+
+#. translators: %d: maximum number of rows.
+#: src/Mcp/Abilities.php:264
+#, php-format
+msgid "Exports the submissions as CSV (separator \";\", same columns as the admin export), at most %d rows. Filters: diagnostic, dates (YYYY-MM-DD)."
+msgstr "Exporte les réponses en CSV (séparateur « ; », mêmes colonnes que l’export de l’admin), %d lignes au maximum. Filtres : diagnostic, dates (AAAA-MM-JJ)."
+
+#: src/Mcp/Abilities.php:277
+msgid "Statistics of a diagnostic"
+msgstr "Statistiques d’un diagnostic"
+
+#: src/Mcp/Abilities.php:278
+msgid "Funnel (sessions, starts, captures, submissions, completion rate, reach and drop-offs per step) and distribution of profiles and CTAs over a period (30 last days by default)."
+msgstr "Entonnoir (sessions, démarrages, captures, réponses, taux de complétion, passages et abandons par étape) et répartition des profils et des CTA sur une période (30 derniers jours par défaut)."
+
+#: src/Mcp/Abilities.php:292
+msgid "Create a diagnostic"
+msgstr "Créer un diagnostic"
+
+#: src/Mcp/Abilities.php:293
+msgid "Creates a diagnostic from a complete JSON configuration (validated against the schema; nothing is created if it is invalid, the errors are returned). Draft by default."
+msgstr "Crée un diagnostic à partir d’une configuration JSON complète (validée par le schéma ; rien n’est créé si elle est invalide, les erreurs sont renvoyées). Brouillon par défaut."
+
+#: src/Mcp/Abilities.php:307
+msgid "Modify a diagnostic"
+msgstr "Modifier un diagnostic"
+
+#: src/Mcp/Abilities.php:308
+msgid "Replaces the configuration (complete JSON, validated against the schema: an invalid configuration is refused and the online version is kept), the title and/or the status of a diagnostic."
+msgstr "Remplace la configuration (JSON complet, validé par le schéma : une configuration invalide est refusée et la version en ligne est conservée), le titre et / ou le statut d’un diagnostic."
+
+#: src/Mcp/Abilities.php:326
+msgid "Create a diagnostic from a template"
+msgstr "Créer un diagnostic depuis un modèle"
+
+#: src/Mcp/Abilities.php:327
+msgid "Creates a copy of a template (see list-templates), as a draft by default. Then adapt it with get-diagnostic and update-diagnostic."
+msgstr "Crée une copie d’un modèle (voir list-templates), en brouillon par défaut. L’adapter ensuite avec get-diagnostic et update-diagnostic."
+
+#. translators: %d: number of diagnostics.
+#: src/Mcp/Abilities.php:374
+#, php-format
+msgid "%d diagnostic"
+msgid_plural "%d diagnostics"
+msgstr[0] "%d diagnostic"
+msgstr[1] "%d diagnostics"
+
+#. translators: %d: number of templates.
+#: src/Mcp/Abilities.php:408
+#, php-format
+msgid "%d template"
+msgid_plural "%d templates"
+msgstr[0] "%d modèle"
+msgstr[1] "%d modèles"
+
+#. translators: %d: number of submissions.
+#: src/Mcp/Abilities.php:489
+#, php-format
+msgid "%d submission"
+msgid_plural "%d submissions"
+msgstr[0] "%d réponse"
+msgstr[1] "%d réponses"
+
+#. translators: %d: number of rows.
+#: src/Mcp/Abilities.php:513
+#, php-format
+msgid "%d row exported"
+msgid_plural "%d rows exported"
+msgstr[0] "%d ligne exportée"
+msgstr[1] "%d lignes exportées"
+
+#. translators: 1: number of submissions, 2: start date, 3: end date.
+#: src/Mcp/Abilities.php:540
+#, php-format
+msgid "%1$d submissions from %2$s to %3$s"
+msgstr "%1$d réponses du %2$s au %3$s"
+
+#: src/Mcp/Abilities.php:551
+#: src/Mcp/Abilities.php:589
+#: src/Mcp/Abilities.php:621
+msgid "You are not allowed to publish."
+msgstr "Vous n’avez pas le droit de publier."
+
+#: src/Mcp/Abilities.php:575
+msgid "Diagnostic created."
+msgstr "Diagnostic créé."
+
+#: src/Mcp/Abilities.php:611
+msgid "Diagnostic updated."
+msgstr "Diagnostic mis à jour."
+
+#: src/Mcp/Abilities.php:627
+msgid "Diagnostic created from the template."
+msgstr "Diagnostic créé depuis le modèle."
+
+#: src/Mcp/Server.php:56
+msgid "Create, modify and analyse the diagnostics of this site."
+msgstr "Créer, modifier et analyser les diagnostics de ce site."
