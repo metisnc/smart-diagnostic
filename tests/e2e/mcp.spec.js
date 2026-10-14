@@ -197,7 +197,7 @@ test( 'MCP connector: off by default, read only, then read and write', async ( {
 			config: { schemaVersion: 1, steps: 'not a list' },
 		} );
 		expect( invalid.isError ).toBe( true );
-		expect( invalid.text ).toContain( 'not valid' );
+		expect( invalid.text ).toContain( 'sections' );
 
 		const read = await client.tool( 'get-diagnostic', {
 			id: copy.data.id,
@@ -226,7 +226,7 @@ test( 'MCP connector: off by default, read only, then read and write', async ( {
 		await expect( log ).toContainText(
 			'smart-diagnostic/update-diagnostic'
 		);
-		await expect( log ).toContainText( 'not valid' );
+		await expect( log ).toContainText( 'sections' );
 
 		// Nettoyage : brouillon créé mis à la corbeille.
 		await page.goto(
