@@ -4,6 +4,8 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-10-14
+
 ### Added
 - Bibliothèque de modèles : 5 diagnostics prêts à l'emploi (FR/EN) et écran « Créer depuis
   un modèle » (galerie, aperçu, nombre de questions, durée estimée). « Utiliser ce modèle »
