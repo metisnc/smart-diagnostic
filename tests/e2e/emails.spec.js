@@ -38,8 +38,12 @@ async function saveSettings( page, values ) {
 		}
 	}
 	await page.locator( '#submit' ).first().click();
+	// Enregistré : confirmation, ou avertissement de validation (WordPress retire
+	// settings-updated de l'adresse, on vérifie donc le message).
 	await expect(
-		page.locator( '#setting-error-settings_updated' )
+		page.locator(
+			'#setting-error-settings_updated, #setting-error-sd_smtp_host'
+		)
 	).toBeVisible();
 }
 
@@ -180,6 +184,21 @@ test( 'dedicated SMTP sends through its own server', async ( {
 	await saveSettings( page, { 'SMTP server': 'smtp.invalid' } );
 	const failure = await sendTestEmail( page, to );
 	await expect( failure ).toContainText( 'could not be sent' );
+
+	// Une adresse email à la place du serveur : refusée, SMTP dédié laissé désactivé.
+	await saveSettings( page, {
+		'Dedicated SMTP': true,
+		'SMTP server': 'quelqu.un@example.test',
+	} );
+	await expect( page.locator( '#setting-error-sd_smtp_host' ) ).toContainText(
+		'contains an email address'
+	);
+	await expect(
+		page.getByLabel( 'Dedicated SMTP', { exact: true } )
+	).not.toBeChecked();
+	await expect( page.locator( '.sd-smtp-status' ) ).toContainText(
+		'Not active'
+	);
 
 	// Remise des réglages trouvés au départ.
 	await saveSettings( page, original );

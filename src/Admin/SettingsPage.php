@@ -109,6 +109,23 @@ final class SettingsPage {
 	 */
 	public function sanitize( mixed $input ): array {
 		$input = is_array( $input ) ? $input : array();
+
+		// SMTP dédié : activé seulement avec une adresse de serveur valide (sinon tous les
+		// emails des diagnostics échoueraient). Ils partent alors normalement par WordPress.
+		$smtp_host = trim( sanitize_text_field( (string) ( $input['smtp_host'] ?? '' ) ) );
+		$smtp_on   = ! empty( $input['smtp_enabled'] );
+		if ( $smtp_on && ! Settings::valid_smtp_host( $smtp_host ) ) {
+			$smtp_on = false;
+			add_settings_error(
+				Settings::OPTION,
+				'sd_smtp_host',
+				str_contains( $smtp_host, '@' )
+					? __( 'Dedicated SMTP not enabled: the "SMTP server" field contains an email address. Enter the address of the server (for example smtp.office365.com or ssl0.ovh.net); the email address goes in "Username".', 'smart-diagnostic' )
+					: __( 'Dedicated SMTP not enabled: enter a valid server address in "SMTP server" (for example smtp.office365.com).', 'smart-diagnostic' ),
+				'error'
+			);
+		}
+
 		return array(
 			'captcha_provider'   => in_array( $input['captcha_provider'] ?? '', array( 'turnstile', 'recaptcha' ), true ) ? $input['captcha_provider'] : 'none',
 			'captcha_site_key'   => sanitize_text_field( (string) ( $input['captcha_site_key'] ?? '' ) ),
@@ -121,8 +138,8 @@ final class SettingsPage {
 			'mail_from_name'     => sanitize_text_field( (string) ( $input['mail_from_name'] ?? '' ) ),
 			'mail_from_email'    => sanitize_email( (string) ( $input['mail_from_email'] ?? '' ) ),
 			'mail_reply_to'      => sanitize_email( (string) ( $input['mail_reply_to'] ?? '' ) ),
-			'smtp_enabled'       => ! empty( $input['smtp_enabled'] ),
-			'smtp_host'          => sanitize_text_field( (string) ( $input['smtp_host'] ?? '' ) ),
+			'smtp_enabled'       => $smtp_on,
+			'smtp_host'          => $smtp_host,
 			'smtp_port'          => max( 1, absint( $input['smtp_port'] ?? 587 ) ),
 			'smtp_encryption'    => in_array( $input['smtp_encryption'] ?? '', array( 'tls', 'ssl', 'none' ), true ) ? $input['smtp_encryption'] : 'tls',
 			'smtp_user'          => sanitize_text_field( (string) ( $input['smtp_user'] ?? '' ) ),
@@ -198,6 +215,13 @@ final class SettingsPage {
 				checked( (bool) $value, true, false ),
 				esc_html__( 'Send the emails of the diagnostics through the server below (instead of WordPress / the SMTP plugin).', 'smart-diagnostic' )
 			);
+			if ( Settings::smtp_enabled() ) {
+				$settings = Settings::all();
+				/* translators: 1: server, 2: port. */
+				printf( '<p class="description sd-smtp-status">%s</p>', esc_html( sprintf( __( 'Active: the emails of the diagnostics are sent through %1$s, port %2$d.', 'smart-diagnostic' ), $settings['smtp_host'], $settings['smtp_port'] ) ) );
+			} else {
+				printf( '<p class="description sd-smtp-status">%s</p>', esc_html__( 'Not active: the emails are sent by WordPress / the SMTP plugin of the site.', 'smart-diagnostic' ) );
+			}
 			return;
 		}
 		if ( 'analytics' === $key ) {
