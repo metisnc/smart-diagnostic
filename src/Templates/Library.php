@@ -142,6 +142,7 @@ final class Library {
 	}
 
 	/**
+	 * @param string               $id     Identifiant du modèle.
 	 * @param array<string, mixed> $source Entrée du filtre.
 	 * @param array<string, mixed> $config Config du modèle.
 	 * @return array{id: string, title: string, description: string, questions: int, minutes: int, color: string, config: array<string, mixed>}
