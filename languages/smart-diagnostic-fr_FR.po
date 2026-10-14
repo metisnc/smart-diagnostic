@@ -36,7 +36,7 @@ msgstr "metisnc"
 msgid "Smart Diagnostic: dependencies are missing. Run \"composer install\" in the plugin folder."
 msgstr "Smart Diagnostic : dépendances manquantes. Lancez « composer install » dans le dossier du plugin."
 
-#: assets/src/builder/Builder.js:236
+#: assets/src/builder/Builder.js:280
 msgid "Configuration (JSON)"
 msgstr "Configuration (JSON)"
 
@@ -71,7 +71,7 @@ msgstr "Importer"
 #: src/Admin/ImportExport.php:65
 #: src/Admin/ImportExport.php:79
 #: assets/src/builder/EmailEditor.js:985
-#: assets/src/builder/tabs/Steps.js:1321
+#: assets/src/builder/tabs/Steps.js:1328
 msgid "Duplicate"
 msgstr "Dupliquer"
 
@@ -418,7 +418,7 @@ msgid "Visitors"
 msgstr "Visiteurs"
 
 #: src/Admin/StatsPage.php:145
-#: assets/src/builder/Builder.js:107
+#: assets/src/builder/Builder.js:148
 #: assets/src/builder/tabs/Guide.js:151
 #: assets/src/builder/tabs/Steps.js:1012
 msgid "Results"
@@ -429,6 +429,7 @@ msgid "Drop-offs (last step seen)"
 msgstr "Abandons (dernière étape vue)"
 
 #: src/Admin/StatsPage.php:161
+#: assets/src/builder/Builder.js:116
 #: assets/src/builder/tabs/General.js:87
 msgid "Welcome screen"
 msgstr "Écran d’accueil"
@@ -581,7 +582,7 @@ msgstr "Supprimer définitivement cette réponse ?"
 #: src/Admin/SubmissionsPage.php:233
 #: src/Admin/SubmissionsTable.php:88
 #: src/Admin/SubmissionsTable.php:143
-#: assets/src/builder/tabs/Steps.js:1329
+#: assets/src/builder/tabs/Steps.js:1336
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -1034,51 +1035,51 @@ msgstr "Choisir un diagnostic…"
 msgid "Diagnostic to display"
 msgstr "Diagnostic à afficher"
 
-#: assets/src/builder/Builder.js:105
+#: assets/src/builder/Builder.js:146
 #: assets/src/builder/tabs/General.js:166
 #: assets/src/builder/tabs/Guide.js:135
 msgid "Journey"
 msgstr "Parcours"
 
-#: assets/src/builder/Builder.js:106
+#: assets/src/builder/Builder.js:147
 #: assets/src/builder/tabs/Guide.js:143
 msgid "Calculation"
 msgstr "Calcul"
 
-#: assets/src/builder/Builder.js:108
+#: assets/src/builder/Builder.js:149
 #: assets/src/builder/tabs/Guide.js:159
 msgid "General"
 msgstr "Général"
 
-#: assets/src/builder/Builder.js:109
+#: assets/src/builder/Builder.js:150
 #: assets/src/builder/tabs/Guide.js:167
 msgid "Appearance"
 msgstr "Apparence"
 
-#: assets/src/builder/Builder.js:112
+#: assets/src/builder/Builder.js:153
 #: assets/src/builder/tabs/Guide.js:175
 msgid "Integrations"
 msgstr "Intégrations"
 
-#: assets/src/builder/Builder.js:114
+#: assets/src/builder/Builder.js:155
 #: assets/src/builder/tabs/Guide.js:183
 msgid "Test"
 msgstr "Test"
 
-#: assets/src/builder/Builder.js:169
+#: assets/src/builder/Builder.js:210
 msgid "Invalid JSON:"
 msgstr "JSON invalide :"
 
-#: assets/src/builder/Builder.js:137
+#: assets/src/builder/Builder.js:178
 msgid "Valid configuration."
 msgstr "Configuration valide."
 
-#: assets/src/builder/Builder.js:158
-#: assets/src/builder/Builder.js:265
+#: assets/src/builder/Builder.js:199
+#: assets/src/builder/Builder.js:309
 msgid "Live preview"
 msgstr "Aperçu en direct"
 
-#: assets/src/builder/Builder.js:240
+#: assets/src/builder/Builder.js:284
 msgid "Format documented in schema/diagnostic.schema.json. Changes are applied to the other tabs as soon as the JSON is valid."
 msgstr "Format documenté dans schema/diagnostic.schema.json. Les modifications s’appliquent aux autres onglets dès que le JSON est valide."
 
@@ -1243,7 +1244,6 @@ msgid "Insert a variable"
 msgstr "Insérer une variable"
 
 #: src/Admin/TemplatesPage.php:133
-#: assets/src/builder/Builder.js:268
 #: assets/src/builder/EmailEditor.js:1115
 msgid "Preview"
 msgstr "Aperçu"
@@ -1280,14 +1280,14 @@ msgstr "Identifiant technique utilisé dans les règles et les exports."
 #: assets/src/builder/EmailEditor.js:944
 #: assets/src/builder/fields.js:229
 #: assets/src/builder/tabs/Steps.js:212
-#: assets/src/builder/tabs/Steps.js:1175
+#: assets/src/builder/tabs/Steps.js:1182
 msgid "Move up"
 msgstr "Monter"
 
 #: assets/src/builder/EmailEditor.js:963
 #: assets/src/builder/fields.js:243
 #: assets/src/builder/tabs/Steps.js:226
-#: assets/src/builder/tabs/Steps.js:1190
+#: assets/src/builder/tabs/Steps.js:1197
 msgid "Move down"
 msgstr "Descendre"
 
@@ -1633,7 +1633,7 @@ msgstr "La plus haute d’abord."
 
 #: assets/src/builder/tabs/Results.js:113
 #: assets/src/builder/tabs/Scoring.js:103
-#: assets/src/builder/tabs/Steps.js:1267
+#: assets/src/builder/tabs/Steps.js:1274
 msgid "Name"
 msgstr "Nom"
 
@@ -1800,7 +1800,7 @@ msgstr "Règle"
 #: assets/src/builder/tabs/Scoring.js:229
 #: assets/src/builder/tabs/Steps.js:55
 #: assets/src/builder/tabs/Steps.js:475
-#: assets/src/builder/tabs/Steps.js:1215
+#: assets/src/builder/tabs/Steps.js:1222
 msgid "Question"
 msgstr "Question"
 
@@ -1912,12 +1912,12 @@ msgid "Phone"
 msgstr "Téléphone"
 
 #: assets/src/builder/tabs/Steps.js:56
-#: assets/src/builder/tabs/Steps.js:1222
+#: assets/src/builder/tabs/Steps.js:1229
 msgid "Content"
 msgstr "Contenu"
 
 #: assets/src/builder/tabs/Steps.js:57
-#: assets/src/builder/tabs/Steps.js:1229
+#: assets/src/builder/tabs/Steps.js:1236
 msgid "Form"
 msgstr "Formulaire"
 
@@ -2157,28 +2157,28 @@ msgstr "Aller à"
 msgid "If"
 msgstr "Si"
 
-#: assets/src/builder/tabs/Steps.js:1257
+#: assets/src/builder/tabs/Steps.js:1264
 msgid "New section"
 msgstr "Nouvelle section"
 
-#: assets/src/builder/tabs/Steps.js:1259
+#: assets/src/builder/tabs/Steps.js:1266
 msgid "Add a section"
 msgstr "Ajouter une section"
 
-#: assets/src/builder/tabs/Steps.js:1125
+#: assets/src/builder/tabs/Steps.js:1132
 msgid "Steps"
 msgstr "Étapes"
 
-#: assets/src/builder/tabs/Steps.js:1162
+#: assets/src/builder/tabs/Steps.js:1169
 msgid "Conditional"
 msgstr "Conditionnelle"
 
 #: assets/src/builder/tabs/Guide.js:221
-#: assets/src/builder/tabs/Steps.js:1362
+#: assets/src/builder/tabs/Steps.js:1369
 msgid "Section"
 msgstr "Section"
 
-#: assets/src/builder/tabs/Steps.js:1394
+#: assets/src/builder/tabs/Steps.js:1401
 msgid "Show this step"
 msgstr "Afficher cette étape"
 
@@ -2805,29 +2805,29 @@ msgstr "Insertion"
 msgid "Insert this diagnostic in a page with the \"Diagnostic\" block, or with this shortcode:"
 msgstr "Insérez ce diagnostic dans une page avec le bloc « Diagnostic », ou avec ce shortcode :"
 
-#: assets/src/builder/Builder.js:127
+#: assets/src/builder/Builder.js:168
 msgid "Diagnostic builder"
 msgstr "Constructeur du diagnostic"
 
-#: assets/src/builder/Builder.js:132
+#: assets/src/builder/Builder.js:173
 msgid "Invalid JSON"
 msgstr "JSON invalide"
 
 #. translators: %d: number of errors.
-#: assets/src/builder/Builder.js:144
+#: assets/src/builder/Builder.js:185
 #, js-format
 msgid "%d error to fix"
 msgid_plural "%d errors to fix"
 msgstr[0] "%d erreur à corriger"
 msgstr[1] "%d erreurs à corriger"
 
-#: assets/src/builder/Builder.js:179
+#: assets/src/builder/Builder.js:220
 msgid "The configuration will not be saved until this error is fixed:"
 msgid_plural "The configuration will not be saved until these errors are fixed:"
 msgstr[0] "La configuration ne sera pas enregistrée tant que cette erreur n’est pas corrigée :"
 msgstr[1] "La configuration ne sera pas enregistrée tant que ces erreurs ne sont pas corrigées :"
 
-#: assets/src/builder/Builder.js:104
+#: assets/src/builder/Builder.js:145
 msgid "Guide"
 msgstr "Guide"
 
@@ -3422,38 +3422,70 @@ msgstr "Réponse « Je ne sais pas » (voir les options avancées)."
 msgid "How the visitor answers."
 msgstr "Comment le visiteur répond."
 
-#: assets/src/builder/tabs/Steps.js:1207
+#: assets/src/builder/tabs/Steps.js:1214
 msgid "Add after the selected step:"
 msgstr "Ajouter après l’étape sélectionnée :"
 
 #. translators: %d: number of sections.
-#: assets/src/builder/tabs/Steps.js:1237
+#: assets/src/builder/tabs/Steps.js:1244
 #, js-format
 msgid "Sections (%d)"
 msgstr "Sections (%d)"
 
-#: assets/src/builder/tabs/Steps.js:1242
+#: assets/src/builder/tabs/Steps.js:1249
 msgid "Sections group the questions; their name is shown above the progress bar."
 msgstr "Les sections regroupent les questions ; leur nom s’affiche au-dessus de la barre de progression."
 
-#: assets/src/builder/tabs/Steps.js:1295
+#: assets/src/builder/tabs/Steps.js:1302
 msgid "Select a step on the left to edit it, or add one."
 msgstr "Sélectionnez une étape à gauche pour la modifier, ou ajoutez-en une."
 
 #. translators: 1: step number, 2: kind of step.
-#: assets/src/builder/tabs/Steps.js:1307
+#: assets/src/builder/tabs/Steps.js:1314
 #, js-format
 msgid "Step %1$d · %2$s"
 msgstr "Étape %1$d · %2$s"
 
-#: assets/src/builder/tabs/Steps.js:1388
+#: assets/src/builder/tabs/Steps.js:1395
 msgid "Logic: show only in some cases, jump to another step"
 msgstr "Logique : afficher seulement dans certains cas, sauter à une autre étape"
 
-#: assets/src/builder/tabs/Steps.js:1417
+#: assets/src/builder/tabs/Steps.js:1424
 msgid "Show the advanced options"
 msgstr "Afficher les options avancées"
 
-#: assets/src/builder/tabs/Steps.js:1421
+#: assets/src/builder/tabs/Steps.js:1428
 msgid "Technical keys and values, “I don’t know” answers."
 msgstr "Clés et valeurs techniques, réponses « Je ne sais pas »."
+
+#. translators: %d: step number.
+#: assets/src/builder/Builder.js:105
+#, js-format
+msgid "Step %d"
+msgstr "Étape %d"
+
+#: assets/src/builder/Builder.js:121
+msgid "Result (example answers)"
+msgstr "Résultat (réponses d’exemple)"
+
+#. translators: %s: what is previewed (step, welcome screen…).
+#: assets/src/builder/Builder.js:316
+#, js-format
+msgid "Preview: %s"
+msgstr "Aperçu : %s"
+
+#: assets/src/builder/Builder.js:322
+msgid "Preview: whole journey"
+msgstr "Aperçu : tout le parcours"
+
+#: assets/src/builder/Builder.js:331
+msgid "What to preview"
+msgstr "Que prévisualiser"
+
+#: assets/src/builder/Builder.js:344
+msgid "This part"
+msgstr "Cette partie"
+
+#: assets/src/builder/Builder.js:357
+msgid "Whole journey"
+msgstr "Tout le parcours"

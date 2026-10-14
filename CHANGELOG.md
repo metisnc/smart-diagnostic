@@ -16,6 +16,10 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
   thème (nom du thème au lieu de la clé), libellés dans toutes les langues, logique
   (conditions, sauts) et options avancées (clés, valeurs, « Je ne sais pas ») repliées.
 
+- Aperçu ciblé dans le constructeur : l'étape en cours de modification (Parcours), l'écran
+  d'accueil (Général) ou la page de résultat avec des réponses d'exemple (Résultat), avec un
+  bouton « Tout le parcours ».
+
 ### Fixed
 - Constructeur : chevauchements et textes illisibles avec le zoom du navigateur ; la mise en
   page suit la place réellement disponible (aperçu déduit).

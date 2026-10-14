@@ -134,8 +134,22 @@
 		}
 	}
 
-	&__preview-title {
+	&__preview-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
 		margin: 0 0 12px;
+	}
+
+	&__preview-mode {
+		display: flex;
+		gap: 4px;
+	}
+
+	&__preview-title {
+		margin: 0;
 		color: #646970;
 		font-size: 11px;
 		font-weight: 600;
