@@ -147,6 +147,7 @@ final class SubmissionRepository {
 			),
 			ARRAY_A
 		);
+
 		$counts = array();
 		foreach ( (array) $rows as $row ) {
 			$counts[ (string) $row['k'] ] = (int) $row['n'];
