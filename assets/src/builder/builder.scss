@@ -403,13 +403,166 @@
 .sd-b-color {
 	display: flex;
 	align-items: center;
-	gap: 8px;
+	gap: 10px;
+	padding: 6px 8px;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	background: #fff;
 
 	input[type="color"] {
-		width: 40px;
-		height: 32px;
+		flex: 0 0 auto;
+		width: 36px;
+		height: 36px;
 		padding: 0;
-		border: 1px solid #8c8f94;
+		border: 1px solid #c3c4c7;
+		border-radius: 6px;
+		cursor: pointer;
+	}
+
+	> span {
+		display: flex;
+		flex: 1 1 auto;
+		flex-direction: column;
+
+		code {
+			padding: 0;
+			background: none;
+			color: #646970;
+			font-size: 11px;
+		}
+	}
+}
+
+// Onglet « Apparence ».
+.sd-b-design {
+	&__section {
+		margin-bottom: 28px;
+		padding-bottom: 24px;
+		border-bottom: 1px solid #f0f0f1;
+
+		&:last-child {
+			border-bottom: 0;
+		}
+
+		h3 {
+			margin-top: 0;
+		}
+	}
+
+	&__font-sample {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		padding: 14px 16px;
+		background: #f6f7f7;
+		border-radius: 6px;
+
+		strong {
+			font-size: 18px;
+		}
+	}
+
+	&__shape-sample {
+		display: inline-block;
+		margin-top: 4px;
+		padding: 12px 24px;
+		font-weight: 600;
+	}
+}
+
+.sd-b-preset {
+	display: grid;
+	gap: 6px;
+}
+
+.sd-b-palettes {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+	gap: 10px;
+}
+
+.sd-b-palette {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 6px;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+	background: #fff;
+	cursor: pointer;
+	text-align: left;
+
+	&:hover,
+	&:focus-visible {
+		border-color: var(--wp-admin-theme-color, #2271b1);
+		box-shadow: 0 0 0 1px var(--wp-admin-theme-color, #2271b1);
+		outline: none;
+	}
+
+	&__sample {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		height: 44px;
+		padding: 0 8px;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		border-radius: 6px;
+	}
+
+	&__button {
+		padding: 3px 10px;
+		border-radius: 4px;
+		font-size: 12px;
+		font-weight: 700;
+	}
+
+	&__panel {
+		flex: 1 1 auto;
+		height: 14px;
+		border-radius: 3px;
+	}
+
+	&__name {
+		padding: 0 2px;
+		font-size: 12px;
+		font-weight: 500;
+	}
+}
+
+.sd-b-logo {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 16px;
+	align-items: flex-start;
+
+	&__preview {
+		display: flex;
+		flex: 0 0 160px;
+		align-items: center;
+		justify-content: center;
+		height: 100px;
+		padding: 8px;
+		border: 1px dashed #c3c4c7;
+		border-radius: 8px;
+		background: #f6f7f7;
+		color: #646970;
+
+		img {
+			max-width: 100%;
+			max-height: 100%;
+			object-fit: contain;
+		}
+	}
+
+	&__fields {
+		flex: 1 1 280px;
+	}
+
+	&__buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-bottom: 12px;
 	}
 }
 

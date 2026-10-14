@@ -16,7 +16,8 @@ import { setIn } from './utils';
 import { StepsTab } from './tabs/Steps';
 import { ScoringTab } from './tabs/Scoring';
 import { ResultsTab } from './tabs/Results';
-import { DesignTab, GeneralTab, IntegrationsTab } from './tabs/General';
+import { GeneralTab, IntegrationsTab } from './tabs/General';
+import { DesignTab } from './tabs/Design';
 import { TestTab } from './tabs/Test';
 import { GuideTab } from './tabs/Guide';
 

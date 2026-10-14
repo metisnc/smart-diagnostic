@@ -5,6 +5,7 @@
     "assets/src/builder/EmailEditor.js": "build/builder.js",
     "assets/src/builder/fields.js": "build/builder.js",
     "assets/src/builder/index.js": "build/builder.js",
+    "assets/src/builder/tabs/Design.js": "build/builder.js",
     "assets/src/builder/tabs/General.js": "build/builder.js",
     "assets/src/builder/tabs/Guide.js": "build/builder.js",
     "assets/src/builder/tabs/Results.js": "build/builder.js",
