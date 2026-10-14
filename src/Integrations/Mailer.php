@@ -80,25 +80,24 @@ final class Mailer {
 	 * Envoi de la relance planifiée : rien si la réponse a été effacée, si la relance a été
 	 * désactivée entre-temps ou si elle est déjà partie.
 	 */
-	public function send_follow_up( int $submission_id ): bool {
+	public function send_follow_up( int $submission_id ): void {
 		$submission = $this->submissions->find( $submission_id );
 		if ( null === $submission ) {
-			return false;
+			return;
 		}
 		$config = ( new ConfigRepository() )->get_array( (int) $submission['diagnostic_id'] );
 		if ( null === $config ) {
-			return false;
+			return;
 		}
 		$settings = $config['integrations']['emails']['followUp'] ?? array();
 		$email    = (string) ( $submission['email'] ?? '' );
 		$sent     = 'sent' === ( $submission['emails']['followup']['status'] ?? '' );
 		if ( empty( $settings['enabled'] ) || $sent || '' === $email || ! is_email( $email ) ) {
-			return false;
+			return;
 		}
 		$email_content = $this->compose( 'followUp', $submission, $config );
 		$result        = $this->transport->send( $email, $email_content['subject'], $email_content['body'] );
 		$this->record( $submission, 'followup', $email, $result );
-		return $result['ok'];
 	}
 
 	/**
