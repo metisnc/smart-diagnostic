@@ -36,7 +36,7 @@ msgstr "metisnc"
 msgid "Smart Diagnostic: dependencies are missing. Run \"composer install\" in the plugin folder."
 msgstr "Smart Diagnostic : dépendances manquantes. Lancez « composer install » dans le dossier du plugin."
 
-#: assets/src/builder/Builder.js:228
+#: assets/src/builder/Builder.js:236
 msgid "Configuration (JSON)"
 msgstr "Configuration (JSON)"
 
@@ -124,7 +124,7 @@ msgstr "La configuration n’est pas valide :"
 
 #: src/Admin/ImportExport.php:191
 #: assets/src/builder/EmailEditor.js:82
-#: assets/src/builder/tabs/General.js:119
+#: assets/src/builder/tabs/General.js:115
 #: assets/src/builder/tabs/Results.js:106
 #: assets/src/builder/tabs/Results.js:286
 #: assets/src/builder/tabs/Steps.js:668
@@ -197,7 +197,7 @@ msgid "Displayed name"
 msgstr "Nom affiché"
 
 #: src/Admin/SettingsPage.php:77
-#: assets/src/builder/tabs/General.js:499
+#: assets/src/builder/tabs/General.js:336
 msgid "Emails"
 msgstr "Emails"
 
@@ -418,7 +418,7 @@ msgid "Visitors"
 msgstr "Visiteurs"
 
 #: src/Admin/StatsPage.php:145
-#: assets/src/builder/Builder.js:104
+#: assets/src/builder/Builder.js:107
 #: assets/src/builder/tabs/Guide.js:151
 #: assets/src/builder/tabs/Steps.js:913
 msgid "Results"
@@ -429,7 +429,7 @@ msgid "Drop-offs (last step seen)"
 msgstr "Abandons (dernière étape vue)"
 
 #: src/Admin/StatsPage.php:161
-#: assets/src/builder/tabs/General.js:91
+#: assets/src/builder/tabs/General.js:87
 msgid "Welcome screen"
 msgstr "Écran d’accueil"
 
@@ -671,6 +671,7 @@ msgid "Back"
 msgstr "Retour"
 
 #: src/Front/Strings.php:25
+#: assets/src/builder/tabs/Design.js:565
 msgid "See my results"
 msgstr "Voir mes résultats"
 
@@ -1032,51 +1033,51 @@ msgstr "Choisir un diagnostic…"
 msgid "Diagnostic to display"
 msgstr "Diagnostic à afficher"
 
-#: assets/src/builder/Builder.js:102
-#: assets/src/builder/tabs/General.js:170
+#: assets/src/builder/Builder.js:105
+#: assets/src/builder/tabs/General.js:166
 #: assets/src/builder/tabs/Guide.js:135
 msgid "Journey"
 msgstr "Parcours"
 
-#: assets/src/builder/Builder.js:103
+#: assets/src/builder/Builder.js:106
 #: assets/src/builder/tabs/Guide.js:143
 msgid "Calculation"
 msgstr "Calcul"
 
-#: assets/src/builder/Builder.js:105
+#: assets/src/builder/Builder.js:108
 #: assets/src/builder/tabs/Guide.js:159
 msgid "General"
 msgstr "Général"
 
-#: assets/src/builder/Builder.js:106
+#: assets/src/builder/Builder.js:109
 #: assets/src/builder/tabs/Guide.js:167
 msgid "Appearance"
 msgstr "Apparence"
 
-#: assets/src/builder/Builder.js:109
+#: assets/src/builder/Builder.js:112
 #: assets/src/builder/tabs/Guide.js:175
 msgid "Integrations"
 msgstr "Intégrations"
 
-#: assets/src/builder/Builder.js:111
+#: assets/src/builder/Builder.js:114
 #: assets/src/builder/tabs/Guide.js:183
 msgid "Test"
 msgstr "Test"
 
-#: assets/src/builder/Builder.js:162
+#: assets/src/builder/Builder.js:169
 msgid "Invalid JSON:"
 msgstr "JSON invalide :"
 
-#: assets/src/builder/Builder.js:130
+#: assets/src/builder/Builder.js:137
 msgid "Valid configuration."
 msgstr "Configuration valide."
 
-#: assets/src/builder/Builder.js:151
-#: assets/src/builder/Builder.js:256
+#: assets/src/builder/Builder.js:158
+#: assets/src/builder/Builder.js:265
 msgid "Live preview"
 msgstr "Aperçu en direct"
 
-#: assets/src/builder/Builder.js:232
+#: assets/src/builder/Builder.js:240
 msgid "Format documented in schema/diagnostic.schema.json. Changes are applied to the other tabs as soon as the JSON is valid."
 msgstr "Format documenté dans schema/diagnostic.schema.json. Les modifications s’appliquent aux autres onglets dès que le JSON est valide."
 
@@ -1147,7 +1148,7 @@ msgstr "Valeurs, séparées par des virgules"
 
 #: assets/src/builder/ConditionEditor.js:150
 #: assets/src/builder/ConditionEditor.js:195
-#: assets/src/builder/tabs/General.js:776
+#: assets/src/builder/tabs/General.js:613
 #: assets/src/builder/tabs/Steps.js:125
 #: assets/src/builder/tabs/Steps.js:150
 msgid "Value"
@@ -1243,7 +1244,7 @@ msgid "Insert a variable"
 msgstr "Insérer une variable"
 
 #: src/Admin/TemplatesPage.php:133
-#: assets/src/builder/Builder.js:259
+#: assets/src/builder/Builder.js:268
 #: assets/src/builder/EmailEditor.js:1115
 msgid "Preview"
 msgstr "Aperçu"
@@ -1293,6 +1294,7 @@ msgstr "Descendre"
 #: assets/src/builder/EmailEditor.js:1006
 #: assets/src/builder/fields.js:258
 #: assets/src/builder/fields.js:360
+#: assets/src/builder/tabs/Design.js:303
 #: assets/src/builder/tabs/Steps.js:328
 msgid "Remove"
 msgstr "Supprimer"
@@ -1319,210 +1321,194 @@ msgstr "Points"
 msgid "Add a range"
 msgstr "Ajouter une plage"
 
-#: assets/src/builder/tabs/General.js:39
+#: assets/src/builder/tabs/General.js:35
 msgid "Languages"
 msgstr "Langues"
 
-#: assets/src/builder/tabs/General.js:44
+#: assets/src/builder/tabs/General.js:40
 msgid "Languages (codes separated by commas)"
 msgstr "Langues (codes séparés par des virgules)"
 
-#: assets/src/builder/tabs/General.js:48
+#: assets/src/builder/tabs/General.js:44
 msgid "Example: fr, en. With several languages, each text gets one field per language."
 msgstr "Exemple : fr, en. Avec plusieurs langues, chaque texte a un champ par langue."
 
-#: assets/src/builder/tabs/General.js:74
+#: assets/src/builder/tabs/General.js:70
 msgid "Language selector for visitors"
 msgstr "Sélecteur de langue pour les visiteurs"
 
-#: assets/src/builder/tabs/General.js:85
+#: assets/src/builder/tabs/General.js:81
 msgid "Internal title"
 msgstr "Titre interne"
 
-#: assets/src/builder/tabs/General.js:94
+#: assets/src/builder/tabs/General.js:90
 msgid "Show a welcome screen"
 msgstr "Afficher un écran d’accueil"
 
-#: assets/src/builder/tabs/General.js:107
+#: assets/src/builder/tabs/General.js:103
 msgid "Take the diagnostic"
 msgstr "Faites le diagnostic"
 
-#: assets/src/builder/tabs/General.js:126
+#: assets/src/builder/tabs/General.js:122
 msgid "Subtitle"
 msgstr "Sous-titre"
 
-#: assets/src/builder/tabs/General.js:134
+#: assets/src/builder/tabs/General.js:130
 msgid "Benefits"
 msgstr "Bénéfices"
 
-#: assets/src/builder/tabs/General.js:135
+#: assets/src/builder/tabs/General.js:131
 msgid "Add a benefit"
 msgstr "Ajouter un bénéfice"
 
-#: assets/src/builder/tabs/General.js:143
+#: assets/src/builder/tabs/General.js:139
 msgid "Badges"
 msgstr "Badges"
 
-#: assets/src/builder/tabs/General.js:144
+#: assets/src/builder/tabs/General.js:140
 msgid "Add a badge"
 msgstr "Ajouter un badge"
 
-#: assets/src/builder/tabs/General.js:153
+#: assets/src/builder/tabs/General.js:149
 #: assets/src/builder/tabs/Results.js:140
 #: assets/src/builder/tabs/Steps.js:684
 msgid "Image URL"
 msgstr "Adresse de l’image"
 
-#: assets/src/builder/tabs/General.js:160
+#: assets/src/builder/tabs/General.js:156
 msgid "Start button"
 msgstr "Bouton de démarrage"
 
-#: assets/src/builder/tabs/General.js:174
+#: assets/src/builder/tabs/General.js:170
 msgid "Progress bar"
 msgstr "Barre de progression"
 
-#: assets/src/builder/tabs/General.js:185
+#: assets/src/builder/tabs/General.js:181
 msgid "Step counter"
 msgstr "Compteur d’étapes"
 
-#: assets/src/builder/tabs/General.js:196
+#: assets/src/builder/tabs/General.js:192
 msgid "Section name"
 msgstr "Nom de la section"
 
-#: assets/src/builder/tabs/General.js:207
+#: assets/src/builder/tabs/General.js:203
 msgid "Back button"
 msgstr "Bouton Retour"
 
-#: assets/src/builder/tabs/General.js:215
+#: assets/src/builder/tabs/General.js:211
 msgid "Save progress"
 msgstr "Sauvegarder la progression"
 
-#: assets/src/builder/tabs/General.js:226
+#: assets/src/builder/tabs/General.js:222
 msgid "Go to the next step after a single choice"
 msgstr "Passer à l’étape suivante après un choix unique"
 
-#: assets/src/builder/tabs/General.js:237
+#: assets/src/builder/tabs/General.js:233
 msgid "Letters A, B, C… on answers"
 msgstr "Lettres A, B, C… sur les réponses"
 
-#: assets/src/builder/tabs/General.js:249
+#: assets/src/builder/tabs/General.js:245
 msgid "Encouragement messages"
 msgstr "Messages d’encouragement"
 
-#: assets/src/builder/tabs/General.js:254
+#: assets/src/builder/tabs/General.js:250
 msgid "Halfway there!"
 msgstr "Vous êtes à mi-chemin !"
 
-#: assets/src/builder/tabs/General.js:256
-#: assets/src/builder/tabs/General.js:323
+#: assets/src/builder/tabs/General.js:252
+#: assets/src/builder/tabs/General.js:319
 msgid "Add a message"
 msgstr "Ajouter un message"
 
-#: assets/src/builder/tabs/General.js:260
+#: assets/src/builder/tabs/General.js:256
 msgid "At (% of the journey)"
 msgstr "À (% du parcours)"
 
-#: assets/src/builder/tabs/General.js:272
+#: assets/src/builder/tabs/General.js:268
 msgid "Message"
 msgstr "Message"
 
-#: assets/src/builder/tabs/General.js:283
+#: assets/src/builder/tabs/General.js:279
 msgid "Before the results"
 msgstr "Avant le résultat"
 
-#: assets/src/builder/tabs/General.js:286
+#: assets/src/builder/tabs/General.js:282
 msgid "Loading screen before the results"
 msgstr "Écran d’attente avant le résultat"
 
-#: assets/src/builder/tabs/General.js:298
+#: assets/src/builder/tabs/General.js:294
 msgid "Analysing your answers…"
 msgstr "Analyse de vos réponses…"
 
-#: assets/src/builder/tabs/General.js:313
+#: assets/src/builder/tabs/General.js:309
 msgid "Duration (ms)"
 msgstr "Durée (ms)"
 
-#: assets/src/builder/tabs/General.js:322
+#: assets/src/builder/tabs/General.js:318
 msgid "Messages"
 msgstr "Messages"
 
-#: assets/src/builder/tabs/General.js:337
+#: assets/src/builder/tabs/Design.js:26
 msgid "Main colour"
 msgstr "Couleur principale"
 
-#: assets/src/builder/tabs/General.js:338
+#: assets/src/builder/tabs/Design.js:27
 msgid "Text on main colour"
 msgstr "Texte sur la couleur principale"
 
-#: assets/src/builder/tabs/General.js:339
+#: assets/src/builder/tabs/Design.js:28
 msgid "Background"
 msgstr "Fond"
 
-#: assets/src/builder/tabs/General.js:340
+#: assets/src/builder/tabs/Design.js:29
 msgid "Panels"
 msgstr "Encadrés"
 
 #: assets/src/builder/EmailEditor.js:23
 #: assets/src/builder/EmailEditor.js:74
 #: assets/src/builder/EmailEditor.js:365
-#: assets/src/builder/tabs/General.js:341
-#: assets/src/builder/tabs/General.js:481
+#: assets/src/builder/tabs/Design.js:30
+#: assets/src/builder/tabs/Design.js:467
+#: assets/src/builder/tabs/Design.js:644
 #: assets/src/builder/tabs/Steps.js:647
 #: assets/src/builder/tabs/Steps.js:760
 msgid "Text"
 msgstr "Texte"
 
-#: assets/src/builder/tabs/General.js:342
+#: assets/src/builder/tabs/Design.js:31
 msgid "Secondary text"
 msgstr "Texte secondaire"
 
-#: assets/src/builder/tabs/General.js:350
+#: assets/src/builder/tabs/Design.js:413
 msgid "Colours"
 msgstr "Couleurs"
 
 #: assets/src/builder/EmailEditor.js:571
-#: assets/src/builder/tabs/General.js:376
+#: assets/src/builder/tabs/Design.js:442
 msgid "Reset"
 msgstr "Réinitialiser"
 
 #: assets/src/builder/EmailEditor.js:580
-#: assets/src/builder/tabs/General.js:386
 msgid "Font"
 msgstr "Police"
 
-#: assets/src/builder/tabs/General.js:387
-msgid "Example: Inter, sans-serif (the font must be loaded by the theme)."
-msgstr "Exemple : Inter, sans-serif (la police doit être chargée par le thème)."
-
-#: assets/src/builder/tabs/General.js:399
-msgid "Rounded corners"
-msgstr "Arrondi des angles"
-
-#: assets/src/builder/tabs/General.js:409
-msgid "Maximum width"
-msgstr "Largeur maximale"
-
-#: assets/src/builder/tabs/General.js:421
-msgid "Logo URL"
-msgstr "Adresse du logo"
-
-#: assets/src/builder/tabs/General.js:429
+#: assets/src/builder/tabs/Design.js:582
 msgid "Legal notice (below the questionnaire)"
 msgstr "Mentions légales (sous le questionnaire)"
 
-#: assets/src/builder/tabs/General.js:438
+#: assets/src/builder/tabs/Design.js:593
 msgid "Interface labels"
 msgstr "Libellés de l’interface"
 
-#: assets/src/builder/tabs/General.js:440
+#: assets/src/builder/tabs/Design.js:595
 msgid "Override the default labels (Next, Back, See my results…) for this diagnostic."
 msgstr "Remplacez les libellés par défaut (Suivant, Retour, Voir mes résultats…) pour ce diagnostic."
 
-#: assets/src/builder/tabs/General.js:464
+#: assets/src/builder/tabs/Design.js:621
 msgid "Override a label"
 msgstr "Remplacer un libellé"
 
-#: assets/src/builder/tabs/General.js:470
+#: assets/src/builder/tabs/Design.js:627
 #: assets/src/builder/tabs/Scoring.js:363
 #: assets/src/builder/tabs/Steps.js:126
 #: assets/src/builder/tabs/Steps.js:166
@@ -1531,65 +1517,65 @@ msgstr "Remplacer un libellé"
 msgid "Label"
 msgstr "Libellé"
 
-#: assets/src/builder/tabs/General.js:502
+#: assets/src/builder/tabs/General.js:339
 msgid "Send the results to the visitor"
 msgstr "Envoyer le résultat au visiteur"
 
-#: assets/src/builder/tabs/General.js:515
+#: assets/src/builder/tabs/General.js:352
 msgid "Subject of the visitor email"
 msgstr "Objet de l’email au visiteur"
 
-#: assets/src/builder/tabs/General.js:533
+#: assets/src/builder/tabs/General.js:370
 msgid "Notify the team of each submission"
 msgstr "Prévenir l’équipe à chaque réponse"
 
-#: assets/src/builder/tabs/General.js:548
+#: assets/src/builder/tabs/General.js:385
 msgid "Team addresses (separated by commas)"
 msgstr "Adresses de l’équipe (séparées par des virgules)"
 
-#: assets/src/builder/tabs/General.js:552
+#: assets/src/builder/tabs/General.js:389
 msgid "Empty: the site administration email."
 msgstr "Vide : l’email d’administration du site."
 
-#: assets/src/builder/tabs/General.js:569
+#: assets/src/builder/tabs/General.js:406
 msgid "Subject of the team email"
 msgstr "Objet de l’email à l’équipe"
 
-#: assets/src/builder/tabs/General.js:659
+#: assets/src/builder/tabs/General.js:496
 msgid "Webhooks (CRM, Make, Zapier, n8n…)"
 msgstr "Webhooks (CRM, Make, Zapier, n8n…)"
 
-#: assets/src/builder/tabs/General.js:675
+#: assets/src/builder/tabs/General.js:512
 msgid "Add a webhook"
 msgstr "Ajouter un webhook"
 
-#: assets/src/builder/tabs/General.js:687
+#: assets/src/builder/tabs/General.js:524
 msgid "URL"
 msgstr "URL"
 
-#: assets/src/builder/tabs/General.js:695
+#: assets/src/builder/tabs/General.js:532
 msgid "On submission"
 msgstr "À la soumission"
 
-#: assets/src/builder/tabs/General.js:699
+#: assets/src/builder/tabs/General.js:536
 msgid "When contact details are added after the results"
 msgstr "Quand des coordonnées sont ajoutées après le résultat"
 
-#: assets/src/builder/tabs/General.js:730
+#: assets/src/builder/tabs/General.js:567
 msgid "Field mapping (empty: everything is sent)"
 msgstr "Correspondance des champs (vide : tout est envoyé)"
 
-#: assets/src/builder/tabs/General.js:758
+#: assets/src/builder/tabs/General.js:595
 #: assets/src/builder/tabs/Steps.js:535
 #: assets/src/builder/tabs/Steps.js:777
 msgid "Add a field"
 msgstr "Ajouter un champ"
 
-#: assets/src/builder/tabs/General.js:764
+#: assets/src/builder/tabs/General.js:601
 msgid "Sent as"
 msgstr "Envoyé sous le nom"
 
-#: assets/src/builder/tabs/General.js:790
+#: assets/src/builder/tabs/General.js:627
 msgid "The signing secret is entered in the “Webhook secrets” box, after saving."
 msgstr "Le secret de signature se saisit dans la boîte « Secrets des webhooks », après l’enregistrement."
 
@@ -2322,7 +2308,7 @@ msgid "Unknown template."
 msgstr "Modèle inconnu."
 
 #: src/Admin/SubmissionsPage.php:206
-#: assets/src/builder/tabs/General.js:583
+#: assets/src/builder/tabs/General.js:420
 msgid "Follow-up email"
 msgstr "Email de relance"
 
@@ -2616,19 +2602,19 @@ msgstr "Pratique pour aller vite ou coller un contenu préparé avec une IA. Dé
 msgid "Invalid JSON: the last valid version is kept."
 msgstr "JSON invalide : la dernière version valide est conservée."
 
-#: assets/src/builder/tabs/General.js:586
+#: assets/src/builder/tabs/General.js:423
 msgid "Send a follow-up email to the visitor a few days later"
 msgstr "Envoyer un email de relance au visiteur quelques jours après"
 
-#: assets/src/builder/tabs/General.js:590
+#: assets/src/builder/tabs/General.js:427
 msgid "Only to visitors who left their email address."
 msgstr "Uniquement aux visiteurs qui ont laissé leur adresse email."
 
-#: assets/src/builder/tabs/General.js:605
+#: assets/src/builder/tabs/General.js:442
 msgid "Days after the answer"
 msgstr "Jours après la réponse"
 
-#: assets/src/builder/tabs/General.js:631
+#: assets/src/builder/tabs/General.js:468
 msgid "Subject of the follow-up email"
 msgstr "Objet de l’email de relance"
 
@@ -2864,29 +2850,29 @@ msgstr "Insertion"
 msgid "Insert this diagnostic in a page with the \"Diagnostic\" block, or with this shortcode:"
 msgstr "Insérez ce diagnostic dans une page avec le bloc « Diagnostic », ou avec ce shortcode :"
 
-#: assets/src/builder/Builder.js:120
+#: assets/src/builder/Builder.js:127
 msgid "Diagnostic builder"
 msgstr "Constructeur du diagnostic"
 
-#: assets/src/builder/Builder.js:125
+#: assets/src/builder/Builder.js:132
 msgid "Invalid JSON"
 msgstr "JSON invalide"
 
 #. translators: %d: number of errors.
-#: assets/src/builder/Builder.js:137
+#: assets/src/builder/Builder.js:144
 #, js-format
 msgid "%d error to fix"
 msgid_plural "%d errors to fix"
 msgstr[0] "%d erreur à corriger"
 msgstr[1] "%d erreurs à corriger"
 
-#: assets/src/builder/Builder.js:172
+#: assets/src/builder/Builder.js:179
 msgid "The configuration will not be saved until this error is fixed:"
 msgid_plural "The configuration will not be saved until these errors are fixed:"
 msgstr[0] "La configuration ne sera pas enregistrée tant que cette erreur n’est pas corrigée :"
 msgstr[1] "La configuration ne sera pas enregistrée tant que ces erreurs ne sont pas corrigées :"
 
-#: assets/src/builder/Builder.js:101
+#: assets/src/builder/Builder.js:104
 msgid "Guide"
 msgstr "Guide"
 
@@ -3141,3 +3127,196 @@ msgstr "Les mots à connaître"
 #: assets/src/builder/tabs/Guide.js:461
 msgid "Frequent questions"
 msgstr "Questions fréquentes"
+
+#: assets/src/builder/tabs/Design.js:36
+msgid "Blue (default)"
+msgstr "Bleu (par défaut)"
+
+#: assets/src/builder/tabs/Design.js:40
+msgid "Nature green"
+msgstr "Vert nature"
+
+#: assets/src/builder/tabs/Design.js:51
+msgid "Violet"
+msgstr "Violet"
+
+#: assets/src/builder/tabs/Design.js:62
+msgid "Warm orange"
+msgstr "Orange chaleureux"
+
+#: assets/src/builder/tabs/Design.js:73
+msgid "Pink"
+msgstr "Rose"
+
+#: assets/src/builder/tabs/Design.js:84
+msgid "Sober black"
+msgstr "Noir sobre"
+
+#: assets/src/builder/tabs/Design.js:95
+msgid "Elegant dark"
+msgstr "Sombre élégant"
+
+#: assets/src/builder/tabs/Design.js:110
+msgid "Modern (system font)"
+msgstr "Moderne (police du système)"
+
+#: assets/src/builder/tabs/Design.js:120
+msgid "Monospace"
+msgstr "Machine à écrire"
+
+#: assets/src/builder/tabs/Design.js:125
+msgid "Square"
+msgstr "Carrés"
+
+#: assets/src/builder/tabs/Design.js:126
+msgid "Slightly rounded"
+msgstr "Légèrement arrondis"
+
+#: assets/src/builder/tabs/Design.js:127
+msgid "Rounded"
+msgstr "Arrondis"
+
+#: assets/src/builder/tabs/Design.js:128
+msgid "Very rounded"
+msgstr "Très arrondis"
+
+#: assets/src/builder/tabs/Design.js:129
+msgid "Pill"
+msgstr "Pilule"
+
+#: assets/src/builder/tabs/Design.js:133
+msgid "Narrow (520 px)"
+msgstr "Étroit (520 px)"
+
+#: assets/src/builder/tabs/Design.js:134
+msgid "Wide (800 px)"
+msgstr "Large (800 px)"
+
+#: assets/src/builder/tabs/Design.js:135
+msgid "Very wide (960 px)"
+msgstr "Très large (960 px)"
+
+#: assets/src/builder/tabs/Design.js:136
+msgid "Full width"
+msgstr "Toute la largeur"
+
+#: assets/src/builder/tabs/Design.js:210
+msgid "Custom…"
+msgstr "Personnalisé…"
+
+#: assets/src/builder/tabs/Design.js:225
+msgid "Custom value"
+msgstr "Valeur personnalisée"
+
+#: assets/src/builder/tabs/Design.js:256
+#: assets/src/builder/tabs/Design.js:286
+msgid "Choose or upload a logo"
+msgstr "Choisir ou téléverser un logo"
+
+#: assets/src/builder/tabs/Design.js:257
+msgid "Use this logo"
+msgstr "Utiliser ce logo"
+
+#: assets/src/builder/tabs/Design.js:277
+msgid "No logo"
+msgstr "Aucun logo"
+
+#: assets/src/builder/tabs/Design.js:285
+msgid "Replace the logo"
+msgstr "Remplacer le logo"
+
+#: assets/src/builder/tabs/Design.js:311
+msgid "Or logo address (https://…)"
+msgstr "Ou adresse du logo (https://…)"
+
+#: assets/src/builder/tabs/Design.js:319
+msgid "Logo description (for accessibility)"
+msgstr "Description du logo (pour l’accessibilité)"
+
+#: assets/src/builder/tabs/Design.js:343
+msgid "The text of the buttons is hard to read on the main colour."
+msgstr "Le texte des boutons est difficile à lire sur la couleur principale."
+
+#: assets/src/builder/tabs/Design.js:351
+msgid "The text is hard to read on the background."
+msgstr "Le texte est difficile à lire sur le fond."
+
+#: assets/src/builder/tabs/Design.js:361
+msgid "Ready-made themes"
+msgstr "Thèmes prêts à l’emploi"
+
+#: assets/src/builder/tabs/Design.js:363
+msgid "One click applies a set of matching colours. You can then adjust each colour below."
+msgstr "Un clic applique un ensemble de couleurs assorties. Vous pouvez ensuite ajuster chaque couleur ci-dessous."
+
+#: assets/src/builder/tabs/Design.js:455
+msgid "Choose colours with more contrast so everyone can read."
+msgstr "Choisissez des couleurs plus contrastées pour que tout le monde puisse lire."
+
+#: assets/src/builder/tabs/Design.js:464
+msgid "Fonts"
+msgstr "Polices"
+
+#: assets/src/builder/tabs/Design.js:470
+msgid "Same as my site (theme font)"
+msgstr "Comme mon site (police du thème)"
+
+#: assets/src/builder/tabs/Design.js:474
+msgid "Name of a font loaded by your theme, for example: Montserrat, sans-serif"
+msgstr "Nom d’une police chargée par votre thème, par exemple : Montserrat, sans-serif"
+
+#: assets/src/builder/tabs/Design.js:482
+msgid "Titles"
+msgstr "Titres"
+
+#: assets/src/builder/tabs/Design.js:485
+msgid "Same as the text"
+msgstr "Comme le texte"
+
+#: assets/src/builder/tabs/Design.js:489
+msgid "Name of a font loaded by your theme, for example: Playfair Display, serif"
+msgstr "Nom d’une police chargée par votre thème, par exemple : Playfair Display, serif"
+
+#: assets/src/builder/tabs/Design.js:506
+msgid "Is your business visible online?"
+msgstr "Votre entreprise est-elle visible en ligne ?"
+
+#: assets/src/builder/tabs/Design.js:512
+msgid "10 questions, 3 minutes: get your score and a personalised action plan."
+msgstr "10 questions, 3 minutes : obtenez votre score et un plan d’action personnalisé."
+
+#: assets/src/builder/tabs/Design.js:521
+msgid "Shapes and layout"
+msgstr "Formes et mise en page"
+
+#: assets/src/builder/tabs/Design.js:524
+msgid "Corners"
+msgstr "Coins"
+
+#: assets/src/builder/tabs/Design.js:527
+msgid "Rounded (default, 12 px)"
+msgstr "Arrondis (par défaut, 12 px)"
+
+#: assets/src/builder/tabs/Design.js:531
+msgid "In pixels, for example 6px"
+msgstr "En pixels, par exemple 6px"
+
+#: assets/src/builder/tabs/Design.js:539
+msgid "Width of the questionnaire"
+msgstr "Largeur du questionnaire"
+
+#: assets/src/builder/tabs/Design.js:545
+msgid "Normal (default, 640 px)"
+msgstr "Normale (par défaut, 640 px)"
+
+#: assets/src/builder/tabs/Design.js:549
+msgid "In pixels or %, for example 720px"
+msgstr "En pixels ou en %, par exemple 720px"
+
+#: assets/src/builder/tabs/Design.js:570
+msgid "Logo"
+msgstr "Logo"
+
+#: assets/src/builder/tabs/Design.js:579
+msgid "Legal notice"
+msgstr "Mentions légales"
