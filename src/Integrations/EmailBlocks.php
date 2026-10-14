@@ -172,6 +172,7 @@ final class EmailBlocks {
 					'medium' => array( 'h2', 21 ),
 					'large'  => array( 'h1', 26 ),
 				);
+
 				[ $tag, $px ] = $sizes[ $size ];
 				return sprintf( '<%1$s style="margin:0 0 12px;font-family:%2$s;font-size:%3$dpx;line-height:1.3;color:%4$s;text-align:%5$s;">%6$s</%1$s>', $tag, $hfont, $px, esc_attr( $theme['text'] ), $align, esc_html( $text ) );
 
