@@ -7,3 +7,83 @@
 .sd-config-source {
 	display: none;
 }
+
+// Galerie « Créer depuis un modèle ».
+.sd-templates__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 16px;
+	margin-top: 16px;
+}
+
+.sd-template-card {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 8px;
+
+	&__band {
+		height: 8px;
+	}
+
+	&__title {
+		margin: 16px 16px 8px;
+		font-size: 1.15em;
+	}
+
+	&__description {
+		flex: 1;
+		margin: 0 16px 12px;
+		color: #50575e;
+	}
+
+	&__meta {
+		margin: 0 16px 12px;
+		color: #646970;
+		font-size: 12px;
+	}
+
+	&__actions {
+		display: flex;
+		gap: 8px;
+		padding: 12px 16px;
+		border-top: 1px solid #f0f0f1;
+	}
+}
+
+.sd-template-dialog {
+	width: min(720px, 94vw);
+	max-height: 90vh;
+	padding: 0;
+	border: 0;
+	border-radius: 8px;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+
+	&::backdrop {
+		background: rgba(0, 0, 0, 0.5);
+	}
+
+	&__header {
+		position: sticky;
+		top: 0;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		padding: 12px 16px;
+		background: #fff;
+		border-bottom: 1px solid #dcdcde;
+
+		h2 {
+			margin: 0;
+			font-size: 1.1em;
+		}
+	}
+
+	&__body {
+		padding: 16px;
+	}
+}

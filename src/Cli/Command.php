@@ -1,6 +1,6 @@
 <?php
 /**
- * Commandes WP-CLI : wp smart-diagnostic import|export|validate.
+ * Commandes WP-CLI : wp smart-diagnostic import|export|validate|templates|create-from-template.
  *
  * @package SmartDiagnostic
  */
@@ -12,6 +12,7 @@ namespace SmartDiagnostic\Cli;
 use SmartDiagnostic\Config\ConfigRepository;
 use SmartDiagnostic\Config\SchemaValidator;
 use SmartDiagnostic\PostType\DiagnosticPostType;
+use SmartDiagnostic\Templates\Library;
 use WP_CLI;
 
 /**
@@ -136,6 +137,78 @@ final class Command {
 			WP_CLI::error( "Invalid configuration:\n" . implode( "\n", $errors ) );
 		}
 		WP_CLI::success( 'Valid configuration.' );
+	}
+
+	/**
+	 * Liste les modèles de diagnostics disponibles.
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--format=<format>]
+	 * : Format d'affichage.
+	 * ---
+	 * default: table
+	 * options:
+	 *   - table
+	 *   - json
+	 *   - csv
+	 *   - ids
+	 * ---
+	 *
+	 * @param list<string>          $args       Arguments.
+	 * @param array<string, string> $assoc_args Options.
+	 */
+	public function templates( array $args, array $assoc_args ): void {
+		$rows = array_map(
+			static fn( array $template ): array => array_intersect_key( $template, array_flip( array( 'id', 'title', 'questions', 'minutes' ) ) ),
+			array_values( ( new Library() )->all() )
+		);
+		if ( 'ids' === ( $assoc_args['format'] ?? '' ) ) {
+			WP_CLI::line( implode( ' ', array_column( $rows, 'id' ) ) );
+			return;
+		}
+		WP_CLI\Utils\format_items( $assoc_args['format'] ?? 'table', $rows, array( 'id', 'title', 'questions', 'minutes' ) );
+	}
+
+	/**
+	 * Crée un diagnostic à partir d'un modèle (le modèle n'est pas modifié).
+	 *
+	 * ## OPTIONS
+	 *
+	 * <template>
+	 * : Identifiant du modèle (voir `wp smart-diagnostic templates`).
+	 *
+	 * [--title=<title>]
+	 * : Titre (par défaut : celui du modèle).
+	 *
+	 * [--status=<status>]
+	 * : Statut du diagnostic.
+	 * ---
+	 * default: draft
+	 * ---
+	 *
+	 * [--porcelain]
+	 * : N'affiche que l'ID du diagnostic.
+	 *
+	 * ## EXAMPLES
+	 *
+	 *     wp smart-diagnostic create-from-template business-health --status=publish
+	 *
+	 * @subcommand create-from-template
+	 *
+	 * @param list<string>          $args       Arguments.
+	 * @param array<string, string> $assoc_args Options.
+	 */
+	public function create_from_template( array $args, array $assoc_args ): void {
+		$post_id = ( new Library( $this->configs ) )->create( $args[0], $assoc_args['title'] ?? '', $assoc_args['status'] ?? 'draft' );
+		if ( is_wp_error( $post_id ) ) {
+			WP_CLI::error( $post_id->get_error_message() );
+		}
+		if ( isset( $assoc_args['porcelain'] ) ) {
+			WP_CLI::line( (string) $post_id );
+			return;
+		}
+		WP_CLI::success( "Diagnostic {$post_id} created from template {$args[0]}." );
 	}
 
 	private function title_from_config( string $json, string $file ): string {

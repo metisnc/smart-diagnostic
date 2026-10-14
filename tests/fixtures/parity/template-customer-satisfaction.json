@@ -1,0 +1,174 @@
+{
+	"description": "templates/diagnostics/customer-satisfaction.json : modèle livré avec le plugin.",
+	"configFile": "templates/diagnostics/customer-satisfaction.json",
+	"cases": [
+		{
+			"name": "promoteur",
+			"answers": {
+				"nps": 10,
+				"csat": "tres_satisfait",
+				"attentes": "depasse",
+				"points_forts": [ "qualite", "accueil" ],
+				"facilite": 5,
+				"support_contact": false,
+				"commentaire_promoteur": "Super"
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"nps",
+					"csat",
+					"attentes",
+					"points_forts",
+					"facilite",
+					"support_contact",
+					"commentaire_promoteur",
+					"contact"
+				],
+				"scores": {
+					"recommandation": 100,
+					"satisfaction": 100,
+					"facilite": 90
+				},
+				"vars": {
+					"note_recommandation": 10,
+					"satisfaction_globale": 97
+				},
+				"profile": "promoteur",
+				"texts": [ "txt_points_forts" ],
+				"actions": [ "act_avis" ],
+				"cta": "cta_avis"
+			}
+		},
+		{
+			"name": "passif",
+			"answers": {
+				"nps": 7,
+				"csat": "satisfait",
+				"attentes": "conforme",
+				"points_forts": [],
+				"facilite": 4,
+				"support_contact": true,
+				"support_note": "bonne",
+				"commentaire_passif": "Plus vite"
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"nps",
+					"csat",
+					"attentes",
+					"points_forts",
+					"facilite",
+					"support_contact",
+					"support_note",
+					"commentaire_passif",
+					"contact"
+				],
+				"scores": {
+					"recommandation": 70,
+					"satisfaction": 75,
+					"facilite": 75
+				},
+				"vars": {
+					"note_recommandation": 7,
+					"satisfaction_globale": 73
+				},
+				"profile": "passif",
+				"texts": [],
+				"actions": [ "act_nouveautes" ],
+				"cta": "cta_nouveautes"
+			}
+		},
+		{
+			"name": "detracteur",
+			"answers": {
+				"nps": 3,
+				"csat": "insatisfait",
+				"attentes": "partiel",
+				"facilite": 2,
+				"support_contact": true,
+				"support_note": "mauvaise",
+				"commentaire_detracteur": "Bof"
+			},
+			"contact": {
+				"first_name": "Sam",
+				"email": "s@example.com",
+				"recontact": true
+			},
+			"expected": {
+				"path": [
+					"nps",
+					"csat",
+					"attentes",
+					"points_forts",
+					"facilite",
+					"support_contact",
+					"support_note",
+					"commentaire_detracteur",
+					"contact"
+				],
+				"scores": {
+					"recommandation": 30,
+					"satisfaction": 25,
+					"facilite": 15
+				},
+				"vars": {
+					"note_recommandation": 3,
+					"satisfaction_globale": 23
+				},
+				"profile": "detracteur",
+				"texts": [ "txt_effort", "txt_support" ],
+				"actions": [ "act_recontact" ],
+				"cta": "cta_service_client"
+			}
+		},
+		{
+			"name": "nps 0 and unchecked recontact",
+			"answers": {
+				"nps": 0,
+				"csat": "tres_insatisfait",
+				"attentes": "non",
+				"facilite": 1,
+				"support_contact": true,
+				"support_note": "nsp"
+			},
+			"contact": {
+				"email": "x@example.com",
+				"recontact": false
+			},
+			"expected": {
+				"path": [
+					"nps",
+					"csat",
+					"attentes",
+					"points_forts",
+					"facilite",
+					"support_contact",
+					"support_note",
+					"commentaire_detracteur",
+					"contact"
+				],
+				"scores": {
+					"recommandation": 0,
+					"satisfaction": 0,
+					"facilite": 21.25
+				},
+				"vars": {
+					"note_recommandation": 0,
+					"satisfaction_globale": 7
+				},
+				"profile": "detracteur",
+				"texts": [ "txt_effort" ],
+				"actions": [],
+				"cta": "cta_service_client"
+			}
+		}
+	]
+}

@@ -1,0 +1,970 @@
+{
+	"schemaVersion": 1,
+	"meta": {
+		"title": {
+			"fr": "Satisfaction client",
+			"en": "Customer satisfaction"
+		},
+		"description": {
+			"fr": "Un questionnaire de satisfaction prêt à l’emploi qui combine recommandation (NPS), satisfaction (CSAT), facilité et commentaires libres, et classe chaque répondant en promoteur, passif ou détracteur.",
+			"en": "A ready-to-use satisfaction survey combining recommendation (NPS), satisfaction (CSAT), ease and open comments, classifying each respondent as promoter, passive or detractor."
+		}
+	},
+	"i18n": {
+		"defaultLanguage": "fr",
+		"languages": [ "fr", "en" ],
+		"switcher": true
+	},
+	"welcome": {
+		"title": {
+			"fr": "Votre avis compte pour nous",
+			"en": "Your opinion matters to us"
+		},
+		"subtitle": {
+			"fr": "Quelques questions, moins de 3 minutes : aidez-nous à mieux vous servir. Chaque réponse est lue avec attention.",
+			"en": "A few questions, under 3 minutes: help us serve you better. Every answer is read carefully."
+		},
+		"benefits": [
+			{
+				"fr": "Moins de 3 minutes",
+				"en": "Under 3 minutes"
+			},
+			{
+				"fr": "Vos réponses sont lues par notre équipe",
+				"en": "Your answers are read by our team"
+			},
+			{
+				"fr": "Un suivi si vous le souhaitez",
+				"en": "Follow-up if you wish"
+			}
+		],
+		"badges": [
+			{
+				"fr": "3 minutes",
+				"en": "3 minutes"
+			}
+		],
+		"startLabel": {
+			"fr": "Donner mon avis",
+			"en": "Share my feedback"
+		}
+	},
+	"flow": {
+		"progress": {
+			"bar": true,
+			"counter": false,
+			"sectionName": false
+		},
+		"backButton": true,
+		"saveProgress": true,
+		"autoAdvance": true,
+		"optionLetters": false,
+		"encouragements": [
+			{
+				"atPercent": 40,
+				"text": {
+					"fr": "Merci, vos réponses nous sont précieuses !",
+					"en": "Thank you, your answers are invaluable!"
+				}
+			},
+			{
+				"atPercent": 75,
+				"text": {
+					"fr": "Presque terminé…",
+					"en": "Almost done…"
+				}
+			}
+		],
+		"transition": {
+			"enabled": true,
+			"durationMs": 1500,
+			"steps": [
+				{
+					"fr": "Enregistrement de votre avis…",
+					"en": "Saving your feedback…"
+				}
+			]
+		}
+	},
+	"sections": [
+		{
+			"key": "recommandation",
+			"label": {
+				"fr": "Recommandation",
+				"en": "Recommendation"
+			}
+		},
+		{
+			"key": "experience",
+			"label": {
+				"fr": "Votre expérience",
+				"en": "Your experience"
+			}
+		},
+		{
+			"key": "commentaires",
+			"label": {
+				"fr": "Vos commentaires",
+				"en": "Your comments"
+			}
+		},
+		{
+			"key": "fin",
+			"label": {
+				"fr": "Merci",
+				"en": "Thank you"
+			}
+		}
+	],
+	"axes": [
+		{
+			"key": "recommandation",
+			"label": {
+				"fr": "Recommandation",
+				"en": "Recommendation"
+			},
+			"description": {
+				"fr": "Probabilité de recommandation (0 à 10, ramenée sur 100).",
+				"en": "Likelihood to recommend (0 to 10, scaled to 100)."
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		},
+		{
+			"key": "satisfaction",
+			"label": {
+				"fr": "Satisfaction",
+				"en": "Satisfaction"
+			},
+			"description": {
+				"fr": "Satisfaction globale et réponse aux attentes.",
+				"en": "Overall satisfaction and expectations met."
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		},
+		{
+			"key": "facilite",
+			"label": {
+				"fr": "Facilité",
+				"en": "Ease"
+			},
+			"description": {
+				"fr": "Simplicité du parcours et qualité de l’assistance.",
+				"en": "Ease of the journey and quality of support."
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		}
+	],
+	"steps": [
+		{
+			"key": "nps",
+			"kind": "question",
+			"section": "recommandation",
+			"type": "scale",
+			"label": {
+				"fr": "Sur une échelle de 0 à 10, quelle est la probabilité que vous nous recommandiez à un proche ou à un collègue ?",
+				"en": "On a scale of 0 to 10, how likely are you to recommend us to a friend or colleague?"
+			},
+			"validation": {
+				"min": 0,
+				"max": 10
+			},
+			"scaleLabels": {
+				"min": {
+					"fr": "Pas du tout probable",
+					"en": "Not at all likely"
+				},
+				"max": {
+					"fr": "Très probable",
+					"en": "Extremely likely"
+				}
+			}
+		},
+		{
+			"key": "csat",
+			"kind": "question",
+			"section": "experience",
+			"type": "single",
+			"label": {
+				"fr": "Globalement, êtes-vous satisfait(e) de nos produits et services ?",
+				"en": "Overall, how satisfied are you with our products and services?"
+			},
+			"options": [
+				{
+					"value": "tres_satisfait",
+					"label": {
+						"fr": "Très satisfait(e)",
+						"en": "Very satisfied"
+					},
+					"scores": {
+						"satisfaction": 60
+					}
+				},
+				{
+					"value": "satisfait",
+					"label": {
+						"fr": "Satisfait(e)",
+						"en": "Satisfied"
+					},
+					"scores": {
+						"satisfaction": 45
+					}
+				},
+				{
+					"value": "neutre",
+					"label": {
+						"fr": "Ni satisfait(e) ni insatisfait(e)",
+						"en": "Neither satisfied nor dissatisfied"
+					},
+					"scores": {
+						"satisfaction": 30
+					}
+				},
+				{
+					"value": "insatisfait",
+					"label": {
+						"fr": "Insatisfait(e)",
+						"en": "Dissatisfied"
+					},
+					"scores": {
+						"satisfaction": 15
+					}
+				},
+				{
+					"value": "tres_insatisfait",
+					"label": {
+						"fr": "Très insatisfait(e)",
+						"en": "Very dissatisfied"
+					},
+					"scores": {
+						"satisfaction": 0
+					}
+				}
+			]
+		},
+		{
+			"key": "attentes",
+			"kind": "question",
+			"section": "experience",
+			"type": "single",
+			"label": {
+				"fr": "Nos produits ou services ont-ils répondu à vos attentes ?",
+				"en": "Did our products or services meet your expectations?"
+			},
+			"options": [
+				{
+					"value": "depasse",
+					"label": {
+						"fr": "Au-delà de mes attentes",
+						"en": "Exceeded my expectations"
+					},
+					"scores": {
+						"satisfaction": 40
+					}
+				},
+				{
+					"value": "conforme",
+					"label": {
+						"fr": "Conformes à mes attentes",
+						"en": "Met my expectations"
+					},
+					"scores": {
+						"satisfaction": 30
+					}
+				},
+				{
+					"value": "partiel",
+					"label": {
+						"fr": "En partie seulement",
+						"en": "Only partly"
+					},
+					"scores": {
+						"satisfaction": 10
+					}
+				},
+				{
+					"value": "non",
+					"label": {
+						"fr": "Pas du tout",
+						"en": "Not at all"
+					},
+					"scores": {
+						"satisfaction": 0
+					}
+				}
+			]
+		},
+		{
+			"key": "points_forts",
+			"kind": "question",
+			"section": "experience",
+			"type": "multi",
+			"label": {
+				"fr": "Qu’appréciez-vous le plus chez nous ?",
+				"en": "What do you appreciate most about us?"
+			},
+			"help": {
+				"fr": "Jusqu’à 3 réponses.",
+				"en": "Up to 3 answers."
+			},
+			"required": false,
+			"validation": {
+				"maxSelected": 3
+			},
+			"options": [
+				{
+					"value": "qualite",
+					"label": {
+						"fr": "La qualité des produits ou services",
+						"en": "Quality of products or services"
+					}
+				},
+				{
+					"value": "accueil",
+					"label": {
+						"fr": "L’accueil et la relation",
+						"en": "Welcome and relationship"
+					}
+				},
+				{
+					"value": "reactivite",
+					"label": {
+						"fr": "La réactivité",
+						"en": "Responsiveness"
+					}
+				},
+				{
+					"value": "prix",
+					"label": {
+						"fr": "Le rapport qualité-prix",
+						"en": "Value for money"
+					}
+				},
+				{
+					"value": "simplicite",
+					"label": {
+						"fr": "La simplicité",
+						"en": "Simplicity"
+					}
+				},
+				{
+					"value": "expertise",
+					"label": {
+						"fr": "L’expertise et les conseils",
+						"en": "Expertise and advice"
+					}
+				}
+			]
+		},
+		{
+			"key": "facilite",
+			"kind": "question",
+			"section": "experience",
+			"type": "scale",
+			"label": {
+				"fr": "Était-il facile d’obtenir ce dont vous aviez besoin ?",
+				"en": "How easy was it to get what you needed?"
+			},
+			"validation": {
+				"min": 1,
+				"max": 5
+			},
+			"scaleLabels": {
+				"min": {
+					"fr": "Très difficile",
+					"en": "Very difficult"
+				},
+				"max": {
+					"fr": "Très facile",
+					"en": "Very easy"
+				}
+			}
+		},
+		{
+			"key": "support_contact",
+			"kind": "question",
+			"section": "experience",
+			"type": "yes_no",
+			"label": {
+				"fr": "Avez-vous contacté notre service client ces derniers mois ?",
+				"en": "Have you contacted our customer service in recent months?"
+			},
+			"options": [
+				{
+					"value": true,
+					"label": {
+						"fr": "Oui",
+						"en": "Yes"
+					}
+				},
+				{
+					"value": false,
+					"label": {
+						"fr": "Non",
+						"en": "No"
+					}
+				}
+			]
+		},
+		{
+			"key": "support_note",
+			"kind": "question",
+			"section": "experience",
+			"type": "single",
+			"label": {
+				"fr": "Comment évaluez-vous l’aide reçue ?",
+				"en": "How would you rate the help you received?"
+			},
+			"showIf": {
+				"left": "answer.support_contact",
+				"op": "eq",
+				"value": true
+			},
+			"options": [
+				{
+					"value": "excellente",
+					"label": {
+						"fr": "Excellente, mon problème a été résolu rapidement",
+						"en": "Excellent, my issue was solved quickly"
+					},
+					"scores": {
+						"facilite": 40
+					}
+				},
+				{
+					"value": "bonne",
+					"label": {
+						"fr": "Bonne, mon problème a été résolu",
+						"en": "Good, my issue was solved"
+					},
+					"scores": {
+						"facilite": 30
+					}
+				},
+				{
+					"value": "moyenne",
+					"label": {
+						"fr": "Moyenne, il a fallu insister",
+						"en": "Average, I had to push"
+					},
+					"scores": {
+						"facilite": 15
+					}
+				},
+				{
+					"value": "mauvaise",
+					"label": {
+						"fr": "Insuffisante, mon problème n’est pas résolu",
+						"en": "Poor, my issue is not solved"
+					},
+					"scores": {
+						"facilite": 0
+					}
+				},
+				{
+					"value": "nsp",
+					"label": {
+						"fr": "Je ne sais pas",
+						"en": "I don't know"
+					},
+					"exit": {
+						"mode": "neutral"
+					}
+				}
+			]
+		},
+		{
+			"key": "commentaire_detracteur",
+			"kind": "question",
+			"section": "commentaires",
+			"type": "textarea",
+			"label": {
+				"fr": "Nous sommes désolés de ne pas avoir été à la hauteur. Que s’est-il passé, et que devrions-nous changer en priorité ?",
+				"en": "We are sorry we fell short. What happened, and what should we change first?"
+			},
+			"showIf": {
+				"left": "answer.nps",
+				"op": "lte",
+				"value": 6
+			},
+			"required": false,
+			"placeholder": {
+				"fr": "Votre commentaire…",
+				"en": "Your comment…"
+			},
+			"validation": {
+				"maxLength": 2000
+			}
+		},
+		{
+			"key": "commentaire_passif",
+			"kind": "question",
+			"section": "commentaires",
+			"type": "textarea",
+			"label": {
+				"fr": "Que faudrait-il pour que vous nous donniez 10 / 10 ?",
+				"en": "What would it take for you to give us 10 / 10?"
+			},
+			"showIf": {
+				"left": "answer.nps",
+				"op": "between",
+				"value": [ 7, 8 ]
+			},
+			"required": false,
+			"placeholder": {
+				"fr": "Votre suggestion…",
+				"en": "Your suggestion…"
+			},
+			"validation": {
+				"maxLength": 2000
+			}
+		},
+		{
+			"key": "commentaire_promoteur",
+			"kind": "question",
+			"section": "commentaires",
+			"type": "textarea",
+			"label": {
+				"fr": "Merci ! Qu’est-ce qui vous plaît le plus dans votre expérience avec nous ?",
+				"en": "Thank you! What do you like most about your experience with us?"
+			},
+			"showIf": {
+				"left": "answer.nps",
+				"op": "gte",
+				"value": 9
+			},
+			"required": false,
+			"placeholder": {
+				"fr": "Votre commentaire…",
+				"en": "Your comment…"
+			},
+			"validation": {
+				"maxLength": 2000
+			}
+		},
+		{
+			"key": "contact",
+			"kind": "form",
+			"section": "fin",
+			"title": {
+				"fr": "Restons en contact",
+				"en": "Let's stay in touch"
+			},
+			"text": {
+				"fr": "Laissez vos coordonnées pour recevoir le récapitulatif de vos réponses et, si vous le souhaitez, être recontacté(e) par notre équipe.",
+				"en": "Leave your details to receive a summary of your answers and, if you wish, to be contacted by our team."
+			},
+			"fields": [
+				{
+					"key": "first_name",
+					"type": "text",
+					"label": {
+						"fr": "Prénom",
+						"en": "First name"
+					}
+				},
+				{
+					"key": "email",
+					"type": "email",
+					"label": {
+						"fr": "Email",
+						"en": "Email"
+					},
+					"required": true
+				},
+				{
+					"key": "recontact",
+					"type": "checkbox",
+					"label": {
+						"fr": "Je souhaite être recontacté(e) au sujet de mon avis",
+						"en": "I would like to be contacted about my feedback"
+					}
+				}
+			],
+			"consent": {
+				"text": {
+					"fr": "J’accepte que mes réponses et mes coordonnées soient utilisées pour m’envoyer mon résultat et, le cas échéant, être recontacté(e) à ce sujet. Je peux demander leur suppression à tout moment.",
+					"en": "I agree that my answers and contact details may be used to send me my result and, where relevant, to contact me about it. I can ask for them to be deleted at any time."
+				},
+				"version": "customer-satisfaction-v1"
+			},
+			"submitLabel": {
+				"fr": "Envoyer mon avis",
+				"en": "Send my feedback"
+			}
+		}
+	],
+	"scoring": {
+		"rules": [
+			{
+				"type": "condition",
+				"axis": "recommandation",
+				"when": {
+					"left": "answer.nps",
+					"op": "answered"
+				},
+				"points": "answer.nps * 10"
+			},
+			{
+				"type": "range",
+				"axis": "facilite",
+				"question": "facilite",
+				"ranges": [
+					{
+						"max": 2,
+						"points": 0
+					},
+					{
+						"min": 2,
+						"max": 3,
+						"points": 15
+					},
+					{
+						"min": 3,
+						"max": 4,
+						"points": 30
+					},
+					{
+						"min": 4,
+						"max": 5,
+						"points": 45
+					},
+					{
+						"min": 5,
+						"points": 60
+					}
+				]
+			},
+			{
+				"type": "condition",
+				"axis": "facilite",
+				"when": {
+					"left": "answer.support_contact",
+					"op": "eq",
+					"value": false
+				},
+				"points": 30
+			}
+		]
+	},
+	"variables": [
+		{
+			"key": "note_recommandation",
+			"label": {
+				"fr": "Votre note de recommandation",
+				"en": "Your recommendation score"
+			},
+			"expr": "answer.nps",
+			"format": {
+				"decimals": 0,
+				"suffix": {
+					"fr": "/ 10",
+					"en": "/ 10"
+				}
+			}
+		},
+		{
+			"key": "satisfaction_globale",
+			"label": {
+				"fr": "Indice de satisfaction",
+				"en": "Satisfaction index"
+			},
+			"expr": "round((score.recommandation + score.satisfaction + score.facilite) / 3)",
+			"format": {
+				"decimals": 0,
+				"suffix": {
+					"fr": "/ 100",
+					"en": "/ 100"
+				}
+			}
+		}
+	],
+	"outcomes": {
+		"profiles": [
+			{
+				"key": "promoteur",
+				"label": {
+					"fr": "Promoteur",
+					"en": "Promoter"
+				},
+				"text": {
+					"fr": "Merci {first_name} ! Votre confiance nous touche. Nous sommes ravis que votre expérience vous donne envie de nous recommander.",
+					"en": "Thank you {first_name}! We truly appreciate your trust and are delighted your experience makes you want to recommend us."
+				},
+				"when": {
+					"left": "answer.nps",
+					"op": "gte",
+					"value": 9
+				},
+				"priority": 30
+			},
+			{
+				"key": "passif",
+				"label": {
+					"fr": "Passif",
+					"en": "Passive"
+				},
+				"text": {
+					"fr": "Merci {first_name} pour votre retour. Vous êtes plutôt satisfait(e), et nous voulons aller plus loin : vos suggestions nous aident à progresser.",
+					"en": "Thank you {first_name} for your feedback. You are fairly satisfied, and we want to do better: your suggestions help us improve."
+				},
+				"when": {
+					"left": "answer.nps",
+					"op": "between",
+					"value": [ 7, 8 ]
+				},
+				"priority": 20
+			},
+			{
+				"key": "detracteur",
+				"label": {
+					"fr": "Détracteur",
+					"en": "Detractor"
+				},
+				"text": {
+					"fr": "Merci {first_name} pour votre franchise. Nous regrettons que votre expérience n’ait pas été à la hauteur et nous prenons votre retour très au sérieux.",
+					"en": "Thank you {first_name} for your honesty. We are sorry your experience fell short, and we take your feedback very seriously."
+				},
+				"priority": 10
+			}
+		],
+		"texts": [
+			{
+				"key": "txt_effort",
+				"title": {
+					"fr": "Un parcours à simplifier",
+					"en": "A journey to simplify"
+				},
+				"body": {
+					"fr": "Vous avez trouvé difficile d’obtenir ce dont vous aviez besoin : nous allons revoir les étapes qui vous ont freiné(e).",
+					"en": "You found it hard to get what you needed: we will review the steps that slowed you down."
+				},
+				"when": {
+					"left": "answer.facilite",
+					"op": "lte",
+					"value": 2
+				}
+			},
+			{
+				"key": "txt_support",
+				"title": {
+					"fr": "Votre demande compte",
+					"en": "Your request matters"
+				},
+				"body": {
+					"fr": "Votre échange avec notre service client ne vous a pas pleinement satisfait(e). Nous allons l’examiner avec l’équipe concernée.",
+					"en": "Your contact with customer service did not fully satisfy you. We will look into it with the team involved."
+				},
+				"when": {
+					"left": "answer.support_note",
+					"op": "in",
+					"value": [ "moyenne", "mauvaise" ]
+				}
+			},
+			{
+				"key": "txt_points_forts",
+				"title": {
+					"fr": "Ce que vous appréciez",
+					"en": "What you appreciate"
+				},
+				"body": {
+					"fr": "Vous avez cité : {answer:points_forts}. Merci, nous continuerons à cultiver ces points forts.",
+					"en": "You mentioned: {answer:points_forts}. Thank you, we will keep building on these strengths."
+				},
+				"when": {
+					"left": "answer.points_forts",
+					"op": "answered"
+				}
+			}
+		],
+		"actions": [
+			{
+				"key": "act_recontact",
+				"title": {
+					"fr": "Nous revenons vers vous",
+					"en": "We will get back to you"
+				},
+				"body": {
+					"fr": "Vous avez demandé à être recontacté(e) : un membre de notre équipe prendra contact avec vous pour en parler.",
+					"en": "You asked to be contacted: a member of our team will reach out to discuss it."
+				},
+				"when": {
+					"left": "contact.recontact",
+					"op": "eq",
+					"value": true
+				},
+				"priority": 30
+			},
+			{
+				"key": "act_avis",
+				"title": {
+					"fr": "Partagez votre expérience",
+					"en": "Share your experience"
+				},
+				"body": {
+					"fr": "Un avis public aide d’autres personnes à nous découvrir. Cela ne prend qu’une minute.",
+					"en": "A public review helps others discover us. It only takes a minute."
+				},
+				"when": {
+					"left": "answer.nps",
+					"op": "gte",
+					"value": 9
+				},
+				"priority": 20
+			},
+			{
+				"key": "act_nouveautes",
+				"title": {
+					"fr": "Restez informé(e)",
+					"en": "Stay informed"
+				},
+				"body": {
+					"fr": "Découvrez nos dernières améliorations : certaines répondent peut-être déjà à vos suggestions.",
+					"en": "Discover our latest improvements: some may already address your suggestions."
+				},
+				"when": {
+					"left": "answer.nps",
+					"op": "between",
+					"value": [ 7, 8 ]
+				},
+				"priority": 10
+			}
+		],
+		"ctas": [
+			{
+				"key": "cta_avis",
+				"label": {
+					"fr": "Laisser un avis public",
+					"en": "Leave a public review"
+				},
+				"text": {
+					"fr": "Votre témoignage aide d’autres clients à faire leur choix.",
+					"en": "Your review helps other customers make their choice."
+				},
+				"url": "https://example.com/avis",
+				"utm": {
+					"source": "enquete",
+					"medium": "resultat",
+					"campaign": "satisfaction",
+					"content": "promoteur"
+				},
+				"when": {
+					"left": "answer.nps",
+					"op": "gte",
+					"value": 9
+				},
+				"priority": 30
+			},
+			{
+				"key": "cta_nouveautes",
+				"label": {
+					"fr": "Découvrir nos nouveautés",
+					"en": "See what's new"
+				},
+				"text": {
+					"fr": "Les dernières évolutions de nos produits et services.",
+					"en": "The latest updates to our products and services."
+				},
+				"url": "https://example.com/nouveautes",
+				"utm": {
+					"source": "enquete",
+					"medium": "resultat",
+					"campaign": "satisfaction",
+					"content": "passif"
+				},
+				"when": {
+					"left": "answer.nps",
+					"op": "between",
+					"value": [ 7, 8 ]
+				},
+				"priority": 20
+			},
+			{
+				"key": "cta_service_client",
+				"label": {
+					"fr": "Contacter le service client",
+					"en": "Contact customer service"
+				},
+				"text": {
+					"fr": "Parlons-en directement : nous voulons trouver une solution avec vous.",
+					"en": "Let's talk directly: we want to find a solution with you."
+				},
+				"url": "https://example.com/contact",
+				"utm": {
+					"source": "enquete",
+					"medium": "resultat",
+					"campaign": "satisfaction",
+					"content": "detracteur"
+				},
+				"priority": 10
+			}
+		]
+	},
+	"results": {
+		"title": {
+			"fr": "Merci pour votre avis, {first_name} !",
+			"en": "Thank you for your feedback, {first_name}!"
+		},
+		"shareLink": false,
+		"emailResult": true,
+		"blocks": [
+			{
+				"type": "profile"
+			},
+			{
+				"type": "variables",
+				"title": {
+					"fr": "Votre avis en chiffres",
+					"en": "Your feedback in numbers"
+				},
+				"keys": [ "note_recommandation", "satisfaction_globale" ]
+			},
+			{
+				"type": "scores",
+				"title": {
+					"fr": "Détail de votre évaluation",
+					"en": "Your rating in detail"
+				},
+				"display": "gauges"
+			},
+			{
+				"type": "texts"
+			},
+			{
+				"type": "actions",
+				"title": {
+					"fr": "Et maintenant ?",
+					"en": "What happens next?"
+				}
+			},
+			{
+				"type": "cta"
+			}
+		]
+	},
+	"ui": {
+		"theme": {
+			"colors": {
+				"primary": "#c2410c",
+				"primaryText": "#ffffff",
+				"background": "#ffffff",
+				"surface": "#fff7ed",
+				"text": "#1c1917",
+				"muted": "#57534e"
+			},
+			"fontFamily": "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+			"headingFontFamily": "Georgia, 'Times New Roman', serif",
+			"radius": "16px",
+			"maxWidth": "680px"
+		},
+		"legal": {
+			"fr": "Vos données servent uniquement à établir et vous envoyer votre résultat. Elles ne sont jamais revendues. Vous pouvez demander leur consultation ou leur suppression à tout moment.",
+			"en": "Your data is only used to produce and send you your result. It is never sold. You can ask to access or delete it at any time."
+		}
+	}
+}

@@ -4,6 +4,13 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Unreleased]
 
+### Added
+- Bibliothèque de modèles : 5 diagnostics prêts à l'emploi (FR/EN) et écran « Créer depuis
+  un modèle » (galerie, aperçu, nombre de questions, durée estimée). « Utiliser ce modèle »
+  crée un brouillon modifiable ; le modèle n'est jamais modifié. Filtre `sd_templates`,
+  action `sd_template_used`, commandes `wp smart-diagnostic templates` et
+  `create-from-template`.
+
 ### Changed
 - Le diagnostic de démonstration devient un fichier de test (`tests/fixtures/demo.json`) ; le
   dossier `examples/` est retiré. `setup-local.sh` n'ajoute du contenu de test qu'avec

@@ -1,0 +1,183 @@
+{
+	"description": "templates/diagnostics/product-finder.json : modèle livré avec le plugin.",
+	"configFile": "templates/diagnostics/product-finder.json",
+	"cases": [
+		{
+			"name": "essentiel",
+			"answers": {
+				"priorite": "simplicite",
+				"utilisateurs": "un",
+				"frequence": "occasionnel",
+				"accompagnement": "autonome",
+				"fonctionnalites": [ "aucun" ],
+				"budget": 15,
+				"demarrage": "plus_tard"
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"priorite",
+					"utilisateurs",
+					"frequence",
+					"accompagnement",
+					"fonctionnalites",
+					"budget",
+					"demarrage",
+					"contact"
+				],
+				"scores": {
+					"essentiel": 100,
+					"confort": 0,
+					"premium": 0
+				},
+				"vars": {
+					"reco": 1,
+					"adequation": 100,
+					"budget_mensuel": 15
+				},
+				"profile": "essentiel",
+				"texts": [],
+				"actions": [ "action_essai", "action_evolution" ],
+				"cta": "cta_essentiel"
+			}
+		},
+		{
+			"name": "confort",
+			"answers": {
+				"priorite": "equilibre",
+				"utilisateurs": "petite_equipe",
+				"frequence": "regulier",
+				"accompagnement": "ponctuel",
+				"fonctionnalites": [ "rapports", "formation" ],
+				"budget": 50,
+				"demarrage": "mois"
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"priorite",
+					"utilisateurs",
+					"frequence",
+					"accompagnement",
+					"fonctionnalites",
+					"budget",
+					"demarrage",
+					"contact"
+				],
+				"scores": {
+					"essentiel": 0,
+					"confort": 100,
+					"premium": 5
+				},
+				"vars": {
+					"reco": 2,
+					"adequation": 95,
+					"budget_mensuel": 50
+				},
+				"profile": "confort",
+				"texts": [],
+				"actions": [ "action_equipe", "action_evolution" ],
+				"cta": "cta_confort"
+			}
+		},
+		{
+			"name": "premium",
+			"answers": {
+				"priorite": "complet",
+				"utilisateurs": "equipe",
+				"frequence": "quotidien",
+				"accompagnement": "dedie",
+				"fonctionnalites": [
+					"rapports",
+					"personnalisation",
+					"connexions",
+					"support_prioritaire"
+				],
+				"budget": 150,
+				"demarrage": "immediat"
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"priorite",
+					"utilisateurs",
+					"frequence",
+					"accompagnement",
+					"fonctionnalites",
+					"budget",
+					"demarrage",
+					"contact"
+				],
+				"scores": {
+					"essentiel": 0,
+					"confort": 10,
+					"premium": 100
+				},
+				"vars": {
+					"reco": 3,
+					"adequation": 91,
+					"budget_mensuel": 150
+				},
+				"profile": "premium",
+				"texts": [ "demarrage_rapide" ],
+				"actions": [ "action_equipe", "action_evolution" ],
+				"cta": "cta_premium"
+			}
+		},
+		{
+			"name": "premium wish on tight budget",
+			"answers": {
+				"priorite": "complet",
+				"utilisateurs": "un",
+				"frequence": "regulier",
+				"accompagnement": "dedie",
+				"fonctionnalites": [
+					"rapports",
+					"personnalisation",
+					"connexions"
+				],
+				"budget": 20,
+				"demarrage": "immediat"
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"priorite",
+					"utilisateurs",
+					"frequence",
+					"accompagnement",
+					"fonctionnalites",
+					"budget",
+					"demarrage",
+					"contact"
+				],
+				"scores": {
+					"essentiel": 45,
+					"confort": 20,
+					"premium": 55
+				},
+				"vars": {
+					"reco": 3,
+					"adequation": 46,
+					"budget_mensuel": 20
+				},
+				"profile": "premium",
+				"texts": [ "budget_serre", "demarrage_rapide" ],
+				"actions": [ "action_evolution" ],
+				"cta": "cta_premium"
+			}
+		}
+	]
+}

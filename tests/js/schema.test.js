@@ -1,5 +1,5 @@
 /**
- * Les exemples fournis doivent rester valides au regard du JSON Schema.
+ * Le diagnostic de test et les modèles doivent rester valides au regard du JSON Schema.
  */
 const fs = require( 'fs' );
 const path = require( 'path' );
@@ -15,12 +15,17 @@ describe( 'diagnostic.schema.json', () => {
 	addFormats( ajv );
 	const validate = ajv.compile( readJson( 'schema/diagnostic.schema.json' ) );
 
-	const examples = fs
-		.readdirSync( path.join( root, 'tests/fixtures' ) )
-		.filter( ( file ) => file.endsWith( '.json' ) );
+	// Diagnostic de test et modèles livrés avec le plugin.
+	const examples = [ 'tests/fixtures', 'templates/diagnostics' ].flatMap(
+		( dir ) =>
+			fs
+				.readdirSync( path.join( root, dir ) )
+				.filter( ( file ) => file.endsWith( '.json' ) )
+				.map( ( file ) => `${ dir }/${ file }` )
+	);
 
-	it.each( examples )( 'tests/fixtures/%s is valid', ( file ) => {
-		const valid = validate( readJson( `tests/fixtures/${ file }` ) );
+	it.each( examples )( '%s is valid', ( file ) => {
+		const valid = validate( readJson( file ) );
 		expect( validate.errors ).toBeNull();
 		expect( valid ).toBe( true );
 	} );

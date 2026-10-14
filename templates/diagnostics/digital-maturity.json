@@ -1,0 +1,1671 @@
+{
+	"schemaVersion": 1,
+	"meta": {
+		"title": {
+			"fr": "Audit de maturité digitale",
+			"en": "Digital maturity audit"
+		},
+		"description": {
+			"fr": "Un audit en 14 questions qui situe une organisation sur 4 niveaux de maturité numérique, à travers 5 axes (présence en ligne, outils et données, marketing digital, culture et compétences, cybersécurité), avec un plan d’action priorisé.",
+			"en": "A 14-question audit placing an organisation on 4 digital maturity levels across 5 areas (online presence, tools and data, digital marketing, culture and skills, cybersecurity), with a prioritised action plan."
+		}
+	},
+	"i18n": {
+		"defaultLanguage": "fr",
+		"languages": [ "fr", "en" ],
+		"switcher": true
+	},
+	"welcome": {
+		"title": {
+			"fr": "Où en est votre organisation avec le numérique ?",
+			"en": "Where does your organisation stand with digital?"
+		},
+		"subtitle": {
+			"fr": "En 5 minutes, mesurez votre maturité digitale sur 5 axes et recevez un plan d’action adapté à votre niveau.",
+			"en": "In 5 minutes, measure your digital maturity across 5 areas and get an action plan tailored to your level."
+		},
+		"benefits": [
+			{
+				"fr": "Votre niveau de maturité parmi 4 paliers",
+				"en": "Your maturity level out of 4 stages"
+			},
+			{
+				"fr": "Un score détaillé sur 5 axes",
+				"en": "A detailed score across 5 areas"
+			},
+			{
+				"fr": "Un plan d’action priorisé",
+				"en": "A prioritised action plan"
+			},
+			{
+				"fr": "Un point d’attention sur votre cybersécurité",
+				"en": "A focus on your cybersecurity"
+			}
+		],
+		"badges": [
+			{
+				"fr": "Gratuit",
+				"en": "Free"
+			},
+			{
+				"fr": "5 minutes",
+				"en": "5 minutes"
+			},
+			{
+				"fr": "14 questions",
+				"en": "14 questions"
+			}
+		],
+		"resultPreview": true,
+		"startLabel": {
+			"fr": "Lancer l’audit",
+			"en": "Start the audit"
+		}
+	},
+	"flow": {
+		"progress": {
+			"bar": true,
+			"counter": true,
+			"sectionName": true
+		},
+		"backButton": true,
+		"saveProgress": true,
+		"autoAdvance": true,
+		"optionLetters": true,
+		"encouragements": [
+			{
+				"atPercent": 25,
+				"text": {
+					"fr": "C’est parti, {first_name} ! Votre présence en ligne est passée en revue.",
+					"en": "Off we go, {first_name}! Your online presence has been reviewed."
+				}
+			},
+			{
+				"atPercent": 50,
+				"text": {
+					"fr": "À mi-parcours : vous faites du très bon travail.",
+					"en": "Halfway there: you are doing great."
+				}
+			},
+			{
+				"atPercent": 80,
+				"text": {
+					"fr": "Dernier axe : la cybersécurité.",
+					"en": "Last area: cybersecurity."
+				}
+			}
+		],
+		"interstitials": {
+			"every": 5,
+			"cards": [
+				{
+					"variant": "quote",
+					"body": {
+						"fr": "La transformation numérique est avant tout une affaire de personnes : les outils ne valent que par l’usage qu’on en fait.",
+						"en": "Digital transformation is first and foremost about people: tools are only as good as how they are used."
+					},
+					"author": {
+						"fr": "Conseil de l’audit",
+						"en": "Audit tip"
+					}
+				},
+				{
+					"variant": "text",
+					"title": {
+						"fr": "Bon à savoir",
+						"en": "Good to know"
+					},
+					"body": {
+						"fr": "Une grande partie des incidents de sécurité commence par un simple email trompeur. La sensibilisation des équipes reste la meilleure protection.",
+						"en": "Many security incidents start with a simple deceptive email. Raising team awareness remains the best protection."
+					}
+				}
+			]
+		},
+		"transition": {
+			"enabled": true,
+			"durationMs": 3500,
+			"steps": [
+				{
+					"fr": "Analyse de vos 5 axes…",
+					"en": "Analysing your 5 areas…"
+				},
+				{
+					"fr": "Détermination de votre niveau de maturité…",
+					"en": "Determining your maturity level…"
+				},
+				{
+					"fr": "Priorisation de votre plan d’action…",
+					"en": "Prioritising your action plan…"
+				}
+			]
+		}
+	},
+	"sections": [
+		{
+			"key": "presence",
+			"label": {
+				"fr": "Présence en ligne",
+				"en": "Online presence"
+			}
+		},
+		{
+			"key": "outils",
+			"label": {
+				"fr": "Outils et données",
+				"en": "Tools and data"
+			}
+		},
+		{
+			"key": "marketing",
+			"label": {
+				"fr": "Marketing digital",
+				"en": "Digital marketing"
+			}
+		},
+		{
+			"key": "culture",
+			"label": {
+				"fr": "Culture et compétences",
+				"en": "Culture and skills"
+			}
+		},
+		{
+			"key": "cyber",
+			"label": {
+				"fr": "Cybersécurité",
+				"en": "Cybersecurity"
+			}
+		},
+		{
+			"key": "resultat",
+			"label": {
+				"fr": "Votre audit",
+				"en": "Your audit"
+			}
+		}
+	],
+	"axes": [
+		{
+			"key": "presence",
+			"label": {
+				"fr": "Présence en ligne",
+				"en": "Online presence"
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		},
+		{
+			"key": "outils",
+			"label": {
+				"fr": "Outils et données",
+				"en": "Tools and data"
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		},
+		{
+			"key": "marketing",
+			"label": {
+				"fr": "Marketing digital",
+				"en": "Digital marketing"
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		},
+		{
+			"key": "culture",
+			"label": {
+				"fr": "Culture et compétences",
+				"en": "Culture and skills"
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		},
+		{
+			"key": "cyber",
+			"label": {
+				"fr": "Cybersécurité",
+				"en": "Cybersecurity"
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		}
+	],
+	"steps": [
+		{
+			"key": "first_name",
+			"kind": "question",
+			"section": "presence",
+			"type": "text",
+			"label": {
+				"fr": "Avant de commencer, quel est votre prénom ?",
+				"en": "Before we start, what's your first name?"
+			},
+			"placeholder": {
+				"fr": "Votre prénom",
+				"en": "Your first name"
+			},
+			"required": false,
+			"validation": {
+				"maxLength": 50
+			}
+		},
+		{
+			"key": "site",
+			"kind": "question",
+			"section": "presence",
+			"type": "single",
+			"label": {
+				"fr": "Où en est votre site internet, {first_name} ?",
+				"en": "What about your website, {first_name}?"
+			},
+			"options": [
+				{
+					"value": "aucun",
+					"label": {
+						"fr": "Nous n’avons pas de site",
+						"en": "We have no website"
+					},
+					"scores": {
+						"presence": 0
+					}
+				},
+				{
+					"value": "basique",
+					"label": {
+						"fr": "Une page simple, rarement mise à jour",
+						"en": "A simple page, rarely updated"
+					},
+					"scores": {
+						"presence": 10
+					}
+				},
+				{
+					"value": "vitrine",
+					"label": {
+						"fr": "Un site vitrine à jour",
+						"en": "An up-to-date showcase site"
+					},
+					"scores": {
+						"presence": 25
+					}
+				},
+				{
+					"value": "transactionnel",
+					"label": {
+						"fr": "Un site qui génère des contacts, des rendez-vous ou des ventes",
+						"en": "A site that generates leads, bookings or sales"
+					},
+					"scores": {
+						"presence": 40
+					}
+				}
+			]
+		},
+		{
+			"key": "canaux",
+			"kind": "question",
+			"section": "presence",
+			"type": "multi",
+			"label": {
+				"fr": "Sur quels autres canaux êtes-vous présent ?",
+				"en": "On which other channels are you present?"
+			},
+			"help": {
+				"fr": "Plusieurs réponses possibles.",
+				"en": "Select all that apply."
+			},
+			"options": [
+				{
+					"value": "fiche",
+					"label": {
+						"fr": "Fiche d’établissement sur les moteurs de recherche et cartes",
+						"en": "Business listing on search engines and maps"
+					},
+					"scores": {
+						"presence": 8
+					}
+				},
+				{
+					"value": "reseaux",
+					"label": {
+						"fr": "Réseaux sociaux professionnels",
+						"en": "Professional social networks"
+					},
+					"scores": {
+						"presence": 8
+					}
+				},
+				{
+					"value": "annuaires",
+					"label": {
+						"fr": "Annuaires et plateformes spécialisées",
+						"en": "Directories and specialist platforms"
+					},
+					"scores": {
+						"presence": 8
+					}
+				},
+				{
+					"value": "places_marche",
+					"label": {
+						"fr": "Places de marché en ligne",
+						"en": "Online marketplaces"
+					},
+					"scores": {
+						"presence": 8
+					}
+				},
+				{
+					"value": "aucun",
+					"label": {
+						"fr": "Aucun pour le moment",
+						"en": "None at the moment"
+					},
+					"exclusive": true
+				}
+			]
+		},
+		{
+			"key": "avis",
+			"kind": "question",
+			"section": "presence",
+			"type": "scale",
+			"label": {
+				"fr": "Vos clients laissent-ils des avis en ligne, et y répondez-vous ?",
+				"en": "Do customers leave online reviews, and do you reply to them?"
+			},
+			"validation": {
+				"min": 1,
+				"max": 5
+			},
+			"scaleLabels": {
+				"min": {
+					"fr": "Jamais",
+					"en": "Never"
+				},
+				"max": {
+					"fr": "Systématiquement",
+					"en": "Always"
+				}
+			}
+		},
+		{
+			"key": "outils_collab",
+			"kind": "question",
+			"section": "outils",
+			"type": "multi",
+			"label": {
+				"fr": "Quels outils utilisez-vous au quotidien ?",
+				"en": "Which tools do you use day to day?"
+			},
+			"help": {
+				"fr": "Plusieurs réponses possibles.",
+				"en": "Select all that apply."
+			},
+			"options": [
+				{
+					"value": "messagerie",
+					"label": {
+						"fr": "Messagerie et agenda partagés",
+						"en": "Shared email and calendar"
+					},
+					"scores": {
+						"outils": 8
+					}
+				},
+				{
+					"value": "stockage",
+					"label": {
+						"fr": "Stockage de documents en ligne",
+						"en": "Online document storage"
+					},
+					"scores": {
+						"outils": 8
+					}
+				},
+				{
+					"value": "crm",
+					"label": {
+						"fr": "Outil de gestion de la relation client",
+						"en": "Customer relationship management tool"
+					},
+					"scores": {
+						"outils": 8
+					}
+				},
+				{
+					"value": "gestion",
+					"label": {
+						"fr": "Facturation ou comptabilité en ligne",
+						"en": "Online invoicing or accounting"
+					},
+					"scores": {
+						"outils": 8
+					}
+				},
+				{
+					"value": "projets",
+					"label": {
+						"fr": "Gestion de projets ou de tâches",
+						"en": "Project or task management"
+					},
+					"scores": {
+						"outils": 8
+					}
+				},
+				{
+					"value": "aucun",
+					"label": {
+						"fr": "Aucun de ces outils",
+						"en": "None of these tools"
+					},
+					"exclusive": true
+				}
+			]
+		},
+		{
+			"key": "donnees",
+			"kind": "question",
+			"section": "outils",
+			"type": "single",
+			"label": {
+				"fr": "Où sont centralisées les informations sur vos clients ?",
+				"en": "Where is your customer information kept?"
+			},
+			"options": [
+				{
+					"value": "papier",
+					"label": {
+						"fr": "Sur papier ou dans les têtes",
+						"en": "On paper or in people's heads"
+					},
+					"scores": {
+						"outils": 0
+					}
+				},
+				{
+					"value": "disperse",
+					"label": {
+						"fr": "Dans plusieurs fichiers dispersés",
+						"en": "In several scattered files"
+					},
+					"scores": {
+						"outils": 10
+					}
+				},
+				{
+					"value": "fichier",
+					"label": {
+						"fr": "Dans un fichier partagé unique",
+						"en": "In a single shared file"
+					},
+					"scores": {
+						"outils": 20
+					}
+				},
+				{
+					"value": "outil",
+					"label": {
+						"fr": "Dans un outil dédié, accessible à toute l’équipe",
+						"en": "In a dedicated tool the whole team can access"
+					},
+					"scores": {
+						"outils": 30
+					}
+				}
+			]
+		},
+		{
+			"key": "pilotage",
+			"kind": "question",
+			"section": "outils",
+			"type": "single",
+			"label": {
+				"fr": "Comment suivez-vous vos indicateurs d’activité ?",
+				"en": "How do you track your business indicators?"
+			},
+			"options": [
+				{
+					"value": "pas",
+					"label": {
+						"fr": "Nous ne les suivons pas vraiment",
+						"en": "We do not really track them"
+					},
+					"scores": {
+						"outils": 0
+					}
+				},
+				{
+					"value": "ponctuel",
+					"label": {
+						"fr": "Ponctuellement, à la main",
+						"en": "Occasionally, by hand"
+					},
+					"scores": {
+						"outils": 10
+					}
+				},
+				{
+					"value": "tableau",
+					"label": {
+						"fr": "Avec un tableau de bord mis à jour chaque mois",
+						"en": "With a dashboard updated monthly"
+					},
+					"scores": {
+						"outils": 20
+					}
+				},
+				{
+					"value": "automatique",
+					"label": {
+						"fr": "Avec un tableau de bord alimenté automatiquement",
+						"en": "With an automatically updated dashboard"
+					},
+					"scores": {
+						"outils": 30
+					}
+				}
+			]
+		},
+		{
+			"key": "actions_marketing",
+			"kind": "question",
+			"section": "marketing",
+			"type": "multi",
+			"label": {
+				"fr": "Quelles actions de marketing digital menez-vous régulièrement ?",
+				"en": "Which digital marketing actions do you run regularly?"
+			},
+			"help": {
+				"fr": "Plusieurs réponses possibles.",
+				"en": "Select all that apply."
+			},
+			"options": [
+				{
+					"value": "emailing",
+					"label": {
+						"fr": "Lettre d’information ou emailing",
+						"en": "Newsletter or email campaigns"
+					},
+					"scores": {
+						"marketing": 12
+					}
+				},
+				{
+					"value": "publications",
+					"label": {
+						"fr": "Publications régulières sur les réseaux",
+						"en": "Regular social media posts"
+					},
+					"scores": {
+						"marketing": 12
+					}
+				},
+				{
+					"value": "contenus",
+					"label": {
+						"fr": "Articles, guides ou vidéos",
+						"en": "Articles, guides or videos"
+					},
+					"scores": {
+						"marketing": 12
+					}
+				},
+				{
+					"value": "referencement",
+					"label": {
+						"fr": "Travail sur le référencement naturel",
+						"en": "Search engine optimisation"
+					},
+					"scores": {
+						"marketing": 12
+					}
+				},
+				{
+					"value": "publicite",
+					"label": {
+						"fr": "Publicité en ligne",
+						"en": "Online advertising"
+					},
+					"scores": {
+						"marketing": 12
+					}
+				},
+				{
+					"value": "aucun",
+					"label": {
+						"fr": "Aucune pour le moment",
+						"en": "None at the moment"
+					},
+					"exclusive": true
+				}
+			]
+		},
+		{
+			"key": "mesure",
+			"kind": "question",
+			"section": "marketing",
+			"type": "single",
+			"label": {
+				"fr": "Mesurez-vous les résultats de ces actions ?",
+				"en": "Do you measure the results of these actions?"
+			},
+			"options": [
+				{
+					"value": "non",
+					"label": {
+						"fr": "Non",
+						"en": "No"
+					},
+					"scores": {
+						"marketing": 0
+					}
+				},
+				{
+					"value": "parfois",
+					"label": {
+						"fr": "Parfois, sans méthode précise",
+						"en": "Sometimes, without a set method"
+					},
+					"scores": {
+						"marketing": 15
+					}
+				},
+				{
+					"value": "regulier",
+					"label": {
+						"fr": "Oui, avec des objectifs et un suivi réguliers",
+						"en": "Yes, with regular goals and tracking"
+					},
+					"scores": {
+						"marketing": 40
+					}
+				},
+				{
+					"value": "nsp",
+					"label": {
+						"fr": "Je ne sais pas",
+						"en": "I don't know"
+					},
+					"exit": {
+						"mode": "min"
+					}
+				}
+			]
+		},
+		{
+			"key": "formation",
+			"kind": "question",
+			"section": "culture",
+			"type": "single",
+			"label": {
+				"fr": "Au cours de la dernière année, comment vos équipes se sont-elles formées au numérique ?",
+				"en": "Over the past year, how has your team trained in digital skills?"
+			},
+			"options": [
+				{
+					"value": "aucune",
+					"label": {
+						"fr": "Pas de formation",
+						"en": "No training"
+					},
+					"scores": {
+						"culture": 0
+					}
+				},
+				{
+					"value": "autodidacte",
+					"label": {
+						"fr": "En autonomie, au fil de l’eau",
+						"en": "Self-taught, as needed"
+					},
+					"scores": {
+						"culture": 15
+					}
+				},
+				{
+					"value": "ponctuelle",
+					"label": {
+						"fr": "Quelques formations ponctuelles",
+						"en": "A few one-off courses"
+					},
+					"scores": {
+						"culture": 35
+					}
+				},
+				{
+					"value": "plan",
+					"label": {
+						"fr": "Un vrai plan de formation",
+						"en": "A proper training plan"
+					},
+					"scores": {
+						"culture": 50
+					}
+				}
+			]
+		},
+		{
+			"key": "adoption",
+			"kind": "question",
+			"section": "culture",
+			"type": "scale",
+			"label": {
+				"fr": "Votre équipe adopte-t-elle facilement de nouveaux outils ?",
+				"en": "Does your team adopt new tools easily?"
+			},
+			"validation": {
+				"min": 1,
+				"max": 5
+			},
+			"scaleLabels": {
+				"min": {
+					"fr": "Avec beaucoup de réticences",
+					"en": "With great reluctance"
+				},
+				"max": {
+					"fr": "Avec enthousiasme",
+					"en": "Enthusiastically"
+				}
+			}
+		},
+		{
+			"key": "pause_cyber",
+			"kind": "content",
+			"section": "cyber",
+			"variant": "text",
+			"title": {
+				"fr": "Dernière étape : votre sécurité",
+				"en": "Last step: your security"
+			},
+			"body": {
+				"fr": "Ces trois questions portent sur vos protections de base. Répondez sans crainte : l’objectif est de repérer les points à renforcer, pas de juger.",
+				"en": "These three questions cover your basic protections. Answer freely: the aim is to spot what to strengthen, not to judge."
+			}
+		},
+		{
+			"key": "sauvegardes",
+			"kind": "question",
+			"section": "cyber",
+			"type": "single",
+			"label": {
+				"fr": "Comment vos données sont-elles sauvegardées ?",
+				"en": "How is your data backed up?"
+			},
+			"options": [
+				{
+					"value": "aucune",
+					"label": {
+						"fr": "Pas de sauvegarde organisée",
+						"en": "No organised backup"
+					},
+					"scores": {
+						"cyber": 0
+					}
+				},
+				{
+					"value": "manuelle",
+					"label": {
+						"fr": "Des sauvegardes manuelles, de temps en temps",
+						"en": "Manual backups, now and then"
+					},
+					"scores": {
+						"cyber": 10
+					}
+				},
+				{
+					"value": "auto",
+					"label": {
+						"fr": "Des sauvegardes automatiques",
+						"en": "Automatic backups"
+					},
+					"scores": {
+						"cyber": 25
+					}
+				},
+				{
+					"value": "auto_testee",
+					"label": {
+						"fr": "Des sauvegardes automatiques, hors site et testées",
+						"en": "Automatic, off-site and tested backups"
+					},
+					"scores": {
+						"cyber": 35
+					}
+				},
+				{
+					"value": "nsp",
+					"label": {
+						"fr": "Je ne sais pas",
+						"en": "I don't know"
+					},
+					"exit": {
+						"mode": "min"
+					}
+				}
+			]
+		},
+		{
+			"key": "protections",
+			"kind": "question",
+			"section": "cyber",
+			"type": "multi",
+			"label": {
+				"fr": "Quelles protections sont en place ?",
+				"en": "Which protections are in place?"
+			},
+			"help": {
+				"fr": "Plusieurs réponses possibles.",
+				"en": "Select all that apply."
+			},
+			"options": [
+				{
+					"value": "mots_de_passe",
+					"label": {
+						"fr": "Mots de passe robustes et gestionnaire de mots de passe",
+						"en": "Strong passwords and a password manager"
+					},
+					"scores": {
+						"cyber": 8
+					}
+				},
+				{
+					"value": "double_auth",
+					"label": {
+						"fr": "Double authentification sur les comptes sensibles",
+						"en": "Two-factor authentication on sensitive accounts"
+					},
+					"scores": {
+						"cyber": 8
+					}
+				},
+				{
+					"value": "mises_a_jour",
+					"label": {
+						"fr": "Mises à jour automatiques des postes et logiciels",
+						"en": "Automatic updates for devices and software"
+					},
+					"scores": {
+						"cyber": 8
+					}
+				},
+				{
+					"value": "antivirus",
+					"label": {
+						"fr": "Protection antivirus et pare-feu",
+						"en": "Antivirus and firewall protection"
+					},
+					"scores": {
+						"cyber": 8
+					}
+				},
+				{
+					"value": "sensibilisation",
+					"label": {
+						"fr": "Sensibilisation régulière de l’équipe",
+						"en": "Regular team awareness sessions"
+					},
+					"scores": {
+						"cyber": 8
+					}
+				},
+				{
+					"value": "aucun",
+					"label": {
+						"fr": "Aucune de ces protections",
+						"en": "None of these protections"
+					},
+					"exclusive": true
+				}
+			]
+		},
+		{
+			"key": "incident",
+			"kind": "question",
+			"section": "cyber",
+			"type": "yes_no",
+			"label": {
+				"fr": "Savez-vous précisément quoi faire en cas d’incident (piratage, perte de données) ?",
+				"en": "Do you know exactly what to do in case of an incident (hacking, data loss)?"
+			},
+			"options": [
+				{
+					"value": true,
+					"label": {
+						"fr": "Oui, la marche à suivre est connue",
+						"en": "Yes, the procedure is known"
+					},
+					"scores": {
+						"cyber": 25
+					}
+				},
+				{
+					"value": false,
+					"label": {
+						"fr": "Non",
+						"en": "No"
+					}
+				}
+			]
+		},
+		{
+			"key": "contact",
+			"kind": "form",
+			"section": "resultat",
+			"title": {
+				"fr": "Recevez votre audit complet",
+				"en": "Get your full audit"
+			},
+			"text": {
+				"fr": "Votre niveau de maturité, vos 5 scores et votre plan d’action vous attendent.",
+				"en": "Your maturity level, 5 scores and action plan are ready."
+			},
+			"fields": [
+				{
+					"key": "first_name",
+					"type": "text",
+					"label": {
+						"fr": "Prénom",
+						"en": "First name"
+					}
+				},
+				{
+					"key": "email",
+					"type": "email",
+					"label": {
+						"fr": "Email professionnel",
+						"en": "Work email"
+					},
+					"required": true
+				},
+				{
+					"key": "company",
+					"type": "text",
+					"label": {
+						"fr": "Organisation",
+						"en": "Organisation"
+					}
+				},
+				{
+					"key": "taille",
+					"type": "select",
+					"label": {
+						"fr": "Taille de l’équipe",
+						"en": "Team size"
+					},
+					"options": [
+						{
+							"value": "solo",
+							"label": {
+								"fr": "Je travaille seul(e)",
+								"en": "Just me"
+							}
+						},
+						{
+							"value": "2_9",
+							"label": {
+								"fr": "De 2 à 9 personnes",
+								"en": "2 to 9 people"
+							}
+						},
+						{
+							"value": "10_49",
+							"label": {
+								"fr": "De 10 à 49 personnes",
+								"en": "10 to 49 people"
+							}
+						},
+						{
+							"value": "50_plus",
+							"label": {
+								"fr": "50 personnes et plus",
+								"en": "50 people or more"
+							}
+						}
+					]
+				}
+			],
+			"consent": {
+				"text": {
+					"fr": "J’accepte que mes réponses et mes coordonnées soient utilisées pour m’envoyer mon résultat et, le cas échéant, être recontacté(e) à ce sujet. Je peux demander leur suppression à tout moment.",
+					"en": "I agree that my answers and contact details may be used to send me my result and, where relevant, to contact me about it. I can ask for them to be deleted at any time."
+				},
+				"version": "digital-maturity-v1"
+			},
+			"submitLabel": {
+				"fr": "Voir mon audit",
+				"en": "See my audit"
+			}
+		}
+	],
+	"scoring": {
+		"rules": [
+			{
+				"type": "range",
+				"axis": "presence",
+				"question": "avis",
+				"ranges": [
+					{
+						"max": 3,
+						"points": 0
+					},
+					{
+						"min": 3,
+						"max": 4,
+						"points": 14
+					},
+					{
+						"min": 4,
+						"max": 5,
+						"points": 20
+					},
+					{
+						"min": 5,
+						"points": 28
+					}
+				]
+			},
+			{
+				"type": "range",
+				"axis": "culture",
+				"question": "adoption",
+				"ranges": [
+					{
+						"max": 3,
+						"points": 5
+					},
+					{
+						"min": 3,
+						"max": 4,
+						"points": 20
+					},
+					{
+						"min": 4,
+						"max": 5,
+						"points": 35
+					},
+					{
+						"min": 5,
+						"points": 50
+					}
+				]
+			}
+		]
+	},
+	"variables": [
+		{
+			"key": "maturite",
+			"label": {
+				"fr": "Indice de maturité digitale",
+				"en": "Digital maturity index"
+			},
+			"expr": "round((score.presence + score.outils + score.marketing + score.culture + score.cyber) / 5)",
+			"format": {
+				"decimals": 0,
+				"suffix": {
+					"fr": "/ 100",
+					"en": "/ 100"
+				}
+			}
+		},
+		{
+			"key": "niveau",
+			"label": {
+				"fr": "Niveau atteint",
+				"en": "Level reached"
+			},
+			"expr": "var.maturite >= 75 ? 4 : (var.maturite >= 50 ? 3 : (var.maturite >= 25 ? 2 : 1))",
+			"format": {
+				"decimals": 0,
+				"suffix": {
+					"fr": "sur 4",
+					"en": "of 4"
+				}
+			}
+		}
+	],
+	"outcomes": {
+		"profiles": [
+			{
+				"key": "leader",
+				"label": {
+					"fr": "Niveau 4 – Organisation pilotée par le numérique",
+					"en": "Level 4 – Digitally driven organisation"
+				},
+				"text": {
+					"fr": "Félicitations {first_name} ! Le numérique est au cœur de votre fonctionnement. Votre enjeu : rester à la pointe, automatiser davantage et valoriser vos données.",
+					"en": "Congratulations {first_name}! Digital is at the heart of how you work. Your challenge: stay ahead, automate further and make the most of your data."
+				},
+				"when": {
+					"left": "var.niveau",
+					"op": "eq",
+					"value": 4
+				},
+				"priority": 40
+			},
+			{
+				"key": "structure",
+				"label": {
+					"fr": "Niveau 3 – Numérique structuré",
+					"en": "Level 3 – Structured digital"
+				},
+				"text": {
+					"fr": "Vos outils et vos pratiques sont en place, {first_name}. En reliant mieux vos données et en mesurant vos actions, vous gagnerez encore en efficacité.",
+					"en": "Your tools and practices are in place, {first_name}. By connecting your data and measuring your actions, you will become even more efficient."
+				},
+				"when": {
+					"left": "var.niveau",
+					"op": "eq",
+					"value": 3
+				},
+				"priority": 30
+			},
+			{
+				"key": "progression",
+				"label": {
+					"fr": "Niveau 2 – Numérique en progression",
+					"en": "Level 2 – Digital in progress"
+				},
+				"text": {
+					"fr": "Les premières briques sont posées, {first_name}, mais elles restent dispersées. Quelques chantiers bien choisis vous feront franchir un cap.",
+					"en": "The first building blocks are there, {first_name}, but they remain scattered. A few well-chosen projects will take you up a level."
+				},
+				"when": {
+					"left": "var.niveau",
+					"op": "eq",
+					"value": 2
+				},
+				"priority": 20
+			},
+			{
+				"key": "premiers_pas",
+				"label": {
+					"fr": "Niveau 1 – Premiers pas numériques",
+					"en": "Level 1 – First digital steps"
+				},
+				"text": {
+					"fr": "Tout reste à construire, {first_name}, et c’est une bonne nouvelle : chaque action simple aura un effet visible rapidement. Commencez par les priorités ci-dessous.",
+					"en": "Everything is still to build, {first_name}, and that is good news: every simple action will have a visible effect quickly. Start with the priorities below."
+				},
+				"priority": 10
+			}
+		],
+		"texts": [
+			{
+				"key": "faible_presence",
+				"title": {
+					"fr": "Axe prioritaire : présence en ligne",
+					"en": "Priority area: online presence"
+				},
+				"body": {
+					"fr": "Vos clients potentiels ont du mal à vous trouver et à vous évaluer en ligne. C’est la première porte d’entrée de votre activité.",
+					"en": "Potential customers struggle to find and assess you online. It is the front door to your business."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "weakestAxis",
+							"op": "eq",
+							"value": "presence"
+						},
+						{
+							"left": "score.presence",
+							"op": "lt",
+							"value": 70
+						}
+					]
+				}
+			},
+			{
+				"key": "faible_outils",
+				"title": {
+					"fr": "Axe prioritaire : outils et données",
+					"en": "Priority area: tools and data"
+				},
+				"body": {
+					"fr": "Vos informations sont dispersées : vous perdez du temps et des opportunités. Centraliser vos données est un levier rapide.",
+					"en": "Your information is scattered, costing you time and opportunities. Centralising your data is a quick win."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "weakestAxis",
+							"op": "eq",
+							"value": "outils"
+						},
+						{
+							"left": "score.outils",
+							"op": "lt",
+							"value": 70
+						}
+					]
+				}
+			},
+			{
+				"key": "faible_marketing",
+				"title": {
+					"fr": "Axe prioritaire : marketing digital",
+					"en": "Priority area: digital marketing"
+				},
+				"body": {
+					"fr": "Vos actions marketing en ligne sont encore limitées ou peu mesurées. Quelques actions régulières et suivies suffisent pour commencer.",
+					"en": "Your online marketing is still limited or barely measured. A few regular, tracked actions are enough to get started."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "weakestAxis",
+							"op": "eq",
+							"value": "marketing"
+						},
+						{
+							"left": "score.marketing",
+							"op": "lt",
+							"value": 70
+						}
+					]
+				}
+			},
+			{
+				"key": "faible_culture",
+				"title": {
+					"fr": "Axe prioritaire : culture et compétences",
+					"en": "Priority area: culture and skills"
+				},
+				"body": {
+					"fr": "Les outils ne suffisent pas sans l’adhésion des équipes. Investir dans les compétences accélérera tous les autres axes.",
+					"en": "Tools are not enough without team buy-in. Investing in skills will speed up every other area."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "weakestAxis",
+							"op": "eq",
+							"value": "culture"
+						},
+						{
+							"left": "score.culture",
+							"op": "lt",
+							"value": 70
+						}
+					]
+				}
+			},
+			{
+				"key": "faible_cyber",
+				"title": {
+					"fr": "Axe prioritaire : cybersécurité",
+					"en": "Priority area: cybersecurity"
+				},
+				"body": {
+					"fr": "Votre protection est votre point le plus fragile. Une perte de données ou un piratage peut paralyser votre activité : quelques mesures simples réduisent fortement ce risque.",
+					"en": "Protection is your weakest point. Data loss or hacking can paralyse your business, and a few simple measures greatly reduce this risk."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "weakestAxis",
+							"op": "eq",
+							"value": "cyber"
+						},
+						{
+							"left": "score.cyber",
+							"op": "lt",
+							"value": 70
+						}
+					]
+				}
+			},
+			{
+				"key": "alerte_cyber",
+				"title": {
+					"fr": "Alerte sécurité",
+					"en": "Security alert"
+				},
+				"body": {
+					"fr": "Votre score de cybersécurité est inférieur à 40 / 100. Nous vous recommandons de traiter ce point en priorité, quel que soit votre niveau global.",
+					"en": "Your cybersecurity score is below 40 / 100. We recommend tackling this first, whatever your overall level."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "score.cyber",
+							"op": "lt",
+							"value": 40
+						},
+						{
+							"not": {
+								"all": [
+									{
+										"left": "weakestAxis",
+										"op": "eq",
+										"value": "cyber"
+									},
+									{
+										"left": "score.cyber",
+										"op": "lt",
+										"value": 70
+									}
+								]
+							}
+						}
+					]
+				}
+			}
+		],
+		"actions": [
+			{
+				"key": "act_sauvegarde",
+				"title": {
+					"fr": "Automatisez vos sauvegardes",
+					"en": "Automate your backups"
+				},
+				"body": {
+					"fr": "Mettez en place une sauvegarde automatique, dont une copie hors de vos locaux, et testez une restauration chaque trimestre.",
+					"en": "Set up automatic backups, with one copy off-site, and test a restore every quarter."
+				},
+				"when": {
+					"left": "answer.sauvegardes",
+					"op": "in",
+					"value": [ "aucune", "manuelle", "nsp" ]
+				},
+				"priority": 60
+			},
+			{
+				"key": "act_double_auth",
+				"title": {
+					"fr": "Activez la double authentification",
+					"en": "Turn on two-factor authentication"
+				},
+				"body": {
+					"fr": "Commencez par la messagerie, la banque et les outils de gestion : c’est l’une des protections les plus efficaces.",
+					"en": "Start with email, banking and business tools: it is one of the most effective protections."
+				},
+				"when": {
+					"left": "answer.protections",
+					"op": "notContains",
+					"value": "double_auth"
+				},
+				"priority": 55
+			},
+			{
+				"key": "act_incident",
+				"title": {
+					"fr": "Rédigez votre fiche réflexe incident",
+					"en": "Write an incident quick-reference sheet"
+				},
+				"body": {
+					"fr": "Une page suffit : qui prévenir, quoi débrancher, où sont les sauvegardes. Partagez-la avec toute l’équipe.",
+					"en": "One page is enough: who to call, what to disconnect, where the backups are. Share it with the whole team."
+				},
+				"when": {
+					"left": "answer.incident",
+					"op": "eq",
+					"value": false
+				},
+				"priority": 50
+			},
+			{
+				"key": "act_site",
+				"title": {
+					"fr": "Faites de votre site un outil de contact",
+					"en": "Turn your website into a contact tool"
+				},
+				"body": {
+					"fr": "Ajoutez un formulaire, une prise de rendez-vous ou un appel à l’action clair sur chaque page.",
+					"en": "Add a form, booking option or clear call to action on every page."
+				},
+				"when": {
+					"left": "answer.site",
+					"op": "in",
+					"value": [ "aucun", "basique", "vitrine" ]
+				},
+				"priority": 40
+			},
+			{
+				"key": "act_fiche",
+				"title": {
+					"fr": "Créez ou complétez votre fiche d’établissement",
+					"en": "Create or complete your business listing"
+				},
+				"body": {
+					"fr": "Horaires, photos, services : une fiche complète améliore nettement votre visibilité locale.",
+					"en": "Opening hours, photos, services: a complete listing clearly improves local visibility."
+				},
+				"when": {
+					"left": "answer.canaux",
+					"op": "notContains",
+					"value": "fiche"
+				},
+				"priority": 35
+			},
+			{
+				"key": "act_donnees",
+				"title": {
+					"fr": "Centralisez vos données clients",
+					"en": "Centralise your customer data"
+				},
+				"body": {
+					"fr": "Choisissez un outil unique, accessible à l’équipe, et fixez des règles simples de saisie.",
+					"en": "Pick a single tool the team can access and set simple data-entry rules."
+				},
+				"when": {
+					"left": "answer.donnees",
+					"op": "in",
+					"value": [ "papier", "disperse" ]
+				},
+				"priority": 30
+			},
+			{
+				"key": "act_mesure",
+				"title": {
+					"fr": "Mesurez vos actions marketing",
+					"en": "Measure your marketing"
+				},
+				"body": {
+					"fr": "Fixez un objectif par action (contacts, visites, ventes) et faites le point chaque mois.",
+					"en": "Set one goal per action (leads, visits, sales) and review it monthly."
+				},
+				"when": {
+					"left": "answer.mesure",
+					"op": "in",
+					"value": [ "non", "parfois", "nsp" ]
+				},
+				"priority": 25
+			},
+			{
+				"key": "act_formation",
+				"title": {
+					"fr": "Planifiez la montée en compétences",
+					"en": "Plan skills development"
+				},
+				"body": {
+					"fr": "Identifiez deux compétences clés à renforcer cette année et prévoyez un temps dédié pour chaque collaborateur.",
+					"en": "Identify two key skills to strengthen this year and set aside dedicated time for each team member."
+				},
+				"when": {
+					"expr": "score.culture < 50"
+				},
+				"priority": 20
+			},
+			{
+				"key": "act_automatiser",
+				"title": {
+					"fr": "Automatisez et connectez vos outils",
+					"en": "Automate and connect your tools"
+				},
+				"body": {
+					"fr": "Vous êtes bien équipé : reliez vos outils entre eux pour supprimer les doubles saisies.",
+					"en": "You are well equipped: connect your tools to remove duplicate data entry."
+				},
+				"when": {
+					"expr": "var.maturite >= 60"
+				},
+				"priority": 10
+			},
+			{
+				"key": "act_point",
+				"title": {
+					"fr": "Refaites l’audit dans 6 mois",
+					"en": "Retake the audit in 6 months"
+				},
+				"body": {
+					"fr": "Mesurer vos progrès régulièrement entretient la dynamique et permet d’ajuster les priorités.",
+					"en": "Measuring progress regularly keeps the momentum going and lets you adjust priorities."
+				},
+				"priority": 0
+			}
+		],
+		"ctas": [
+			{
+				"key": "cta_cyber",
+				"label": {
+					"fr": "Réserver un diagnostic sécurité",
+					"en": "Book a security check-up"
+				},
+				"text": {
+					"fr": "Un expert vous aide à mettre en place les protections essentielles.",
+					"en": "An expert helps you put essential protections in place."
+				},
+				"url": "https://example.com/diagnostic-securite",
+				"utm": {
+					"source": "audit",
+					"medium": "resultat",
+					"campaign": "maturite-digitale",
+					"content": "cyber"
+				},
+				"when": {
+					"left": "score.cyber",
+					"op": "lt",
+					"value": 40
+				},
+				"priority": 30
+			},
+			{
+				"key": "cta_accompagnement",
+				"label": {
+					"fr": "Être accompagné dans ma transformation",
+					"en": "Get support for my transformation"
+				},
+				"text": {
+					"fr": "Un échange de 30 minutes pour construire votre feuille de route numérique.",
+					"en": "A 30-minute call to build your digital roadmap."
+				},
+				"url": "https://example.com/accompagnement",
+				"utm": {
+					"source": "audit",
+					"medium": "resultat",
+					"campaign": "maturite-digitale",
+					"content": "accompagnement"
+				},
+				"when": {
+					"expr": "var.maturite < 50"
+				},
+				"priority": 20
+			},
+			{
+				"key": "cta_ressources",
+				"label": {
+					"fr": "Accéder aux ressources avancées",
+					"en": "Access advanced resources"
+				},
+				"text": {
+					"fr": "Guides et méthodes pour aller plus loin.",
+					"en": "Guides and methods to go further."
+				},
+				"url": "https://example.com/ressources",
+				"utm": {
+					"source": "audit",
+					"medium": "resultat",
+					"campaign": "maturite-digitale",
+					"content": "ressources"
+				},
+				"priority": 10
+			}
+		]
+	},
+	"results": {
+		"title": {
+			"fr": "{first_name}, voici votre audit de maturité digitale",
+			"en": "{first_name}, here is your digital maturity audit"
+		},
+		"shareLink": true,
+		"emailResult": true,
+		"blocks": [
+			{
+				"type": "profile"
+			},
+			{
+				"type": "variables",
+				"title": {
+					"fr": "Votre indice",
+					"en": "Your index"
+				},
+				"keys": [ "maturite", "niveau" ]
+			},
+			{
+				"type": "scores",
+				"title": {
+					"fr": "Vos 5 axes",
+					"en": "Your 5 areas"
+				},
+				"display": "radar"
+			},
+			{
+				"type": "scores",
+				"title": {
+					"fr": "Le détail par axe",
+					"en": "Breakdown by area"
+				},
+				"display": "bars"
+			},
+			{
+				"type": "texts",
+				"title": {
+					"fr": "Analyse",
+					"en": "Analysis"
+				}
+			},
+			{
+				"type": "actions",
+				"title": {
+					"fr": "Votre plan d’action",
+					"en": "Your action plan"
+				}
+			},
+			{
+				"type": "cta"
+			},
+			{
+				"type": "share"
+			}
+		]
+	},
+	"ui": {
+		"theme": {
+			"colors": {
+				"primary": "#6d28d9",
+				"primaryText": "#ffffff",
+				"background": "#ffffff",
+				"surface": "#f5f3ff",
+				"text": "#1f2937",
+				"muted": "#4b5563"
+			},
+			"fontFamily": "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+			"headingFontFamily": "'Trebuchet MS', 'Segoe UI', system-ui, sans-serif",
+			"radius": "12px",
+			"maxWidth": "780px"
+		},
+		"legal": {
+			"fr": "Vos données servent uniquement à établir et vous envoyer votre résultat. Elles ne sont jamais revendues. Vous pouvez demander leur consultation ou leur suppression à tout moment.",
+			"en": "Your data is only used to produce and send you your result. It is never sold. You can ask to access or delete it at any time."
+		}
+	}
+}

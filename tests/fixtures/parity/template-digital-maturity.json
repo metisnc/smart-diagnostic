@@ -1,0 +1,359 @@
+{
+	"description": "templates/diagnostics/digital-maturity.json : modèle livré avec le plugin.",
+	"configFile": "templates/diagnostics/digital-maturity.json",
+	"cases": [
+		{
+			"name": "leader",
+			"answers": {
+				"first_name": "Alex",
+				"site": "transactionnel",
+				"canaux": [ "fiche", "reseaux", "annuaires", "places_marche" ],
+				"avis": 5,
+				"outils_collab": [
+					"messagerie",
+					"stockage",
+					"crm",
+					"gestion",
+					"projets"
+				],
+				"donnees": "outil",
+				"pilotage": "automatique",
+				"actions_marketing": [
+					"emailing",
+					"publications",
+					"contenus",
+					"referencement",
+					"publicite"
+				],
+				"mesure": "regulier",
+				"formation": "plan",
+				"adoption": 5,
+				"sauvegardes": "auto_testee",
+				"protections": [
+					"mots_de_passe",
+					"double_auth",
+					"mises_a_jour",
+					"antivirus",
+					"sensibilisation"
+				],
+				"incident": true
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"first_name",
+					"site",
+					"canaux",
+					"avis",
+					"outils_collab",
+					"donnees",
+					"pilotage",
+					"actions_marketing",
+					"mesure",
+					"formation",
+					"adoption",
+					"pause_cyber",
+					"sauvegardes",
+					"protections",
+					"incident",
+					"contact"
+				],
+				"scores": {
+					"presence": 100,
+					"outils": 100,
+					"marketing": 100,
+					"culture": 100,
+					"cyber": 100
+				},
+				"vars": {
+					"maturite": 100,
+					"niveau": 4
+				},
+				"profile": "leader",
+				"texts": [],
+				"actions": [ "act_automatiser", "act_point" ],
+				"cta": "cta_ressources"
+			}
+		},
+		{
+			"name": "structure",
+			"answers": {
+				"first_name": "Alex",
+				"site": "vitrine",
+				"canaux": [ "fiche", "reseaux" ],
+				"avis": 3,
+				"outils_collab": [ "messagerie", "stockage", "gestion" ],
+				"donnees": "fichier",
+				"pilotage": "tableau",
+				"actions_marketing": [ "emailing", "publications", "contenus" ],
+				"mesure": "parfois",
+				"formation": "ponctuelle",
+				"adoption": 4,
+				"sauvegardes": "auto",
+				"protections": [ "mots_de_passe", "antivirus", "mises_a_jour" ],
+				"incident": false
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"first_name",
+					"site",
+					"canaux",
+					"avis",
+					"outils_collab",
+					"donnees",
+					"pilotage",
+					"actions_marketing",
+					"mesure",
+					"formation",
+					"adoption",
+					"pause_cyber",
+					"sauvegardes",
+					"protections",
+					"incident",
+					"contact"
+				],
+				"scores": {
+					"presence": 55,
+					"outils": 64,
+					"marketing": 51,
+					"culture": 70,
+					"cyber": 49
+				},
+				"vars": {
+					"maturite": 58,
+					"niveau": 3
+				},
+				"profile": "structure",
+				"texts": [ "faible_cyber" ],
+				"actions": [
+					"act_double_auth",
+					"act_incident",
+					"act_site",
+					"act_mesure",
+					"act_point"
+				],
+				"cta": "cta_ressources"
+			}
+		},
+		{
+			"name": "progression with cyber alert",
+			"answers": {
+				"first_name": "Alex",
+				"site": "basique",
+				"canaux": [ "reseaux" ],
+				"avis": 2,
+				"outils_collab": [ "messagerie", "stockage" ],
+				"donnees": "disperse",
+				"pilotage": "ponctuel",
+				"actions_marketing": [ "publications" ],
+				"mesure": "parfois",
+				"formation": "autodidacte",
+				"adoption": 3,
+				"sauvegardes": "manuelle",
+				"protections": [ "antivirus" ],
+				"incident": false
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"first_name",
+					"site",
+					"canaux",
+					"avis",
+					"outils_collab",
+					"donnees",
+					"pilotage",
+					"actions_marketing",
+					"mesure",
+					"formation",
+					"adoption",
+					"pause_cyber",
+					"sauvegardes",
+					"protections",
+					"incident",
+					"contact"
+				],
+				"scores": {
+					"presence": 18,
+					"outils": 36,
+					"marketing": 27,
+					"culture": 35,
+					"cyber": 18
+				},
+				"vars": {
+					"maturite": 27,
+					"niveau": 2
+				},
+				"profile": "progression",
+				"texts": [ "faible_presence", "alerte_cyber" ],
+				"actions": [
+					"act_sauvegarde",
+					"act_double_auth",
+					"act_incident",
+					"act_site",
+					"act_fiche",
+					"act_donnees",
+					"act_mesure",
+					"act_formation",
+					"act_point"
+				],
+				"cta": "cta_cyber"
+			}
+		},
+		{
+			"name": "premiers pas",
+			"answers": {
+				"site": "aucun",
+				"canaux": [ "aucun" ],
+				"avis": 1,
+				"outils_collab": [ "aucun" ],
+				"donnees": "papier",
+				"pilotage": "pas",
+				"actions_marketing": [ "aucun" ],
+				"mesure": "nsp",
+				"formation": "aucune",
+				"adoption": 1,
+				"sauvegardes": "nsp",
+				"protections": [ "aucun" ],
+				"incident": false
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"first_name",
+					"site",
+					"canaux",
+					"avis",
+					"outils_collab",
+					"donnees",
+					"pilotage",
+					"actions_marketing",
+					"mesure",
+					"formation",
+					"adoption",
+					"pause_cyber",
+					"sauvegardes",
+					"protections",
+					"incident",
+					"contact"
+				],
+				"scores": {
+					"presence": 0,
+					"outils": 0,
+					"marketing": 0,
+					"culture": 5,
+					"cyber": 0
+				},
+				"vars": {
+					"maturite": 1,
+					"niveau": 1
+				},
+				"profile": "premiers_pas",
+				"texts": [ "faible_presence", "alerte_cyber" ],
+				"actions": [
+					"act_sauvegarde",
+					"act_double_auth",
+					"act_incident",
+					"act_site",
+					"act_fiche",
+					"act_donnees",
+					"act_mesure",
+					"act_formation",
+					"act_point"
+				],
+				"cta": "cta_cyber"
+			}
+		},
+		{
+			"name": "cyber alert when cyber low but not weakest",
+			"answers": {
+				"first_name": "Alex",
+				"site": "aucun",
+				"canaux": [ "aucun" ],
+				"avis": 1,
+				"outils_collab": [
+					"messagerie",
+					"stockage",
+					"crm",
+					"gestion",
+					"projets"
+				],
+				"donnees": "outil",
+				"pilotage": "automatique",
+				"actions_marketing": [
+					"emailing",
+					"publications",
+					"contenus",
+					"referencement",
+					"publicite"
+				],
+				"mesure": "regulier",
+				"formation": "plan",
+				"adoption": 5,
+				"sauvegardes": "manuelle",
+				"protections": [ "antivirus" ],
+				"incident": false
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"first_name",
+					"site",
+					"canaux",
+					"avis",
+					"outils_collab",
+					"donnees",
+					"pilotage",
+					"actions_marketing",
+					"mesure",
+					"formation",
+					"adoption",
+					"pause_cyber",
+					"sauvegardes",
+					"protections",
+					"incident",
+					"contact"
+				],
+				"scores": {
+					"presence": 0,
+					"outils": 100,
+					"marketing": 100,
+					"culture": 100,
+					"cyber": 18
+				},
+				"vars": {
+					"maturite": 64,
+					"niveau": 3
+				},
+				"profile": "structure",
+				"texts": [ "faible_presence", "alerte_cyber" ],
+				"actions": [
+					"act_sauvegarde",
+					"act_double_auth",
+					"act_incident",
+					"act_site",
+					"act_fiche",
+					"act_automatiser",
+					"act_point"
+				],
+				"cta": "cta_cyber"
+			}
+		}
+	]
+}
