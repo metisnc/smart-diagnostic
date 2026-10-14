@@ -30,7 +30,6 @@ final class TemplatesPage {
 		add_action( 'admin_menu', array( $this, 'add_page' ) );
 		add_action( 'admin_post_' . self::ACTION, array( $this, 'use_template' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
-		add_action( 'manage_posts_extra_tablenav', array( $this, 'list_button' ) );
 	}
 
 	public static function url(): string {
@@ -50,17 +49,22 @@ final class TemplatesPage {
 	}
 
 	/**
-	 * Bouton « Créer depuis un modèle » au-dessus de la liste des diagnostics.
+	 * Bouton « Créer depuis un modèle » à côté de « Ajouter », en haut de la liste.
 	 */
-	public function list_button( string $which ): void {
-		$screen = get_current_screen();
-		if ( 'top' !== $which || ! $screen || 'edit-' . DiagnosticPostType::NAME !== $screen->id ) {
-			return;
-		}
-		printf( '<div class="alignleft actions"><a class="button" href="%s">%s</a></div>', esc_url( self::url() ), esc_html__( 'Create from a template', 'smart-diagnostic' ) );
+	private function list_button(): void {
+		$link = sprintf( '<a href="%s" class="page-title-action">%s</a>', esc_url( self::url() ), esc_html__( 'Create from a template', 'smart-diagnostic' ) );
+		wp_add_inline_script(
+			'common',
+			sprintf( 'document.addEventListener("DOMContentLoaded",function(){var a=document.querySelector(".wrap .page-title-action");if(a){a.insertAdjacentHTML("afterend",%s);}});', wp_json_encode( $link ) )
+		);
 	}
 
 	public function enqueue( string $hook ): void {
+		$screen = get_current_screen();
+		if ( 'edit.php' === $hook && $screen && 'edit-' . DiagnosticPostType::NAME === $screen->id ) {
+			$this->list_button();
+			return;
+		}
 		if ( ! str_ends_with( $hook, '_page_' . self::PAGE ) ) {
 			return;
 		}
