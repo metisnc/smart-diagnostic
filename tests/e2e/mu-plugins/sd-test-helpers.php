@@ -37,15 +37,16 @@ add_filter(
 		if ( 'demo' !== get_post_field( 'post_name', $post_id ) ) {
 			return $config;
 		}
-		$config->integrations = (object) array(
-			'webhooks' => array(
-				(object) array(
-					'key'    => 'sd_test',
-					'url'    => 'http://localhost/?rest_route=/sd-test/v1/webhook',
-					'events' => array( 'submit', 'capture' ),
-				),
+		// Ajout du webhook de test, sans écraser le reste des intégrations (emails…).
+		$integrations           = isset( $config->integrations ) ? clone $config->integrations : new stdClass();
+		$integrations->webhooks = array(
+			(object) array(
+				'key'    => 'sd_test',
+				'url'    => 'http://localhost/?rest_route=/sd-test/v1/webhook',
+				'events' => array( 'submit', 'capture' ),
 			),
 		);
+		$config->integrations   = $integrations;
 		return $config;
 	},
 	10,

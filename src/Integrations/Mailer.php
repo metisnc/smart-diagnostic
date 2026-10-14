@@ -63,10 +63,8 @@ final class Mailer {
 			return false;
 		}
 
-		$subject = $this->text( $settings['subject'] ?? null, $config, $submission )
-			?: __( 'Your results', 'smart-diagnostic' ); // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
-		$body    = $this->render( (string) ( $settings['template'] ?? 'user' ), $submission, $config );
-		$result  = $this->transport->send( $email, $subject, $body );
+		$email_content = $this->compose( 'user', $submission, $config );
+		$result        = $this->transport->send( $email, $email_content['subject'], $email_content['body'] );
 		$this->record( $submission, 'user', $email, $result );
 		return $result['ok'];
 	}
@@ -85,16 +83,88 @@ final class Mailer {
 			$recipients = array( (string) get_option( 'admin_email' ) );
 		}
 
-		$subject = $this->text( $settings['subject'] ?? null, $config, $submission );
-		if ( '' === $subject ) {
-			/* translators: 1: diagnostic title, 2: first name or email. */
-			$subject = sprintf( __( 'New submission: %1$s (%2$s)', 'smart-diagnostic' ), get_the_title( (int) $submission['diagnostic_id'] ), $submission['first_name'] ?: $submission['email'] ?: '—' ); // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
-		}
-		$body   = $this->render( (string) ( $settings['template'] ?? 'admin' ), $submission, $config );
-		$to     = implode( ',', $recipients );
-		$result = $this->transport->send( $to, $subject, $body );
+		$email_content = $this->compose( 'admin', $submission, $config );
+		$to            = implode( ',', $recipients );
+		$result        = $this->transport->send( $to, $email_content['subject'], $email_content['body'] );
 		$this->record( $submission, 'admin', $to, $result );
 		return $result['ok'];
+	}
+
+	/**
+	 * Objet et corps d'un email : modèle personnalisé du diagnostic s'il existe, sinon modèle par défaut.
+	 *
+	 * @param string               $kind       user | admin.
+	 * @param array<string, mixed> $submission Soumission.
+	 * @param array<string, mixed> $config     Config.
+	 * @return array{subject: string, body: string, custom: bool}
+	 */
+	public function compose( string $kind, array $submission, array $config ): array {
+		$settings = $config['integrations']['emails'][ $kind ] ?? array();
+		$subject  = $this->text( $settings['subject'] ?? null, $config, $submission );
+		if ( '' === $subject ) {
+			$subject = 'user' === $kind
+				? __( 'Your results', 'smart-diagnostic' )
+				/* translators: 1: diagnostic title, 2: first name or email. */
+				: sprintf( __( 'New submission: %1$s (%2$s)', 'smart-diagnostic' ), get_the_title( (int) ( $submission['diagnostic_id'] ?? 0 ) ), $submission['first_name'] ?: $submission['email'] ?: '—' ); // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
+		}
+
+		$custom = Text::resolve( $settings['body'] ?? null, (string) ( $submission['lang'] ?? '' ), (string) ( $config['i18n']['defaultLanguage'] ?? '' ) );
+		if ( '' !== trim( $custom ) ) {
+			return array(
+				'subject' => $subject,
+				'body'    => CustomEmail::render( $custom, ! empty( $settings['fullHtml'] ), $submission, $config ),
+				'custom'  => true,
+			);
+		}
+		return array(
+			'subject' => $subject,
+			'body'    => $this->render( (string) ( $settings['template'] ?? $kind ), $submission, $config ),
+			'custom'  => false,
+		);
+	}
+
+	/**
+	 * Soumission fictive pour l'aperçu des emails dans le constructeur : premier profil,
+	 * scores à mi-échelle, tous les textes et actions, premier CTA.
+	 *
+	 * @param array<string, mixed> $config Config.
+	 * @return array<string, mixed>
+	 */
+	public static function sample_submission( array $config, int $diagnostic_id = 0 ): array {
+		$scores = array();
+		foreach ( $config['axes'] ?? array() as $axis ) {
+			$scores[ $axis['key'] ] = ( (float) ( $axis['min'] ?? 0 ) + (float) ( $axis['max'] ?? 100 ) ) / 2;
+		}
+		$answers = array();
+		foreach ( $config['steps'] ?? array() as $step ) {
+			if ( 'question' === ( $step['kind'] ?? '' ) && ! empty( $step['options'] ) ) {
+				$answers[ $step['key'] ] = 'multi' === ( $step['type'] ?? '' ) ? array( $step['options'][0]['value'] ) : $step['options'][0]['value'];
+			}
+		}
+		$outcomes = $config['outcomes'] ?? array();
+		return array(
+			'id'            => 0,
+			'diagnostic_id' => $diagnostic_id,
+			'token'         => str_repeat( '0', 32 ),
+			'source_url'    => home_url( '/' ),
+			'created_at'    => current_time( 'mysql', true ),
+			'first_name'    => __( 'Marie', 'smart-diagnostic' ),
+			'email'         => 'marie@example.com',
+			'contact'       => array(
+				'first_name' => __( 'Marie', 'smart-diagnostic' ),
+				'email'      => 'marie@example.com',
+			),
+			'answers'       => $answers,
+			'scores'        => $scores,
+			'vars'          => array(),
+			'lang'          => (string) ( $config['i18n']['defaultLanguage'] ?? '' ),
+			'result'        => array(
+				'profile' => $outcomes['profiles'][0]['key'] ?? null,
+				'texts'   => array_column( $outcomes['texts'] ?? array(), 'key' ),
+				'actions' => array_column( $outcomes['actions'] ?? array(), 'key' ),
+				'cta'     => $outcomes['ctas'][0]['key'] ?? null,
+			),
+		);
 	}
 
 	/**

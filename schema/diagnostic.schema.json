@@ -15,18 +15,26 @@
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {
-				"title": { "$ref": "#/$defs/text" },
-				"description": { "$ref": "#/$defs/text" }
+				"title": {
+					"$ref": "#/$defs/text"
+				},
+				"description": {
+					"$ref": "#/$defs/text"
+				}
 			}
 		},
 		"i18n": {
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {
-				"defaultLanguage": { "$ref": "#/$defs/lang" },
+				"defaultLanguage": {
+					"$ref": "#/$defs/lang"
+				},
 				"languages": {
 					"type": "array",
-					"items": { "$ref": "#/$defs/lang" },
+					"items": {
+						"$ref": "#/$defs/lang"
+					},
 					"uniqueItems": true
 				},
 				"switcher": {
@@ -36,20 +44,30 @@
 				}
 			}
 		},
-
 		"welcome": {
 			"description": "Écran d'accueil. Tous les éléments sont optionnels ; absent = démarrage direct.",
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {
-				"enabled": { "type": "boolean", "default": true },
-				"title": { "$ref": "#/$defs/text" },
-				"subtitle": { "$ref": "#/$defs/text" },
+				"enabled": {
+					"type": "boolean",
+					"default": true
+				},
+				"title": {
+					"$ref": "#/$defs/text"
+				},
+				"subtitle": {
+					"$ref": "#/$defs/text"
+				},
 				"benefits": {
 					"type": "array",
-					"items": { "$ref": "#/$defs/text" }
+					"items": {
+						"$ref": "#/$defs/text"
+					}
 				},
-				"image": { "$ref": "#/$defs/media" },
+				"image": {
+					"$ref": "#/$defs/media"
+				},
 				"resultPreview": {
 					"type": "boolean",
 					"default": false,
@@ -57,12 +75,15 @@
 				},
 				"badges": {
 					"type": "array",
-					"items": { "$ref": "#/$defs/text" }
+					"items": {
+						"$ref": "#/$defs/text"
+					}
 				},
-				"startLabel": { "$ref": "#/$defs/text" }
+				"startLabel": {
+					"$ref": "#/$defs/text"
+				}
 			}
 		},
-
 		"flow": {
 			"description": "Comportement du parcours.",
 			"type": "object",
@@ -72,12 +93,24 @@
 					"type": "object",
 					"additionalProperties": false,
 					"properties": {
-						"bar": { "type": "boolean", "default": true },
-						"counter": { "type": "boolean", "default": true },
-						"sectionName": { "type": "boolean", "default": true }
+						"bar": {
+							"type": "boolean",
+							"default": true
+						},
+						"counter": {
+							"type": "boolean",
+							"default": true
+						},
+						"sectionName": {
+							"type": "boolean",
+							"default": true
+						}
 					}
 				},
-				"backButton": { "type": "boolean", "default": true },
+				"backButton": {
+					"type": "boolean",
+					"default": true
+				},
 				"saveProgress": {
 					"type": "boolean",
 					"default": true,
@@ -105,7 +138,9 @@
 								"minimum": 0,
 								"maximum": 100
 							},
-							"text": { "$ref": "#/$defs/text" }
+							"text": {
+								"$ref": "#/$defs/text"
+							}
 						}
 					}
 				},
@@ -115,10 +150,15 @@
 					"additionalProperties": false,
 					"required": [ "every", "cards" ],
 					"properties": {
-						"every": { "type": "integer", "minimum": 1 },
+						"every": {
+							"type": "integer",
+							"minimum": 1
+						},
 						"cards": {
 							"type": "array",
-							"items": { "$ref": "#/$defs/contentBody" },
+							"items": {
+								"$ref": "#/$defs/contentBody"
+							},
 							"minItems": 1
 						}
 					}
@@ -128,7 +168,10 @@
 					"type": "object",
 					"additionalProperties": false,
 					"properties": {
-						"enabled": { "type": "boolean", "default": false },
+						"enabled": {
+							"type": "boolean",
+							"default": false
+						},
 						"durationMs": {
 							"type": "integer",
 							"minimum": 0,
@@ -137,13 +180,14 @@
 						},
 						"steps": {
 							"type": "array",
-							"items": { "$ref": "#/$defs/text" }
+							"items": {
+								"$ref": "#/$defs/text"
+							}
 						}
 					}
 				}
 			}
 		},
-
 		"sections": {
 			"type": "array",
 			"items": {
@@ -151,24 +195,32 @@
 				"required": [ "key", "label" ],
 				"additionalProperties": false,
 				"properties": {
-					"key": { "$ref": "#/$defs/key" },
-					"label": { "$ref": "#/$defs/text" }
+					"key": {
+						"$ref": "#/$defs/key"
+					},
+					"label": {
+						"$ref": "#/$defs/text"
+					}
 				}
 			}
 		},
-
 		"steps": {
 			"type": "array",
 			"minItems": 1,
 			"items": {
 				"oneOf": [
-					{ "$ref": "#/$defs/questionStep" },
-					{ "$ref": "#/$defs/contentStep" },
-					{ "$ref": "#/$defs/formStep" }
+					{
+						"$ref": "#/$defs/questionStep"
+					},
+					{
+						"$ref": "#/$defs/contentStep"
+					},
+					{
+						"$ref": "#/$defs/formStep"
+					}
 				]
 			}
 		},
-
 		"axes": {
 			"type": "array",
 			"items": {
@@ -176,16 +228,30 @@
 				"required": [ "key", "label" ],
 				"additionalProperties": false,
 				"properties": {
-					"key": { "$ref": "#/$defs/key" },
-					"label": { "$ref": "#/$defs/text" },
-					"description": { "$ref": "#/$defs/text" },
-					"base": { "type": "number", "default": 0 },
-					"min": { "type": "number", "default": 0 },
-					"max": { "type": "number", "default": 100 }
+					"key": {
+						"$ref": "#/$defs/key"
+					},
+					"label": {
+						"$ref": "#/$defs/text"
+					},
+					"description": {
+						"$ref": "#/$defs/text"
+					},
+					"base": {
+						"type": "number",
+						"default": 0
+					},
+					"min": {
+						"type": "number",
+						"default": 0
+					},
+					"max": {
+						"type": "number",
+						"default": 100
+					}
 				}
 			}
 		},
-
 		"scoring": {
 			"description": "Ordre d'application : base de l'axe → points des options → règles (dans l'ordre) → clamp [min, max].",
 			"type": "object",
@@ -193,11 +259,12 @@
 			"properties": {
 				"rules": {
 					"type": "array",
-					"items": { "$ref": "#/$defs/scoringRule" }
+					"items": {
+						"$ref": "#/$defs/scoringRule"
+					}
 				}
 			}
 		},
-
 		"variables": {
 			"description": "Valeurs dérivées, calculées après les scores, dans l'ordre (une variable peut utiliser les précédentes).",
 			"type": "array",
@@ -206,14 +273,21 @@
 				"required": [ "key", "expr" ],
 				"additionalProperties": false,
 				"properties": {
-					"key": { "$ref": "#/$defs/key" },
-					"label": { "$ref": "#/$defs/text" },
-					"expr": { "$ref": "#/$defs/expression" },
-					"format": { "$ref": "#/$defs/numberFormat" }
+					"key": {
+						"$ref": "#/$defs/key"
+					},
+					"label": {
+						"$ref": "#/$defs/text"
+					},
+					"expr": {
+						"$ref": "#/$defs/expression"
+					},
+					"format": {
+						"$ref": "#/$defs/numberFormat"
+					}
 				}
 			}
 		},
-
 		"outcomes": {
 			"type": "object",
 			"additionalProperties": false,
@@ -226,24 +300,41 @@
 						"required": [ "key", "label" ],
 						"additionalProperties": false,
 						"properties": {
-							"key": { "$ref": "#/$defs/key" },
-							"label": { "$ref": "#/$defs/text" },
-							"text": { "$ref": "#/$defs/richText" },
-							"image": { "$ref": "#/$defs/media" },
-							"when": { "$ref": "#/$defs/condition" },
-							"priority": { "type": "integer", "default": 0 }
+							"key": {
+								"$ref": "#/$defs/key"
+							},
+							"label": {
+								"$ref": "#/$defs/text"
+							},
+							"text": {
+								"$ref": "#/$defs/richText"
+							},
+							"image": {
+								"$ref": "#/$defs/media"
+							},
+							"when": {
+								"$ref": "#/$defs/condition"
+							},
+							"priority": {
+								"type": "integer",
+								"default": 0
+							}
 						}
 					}
 				},
 				"texts": {
 					"description": "Textes conditionnels : tous ceux dont la condition est vraie sont affichés.",
 					"type": "array",
-					"items": { "$ref": "#/$defs/conditionalBlock" }
+					"items": {
+						"$ref": "#/$defs/conditionalBlock"
+					}
 				},
 				"actions": {
 					"description": "Plan d'action / recommandations conditionnelles.",
 					"type": "array",
-					"items": { "$ref": "#/$defs/conditionalBlock" }
+					"items": {
+						"$ref": "#/$defs/conditionalBlock"
+					}
 				},
 				"ctas": {
 					"description": "Le CTA recommandé est le premier dont la condition est vraie (priority décroissante).",
@@ -253,9 +344,15 @@
 						"required": [ "key", "label", "url" ],
 						"additionalProperties": false,
 						"properties": {
-							"key": { "$ref": "#/$defs/key" },
-							"label": { "$ref": "#/$defs/text" },
-							"text": { "$ref": "#/$defs/richText" },
+							"key": {
+								"$ref": "#/$defs/key"
+							},
+							"label": {
+								"$ref": "#/$defs/text"
+							},
+							"text": {
+								"$ref": "#/$defs/richText"
+							},
 							"url": {
 								"type": "string",
 								"format": "uri-reference"
@@ -264,40 +361,60 @@
 								"type": "object",
 								"additionalProperties": false,
 								"properties": {
-									"source": { "type": "string" },
-									"medium": { "type": "string" },
-									"campaign": { "type": "string" },
-									"content": { "type": "string" },
-									"term": { "type": "string" }
+									"source": {
+										"type": "string"
+									},
+									"medium": {
+										"type": "string"
+									},
+									"campaign": {
+										"type": "string"
+									},
+									"content": {
+										"type": "string"
+									},
+									"term": {
+										"type": "string"
+									}
 								}
 							},
-							"when": { "$ref": "#/$defs/condition" },
-							"priority": { "type": "integer", "default": 0 }
+							"when": {
+								"$ref": "#/$defs/condition"
+							},
+							"priority": {
+								"type": "integer",
+								"default": 0
+							}
 						}
 					}
 				}
 			}
 		},
-
 		"results": {
 			"description": "Mise en page du résultat : liste ordonnée de blocs.",
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {
-				"title": { "$ref": "#/$defs/text" },
+				"title": {
+					"$ref": "#/$defs/text"
+				},
 				"blocks": {
 					"type": "array",
-					"items": { "$ref": "#/$defs/resultBlock" }
+					"items": {
+						"$ref": "#/$defs/resultBlock"
+					}
 				},
 				"shareLink": {
 					"type": "boolean",
 					"default": true,
 					"description": "Génère un lien unique de consultation."
 				},
-				"emailResult": { "type": "boolean", "default": true }
+				"emailResult": {
+					"type": "boolean",
+					"default": true
+				}
 			}
 		},
-
 		"integrations": {
 			"description": "Les secrets (HMAC, clés captcha) ne sont JAMAIS stockés ici : ils restent en base, hors import/export.",
 			"type": "object",
@@ -315,10 +432,21 @@
 									"type": "boolean",
 									"default": true
 								},
-								"subject": { "$ref": "#/$defs/text" },
+								"subject": {
+									"$ref": "#/$defs/text"
+								},
 								"template": {
 									"type": "string",
 									"description": "Nom de template (surchargeable par le thème)."
+								},
+								"body": {
+									"$ref": "#/$defs/text",
+									"description": "Modèle personnalisé : corps HTML avec variables ({first_name}, {profile}, {scores}, {texts}, {actions}, {cta}, {result_button}, {result_link}, {answers}…). Absent = modèle par défaut."
+								},
+								"fullHtml": {
+									"type": "boolean",
+									"default": false,
+									"description": "true : le corps est un document HTML complet, sans le cadre du plugin."
 								}
 							}
 						},
@@ -337,8 +465,21 @@
 										"format": "email"
 									}
 								},
-								"subject": { "$ref": "#/$defs/text" },
-								"template": { "type": "string" }
+								"subject": {
+									"$ref": "#/$defs/text"
+								},
+								"template": {
+									"type": "string"
+								},
+								"body": {
+									"$ref": "#/$defs/text",
+									"description": "Modèle personnalisé : corps HTML avec variables ({first_name}, {profile}, {scores}, {texts}, {actions}, {cta}, {result_button}, {result_link}, {answers}…). Absent = modèle par défaut."
+								},
+								"fullHtml": {
+									"type": "boolean",
+									"default": false,
+									"description": "true : le corps est un document HTML complet, sans le cadre du plugin."
+								}
 							}
 						}
 					}
@@ -350,24 +491,32 @@
 						"required": [ "key", "url" ],
 						"additionalProperties": false,
 						"properties": {
-							"key": { "$ref": "#/$defs/key" },
-							"url": { "type": "string", "format": "uri" },
+							"key": {
+								"$ref": "#/$defs/key"
+							},
+							"url": {
+								"type": "string",
+								"format": "uri"
+							},
 							"events": {
 								"type": "array",
-								"items": { "enum": [ "submit", "capture" ] },
+								"items": {
+									"enum": [ "submit", "capture" ]
+								},
 								"default": [ "submit" ]
 							},
 							"mapping": {
 								"description": "Champ de sortie → chemin source (ex. \"email\": \"contact.email\", \"score_global\": \"score.global\").",
 								"type": "object",
-								"additionalProperties": { "type": "string" }
+								"additionalProperties": {
+									"type": "string"
+								}
 							}
 						}
 					}
 				}
 			}
 		},
-
 		"ui": {
 			"type": "object",
 			"additionalProperties": false,
@@ -381,19 +530,41 @@
 							"type": "object",
 							"additionalProperties": false,
 							"properties": {
-								"primary": { "$ref": "#/$defs/color" },
-								"primaryText": { "$ref": "#/$defs/color" },
-								"background": { "$ref": "#/$defs/color" },
-								"surface": { "$ref": "#/$defs/color" },
-								"text": { "$ref": "#/$defs/color" },
-								"muted": { "$ref": "#/$defs/color" },
-								"success": { "$ref": "#/$defs/color" },
-								"warning": { "$ref": "#/$defs/color" },
-								"danger": { "$ref": "#/$defs/color" }
+								"primary": {
+									"$ref": "#/$defs/color"
+								},
+								"primaryText": {
+									"$ref": "#/$defs/color"
+								},
+								"background": {
+									"$ref": "#/$defs/color"
+								},
+								"surface": {
+									"$ref": "#/$defs/color"
+								},
+								"text": {
+									"$ref": "#/$defs/color"
+								},
+								"muted": {
+									"$ref": "#/$defs/color"
+								},
+								"success": {
+									"$ref": "#/$defs/color"
+								},
+								"warning": {
+									"$ref": "#/$defs/color"
+								},
+								"danger": {
+									"$ref": "#/$defs/color"
+								}
 							}
 						},
-						"fontFamily": { "type": "string" },
-						"headingFontFamily": { "type": "string" },
+						"fontFamily": {
+							"type": "string"
+						},
+						"headingFontFamily": {
+							"type": "string"
+						},
 						"radius": {
 							"type": "string",
 							"pattern": "^[0-9.]+(px|rem|em)$"
@@ -404,32 +575,46 @@
 						}
 					}
 				},
-				"logo": { "$ref": "#/$defs/media" },
+				"logo": {
+					"$ref": "#/$defs/media"
+				},
 				"strings": {
 					"description": "Surcharge des libellés d'interface (next, back, start, submit, required, resume…).",
 					"type": "object",
-					"additionalProperties": { "$ref": "#/$defs/text" }
+					"additionalProperties": {
+						"$ref": "#/$defs/text"
+					}
 				},
-				"legal": { "$ref": "#/$defs/richText" }
+				"legal": {
+					"$ref": "#/$defs/richText"
+				}
 			}
 		}
 	},
-
 	"$defs": {
 		"key": {
 			"description": "Identifiant technique stable, utilisé dans les règles et les exports.",
 			"type": "string",
 			"pattern": "^[a-z][a-z0-9_]{0,63}$"
 		},
-		"lang": { "type": "string", "pattern": "^[a-z]{2}(_[A-Z]{2})?$" },
+		"lang": {
+			"type": "string",
+			"pattern": "^[a-z]{2}(_[A-Z]{2})?$"
+		},
 		"text": {
 			"description": "Texte simple, ou objet { langue: texte }. Supporte les variables {first_name}, {answer:cle}, {score:axe}, {var:cle}.",
 			"oneOf": [
-				{ "type": "string" },
+				{
+					"type": "string"
+				},
 				{
 					"type": "object",
-					"propertyNames": { "$ref": "#/$defs/lang" },
-					"additionalProperties": { "type": "string" },
+					"propertyNames": {
+						"$ref": "#/$defs/lang"
+					},
+					"additionalProperties": {
+						"type": "string"
+					},
 					"minProperties": 1
 				}
 			]
@@ -446,8 +631,13 @@
 					"type": "integer",
 					"description": "ID de pièce jointe WordPress (prioritaire)."
 				},
-				"url": { "type": "string", "format": "uri-reference" },
-				"alt": { "$ref": "#/$defs/text" }
+				"url": {
+					"type": "string",
+					"format": "uri-reference"
+				},
+				"alt": {
+					"$ref": "#/$defs/text"
+				}
 			}
 		},
 		"color": {
@@ -462,19 +652,26 @@
 					"enum": [ "number", "currency", "percent" ],
 					"default": "number"
 				},
-				"decimals": { "type": "integer", "minimum": 0, "maximum": 6 },
-				"currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
-				"suffix": { "$ref": "#/$defs/text" }
+				"decimals": {
+					"type": "integer",
+					"minimum": 0,
+					"maximum": 6
+				},
+				"currency": {
+					"type": "string",
+					"pattern": "^[A-Z]{3}$"
+				},
+				"suffix": {
+					"$ref": "#/$defs/text"
+				}
 			}
 		},
-
 		"expression": {
 			"description": "Expression évaluée sans eval (parseur dédié JS + PHP). Opérateurs : + - * / % ( ) == != < <= > >= and or not ?: . Identifiants : answer.<cle>, score.<axe>, var.<cle>, contact.<champ>, count.<cle> (nb d'options cochées). Fonctions : min, max, abs, round, floor, ceil, clamp, sum, avg, if, isAnswered.",
 			"type": "string",
 			"minLength": 1,
 			"maxLength": 1000
 		},
-
 		"condition": {
 			"description": "Condition déclarative. Combinable via all / any / not. Forme avancée : { \"expr\": \"...\" }.",
 			"oneOf": [
@@ -485,7 +682,9 @@
 					"properties": {
 						"all": {
 							"type": "array",
-							"items": { "$ref": "#/$defs/condition" },
+							"items": {
+								"$ref": "#/$defs/condition"
+							},
 							"minItems": 1
 						}
 					}
@@ -497,7 +696,9 @@
 					"properties": {
 						"any": {
 							"type": "array",
-							"items": { "$ref": "#/$defs/condition" },
+							"items": {
+								"$ref": "#/$defs/condition"
+							},
 							"minItems": 1
 						}
 					}
@@ -506,13 +707,21 @@
 					"type": "object",
 					"required": [ "not" ],
 					"additionalProperties": false,
-					"properties": { "not": { "$ref": "#/$defs/condition" } }
+					"properties": {
+						"not": {
+							"$ref": "#/$defs/condition"
+						}
+					}
 				},
 				{
 					"type": "object",
 					"required": [ "expr" ],
 					"additionalProperties": false,
-					"properties": { "expr": { "$ref": "#/$defs/expression" } }
+					"properties": {
+						"expr": {
+							"$ref": "#/$defs/expression"
+						}
+					}
 				},
 				{
 					"description": "Comparaison simple. left : chemin (answer.q1, score.axe, var.x, count.q2) ou mot-clé weakestAxis / strongestAxis.",
@@ -546,22 +755,29 @@
 				}
 			]
 		},
-
 		"stepBase": {
 			"type": "object",
 			"required": [ "key", "kind" ],
 			"properties": {
-				"key": { "$ref": "#/$defs/key" },
-				"kind": { "enum": [ "question", "content", "form" ] },
+				"key": {
+					"$ref": "#/$defs/key"
+				},
+				"kind": {
+					"enum": [ "question", "content", "form" ]
+				},
 				"section": {
 					"$ref": "#/$defs/key",
 					"description": "Clé d'une entrée de sections[]."
 				},
-				"showIf": { "$ref": "#/$defs/condition" },
+				"showIf": {
+					"$ref": "#/$defs/condition"
+				},
 				"jumpTo": {
 					"description": "Saut après l'étape : clé d'étape, \"results\", ou liste de règles évaluées dans l'ordre.",
 					"oneOf": [
-						{ "type": "string" },
+						{
+							"type": "string"
+						},
 						{
 							"type": "array",
 							"items": {
@@ -569,8 +785,12 @@
 								"required": [ "to" ],
 								"additionalProperties": false,
 								"properties": {
-									"if": { "$ref": "#/$defs/condition" },
-									"to": { "type": "string" }
+									"if": {
+										"$ref": "#/$defs/condition"
+									},
+									"to": {
+										"type": "string"
+									}
 								}
 							}
 						}
@@ -578,22 +798,36 @@
 				}
 			}
 		},
-
 		"option": {
 			"type": "object",
 			"required": [ "value", "label" ],
 			"additionalProperties": false,
 			"properties": {
-				"value": { "type": [ "string", "number", "boolean" ] },
-				"label": { "$ref": "#/$defs/text" },
-				"description": { "$ref": "#/$defs/text" },
-				"image": { "$ref": "#/$defs/media" },
-				"icon": { "type": "string", "maxLength": 64 },
+				"value": {
+					"type": [ "string", "number", "boolean" ]
+				},
+				"label": {
+					"$ref": "#/$defs/text"
+				},
+				"description": {
+					"$ref": "#/$defs/text"
+				},
+				"image": {
+					"$ref": "#/$defs/media"
+				},
+				"icon": {
+					"type": "string",
+					"maxLength": 64
+				},
 				"scores": {
 					"description": "Points ajoutés par axe : { \"axe\": nombre }.",
 					"type": "object",
-					"propertyNames": { "$ref": "#/$defs/key" },
-					"additionalProperties": { "type": "number" }
+					"propertyNames": {
+						"$ref": "#/$defs/key"
+					},
+					"additionalProperties": {
+						"type": "number"
+					}
 				},
 				"exclusive": {
 					"type": "boolean",
@@ -617,15 +851,18 @@
 				}
 			}
 		},
-
 		"questionStep": {
 			"allOf": [
-				{ "$ref": "#/$defs/stepBase" },
+				{
+					"$ref": "#/$defs/stepBase"
+				},
 				{
 					"type": "object",
 					"required": [ "type", "label" ],
 					"properties": {
-						"kind": { "const": "question" },
+						"kind": {
+							"const": "question"
+						},
 						"type": {
 							"enum": [
 								"text",
@@ -645,20 +882,35 @@
 								"date"
 							]
 						},
-						"label": { "$ref": "#/$defs/text" },
-						"help": { "$ref": "#/$defs/text" },
-						"placeholder": { "$ref": "#/$defs/text" },
-						"required": { "type": "boolean", "default": true },
+						"label": {
+							"$ref": "#/$defs/text"
+						},
+						"help": {
+							"$ref": "#/$defs/text"
+						},
+						"placeholder": {
+							"$ref": "#/$defs/text"
+						},
+						"required": {
+							"type": "boolean",
+							"default": true
+						},
 						"options": {
 							"type": "array",
-							"items": { "$ref": "#/$defs/option" }
+							"items": {
+								"$ref": "#/$defs/option"
+							}
 						},
 						"validation": {
 							"type": "object",
 							"additionalProperties": false,
 							"properties": {
-								"min": { "type": "number" },
-								"max": { "type": "number" },
+								"min": {
+									"type": "number"
+								},
+								"max": {
+									"type": "number"
+								},
 								"step": {
 									"type": "number",
 									"exclusiveMinimum": 0
@@ -671,7 +923,9 @@
 									"type": "integer",
 									"minimum": 1
 								},
-								"pattern": { "type": "string" },
+								"pattern": {
+									"type": "string"
+								},
 								"minSelected": {
 									"type": "integer",
 									"minimum": 0
@@ -680,7 +934,9 @@
 									"type": "integer",
 									"minimum": 1
 								},
-								"message": { "$ref": "#/$defs/text" }
+								"message": {
+									"$ref": "#/$defs/text"
+								}
 							}
 						},
 						"unit": {
@@ -691,8 +947,12 @@
 							"type": "object",
 							"additionalProperties": false,
 							"properties": {
-								"min": { "$ref": "#/$defs/text" },
-								"max": { "$ref": "#/$defs/text" }
+								"min": {
+									"$ref": "#/$defs/text"
+								},
+								"max": {
+									"$ref": "#/$defs/text"
+								}
 							}
 						},
 						"currency": {
@@ -719,8 +979,12 @@
 								"required": [ "key", "label" ],
 								"additionalProperties": false,
 								"properties": {
-									"key": { "$ref": "#/$defs/key" },
-									"label": { "$ref": "#/$defs/text" }
+									"key": {
+										"$ref": "#/$defs/key"
+									},
+									"label": {
+										"$ref": "#/$defs/text"
+									}
 								}
 							}
 						},
@@ -746,22 +1010,29 @@
 							},
 							"then": {
 								"required": [ "options" ],
-								"properties": { "options": { "minItems": 1 } }
+								"properties": {
+									"options": {
+										"minItems": 1
+									}
+								}
 							}
 						},
 						{
 							"if": {
 								"properties": {
-									"type": { "const": "multi_amount" }
+									"type": {
+										"const": "multi_amount"
+									}
 								}
 							},
-							"then": { "required": [ "fields" ] }
+							"then": {
+								"required": [ "fields" ]
+							}
 						}
 					]
 				}
 			]
 		},
-
 		"contentBody": {
 			"type": "object",
 			"required": [ "variant" ],
@@ -769,45 +1040,76 @@
 				"variant": {
 					"enum": [ "text", "quote", "image", "testimonial", "promo" ]
 				},
-				"title": { "$ref": "#/$defs/text" },
-				"body": { "$ref": "#/$defs/richText" },
-				"image": { "$ref": "#/$defs/media" },
-				"author": { "$ref": "#/$defs/text" },
-				"authorRole": { "$ref": "#/$defs/text" },
+				"title": {
+					"$ref": "#/$defs/text"
+				},
+				"body": {
+					"$ref": "#/$defs/richText"
+				},
+				"image": {
+					"$ref": "#/$defs/media"
+				},
+				"author": {
+					"$ref": "#/$defs/text"
+				},
+				"authorRole": {
+					"$ref": "#/$defs/text"
+				},
 				"cta": {
 					"type": "object",
 					"additionalProperties": false,
 					"properties": {
-						"label": { "$ref": "#/$defs/text" },
-						"url": { "type": "string", "format": "uri-reference" }
+						"label": {
+							"$ref": "#/$defs/text"
+						},
+						"url": {
+							"type": "string",
+							"format": "uri-reference"
+						}
 					}
 				}
 			}
 		},
-
 		"contentStep": {
 			"allOf": [
-				{ "$ref": "#/$defs/stepBase" },
-				{ "$ref": "#/$defs/contentBody" },
-				{ "properties": { "kind": { "const": "content" } } }
+				{
+					"$ref": "#/$defs/stepBase"
+				},
+				{
+					"$ref": "#/$defs/contentBody"
+				},
+				{
+					"properties": {
+						"kind": {
+							"const": "content"
+						}
+					}
+				}
 			]
 		},
-
 		"formStep": {
 			"allOf": [
-				{ "$ref": "#/$defs/stepBase" },
+				{
+					"$ref": "#/$defs/stepBase"
+				},
 				{
 					"type": "object",
 					"required": [ "fields" ],
 					"properties": {
-						"kind": { "const": "form" },
+						"kind": {
+							"const": "form"
+						},
 						"placement": {
 							"description": "inline = à sa place dans le parcours ; after_results = affiché sous le résultat.",
 							"enum": [ "inline", "after_results" ],
 							"default": "inline"
 						},
-						"title": { "$ref": "#/$defs/text" },
-						"text": { "$ref": "#/$defs/richText" },
+						"title": {
+							"$ref": "#/$defs/text"
+						},
+						"text": {
+							"$ref": "#/$defs/richText"
+						},
 						"fields": {
 							"type": "array",
 							"minItems": 1,
@@ -830,15 +1132,21 @@
 											"textarea"
 										]
 									},
-									"label": { "$ref": "#/$defs/text" },
-									"placeholder": { "$ref": "#/$defs/text" },
+									"label": {
+										"$ref": "#/$defs/text"
+									},
+									"placeholder": {
+										"$ref": "#/$defs/text"
+									},
 									"required": {
 										"type": "boolean",
 										"default": false
 									},
 									"options": {
 										"type": "array",
-										"items": { "$ref": "#/$defs/option" }
+										"items": {
+											"$ref": "#/$defs/option"
+										}
 									}
 								}
 							}
@@ -852,19 +1160,22 @@
 									"type": "boolean",
 									"default": true
 								},
-								"text": { "$ref": "#/$defs/richText" },
+								"text": {
+									"$ref": "#/$defs/richText"
+								},
 								"version": {
 									"type": "string",
 									"description": "Stockée avec chaque soumission (preuve de consentement)."
 								}
 							}
 						},
-						"submitLabel": { "$ref": "#/$defs/text" }
+						"submitLabel": {
+							"$ref": "#/$defs/text"
+						}
 					}
 				}
 			]
 		},
-
 		"scoringRule": {
 			"type": "object",
 			"required": [ "type", "axis" ],
@@ -878,7 +1189,9 @@
 						"cap"
 					]
 				},
-				"axis": { "$ref": "#/$defs/key" },
+				"axis": {
+					"$ref": "#/$defs/key"
+				},
 				"when": {
 					"$ref": "#/$defs/condition",
 					"description": "La règle ne s'applique que si vraie."
@@ -888,29 +1201,47 @@
 				{
 					"description": "Points selon la plage de la valeur numérique d'une réponse.",
 					"properties": {
-						"type": { "const": "range" },
-						"question": { "$ref": "#/$defs/key" },
-						"ranges": { "$ref": "#/$defs/pointRanges" }
+						"type": {
+							"const": "range"
+						},
+						"question": {
+							"$ref": "#/$defs/key"
+						},
+						"ranges": {
+							"$ref": "#/$defs/pointRanges"
+						}
 					},
 					"required": [ "question", "ranges" ]
 				},
 				{
 					"description": "Points selon le nombre d'options cochées.",
 					"properties": {
-						"type": { "const": "count" },
-						"question": { "$ref": "#/$defs/key" },
-						"ranges": { "$ref": "#/$defs/pointRanges" }
+						"type": {
+							"const": "count"
+						},
+						"question": {
+							"$ref": "#/$defs/key"
+						},
+						"ranges": {
+							"$ref": "#/$defs/pointRanges"
+						}
 					},
 					"required": [ "question", "ranges" ]
 				},
 				{
 					"description": "Points fixes ou calculés si la condition est vraie.",
 					"properties": {
-						"type": { "const": "condition" },
+						"type": {
+							"const": "condition"
+						},
 						"points": {
 							"oneOf": [
-								{ "type": "number" },
-								{ "$ref": "#/$defs/expression" }
+								{
+									"type": "number"
+								},
+								{
+									"$ref": "#/$defs/expression"
+								}
 							]
 						}
 					},
@@ -918,22 +1249,31 @@
 				},
 				{
 					"properties": {
-						"type": { "const": "multiplier" },
-						"factor": { "type": "number" }
+						"type": {
+							"const": "multiplier"
+						},
+						"factor": {
+							"type": "number"
+						}
 					},
 					"required": [ "factor" ]
 				},
 				{
 					"description": "Plafond / plancher intermédiaire (le clamp final [min,max] de l'axe s'applique toujours).",
 					"properties": {
-						"type": { "const": "cap" },
-						"min": { "type": "number" },
-						"max": { "type": "number" }
+						"type": {
+							"const": "cap"
+						},
+						"min": {
+							"type": "number"
+						},
+						"max": {
+							"type": "number"
+						}
 					}
 				}
 			]
 		},
-
 		"pointRanges": {
 			"type": "array",
 			"minItems": 1,
@@ -942,26 +1282,43 @@
 				"required": [ "points" ],
 				"additionalProperties": false,
 				"properties": {
-					"min": { "type": "number", "description": "Inclus." },
-					"max": { "type": "number", "description": "Exclu." },
-					"points": { "type": "number" }
+					"min": {
+						"type": "number",
+						"description": "Inclus."
+					},
+					"max": {
+						"type": "number",
+						"description": "Exclu."
+					},
+					"points": {
+						"type": "number"
+					}
 				}
 			}
 		},
-
 		"conditionalBlock": {
 			"type": "object",
 			"required": [ "key", "body" ],
 			"additionalProperties": false,
 			"properties": {
-				"key": { "$ref": "#/$defs/key" },
-				"title": { "$ref": "#/$defs/text" },
-				"body": { "$ref": "#/$defs/richText" },
-				"when": { "$ref": "#/$defs/condition" },
-				"priority": { "type": "integer", "default": 0 }
+				"key": {
+					"$ref": "#/$defs/key"
+				},
+				"title": {
+					"$ref": "#/$defs/text"
+				},
+				"body": {
+					"$ref": "#/$defs/richText"
+				},
+				"when": {
+					"$ref": "#/$defs/condition"
+				},
+				"priority": {
+					"type": "integer",
+					"default": 0
+				}
 			}
 		},
-
 		"resultBlock": {
 			"type": "object",
 			"required": [ "type" ],
@@ -980,12 +1337,22 @@
 						"html"
 					]
 				},
-				"title": { "$ref": "#/$defs/text" },
-				"showIf": { "$ref": "#/$defs/condition" }
+				"title": {
+					"$ref": "#/$defs/text"
+				},
+				"showIf": {
+					"$ref": "#/$defs/condition"
+				}
 			},
 			"allOf": [
 				{
-					"if": { "properties": { "type": { "const": "scores" } } },
+					"if": {
+						"properties": {
+							"type": {
+								"const": "scores"
+							}
+						}
+					},
 					"then": {
 						"properties": {
 							"display": {
@@ -994,22 +1361,33 @@
 							},
 							"axes": {
 								"type": "array",
-								"items": { "$ref": "#/$defs/key" },
+								"items": {
+									"$ref": "#/$defs/key"
+								},
 								"description": "Vide = tous les axes."
 							},
-							"showValues": { "type": "boolean", "default": true }
+							"showValues": {
+								"type": "boolean",
+								"default": true
+							}
 						}
 					}
 				},
 				{
 					"if": {
-						"properties": { "type": { "const": "variables" } }
+						"properties": {
+							"type": {
+								"const": "variables"
+							}
+						}
 					},
 					"then": {
 						"properties": {
 							"keys": {
 								"type": "array",
-								"items": { "$ref": "#/$defs/key" }
+								"items": {
+									"$ref": "#/$defs/key"
+								}
 							},
 							"chart": {
 								"enum": [ "none", "bars", "line", "compare" ],
@@ -1019,9 +1397,19 @@
 					}
 				},
 				{
-					"if": { "properties": { "type": { "const": "html" } } },
+					"if": {
+						"properties": {
+							"type": {
+								"const": "html"
+							}
+						}
+					},
 					"then": {
-						"properties": { "body": { "$ref": "#/$defs/richText" } }
+						"properties": {
+							"body": {
+								"$ref": "#/$defs/richText"
+							}
+						}
 					}
 				}
 			]
