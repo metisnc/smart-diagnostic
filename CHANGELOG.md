@@ -4,6 +4,13 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Unreleased]
 
+### Added
+- Réglages → Emails : nom et adresse d'expéditeur, adresse de réponse, bouton « Envoyer un
+  email de test », SMTP dédié facultatif (mot de passe possible via `SD_SMTP_PASSWORD`) ;
+  statut d'envoi des emails (visiteur, équipe) dans le détail de chaque réponse.
+- Environnement de développement : site en français (`WP_LOCALE`), compte `e2e` pour les
+  tests, Mailpit pour recevoir les emails de test.
+
 ## [1.0.1] - 2026-10-14
 
 ### Fixed
