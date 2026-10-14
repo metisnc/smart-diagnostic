@@ -101,7 +101,17 @@ export function App( { payload, preview = false, start: startAt = null } ) {
 		}
 		// Aperçu de l'admin : l'étape, l'accueil ou le résultat en cours de modification.
 		if ( preview && startAt?.step ) {
-			return { ...fresh, screen: 'step', current: startAt.step };
+			// Étapes précédentes considérées comme vues : compteur et « Retour » cohérents.
+			const all = ( config.steps ?? [] ).map( ( item ) => item.key );
+			return {
+				...fresh,
+				screen: 'step',
+				current: startAt.step,
+				history: all.slice(
+					0,
+					Math.max( 0, all.indexOf( startAt.step ) )
+				),
+			};
 		}
 		if ( preview && startAt?.screen === 'welcome' ) {
 			return fresh;
