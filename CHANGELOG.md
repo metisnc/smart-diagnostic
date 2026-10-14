@@ -11,6 +11,7 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 - Onglet « Apparence » repensé : thèmes de couleurs prêts à l'emploi, menus pour les polices
   (texte et titres), les coins et la largeur (avec valeur personnalisée), alerte de lisibilité
   (contraste), logo depuis la médiathèque (choisir ou téléverser) avec aperçu et description.
+- Réglages : bouton « i » à côté de chaque réglage, qui explique simplement à quoi il sert.
 
 ### Fixed
 - Le constructeur ne peut plus se retrouver dans la colonne latérale (panneau fixe sous le

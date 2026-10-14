@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-14T12:33:50+00:00\n"
+"POT-Creation-Date: 2026-10-14T12:50:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: smart-diagnostic\n"
@@ -87,7 +87,7 @@ msgstr ""
 #: src/Admin/ImportExport.php:91
 #: src/Admin/ImportExport.php:110
 #: src/Admin/ImportExport.php:121
-#: src/Admin/SettingsPage.php:412
+#: src/Admin/SettingsPage.php:524
 #: src/Admin/SubmissionsPage.php:90
 #: src/Admin/SubmissionsPage.php:280
 #: src/Admin/TemplatesPage.php:93
@@ -261,113 +261,195 @@ msgstr ""
 msgid "Dedicated SMTP not enabled: enter a valid server address in \"SMTP server\" (for example smtp.office365.com)."
 msgstr ""
 
+#: src/Admin/SettingsPage.php:169
+msgid "Protects your questionnaires from robots that send fake answers. Cloudflare Turnstile is free and invisible for most visitors; Google reCAPTCHA v3 also works in the background. Leave \"None\" if you receive no spam: the plugin already limits the number of submissions per visitor."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:170
+msgid "The public key given by Cloudflare or Google when you register your site in their console. It appears in the code of your pages: this is normal."
+msgstr ""
+
 #: src/Admin/SettingsPage.php:171
-msgid "Lets an AI assistant compatible with MCP (for example Claude Desktop) work with your diagnostics: list, read, preview, create or modify them, read the submissions and statistics. Nothing can be deleted through MCP, and every action is logged below."
+msgid "The private key given with the site key. It lets your site check with Cloudflare or Google that the visitor is human. Never share it."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:172
+msgid "How many questionnaires one visitor (same internet connection) can send during the time window below. Blocks spam floods. 10 suits almost every site."
 msgstr ""
 
 #: src/Admin/SettingsPage.php:173
-msgid "WordPress 6.9 or later (Abilities API)"
+msgid "The period, in seconds, over which the limit above is counted. 600 seconds = 10 minutes."
 msgstr ""
 
 #: src/Admin/SettingsPage.php:174
-msgid "The \"MCP Adapter\" plugin is installed and active"
+msgid "After how many days the answers (and the contact details in them) are deleted automatically. The GDPR asks not to keep personal data longer than needed. 0 = never deleted automatically; 365 = one year."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:175
+msgid "Counts anonymously how many people start, progress and finish each questionnaire, for the Statistics page (funnel, drop-outs). No personal data, no cookie."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:176
+msgid "The name shown in the WordPress admin instead of \"Smart Diagnostic\" (white label), for example the name of your agency. Visitors never see it."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:177
+msgid "The name the recipient sees as the sender, for example the name of your company. Empty: the name set by WordPress or by your SMTP plugin."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:178
+msgid "The address the emails are sent from. Use an address of your own domain (…@your-site.com): emails sent \"on behalf of\" another domain often end up in spam."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:179
+msgid "Where the answer goes when a visitor clicks \"Reply\" in the result email, for example your sales team. Empty: the sender address."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:180
+msgid "By default, emails leave through WordPress (and your SMTP plugin if you have one): nothing to do. Tick only to send the emails of the diagnostics through another mail server, set below."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:181
+msgid "The address of the mail server of your email provider, for example smtp.office365.com (Microsoft 365), smtp.gmail.com (Gmail) or ssl0.ovh.net (OVH). It is not an email address."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:182
+msgid "The \"door\" of the mail server. Usually 587 (with TLS) or 465 (with SSL). Your email provider indicates it in its help pages."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:183
+msgid "Protects the connection to the mail server. TLS with port 587 is the most common; SSL with port 465. \"None\" only if your provider asks for it."
 msgstr ""
 
 #: src/Admin/SettingsPage.php:184
+msgid "The login of the mailbox used to send, usually its full email address."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:185
+msgid "The password of this mailbox. With two-step verification (Gmail, Microsoft 365…), create an \"app password\" in your email account and paste it here."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:186
+msgid "Lets an AI assistant (for example Claude Desktop) work on your diagnostics for you: you ask in plain words to create a quiz, change a question or summarise the answers. Only useful if you use such an assistant; off by default."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:187
+msgid "Read only: the assistant can look at your diagnostics, answers and statistics, but changes nothing. Read and write: it can also create and modify diagnostics. It can never delete anything."
+msgstr ""
+
+#. translators: %s: name of the setting.
+#: src/Admin/SettingsPage.php:199
+#, php-format
+msgid "About \"%s\""
+msgstr ""
+
+#: src/Admin/SettingsPage.php:282
+msgid "Lets an AI assistant compatible with MCP (for example Claude Desktop) work with your diagnostics: list, read, preview, create or modify them, read the submissions and statistics. Nothing can be deleted through MCP, and every action is logged below."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:284
+msgid "WordPress 6.9 or later (Abilities API)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:285
+msgid "The \"MCP Adapter\" plugin is installed and active"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:295
 msgid "Connection address:"
 msgstr ""
 
 #. translators: %s: link to the user profile.
-#: src/Admin/SettingsPage.php:189
+#: src/Admin/SettingsPage.php:300
 #, php-format
 msgid "The assistant connects with your username and an <a href=\"%s\">application password</a> (Users → Profile → Application passwords), with your own rights. See the README for the Claude Desktop configuration."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:199
+#: src/Admin/SettingsPage.php:310
 msgid "By default, emails are sent by WordPress, and therefore by the SMTP plugin of the site if there is one. Enable the dedicated SMTP only to send the emails of the diagnostics through another server."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:213
-#: src/Admin/SettingsPage.php:229
+#: src/Admin/SettingsPage.php:324
+#: src/Admin/SettingsPage.php:340
 msgid "None"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:222
+#: src/Admin/SettingsPage.php:333
 msgid "Active only when both keys are filled in."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:240
+#: src/Admin/SettingsPage.php:351
 msgid "Defined by the SD_SMTP_PASSWORD constant (wp-config.php)."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:247
+#: src/Admin/SettingsPage.php:358
 #: src/Admin/WebhookSecrets.php:54
 msgid "•••••••• (unchanged)"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:248
+#: src/Admin/SettingsPage.php:359
 msgid "Leave empty to keep the current password. More secure: define it in wp-config.php with the SD_SMTP_PASSWORD constant."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:258
+#: src/Admin/SettingsPage.php:369
 msgid "Enable the MCP connector"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:264
+#: src/Admin/SettingsPage.php:375
 msgid "Read only (recommended): list, read, preview, submissions, statistics"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:265
+#: src/Admin/SettingsPage.php:376
 msgid "Read and write: also create and modify diagnostics (never delete)"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:284
+#: src/Admin/SettingsPage.php:395
 msgid "Send the emails of the diagnostics through the server below (instead of WordPress / the SMTP plugin)."
 msgstr ""
 
 #. translators: 1: server, 2: port.
-#: src/Admin/SettingsPage.php:289
+#: src/Admin/SettingsPage.php:400
 #, php-format
 msgid "Active: the emails of the diagnostics are sent through %1$s, port %2$d."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:291
+#: src/Admin/SettingsPage.php:402
 msgid "Not active: the emails are sent by WordPress / the SMTP plugin of the site."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:301
+#: src/Admin/SettingsPage.php:412
 msgid "Record anonymous journey events (funnel, drop-offs)."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:302
+#: src/Admin/SettingsPage.php:413
 msgid "No personal data and no cookie: a random identifier per questionnaire run."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:318
+#: src/Admin/SettingsPage.php:429
 msgid "Empty: the sender set by WordPress or by the SMTP plugin. Use an address of your domain, otherwise emails may end up in spam."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:321
+#: src/Admin/SettingsPage.php:432
 msgid "Where replies from visitors go (for example your sales team)."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:324
+#: src/Admin/SettingsPage.php:435
 msgid "Replaces the plugin name in the admin menus and plugin list. The SD_BRAND_NAME constant (wp-config.php) takes precedence."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:327
+#: src/Admin/SettingsPage.php:438
 msgid "0 = keep until deleted. Older submissions are purged daily. Personal data can also be exported or erased from Tools → Export / Erase Personal Data."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:356
+#: src/Admin/SettingsPage.php:468
 msgid "MCP connector log"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:358
+#: src/Admin/SettingsPage.php:470
 msgid "No action yet."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:362
+#: src/Admin/SettingsPage.php:474
 #: src/Admin/SubmissionsPage.php:176
 #: src/Admin/SubmissionsTable.php:64
 #: src/Integrations/CustomEmail.php:30
@@ -376,60 +458,60 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:362
+#: src/Admin/SettingsPage.php:474
 msgid "User"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:362
+#: src/Admin/SettingsPage.php:474
 msgid "Action"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:362
+#: src/Admin/SettingsPage.php:474
 msgid "Parameters"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:362
+#: src/Admin/SettingsPage.php:474
 #: src/Admin/SubmissionsPage.php:189
 #: assets/src/builder/tabs/Guide.js:123
 msgid "Result"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:386
-#: src/Admin/SettingsPage.php:405
+#: src/Admin/SettingsPage.php:498
+#: src/Admin/SettingsPage.php:517
 msgid "Send a test email"
 msgstr ""
 
 #. translators: 1: recipient, 2: sending method.
-#: src/Admin/SettingsPage.php:390
+#: src/Admin/SettingsPage.php:502
 #, php-format
 msgid "Test email sent to %1$s (%2$s). Check the inbox, and the spam folder."
 msgstr ""
 
 #. translators: %s: error message.
-#: src/Admin/SettingsPage.php:393
+#: src/Admin/SettingsPage.php:505
 #, php-format
 msgid "The test email could not be sent: %s"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:402
+#: src/Admin/SettingsPage.php:514
 msgid "Recipient"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:406
+#: src/Admin/SettingsPage.php:518
 msgid "Uses the saved settings: save your changes before testing."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:420
+#: src/Admin/SettingsPage.php:532
 #: src/Front/Strings.php:33
 msgid "Please enter a valid email address."
 msgstr ""
 
-#: src/Admin/SettingsPage.php:425
+#: src/Admin/SettingsPage.php:537
 #: src/Admin/SubmissionsPage.php:247
 msgid "dedicated SMTP"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:425
+#: src/Admin/SettingsPage.php:537
 #: src/Admin/SubmissionsPage.php:247
 msgid "WordPress / SMTP plugin"
 msgstr ""

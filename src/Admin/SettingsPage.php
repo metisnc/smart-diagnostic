@@ -159,6 +159,117 @@ final class SettingsPage {
 		);
 	}
 
+	/**
+	 * Explications simples affichées par le bouton « i » à côté de chaque réglage.
+	 *
+	 * @return array<string, string> Clé du réglage => explication.
+	 */
+	public static function help(): array {
+		return array(
+			'captcha_provider'   => __( 'Protects your questionnaires from robots that send fake answers. Cloudflare Turnstile is free and invisible for most visitors; Google reCAPTCHA v3 also works in the background. Leave "None" if you receive no spam: the plugin already limits the number of submissions per visitor.', 'smart-diagnostic' ),
+			'captcha_site_key'   => __( 'The public key given by Cloudflare or Google when you register your site in their console. It appears in the code of your pages: this is normal.', 'smart-diagnostic' ),
+			'captcha_secret_key' => __( 'The private key given with the site key. It lets your site check with Cloudflare or Google that the visitor is human. Never share it.', 'smart-diagnostic' ),
+			'rate_limit'         => __( 'How many questionnaires one visitor (same internet connection) can send during the time window below. Blocks spam floods. 10 suits almost every site.', 'smart-diagnostic' ),
+			'rate_window'        => __( 'The period, in seconds, over which the limit above is counted. 600 seconds = 10 minutes.', 'smart-diagnostic' ),
+			'retention_days'     => __( 'After how many days the answers (and the contact details in them) are deleted automatically. The GDPR asks not to keep personal data longer than needed. 0 = never deleted automatically; 365 = one year.', 'smart-diagnostic' ),
+			'analytics'          => __( 'Counts anonymously how many people start, progress and finish each questionnaire, for the Statistics page (funnel, drop-outs). No personal data, no cookie.', 'smart-diagnostic' ),
+			'brand_name'         => __( 'The name shown in the WordPress admin instead of "Smart Diagnostic" (white label), for example the name of your agency. Visitors never see it.', 'smart-diagnostic' ),
+			'mail_from_name'     => __( 'The name the recipient sees as the sender, for example the name of your company. Empty: the name set by WordPress or by your SMTP plugin.', 'smart-diagnostic' ),
+			'mail_from_email'    => __( 'The address the emails are sent from. Use an address of your own domain (…@your-site.com): emails sent "on behalf of" another domain often end up in spam.', 'smart-diagnostic' ),
+			'mail_reply_to'      => __( 'Where the answer goes when a visitor clicks "Reply" in the result email, for example your sales team. Empty: the sender address.', 'smart-diagnostic' ),
+			'smtp_enabled'       => __( 'By default, emails leave through WordPress (and your SMTP plugin if you have one): nothing to do. Tick only to send the emails of the diagnostics through another mail server, set below.', 'smart-diagnostic' ),
+			'smtp_host'          => __( 'The address of the mail server of your email provider, for example smtp.office365.com (Microsoft 365), smtp.gmail.com (Gmail) or ssl0.ovh.net (OVH). It is not an email address.', 'smart-diagnostic' ),
+			'smtp_port'          => __( 'The "door" of the mail server. Usually 587 (with TLS) or 465 (with SSL). Your email provider indicates it in its help pages.', 'smart-diagnostic' ),
+			'smtp_encryption'    => __( 'Protects the connection to the mail server. TLS with port 587 is the most common; SSL with port 465. "None" only if your provider asks for it.', 'smart-diagnostic' ),
+			'smtp_user'          => __( 'The login of the mailbox used to send, usually its full email address.', 'smart-diagnostic' ),
+			'smtp_password'      => __( 'The password of this mailbox. With two-step verification (Gmail, Microsoft 365…), create an "app password" in your email account and paste it here.', 'smart-diagnostic' ),
+			'mcp_enabled'        => __( 'Lets an AI assistant (for example Claude Desktop) work on your diagnostics for you: you ask in plain words to create a quiz, change a question or summarise the answers. Only useful if you use such an assistant; off by default.', 'smart-diagnostic' ),
+			'mcp_write'          => __( 'Read only: the assistant can look at your diagnostics, answers and statistics, but changes nothing. Read and write: it can also create and modify diagnostics. It can never delete anything.', 'smart-diagnostic' ),
+		);
+	}
+
+	/**
+	 * Boutons « i » : ajoutés à côté du nom de chaque réglage (hors du libellé du champ,
+	 * qui reste inchangé pour les lecteurs d'écran). Ouverture au survol, au clic ou au clavier.
+	 */
+	private function render_help(): void {
+		$data = array(
+			'help'  => self::help(),
+			/* translators: %s: name of the setting. */
+			'label' => __( 'About "%s"', 'smart-diagnostic' ),
+		);
+		?>
+		<style>
+			.sd-help { position: relative; display: inline-block; margin-left: 4px; vertical-align: middle; }
+			.sd-help__button { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; padding: 0; border: 0; border-radius: 50%; background: none; color: #2271b1; cursor: pointer; }
+			.sd-help__button:hover, .sd-help__button:focus-visible, .sd-help__button[aria-expanded="true"] { background: #f0f6fc; color: #135e96; outline: none; box-shadow: 0 0 0 1px #2271b1; }
+			.sd-help__button .dashicons { width: 18px; height: 18px; font-size: 18px; }
+			.sd-help__tip { position: absolute; top: 26px; left: -8px; z-index: 100; width: 300px; padding: 10px 12px; border-radius: 6px; background: #1d2327; color: #fff; font-size: 13px; font-weight: 400; line-height: 1.5; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); }
+			.sd-help__tip::before { content: ""; position: absolute; top: -6px; left: 14px; border: 6px solid transparent; border-top: 0; border-bottom-color: #1d2327; }
+			.sd-help__tip[hidden] { display: none; }
+			@media (max-width: 782px) { .sd-help__tip { width: min(300px, 80vw); } }
+		</style>
+		<script>
+		( function () {
+			var data = <?php echo wp_json_encode( $data ); ?>;
+			var open = null;
+			function close() {
+				if ( open ) {
+					open.button.setAttribute( 'aria-expanded', 'false' );
+					open.tip.hidden = true;
+					open = null;
+				}
+			}
+			function show( item ) {
+				if ( open && open !== item ) { close(); }
+				item.button.setAttribute( 'aria-expanded', 'true' );
+				item.tip.hidden = false;
+				open = item;
+			}
+			Object.keys( data.help ).forEach( function ( key ) {
+				var field = document.getElementById( 'sd-' + key ) || document.querySelector( '[name="sd_settings[' + key + ']"]' );
+				var row = field && field.closest( 'tr' );
+				var th = row && row.querySelector( 'th' );
+				if ( ! th ) { return; }
+				var name = th.textContent.trim();
+				var wrap = document.createElement( 'span' );
+				wrap.className = 'sd-help';
+				var button = document.createElement( 'button' );
+				button.type = 'button';
+				button.className = 'sd-help__button';
+				button.setAttribute( 'aria-expanded', 'false' );
+				button.setAttribute( 'aria-controls', 'sd-help-' + key );
+				button.setAttribute( 'aria-label', data.label.replace( '%s', name ) );
+				button.innerHTML = '<span class="dashicons dashicons-info-outline" aria-hidden="true"></span>';
+				var tip = document.createElement( 'span' );
+				tip.className = 'sd-help__tip';
+				tip.id = 'sd-help-' + key;
+				tip.setAttribute( 'role', 'tooltip' );
+				tip.hidden = true;
+				tip.textContent = data.help[ key ];
+				wrap.appendChild( button );
+				wrap.appendChild( tip );
+				th.appendChild( wrap );
+				var item = { button: button, tip: tip, pinned: false };
+				button.addEventListener( 'click', function ( event ) {
+					event.preventDefault();
+					item.pinned = ! item.pinned || open !== item;
+					if ( item.pinned ) { show( item ); } else { close(); }
+				} );
+				wrap.addEventListener( 'mouseenter', function () { show( item ); } );
+				wrap.addEventListener( 'mouseleave', function () { if ( ! item.pinned ) { close(); } } );
+				button.addEventListener( 'focus', function () { show( item ); } );
+				button.addEventListener( 'blur', function () { if ( ! item.pinned ) { close(); } } );
+			} );
+			document.addEventListener( 'keydown', function ( event ) { if ( 'Escape' === event.key ) { close(); } } );
+			document.addEventListener( 'click', function ( event ) {
+				if ( open && ! event.target.closest( '.sd-help' ) ) { open.pinned = false; close(); }
+			} );
+		}() );
+		</script>
+		<?php
+	}
+
 	private function saved_smtp_password(): string {
 		$saved = get_option( Settings::OPTION, array() );
 		return is_array( $saved ) ? (string) ( $saved['smtp_password'] ?? '' ) : '';
@@ -343,6 +454,7 @@ final class SettingsPage {
 		$this->render_test_form();
 		$this->render_mcp_log();
 		echo '</div>';
+		$this->render_help();
 	}
 
 	/**
