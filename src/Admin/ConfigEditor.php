@@ -45,7 +45,7 @@ final class ConfigEditor {
 	 * Boîte « Insertion » (colonne latérale) : shortcode du diagnostic.
 	 */
 	public function add_meta_box(): void {
-		add_meta_box( 'sd-embed', __( 'Insertion', 'smart-diagnostic' ), array( $this, 'render_embed' ), DiagnosticPostType::NAME, 'side', 'high' );
+		add_meta_box( 'sd-embed', __( 'Insertion', 'smart-diagnostic' ), array( $this, 'render_embed' ), DiagnosticPostType::NAME, 'side' );
 	}
 
 	public function render_embed( \WP_Post $post ): void {
