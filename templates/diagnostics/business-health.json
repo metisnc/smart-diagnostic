@@ -1,0 +1,1457 @@
+{
+	"schemaVersion": 1,
+	"meta": {
+		"title": {
+			"fr": "Diagnostic business",
+			"en": "Business health check"
+		},
+		"description": {
+			"fr": "Évaluez en 4 minutes la santé de votre entreprise sur quatre piliers : offre, commercial, finances et organisation. Le visiteur repart avec un score, ses points forts et un plan d’action priorisé.",
+			"en": "A 4-minute check-up of a small business across four pillars: offer, sales, finances and organisation. Visitors get a score, their strengths and a prioritised action plan."
+		}
+	},
+	"i18n": {
+		"defaultLanguage": "fr",
+		"languages": [ "fr", "en" ],
+		"switcher": true
+	},
+	"welcome": {
+		"title": {
+			"fr": "Votre entreprise est-elle en bonne santé ?",
+			"en": "How healthy is your business?"
+		},
+		"subtitle": {
+			"fr": "12 questions pour faire le point sur votre offre, vos ventes, vos finances et votre organisation, et repartir avec des priorités claires.",
+			"en": "12 questions to review your offer, sales, finances and organisation, and leave with clear priorities."
+		},
+		"benefits": [
+			{
+				"fr": "Un score sur 4 piliers essentiels",
+				"en": "A score across 4 essential pillars"
+			},
+			{
+				"fr": "Vos points forts et vos points d’attention",
+				"en": "Your strengths and areas to watch"
+			},
+			{
+				"fr": "Un plan d’action concret et priorisé",
+				"en": "A concrete, prioritised action plan"
+			}
+		],
+		"badges": [
+			{
+				"fr": "Gratuit",
+				"en": "Free"
+			},
+			{
+				"fr": "4 minutes",
+				"en": "4 minutes"
+			},
+			{
+				"fr": "Résultat immédiat",
+				"en": "Instant result"
+			}
+		],
+		"startLabel": {
+			"fr": "Commencer le diagnostic",
+			"en": "Start the check-up"
+		}
+	},
+	"flow": {
+		"progress": {
+			"bar": true,
+			"counter": true,
+			"sectionName": true
+		},
+		"backButton": true,
+		"saveProgress": true,
+		"autoAdvance": true,
+		"optionLetters": true,
+		"encouragements": [
+			{
+				"atPercent": 30,
+				"text": {
+					"fr": "Beau départ, {first_name} ! Votre offre est passée au crible.",
+					"en": "Great start, {first_name}! Your offer has been reviewed."
+				}
+			},
+			{
+				"atPercent": 60,
+				"text": {
+					"fr": "Plus de la moitié du chemin : on passe aux chiffres.",
+					"en": "Over halfway there: now for the numbers."
+				}
+			},
+			{
+				"atPercent": 85,
+				"text": {
+					"fr": "Dernière ligne droite !",
+					"en": "Final stretch!"
+				}
+			}
+		],
+		"transition": {
+			"enabled": true,
+			"durationMs": 3000,
+			"steps": [
+				{
+					"fr": "Analyse de vos réponses…",
+					"en": "Analysing your answers…"
+				},
+				{
+					"fr": "Calcul de vos scores par pilier…",
+					"en": "Scoring each pillar…"
+				},
+				{
+					"fr": "Construction de votre plan d’action…",
+					"en": "Building your action plan…"
+				}
+			]
+		}
+	},
+	"sections": [
+		{
+			"key": "entreprise",
+			"label": {
+				"fr": "Votre entreprise",
+				"en": "Your business"
+			}
+		},
+		{
+			"key": "offre",
+			"label": {
+				"fr": "Offre",
+				"en": "Offer"
+			}
+		},
+		{
+			"key": "commercial",
+			"label": {
+				"fr": "Commercial",
+				"en": "Sales"
+			}
+		},
+		{
+			"key": "finances",
+			"label": {
+				"fr": "Finances",
+				"en": "Finances"
+			}
+		},
+		{
+			"key": "organisation",
+			"label": {
+				"fr": "Organisation",
+				"en": "Organisation"
+			}
+		},
+		{
+			"key": "resultat",
+			"label": {
+				"fr": "Votre résultat",
+				"en": "Your result"
+			}
+		}
+	],
+	"axes": [
+		{
+			"key": "offre",
+			"label": {
+				"fr": "Offre",
+				"en": "Offer"
+			},
+			"description": {
+				"fr": "Clarté, différenciation et prix de votre offre.",
+				"en": "Clarity, differentiation and pricing of your offer."
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		},
+		{
+			"key": "commercial",
+			"label": {
+				"fr": "Commercial",
+				"en": "Sales"
+			},
+			"description": {
+				"fr": "Acquisition, suivi des prospects et répartition des clients.",
+				"en": "Acquisition, lead follow-up and customer spread."
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		},
+		{
+			"key": "finances",
+			"label": {
+				"fr": "Finances",
+				"en": "Finances"
+			},
+			"description": {
+				"fr": "Trésorerie, pilotage et connaissance des marges.",
+				"en": "Cash, monitoring and margin awareness."
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		},
+		{
+			"key": "organisation",
+			"label": {
+				"fr": "Organisation",
+				"en": "Organisation"
+			},
+			"description": {
+				"fr": "Temps disponible, méthodes et délégation.",
+				"en": "Available time, methods and delegation."
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		}
+	],
+	"steps": [
+		{
+			"key": "first_name",
+			"kind": "question",
+			"section": "entreprise",
+			"type": "text",
+			"label": {
+				"fr": "Pour commencer, quel est votre prénom ?",
+				"en": "First things first, what's your first name?"
+			},
+			"placeholder": {
+				"fr": "Votre prénom",
+				"en": "Your first name"
+			},
+			"required": false,
+			"validation": {
+				"maxLength": 50
+			}
+		},
+		{
+			"key": "anciennete",
+			"kind": "question",
+			"section": "entreprise",
+			"type": "single",
+			"label": {
+				"fr": "Depuis combien de temps votre entreprise existe-t-elle, {first_name} ?",
+				"en": "How long has your business been running, {first_name}?"
+			},
+			"options": [
+				{
+					"value": "moins_1",
+					"label": {
+						"fr": "Moins d’un an",
+						"en": "Less than a year"
+					}
+				},
+				{
+					"value": "1_3",
+					"label": {
+						"fr": "De 1 à 3 ans",
+						"en": "1 to 3 years"
+					}
+				},
+				{
+					"value": "3_10",
+					"label": {
+						"fr": "De 3 à 10 ans",
+						"en": "3 to 10 years"
+					}
+				},
+				{
+					"value": "plus_10",
+					"label": {
+						"fr": "Plus de 10 ans",
+						"en": "More than 10 years"
+					}
+				}
+			]
+		},
+		{
+			"key": "offre_clarte",
+			"kind": "question",
+			"section": "offre",
+			"type": "scale",
+			"label": {
+				"fr": "Un prospect comprend-il votre offre en moins de 30 secondes ?",
+				"en": "Can a prospect understand your offer in under 30 seconds?"
+			},
+			"help": {
+				"fr": "Pensez à la dernière fois que vous l’avez présentée à quelqu’un qui ne vous connaissait pas.",
+				"en": "Think of the last time you pitched it to someone who did not know you."
+			},
+			"validation": {
+				"min": 1,
+				"max": 5
+			},
+			"scaleLabels": {
+				"min": {
+					"fr": "Rarement",
+					"en": "Rarely"
+				},
+				"max": {
+					"fr": "Toujours",
+					"en": "Always"
+				}
+			}
+		},
+		{
+			"key": "offre_difference",
+			"kind": "question",
+			"section": "offre",
+			"type": "single",
+			"label": {
+				"fr": "Qu’est-ce qui vous distingue de vos concurrents ?",
+				"en": "What sets you apart from your competitors?"
+			},
+			"options": [
+				{
+					"value": "flou",
+					"label": {
+						"fr": "Je ne l’ai jamais vraiment formulé",
+						"en": "I've never really put it into words"
+					},
+					"scores": {
+						"offre": 0
+					}
+				},
+				{
+					"value": "prix",
+					"label": {
+						"fr": "Surtout le prix",
+						"en": "Mostly price"
+					},
+					"scores": {
+						"offre": 10
+					}
+				},
+				{
+					"value": "qualite",
+					"label": {
+						"fr": "La qualité ou la relation, sans preuve concrète",
+						"en": "Quality or relationship, without concrete proof"
+					},
+					"scores": {
+						"offre": 20
+					}
+				},
+				{
+					"value": "preuves",
+					"label": {
+						"fr": "Un avantage clair, appuyé par des preuves (avis, résultats, garanties)",
+						"en": "A clear advantage backed by proof (reviews, results, guarantees)"
+					},
+					"scores": {
+						"offre": 35
+					}
+				},
+				{
+					"value": "nsp",
+					"label": {
+						"fr": "Je ne sais pas",
+						"en": "I don't know"
+					},
+					"exit": {
+						"mode": "min"
+					}
+				}
+			]
+		},
+		{
+			"key": "offre_prix",
+			"kind": "question",
+			"section": "offre",
+			"type": "single",
+			"label": {
+				"fr": "Comment fixez-vous vos prix ?",
+				"en": "How do you set your prices?"
+			},
+			"options": [
+				{
+					"value": "intuition",
+					"label": {
+						"fr": "À l’intuition",
+						"en": "By gut feeling"
+					},
+					"scores": {
+						"offre": 0
+					}
+				},
+				{
+					"value": "concurrence",
+					"label": {
+						"fr": "En m’alignant sur la concurrence",
+						"en": "By matching competitors"
+					},
+					"scores": {
+						"offre": 10
+					}
+				},
+				{
+					"value": "couts",
+					"label": {
+						"fr": "À partir de mes coûts et de la marge visée",
+						"en": "From my costs plus a target margin"
+					},
+					"scores": {
+						"offre": 20
+					}
+				},
+				{
+					"value": "valeur",
+					"label": {
+						"fr": "Selon la valeur apportée au client, en vérifiant mes coûts",
+						"en": "Based on customer value, checked against my costs"
+					},
+					"scores": {
+						"offre": 30
+					}
+				}
+			]
+		},
+		{
+			"key": "pause_commercial",
+			"kind": "content",
+			"section": "commercial",
+			"variant": "quote",
+			"body": {
+				"fr": "Un client fidèle coûte en général bien moins cher à servir qu’un nouveau client à conquérir. <strong>Votre portefeuille actuel est souvent votre premier levier de croissance.</strong>",
+				"en": "A loyal customer usually costs far less to serve than a new one costs to win. <strong>Your existing customer base is often your first growth lever.</strong>"
+			},
+			"author": {
+				"fr": "Le saviez-vous ?",
+				"en": "Did you know?"
+			}
+		},
+		{
+			"key": "canaux",
+			"kind": "question",
+			"section": "commercial",
+			"type": "multi",
+			"label": {
+				"fr": "Comment trouvez-vous vos nouveaux clients ?",
+				"en": "How do you find new customers?"
+			},
+			"help": {
+				"fr": "Plusieurs réponses possibles.",
+				"en": "Select all that apply."
+			},
+			"options": [
+				{
+					"value": "bouche",
+					"label": {
+						"fr": "Bouche-à-oreille et recommandations",
+						"en": "Word of mouth and referrals"
+					}
+				},
+				{
+					"value": "reseau",
+					"label": {
+						"fr": "Réseau professionnel et événements",
+						"en": "Professional network and events"
+					}
+				},
+				{
+					"value": "site",
+					"label": {
+						"fr": "Site internet",
+						"en": "Website"
+					}
+				},
+				{
+					"value": "reseaux_sociaux",
+					"label": {
+						"fr": "Réseaux sociaux",
+						"en": "Social media"
+					}
+				},
+				{
+					"value": "prospection",
+					"label": {
+						"fr": "Prospection directe (appels, emails, visites)",
+						"en": "Direct outreach (calls, emails, visits)"
+					}
+				},
+				{
+					"value": "partenaires",
+					"label": {
+						"fr": "Partenaires ou prescripteurs",
+						"en": "Partners or referrers"
+					}
+				},
+				{
+					"value": "aucun",
+					"label": {
+						"fr": "Je n’ai pas de méthode particulière",
+						"en": "No particular method"
+					},
+					"exclusive": true
+				}
+			]
+		},
+		{
+			"key": "suivi_prospects",
+			"kind": "question",
+			"section": "commercial",
+			"type": "single",
+			"label": {
+				"fr": "Comment suivez-vous vos prospects et vos devis en cours ?",
+				"en": "How do you track prospects and pending quotes?"
+			},
+			"options": [
+				{
+					"value": "memoire",
+					"label": {
+						"fr": "De mémoire",
+						"en": "From memory"
+					},
+					"scores": {
+						"commercial": 0
+					}
+				},
+				{
+					"value": "carnet",
+					"label": {
+						"fr": "Sur un carnet ou dans mes emails",
+						"en": "In a notebook or my inbox"
+					},
+					"scores": {
+						"commercial": 10
+					}
+				},
+				{
+					"value": "tableur",
+					"label": {
+						"fr": "Dans un tableur mis à jour régulièrement",
+						"en": "In a regularly updated spreadsheet"
+					},
+					"scores": {
+						"commercial": 25
+					}
+				},
+				{
+					"value": "crm",
+					"label": {
+						"fr": "Avec un outil de gestion de la relation client",
+						"en": "With a customer relationship management tool"
+					},
+					"scores": {
+						"commercial": 35
+					}
+				}
+			]
+		},
+		{
+			"key": "dependance",
+			"kind": "question",
+			"section": "commercial",
+			"type": "single",
+			"label": {
+				"fr": "Quelle part de votre chiffre d’affaires réalise votre principal client ?",
+				"en": "What share of your revenue comes from your largest customer?"
+			},
+			"options": [
+				{
+					"value": "plus_50",
+					"label": {
+						"fr": "Plus de 50 %",
+						"en": "Over 50%"
+					},
+					"scores": {
+						"commercial": 0
+					}
+				},
+				{
+					"value": "25_50",
+					"label": {
+						"fr": "Entre 25 et 50 %",
+						"en": "25 to 50%"
+					},
+					"scores": {
+						"commercial": 10
+					}
+				},
+				{
+					"value": "10_25",
+					"label": {
+						"fr": "Entre 10 et 25 %",
+						"en": "10 to 25%"
+					},
+					"scores": {
+						"commercial": 25
+					}
+				},
+				{
+					"value": "moins_10",
+					"label": {
+						"fr": "Moins de 10 %",
+						"en": "Under 10%"
+					},
+					"scores": {
+						"commercial": 35
+					}
+				},
+				{
+					"value": "nsp",
+					"label": {
+						"fr": "Je ne sais pas",
+						"en": "I don't know"
+					},
+					"exit": {
+						"mode": "neutral"
+					}
+				}
+			]
+		},
+		{
+			"key": "tresorerie",
+			"kind": "question",
+			"section": "finances",
+			"type": "single",
+			"label": {
+				"fr": "Combien de mois de charges votre trésorerie couvre-t-elle aujourd’hui ?",
+				"en": "How many months of expenses does your cash currently cover?"
+			},
+			"help": {
+				"fr": "Une estimation suffit.",
+				"en": "A rough estimate is fine."
+			},
+			"options": [
+				{
+					"value": "moins_1",
+					"label": {
+						"fr": "Moins d’un mois",
+						"en": "Less than a month"
+					},
+					"scores": {
+						"finances": 0
+					}
+				},
+				{
+					"value": "1_3",
+					"label": {
+						"fr": "De 1 à 3 mois",
+						"en": "1 to 3 months"
+					},
+					"scores": {
+						"finances": 15
+					}
+				},
+				{
+					"value": "3_6",
+					"label": {
+						"fr": "De 3 à 6 mois",
+						"en": "3 to 6 months"
+					},
+					"scores": {
+						"finances": 30
+					}
+				},
+				{
+					"value": "plus_6",
+					"label": {
+						"fr": "Plus de 6 mois",
+						"en": "More than 6 months"
+					},
+					"scores": {
+						"finances": 35
+					}
+				},
+				{
+					"value": "nsp",
+					"label": {
+						"fr": "Je ne sais pas",
+						"en": "I don't know"
+					},
+					"exit": {
+						"mode": "min"
+					}
+				}
+			]
+		},
+		{
+			"key": "tableau_bord",
+			"kind": "question",
+			"section": "finances",
+			"type": "single",
+			"label": {
+				"fr": "À quelle fréquence consultez-vous vos indicateurs financiers (ventes, charges, trésorerie) ?",
+				"en": "How often do you review your financial indicators (sales, costs, cash)?"
+			},
+			"options": [
+				{
+					"value": "bilan",
+					"label": {
+						"fr": "Une fois par an, au moment du bilan",
+						"en": "Once a year, at year-end"
+					},
+					"scores": {
+						"finances": 0
+					}
+				},
+				{
+					"value": "trimestre",
+					"label": {
+						"fr": "Chaque trimestre",
+						"en": "Every quarter"
+					},
+					"scores": {
+						"finances": 15
+					}
+				},
+				{
+					"value": "mois",
+					"label": {
+						"fr": "Chaque mois",
+						"en": "Every month"
+					},
+					"scores": {
+						"finances": 30
+					}
+				},
+				{
+					"value": "semaine",
+					"label": {
+						"fr": "Chaque semaine, avec un tableau de bord",
+						"en": "Every week, with a dashboard"
+					},
+					"scores": {
+						"finances": 35
+					}
+				}
+			]
+		},
+		{
+			"key": "marges",
+			"kind": "question",
+			"section": "finances",
+			"type": "yes_no",
+			"label": {
+				"fr": "Connaissez-vous la marge que vous dégagez sur chacun de vos produits ou services ?",
+				"en": "Do you know the margin you make on each of your products or services?"
+			},
+			"options": [
+				{
+					"value": true,
+					"label": {
+						"fr": "Oui",
+						"en": "Yes"
+					},
+					"scores": {
+						"finances": 30
+					}
+				},
+				{
+					"value": false,
+					"label": {
+						"fr": "Non, pas précisément",
+						"en": "Not precisely"
+					}
+				}
+			]
+		},
+		{
+			"key": "temps_admin",
+			"kind": "question",
+			"section": "organisation",
+			"type": "slider",
+			"label": {
+				"fr": "Quelle part de votre temps passez-vous sur des tâches administratives ?",
+				"en": "What share of your time goes on admin tasks?"
+			},
+			"help": {
+				"fr": "Devis, factures, relances, paperasse…",
+				"en": "Quotes, invoices, reminders, paperwork…"
+			},
+			"unit": {
+				"fr": "%",
+				"en": "%"
+			},
+			"validation": {
+				"min": 0,
+				"max": 100,
+				"step": 5
+			}
+		},
+		{
+			"key": "methodes",
+			"kind": "question",
+			"section": "organisation",
+			"type": "multi",
+			"label": {
+				"fr": "Parmi ces bonnes pratiques, lesquelles sont en place ?",
+				"en": "Which of these good practices are in place?"
+			},
+			"help": {
+				"fr": "Plusieurs réponses possibles.",
+				"en": "Select all that apply."
+			},
+			"options": [
+				{
+					"value": "procedures",
+					"label": {
+						"fr": "Les tâches clés sont décrites par écrit",
+						"en": "Key tasks are documented"
+					},
+					"scores": {
+						"organisation": 15
+					}
+				},
+				{
+					"value": "outils",
+					"label": {
+						"fr": "Des outils partagés (agenda, documents, tâches)",
+						"en": "Shared tools (calendar, documents, tasks)"
+					},
+					"scores": {
+						"organisation": 15
+					}
+				},
+				{
+					"value": "delegation",
+					"label": {
+						"fr": "Je délègue ou sous-traite ce qui n’est pas mon cœur de métier",
+						"en": "I delegate or outsource non-core work"
+					},
+					"scores": {
+						"organisation": 15
+					}
+				},
+				{
+					"value": "planification",
+					"label": {
+						"fr": "Je planifie mes priorités chaque semaine",
+						"en": "I plan my priorities every week"
+					},
+					"scores": {
+						"organisation": 15
+					}
+				},
+				{
+					"value": "aucun",
+					"label": {
+						"fr": "Aucune pour le moment",
+						"en": "None at the moment"
+					},
+					"exclusive": true
+				}
+			]
+		},
+		{
+			"key": "contact",
+			"kind": "form",
+			"section": "resultat",
+			"title": {
+				"fr": "Recevez votre diagnostic complet",
+				"en": "Get your full check-up"
+			},
+			"text": {
+				"fr": "Votre score, vos points forts et votre plan d’action vous attendent. Indiquez où vous les envoyer.",
+				"en": "Your score, strengths and action plan are ready. Tell us where to send them."
+			},
+			"fields": [
+				{
+					"key": "first_name",
+					"type": "text",
+					"label": {
+						"fr": "Prénom",
+						"en": "First name"
+					}
+				},
+				{
+					"key": "email",
+					"type": "email",
+					"label": {
+						"fr": "Email professionnel",
+						"en": "Work email"
+					},
+					"required": true
+				},
+				{
+					"key": "company",
+					"type": "text",
+					"label": {
+						"fr": "Entreprise (facultatif)",
+						"en": "Company (optional)"
+					}
+				},
+				{
+					"key": "phone",
+					"type": "phone",
+					"label": {
+						"fr": "Téléphone (facultatif)",
+						"en": "Phone (optional)"
+					}
+				}
+			],
+			"consent": {
+				"text": {
+					"fr": "J’accepte que mes réponses et mes coordonnées soient utilisées pour m’envoyer mon résultat et, le cas échéant, être recontacté(e) à ce sujet. Je peux demander leur suppression à tout moment.",
+					"en": "I agree that my answers and contact details may be used to send me my result and, where relevant, to contact me about it. I can ask for them to be deleted at any time."
+				},
+				"version": "business-health-v1"
+			},
+			"submitLabel": {
+				"fr": "Voir mon résultat",
+				"en": "See my result"
+			}
+		}
+	],
+	"scoring": {
+		"rules": [
+			{
+				"type": "range",
+				"axis": "offre",
+				"question": "offre_clarte",
+				"ranges": [
+					{
+						"max": 3,
+						"points": 5
+					},
+					{
+						"min": 3,
+						"max": 5,
+						"points": 20
+					},
+					{
+						"min": 5,
+						"points": 35
+					}
+				]
+			},
+			{
+				"type": "count",
+				"axis": "commercial",
+				"question": "canaux",
+				"ranges": [
+					{
+						"min": 1,
+						"max": 2,
+						"points": 5
+					},
+					{
+						"min": 2,
+						"max": 3,
+						"points": 15
+					},
+					{
+						"min": 3,
+						"max": 5,
+						"points": 25
+					},
+					{
+						"min": 5,
+						"points": 30
+					}
+				]
+			},
+			{
+				"type": "range",
+				"axis": "organisation",
+				"question": "temps_admin",
+				"ranges": [
+					{
+						"max": 20,
+						"points": 40
+					},
+					{
+						"min": 20,
+						"max": 40,
+						"points": 25
+					},
+					{
+						"min": 40,
+						"max": 60,
+						"points": 10
+					},
+					{
+						"min": 60,
+						"points": 0
+					}
+				]
+			}
+		]
+	},
+	"variables": [
+		{
+			"key": "score_global",
+			"label": {
+				"fr": "Score global",
+				"en": "Overall score"
+			},
+			"expr": "round((score.offre + score.commercial + score.finances + score.organisation) / 4)",
+			"format": {
+				"decimals": 0,
+				"suffix": {
+					"fr": "/ 100",
+					"en": "/ 100"
+				}
+			}
+		},
+		{
+			"key": "piliers_fragiles",
+			"label": {
+				"fr": "Piliers sous 50 / 100",
+				"en": "Pillars below 50 / 100"
+			},
+			"expr": "(score.offre < 50 ? 1 : 0) + (score.commercial < 50 ? 1 : 0) + (score.finances < 50 ? 1 : 0) + (score.organisation < 50 ? 1 : 0)",
+			"format": {
+				"decimals": 0,
+				"suffix": {
+					"fr": "sur 4",
+					"en": "of 4"
+				}
+			}
+		}
+	],
+	"outcomes": {
+		"profiles": [
+			{
+				"key": "solide",
+				"label": {
+					"fr": "Entreprise solide",
+					"en": "Solid business"
+				},
+				"text": {
+					"fr": "Bravo {first_name} ! Vos fondamentaux sont bien en place. L’enjeu est désormais de consolider vos atouts et de préparer sereinement la prochaine étape de votre développement.",
+					"en": "Well done {first_name}! Your fundamentals are in place. The challenge now is to build on your strengths and calmly prepare the next stage of growth."
+				},
+				"when": {
+					"expr": "var.score_global >= 70"
+				},
+				"priority": 30
+			},
+			{
+				"key": "a_consolider",
+				"label": {
+					"fr": "Fondations à consolider",
+					"en": "Foundations to strengthen"
+				},
+				"text": {
+					"fr": "Votre entreprise repose sur de bonnes bases, {first_name}, mais certains piliers freinent votre progression. Quelques actions ciblées peuvent faire une vraie différence dans les prochains mois.",
+					"en": "Your business stands on good ground, {first_name}, but some pillars are holding you back. A few targeted actions can make a real difference in the coming months."
+				},
+				"when": {
+					"expr": "var.score_global >= 40"
+				},
+				"priority": 20
+			},
+			{
+				"key": "fondamentaux",
+				"label": {
+					"fr": "Priorité aux fondamentaux",
+					"en": "Back to fundamentals"
+				},
+				"text": {
+					"fr": "Bonne nouvelle {first_name} : vous savez maintenant où concentrer votre énergie. En sécurisant d’abord les fondamentaux ci-dessous, chaque effort aura un effet visible rapidement.",
+					"en": "Good news {first_name}: you now know where to focus your energy. By securing the fundamentals below first, every effort will pay off quickly."
+				},
+				"priority": 10
+			}
+		],
+		"texts": [
+			{
+				"key": "faible_offre",
+				"title": {
+					"fr": "Point d’attention : votre offre",
+					"en": "Watch point: your offer"
+				},
+				"body": {
+					"fr": "Votre offre est votre pilier le plus fragile. Si vos clients ne perçoivent pas clairement ce qui vous rend unique, ils compareront surtout les prix.",
+					"en": "Your offer is your weakest pillar. If customers cannot clearly see what makes you unique, they will mainly compare prices."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "weakestAxis",
+							"op": "eq",
+							"value": "offre"
+						},
+						{
+							"left": "score.offre",
+							"op": "lt",
+							"value": 70
+						}
+					]
+				}
+			},
+			{
+				"key": "faible_commercial",
+				"title": {
+					"fr": "Point d’attention : le commercial",
+					"en": "Watch point: sales"
+				},
+				"body": {
+					"fr": "Votre développement commercial est votre pilier le plus fragile. Des sources de clients plus variées et un suivi régulier rendront votre activité plus prévisible.",
+					"en": "Sales is your weakest pillar. More varied customer sources and regular follow-up will make your business more predictable."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "weakestAxis",
+							"op": "eq",
+							"value": "commercial"
+						},
+						{
+							"left": "score.commercial",
+							"op": "lt",
+							"value": 70
+						}
+					]
+				}
+			},
+			{
+				"key": "faible_finances",
+				"title": {
+					"fr": "Point d’attention : les finances",
+					"en": "Watch point: finances"
+				},
+				"body": {
+					"fr": "Vos finances sont votre pilier le plus fragile. Mieux connaître vos marges et votre trésorerie vous permettra de décider plus sereinement.",
+					"en": "Finances are your weakest pillar. Knowing your margins and cash position better will help you make calmer decisions."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "weakestAxis",
+							"op": "eq",
+							"value": "finances"
+						},
+						{
+							"left": "score.finances",
+							"op": "lt",
+							"value": 70
+						}
+					]
+				}
+			},
+			{
+				"key": "faible_organisation",
+				"title": {
+					"fr": "Point d’attention : l’organisation",
+					"en": "Watch point: organisation"
+				},
+				"body": {
+					"fr": "Votre organisation est votre pilier le plus fragile. Libérer du temps sur l’administratif vous redonnera de l’énergie pour vos clients et vos projets.",
+					"en": "Organisation is your weakest pillar. Freeing up admin time will give you back energy for customers and projects."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "weakestAxis",
+							"op": "eq",
+							"value": "organisation"
+						},
+						{
+							"left": "score.organisation",
+							"op": "lt",
+							"value": 70
+						}
+					]
+				}
+			},
+			{
+				"key": "atout",
+				"title": {
+					"fr": "Votre atout principal",
+					"en": "Your main strength"
+				},
+				"body": {
+					"fr": "Votre meilleur pilier dépasse 75 / 100 : appuyez-vous dessus dans votre communication et pour faire progresser les autres.",
+					"en": "Your strongest pillar is above 75 / 100: lean on it in your messaging and use it to lift the others."
+				},
+				"when": {
+					"expr": "max(score.offre, score.commercial, score.finances, score.organisation) >= 75"
+				}
+			},
+			{
+				"key": "jeune_entreprise",
+				"title": {
+					"fr": "Une entreprise encore jeune",
+					"en": "A young business"
+				},
+				"body": {
+					"fr": "Dans les premières années, la trésorerie est souvent le point le plus sensible. Gardez un œil hebdomadaire sur vos encaissements.",
+					"en": "In the early years, cash is often the most sensitive point. Keep a weekly eye on incoming payments."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "answer.anciennete",
+							"op": "in",
+							"value": [ "moins_1", "1_3" ]
+						},
+						{
+							"left": "score.finances",
+							"op": "lt",
+							"value": 50
+						}
+					]
+				}
+			}
+		],
+		"actions": [
+			{
+				"key": "action_tresorerie",
+				"title": {
+					"fr": "Sécurisez votre trésorerie",
+					"en": "Secure your cash position"
+				},
+				"body": {
+					"fr": "Construisez un prévisionnel de trésorerie sur 3 mois et mettez à jour vos encaissements chaque semaine. Relancez systématiquement les factures échues.",
+					"en": "Build a 3-month cash forecast and update incoming payments weekly. Chase overdue invoices systematically."
+				},
+				"when": {
+					"left": "answer.tresorerie",
+					"op": "in",
+					"value": [ "moins_1", "nsp" ]
+				},
+				"priority": 50
+			},
+			{
+				"key": "action_dependance",
+				"title": {
+					"fr": "Réduisez votre dépendance à un client",
+					"en": "Reduce reliance on one customer"
+				},
+				"body": {
+					"fr": "Fixez-vous un objectif de nouveaux clients par trimestre pour qu’aucun ne dépasse un quart de votre chiffre d’affaires.",
+					"en": "Set a quarterly target for new customers so that no single one exceeds a quarter of your revenue."
+				},
+				"when": {
+					"left": "answer.dependance",
+					"op": "in",
+					"value": [ "plus_50", "25_50" ]
+				},
+				"priority": 45
+			},
+			{
+				"key": "action_marges",
+				"title": {
+					"fr": "Calculez vos marges par offre",
+					"en": "Calculate margins per offer"
+				},
+				"body": {
+					"fr": "Listez vos produits ou services, leurs coûts directs et le temps passé : vous identifierez vite ceux à développer et ceux à revoir.",
+					"en": "List your products or services, their direct costs and time spent: you will quickly see which to grow and which to rethink."
+				},
+				"when": {
+					"left": "answer.marges",
+					"op": "eq",
+					"value": false
+				},
+				"priority": 40
+			},
+			{
+				"key": "action_proposition",
+				"title": {
+					"fr": "Formulez votre proposition de valeur",
+					"en": "Write your value proposition"
+				},
+				"body": {
+					"fr": "En une phrase : pour qui, quel problème vous résolvez et pourquoi vous plutôt qu’un autre. Testez-la auprès de trois clients.",
+					"en": "In one sentence: who it is for, which problem you solve and why you rather than someone else. Test it with three customers."
+				},
+				"when": {
+					"expr": "score.offre < 50"
+				},
+				"priority": 35
+			},
+			{
+				"key": "action_suivi",
+				"title": {
+					"fr": "Organisez le suivi de vos prospects",
+					"en": "Organise prospect follow-up"
+				},
+				"body": {
+					"fr": "Un simple tableau avec la date du dernier contact et la prochaine action suffit à ne plus laisser filer d’opportunités.",
+					"en": "A simple table with the last contact date and next action is enough to stop opportunities slipping away."
+				},
+				"when": {
+					"left": "answer.suivi_prospects",
+					"op": "in",
+					"value": [ "memoire", "carnet" ]
+				},
+				"priority": 30
+			},
+			{
+				"key": "action_canaux",
+				"title": {
+					"fr": "Diversifiez vos sources de clients",
+					"en": "Diversify your customer sources"
+				},
+				"body": {
+					"fr": "Ajoutez un canal d’acquisition à votre bouche-à-oreille et testez-le pendant trois mois avant d’en évaluer les résultats.",
+					"en": "Add one acquisition channel on top of word of mouth and test it for three months before reviewing the results."
+				},
+				"when": {
+					"expr": "count.canaux < 3"
+				},
+				"priority": 25
+			},
+			{
+				"key": "action_temps",
+				"title": {
+					"fr": "Libérez du temps administratif",
+					"en": "Free up admin time"
+				},
+				"body": {
+					"fr": "Repérez les trois tâches répétitives qui vous prennent le plus de temps et automatisez-les ou confiez-les à quelqu’un d’autre.",
+					"en": "Spot the three repetitive tasks that take most of your time and automate or hand them over."
+				},
+				"when": {
+					"left": "answer.temps_admin",
+					"op": "gte",
+					"value": 30
+				},
+				"priority": 20
+			},
+			{
+				"key": "action_pilotage",
+				"title": {
+					"fr": "Installez un rendez-vous mensuel avec vos chiffres",
+					"en": "Hold a monthly meeting with your numbers"
+				},
+				"body": {
+					"fr": "Une heure par mois pour suivre ventes, charges et trésorerie : c’est le meilleur moyen d’anticiper plutôt que de subir.",
+					"en": "One hour a month to review sales, costs and cash is the best way to anticipate rather than react."
+				},
+				"when": {
+					"left": "answer.tableau_bord",
+					"op": "in",
+					"value": [ "bilan", "trimestre" ]
+				},
+				"priority": 15
+			},
+			{
+				"key": "action_croissance",
+				"title": {
+					"fr": "Préparez votre prochaine étape",
+					"en": "Plan your next step"
+				},
+				"body": {
+					"fr": "Vos bases sont solides : fixez-vous un objectif de développement à 12 mois et les deux ou trois projets qui vous y mèneront.",
+					"en": "Your foundations are solid: set a 12-month growth goal and the two or three projects that will get you there."
+				},
+				"when": {
+					"expr": "var.score_global >= 70"
+				},
+				"priority": 10
+			}
+		],
+		"ctas": [
+			{
+				"key": "cta_echange",
+				"label": {
+					"fr": "Réserver un échange gratuit",
+					"en": "Book a free call"
+				},
+				"text": {
+					"fr": "30 minutes avec un conseiller pour transformer ce diagnostic en plan concret.",
+					"en": "30 minutes with an advisor to turn this check-up into a concrete plan."
+				},
+				"url": "https://example.com/rendez-vous",
+				"utm": {
+					"source": "diagnostic",
+					"medium": "resultat",
+					"campaign": "sante-entreprise",
+					"content": "rdv"
+				},
+				"when": {
+					"expr": "var.score_global < 70"
+				},
+				"priority": 20
+			},
+			{
+				"key": "cta_guide",
+				"label": {
+					"fr": "Télécharger le guide croissance",
+					"en": "Download the growth guide"
+				},
+				"text": {
+					"fr": "Des méthodes concrètes pour passer à l’étape suivante.",
+					"en": "Practical methods to reach the next stage."
+				},
+				"url": "https://example.com/guide-croissance",
+				"utm": {
+					"source": "diagnostic",
+					"medium": "resultat",
+					"campaign": "sante-entreprise",
+					"content": "guide"
+				},
+				"priority": 10
+			}
+		]
+	},
+	"results": {
+		"title": {
+			"fr": "{first_name}, voici le bilan de votre entreprise",
+			"en": "{first_name}, here is your business check-up"
+		},
+		"shareLink": true,
+		"emailResult": true,
+		"blocks": [
+			{
+				"type": "profile"
+			},
+			{
+				"type": "variables",
+				"title": {
+					"fr": "En un coup d’œil",
+					"en": "At a glance"
+				},
+				"keys": [ "score_global", "piliers_fragiles" ]
+			},
+			{
+				"type": "scores",
+				"title": {
+					"fr": "Vos 4 piliers",
+					"en": "Your 4 pillars"
+				},
+				"display": "radar"
+			},
+			{
+				"type": "texts",
+				"title": {
+					"fr": "Ce qu’il faut retenir",
+					"en": "Key takeaways"
+				}
+			},
+			{
+				"type": "actions",
+				"title": {
+					"fr": "Votre plan d’action",
+					"en": "Your action plan"
+				}
+			},
+			{
+				"type": "cta"
+			},
+			{
+				"type": "share"
+			}
+		]
+	},
+	"ui": {
+		"theme": {
+			"colors": {
+				"primary": "#1d4ed8",
+				"primaryText": "#ffffff",
+				"background": "#ffffff",
+				"surface": "#eff6ff",
+				"text": "#0f172a",
+				"muted": "#475569"
+			},
+			"fontFamily": "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+			"radius": "10px",
+			"maxWidth": "760px"
+		},
+		"legal": {
+			"fr": "Vos données servent uniquement à établir et vous envoyer votre résultat. Elles ne sont jamais revendues. Vous pouvez demander leur consultation ou leur suppression à tout moment.",
+			"en": "Your data is only used to produce and send you your result. It is never sold. You can ask to access or delete it at any time."
+		}
+	}
+}

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-14T07:51:59+00:00\n"
+"POT-Creation-Date: 2026-10-14T09:16:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: smart-diagnostic\n"
@@ -90,6 +90,7 @@ msgstr ""
 #: src/Admin/SettingsPage.php:310
 #: src/Admin/SubmissionsPage.php:90
 #: src/Admin/SubmissionsPage.php:277
+#: src/Admin/TemplatesPage.php:93
 msgid "You are not allowed to do this."
 msgstr ""
 
@@ -621,6 +622,53 @@ msgstr ""
 msgid "No submissions yet."
 msgstr ""
 
+#: src/Admin/TemplatesPage.php:42
+#: src/Admin/TemplatesPage.php:55
+#: src/Admin/TemplatesPage.php:108
+msgid "Create from a template"
+msgstr ""
+
+#: src/Admin/TemplatesPage.php:43
+msgid "Templates"
+msgstr ""
+
+#: src/Admin/TemplatesPage.php:109
+msgid "Pick a ready-made diagnostic: a copy is created as a draft, that you can edit freely. The template itself never changes."
+msgstr ""
+
+#: src/Admin/TemplatesPage.php:111
+msgid "No template available."
+msgstr ""
+
+#. translators: %d: number of questions.
+#: src/Admin/TemplatesPage.php:125
+#, php-format
+msgid "%d question"
+msgid_plural "%d questions"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: estimated duration in minutes.
+#: src/Admin/TemplatesPage.php:127
+#, php-format
+msgid "about %d minute"
+msgid_plural "about %d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Admin/TemplatesPage.php:133
+#: assets/src/builder/EmailTemplateEditor.js:259
+msgid "Preview"
+msgstr ""
+
+#: src/Admin/TemplatesPage.php:134
+msgid "Use this template"
+msgstr ""
+
+#: src/Admin/TemplatesPage.php:144
+msgid "Close"
+msgstr ""
+
 #: src/Admin/WebhookSecrets.php:34
 msgid "Webhook secrets"
 msgstr ""
@@ -1000,6 +1048,10 @@ msgstr ""
 msgid "Some fields are missing or invalid."
 msgstr ""
 
+#: src/Templates/Library.php:96
+msgid "Unknown template."
+msgstr ""
+
 #: templates/emails/admin.php:46
 msgid "View in the admin"
 msgstr ""
@@ -1247,10 +1299,6 @@ msgstr ""
 
 #: assets/src/builder/EmailTemplateEditor.js:244
 msgid "Click a variable to insert it at the cursor. In {score:key}, {answer:key}… replace \"key\" by the key of the axis or of the question."
-msgstr ""
-
-#: assets/src/builder/EmailTemplateEditor.js:259
-msgid "Preview"
 msgstr ""
 
 #: assets/src/builder/EmailTemplateEditor.js:267

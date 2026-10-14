@@ -25,6 +25,8 @@ d'éligibilité…
 - **Statistiques** : entonnoir, abandons, profils, CTA ; événements pour GA4 / GTM / Meta.
 - **RGPD** : consentement versionné, conservation limitée, export / effacement WordPress.
 - **Multilingue** (WPML, Polylang), interface traduite en français, **marque blanche**.
+- **Bibliothèque de modèles** prêts à l'emploi (diagnostic business, recommandation produit,
+  éligibilité, maturité digitale, satisfaction client), extensible par filtre.
 - **Import / export / duplication** de diagnostics d'un site à l'autre.
 
 ## Installation
@@ -33,7 +35,8 @@ Prérequis : WordPress 6.4+, PHP 8.1+.
 
 1. Télécharger le zip de la dernière [release](https://github.com/metisnc/smart-diagnostic/releases).
 2. *Extensions → Ajouter → Téléverser une extension*, puis activer.
-3. Menu du plugin → **Ajouter un diagnostic** (ou **Importer** un JSON).
+3. Menu du plugin → **Modèles** (partir d'un diagnostic prêt à l'emploi), **Ajouter un
+   diagnostic** ou **Importer** un JSON.
 4. Insérer le diagnostic avec le bloc **Diagnostic** ou le shortcode
    `[smart_diagnostic id="123"]` (ID ou slug).
 

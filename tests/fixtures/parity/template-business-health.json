@@ -1,0 +1,195 @@
+{
+	"description": "templates/diagnostics/business-health.json : modèle livré avec le plugin.",
+	"configFile": "templates/diagnostics/business-health.json",
+	"cases": [
+		{
+			"name": "solide",
+			"answers": {
+				"first_name": "Alex",
+				"anciennete": "3_10",
+				"offre_clarte": 5,
+				"offre_difference": "preuves",
+				"offre_prix": "valeur",
+				"canaux": [
+					"bouche",
+					"reseau",
+					"site",
+					"reseaux_sociaux",
+					"prospection"
+				],
+				"suivi_prospects": "crm",
+				"dependance": "moins_10",
+				"tresorerie": "plus_6",
+				"tableau_bord": "semaine",
+				"marges": true,
+				"temps_admin": 10,
+				"methodes": [
+					"procedures",
+					"outils",
+					"delegation",
+					"planification"
+				]
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"first_name",
+					"anciennete",
+					"offre_clarte",
+					"offre_difference",
+					"offre_prix",
+					"pause_commercial",
+					"canaux",
+					"suivi_prospects",
+					"dependance",
+					"tresorerie",
+					"tableau_bord",
+					"marges",
+					"temps_admin",
+					"methodes",
+					"contact"
+				],
+				"scores": {
+					"offre": 100,
+					"commercial": 100,
+					"finances": 100,
+					"organisation": 100
+				},
+				"vars": {
+					"score_global": 100,
+					"piliers_fragiles": 0
+				},
+				"profile": "solide",
+				"texts": [ "atout" ],
+				"actions": [ "action_croissance" ],
+				"cta": "cta_guide"
+			}
+		},
+		{
+			"name": "a_consolider",
+			"answers": {
+				"first_name": "Alex",
+				"anciennete": "3_10",
+				"offre_clarte": 3,
+				"offre_difference": "prix",
+				"offre_prix": "couts",
+				"canaux": [ "bouche", "site" ],
+				"suivi_prospects": "tableur",
+				"dependance": "25_50",
+				"tresorerie": "1_3",
+				"tableau_bord": "mois",
+				"marges": false,
+				"temps_admin": 35,
+				"methodes": [ "outils" ]
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"first_name",
+					"anciennete",
+					"offre_clarte",
+					"offre_difference",
+					"offre_prix",
+					"pause_commercial",
+					"canaux",
+					"suivi_prospects",
+					"dependance",
+					"tresorerie",
+					"tableau_bord",
+					"marges",
+					"temps_admin",
+					"methodes",
+					"contact"
+				],
+				"scores": {
+					"offre": 50,
+					"commercial": 50,
+					"finances": 45,
+					"organisation": 40
+				},
+				"vars": {
+					"score_global": 46,
+					"piliers_fragiles": 2
+				},
+				"profile": "a_consolider",
+				"texts": [ "faible_organisation" ],
+				"actions": [
+					"action_dependance",
+					"action_marges",
+					"action_canaux",
+					"action_temps"
+				],
+				"cta": "cta_echange"
+			}
+		},
+		{
+			"name": "fondamentaux",
+			"answers": {
+				"first_name": "",
+				"anciennete": "moins_1",
+				"offre_clarte": 1,
+				"offre_difference": "nsp",
+				"offre_prix": "intuition",
+				"canaux": [ "aucun" ],
+				"suivi_prospects": "memoire",
+				"dependance": "nsp",
+				"tresorerie": "nsp",
+				"tableau_bord": "bilan",
+				"marges": false,
+				"temps_admin": 70,
+				"methodes": [ "aucun" ]
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"first_name",
+					"anciennete",
+					"offre_clarte",
+					"offre_difference",
+					"offre_prix",
+					"pause_commercial",
+					"canaux",
+					"suivi_prospects",
+					"dependance",
+					"tresorerie",
+					"tableau_bord",
+					"marges",
+					"temps_admin",
+					"methodes",
+					"contact"
+				],
+				"scores": {
+					"offre": 5,
+					"commercial": 22.5,
+					"finances": 0,
+					"organisation": 0
+				},
+				"vars": {
+					"score_global": 7,
+					"piliers_fragiles": 4
+				},
+				"profile": "fondamentaux",
+				"texts": [ "faible_finances", "jeune_entreprise" ],
+				"actions": [
+					"action_tresorerie",
+					"action_marges",
+					"action_proposition",
+					"action_suivi",
+					"action_canaux",
+					"action_temps",
+					"action_pilotage"
+				],
+				"cta": "cta_echange"
+			}
+		}
+	]
+}

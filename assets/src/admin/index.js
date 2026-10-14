@@ -39,3 +39,42 @@ window.sdPreview = {
 		}
 	},
 };
+
+/**
+ * Galerie de modèles : aperçu du questionnaire dans une fenêtre.
+ */
+function initTemplateGallery() {
+	const dialog = document.querySelector( '.sd-template-dialog' );
+	if ( ! dialog ) {
+		return;
+	}
+	const body = dialog.querySelector( '.sd-template-dialog__body' );
+	const close = () => {
+		render( null, body );
+		dialog.close();
+	};
+	document.addEventListener( 'click', ( event ) => {
+		const button = event.target.closest( '[data-sd-template-preview]' );
+		if ( button ) {
+			const id = button.dataset.sdTemplatePreview;
+			const source = document.getElementById(
+				`sd-template-config-${ id }`
+			);
+			const card = button.closest( '.sd-template-card' );
+			dialog.querySelector( 'h2' ).textContent =
+				card?.querySelector( '.sd-template-card__title' )
+					?.textContent ?? '';
+			window.sdPreview.render( body, JSON.parse( source.textContent ) );
+			dialog.showModal();
+		} else if ( event.target.closest( '[data-sd-template-close]' ) ) {
+			close();
+		}
+	} );
+	dialog.addEventListener( 'cancel', () => render( null, body ) );
+}
+
+if ( document.readyState === 'loading' ) {
+	document.addEventListener( 'DOMContentLoaded', initTemplateGallery );
+} else {
+	initTemplateGallery();
+}

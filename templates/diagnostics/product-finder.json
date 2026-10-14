@@ -1,0 +1,923 @@
+{
+	"schemaVersion": 1,
+	"meta": {
+		"title": {
+			"fr": "Quiz de recommandation produit",
+			"en": "Product recommendation quiz"
+		},
+		"description": {
+			"fr": "Un quiz court qui oriente chaque visiteur vers la formule la plus adaptée parmi trois (Essentiel, Confort, Premium), avec un bouton d’action propre à chaque formule.",
+			"en": "A short quiz that steers each visitor to the best-fitting plan out of three (Essential, Comfort, Premium), with a dedicated call to action for each."
+		}
+	},
+	"i18n": {
+		"defaultLanguage": "fr",
+		"languages": [ "fr", "en" ],
+		"switcher": true
+	},
+	"welcome": {
+		"title": {
+			"fr": "Quelle formule vous correspond le mieux ?",
+			"en": "Which plan suits you best?"
+		},
+		"subtitle": {
+			"fr": "Répondez à 7 questions rapides : nous vous recommandons la formule la plus adaptée à vos besoins et à votre budget.",
+			"en": "Answer 7 quick questions and we will recommend the plan that best fits your needs and budget."
+		},
+		"benefits": [
+			{
+				"fr": "Une recommandation personnalisée",
+				"en": "A personalised recommendation"
+			},
+			{
+				"fr": "Une comparaison claire des trois formules",
+				"en": "A clear comparison of the three plans"
+			},
+			{
+				"fr": "Aucun engagement",
+				"en": "No commitment"
+			}
+		],
+		"badges": [
+			{
+				"fr": "2 minutes",
+				"en": "2 minutes"
+			},
+			{
+				"fr": "Sans engagement",
+				"en": "No commitment"
+			}
+		],
+		"resultPreview": true,
+		"startLabel": {
+			"fr": "Trouver ma formule",
+			"en": "Find my plan"
+		}
+	},
+	"flow": {
+		"progress": {
+			"bar": true,
+			"counter": true,
+			"sectionName": false
+		},
+		"backButton": true,
+		"saveProgress": true,
+		"autoAdvance": true,
+		"optionLetters": false,
+		"encouragements": [
+			{
+				"atPercent": 50,
+				"text": {
+					"fr": "Parfait, on y voit déjà plus clair !",
+					"en": "Great, things are getting clearer!"
+				}
+			},
+			{
+				"atPercent": 80,
+				"text": {
+					"fr": "Encore une question et c’est terminé.",
+					"en": "One more question and you are done."
+				}
+			}
+		],
+		"transition": {
+			"enabled": true,
+			"durationMs": 2500,
+			"steps": [
+				{
+					"fr": "Comparaison des formules…",
+					"en": "Comparing plans…"
+				},
+				{
+					"fr": "Sélection de la meilleure option pour vous…",
+					"en": "Picking the best option for you…"
+				}
+			]
+		}
+	},
+	"sections": [
+		{
+			"key": "besoins",
+			"label": {
+				"fr": "Vos besoins",
+				"en": "Your needs"
+			}
+		},
+		{
+			"key": "usage",
+			"label": {
+				"fr": "Votre usage",
+				"en": "Your usage"
+			}
+		},
+		{
+			"key": "budget",
+			"label": {
+				"fr": "Budget et calendrier",
+				"en": "Budget and timing"
+			}
+		},
+		{
+			"key": "resultat",
+			"label": {
+				"fr": "Votre recommandation",
+				"en": "Your recommendation"
+			}
+		}
+	],
+	"axes": [
+		{
+			"key": "essentiel",
+			"label": {
+				"fr": "Essentiel",
+				"en": "Essential"
+			},
+			"description": {
+				"fr": "L’indispensable, simple et économique.",
+				"en": "The essentials, simple and affordable."
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		},
+		{
+			"key": "confort",
+			"label": {
+				"fr": "Confort",
+				"en": "Comfort"
+			},
+			"description": {
+				"fr": "Plus de fonctionnalités et un accompagnement à la demande.",
+				"en": "More features and support on demand."
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		},
+		{
+			"key": "premium",
+			"label": {
+				"fr": "Premium",
+				"en": "Premium"
+			},
+			"description": {
+				"fr": "Toutes les fonctionnalités et un interlocuteur dédié.",
+				"en": "Every feature and a dedicated contact."
+			},
+			"base": 0,
+			"min": 0,
+			"max": 100
+		}
+	],
+	"steps": [
+		{
+			"key": "priorite",
+			"kind": "question",
+			"section": "besoins",
+			"type": "single",
+			"label": {
+				"fr": "Qu’attendez-vous avant tout de votre formule ?",
+				"en": "What do you expect most from your plan?"
+			},
+			"options": [
+				{
+					"value": "simplicite",
+					"label": {
+						"fr": "La simplicité : l’essentiel, sans superflu",
+						"en": "Simplicity: just the essentials"
+					},
+					"scores": {
+						"essentiel": 25
+					},
+					"description": {
+						"fr": "Je veux aller droit au but.",
+						"en": "I want to get straight to the point."
+					}
+				},
+				{
+					"value": "equilibre",
+					"label": {
+						"fr": "Le bon équilibre entre fonctionnalités et prix",
+						"en": "The right balance of features and price"
+					},
+					"scores": {
+						"confort": 25
+					},
+					"description": {
+						"fr": "Un peu plus que le minimum, sans excès.",
+						"en": "A bit more than the minimum, without excess."
+					}
+				},
+				{
+					"value": "complet",
+					"label": {
+						"fr": "Le maximum de possibilités",
+						"en": "As many possibilities as possible"
+					},
+					"scores": {
+						"premium": 25
+					},
+					"description": {
+						"fr": "Je veux tout avoir sous la main.",
+						"en": "I want everything at hand."
+					}
+				}
+			]
+		},
+		{
+			"key": "utilisateurs",
+			"kind": "question",
+			"section": "besoins",
+			"type": "single",
+			"label": {
+				"fr": "Combien de personnes l’utiliseront ?",
+				"en": "How many people will use it?"
+			},
+			"options": [
+				{
+					"value": "un",
+					"label": {
+						"fr": "Moi uniquement",
+						"en": "Just me"
+					},
+					"scores": {
+						"essentiel": 15
+					}
+				},
+				{
+					"value": "petite_equipe",
+					"label": {
+						"fr": "De 2 à 5 personnes",
+						"en": "2 to 5 people"
+					},
+					"scores": {
+						"confort": 15
+					}
+				},
+				{
+					"value": "equipe",
+					"label": {
+						"fr": "Plus de 5 personnes",
+						"en": "More than 5 people"
+					},
+					"scores": {
+						"premium": 15,
+						"confort": 5
+					}
+				}
+			]
+		},
+		{
+			"key": "frequence",
+			"kind": "question",
+			"section": "usage",
+			"type": "single",
+			"label": {
+				"fr": "À quelle fréquence pensez-vous l’utiliser ?",
+				"en": "How often do you expect to use it?"
+			},
+			"options": [
+				{
+					"value": "occasionnel",
+					"label": {
+						"fr": "De temps en temps",
+						"en": "Now and then"
+					},
+					"scores": {
+						"essentiel": 15
+					}
+				},
+				{
+					"value": "regulier",
+					"label": {
+						"fr": "Plusieurs fois par semaine",
+						"en": "Several times a week"
+					},
+					"scores": {
+						"confort": 15
+					}
+				},
+				{
+					"value": "quotidien",
+					"label": {
+						"fr": "Tous les jours, de façon intensive",
+						"en": "Every day, intensively"
+					},
+					"scores": {
+						"premium": 15
+					}
+				}
+			]
+		},
+		{
+			"key": "accompagnement",
+			"kind": "question",
+			"section": "usage",
+			"type": "single",
+			"label": {
+				"fr": "Quel niveau d’accompagnement souhaitez-vous ?",
+				"en": "What level of support would you like?"
+			},
+			"options": [
+				{
+					"value": "autonome",
+					"label": {
+						"fr": "Je suis autonome, une documentation me suffit",
+						"en": "I am self-sufficient; documentation is enough"
+					},
+					"scores": {
+						"essentiel": 15
+					}
+				},
+				{
+					"value": "ponctuel",
+					"label": {
+						"fr": "Une aide ponctuelle quand j’en ai besoin",
+						"en": "Occasional help when I need it"
+					},
+					"scores": {
+						"confort": 15
+					}
+				},
+				{
+					"value": "dedie",
+					"label": {
+						"fr": "Un interlocuteur dédié qui me connaît",
+						"en": "A dedicated contact who knows me"
+					},
+					"scores": {
+						"premium": 20
+					}
+				}
+			]
+		},
+		{
+			"key": "fonctionnalites",
+			"kind": "question",
+			"section": "usage",
+			"type": "multi",
+			"label": {
+				"fr": "Quelles options vous intéressent ?",
+				"en": "Which options interest you?"
+			},
+			"help": {
+				"fr": "Plusieurs réponses possibles.",
+				"en": "Select all that apply."
+			},
+			"options": [
+				{
+					"value": "rapports",
+					"label": {
+						"fr": "Des rapports et statistiques détaillés",
+						"en": "Detailed reports and statistics"
+					},
+					"scores": {
+						"confort": 5,
+						"premium": 5
+					}
+				},
+				{
+					"value": "personnalisation",
+					"label": {
+						"fr": "La personnalisation avancée",
+						"en": "Advanced customisation"
+					},
+					"scores": {
+						"premium": 5
+					}
+				},
+				{
+					"value": "connexions",
+					"label": {
+						"fr": "Des connexions avec vos autres outils",
+						"en": "Connections with your other tools"
+					},
+					"scores": {
+						"premium": 5
+					}
+				},
+				{
+					"value": "formation",
+					"label": {
+						"fr": "Une session de prise en main",
+						"en": "An onboarding session"
+					},
+					"scores": {
+						"confort": 5
+					}
+				},
+				{
+					"value": "support_prioritaire",
+					"label": {
+						"fr": "Une assistance prioritaire",
+						"en": "Priority support"
+					},
+					"scores": {
+						"premium": 5
+					}
+				},
+				{
+					"value": "aucun",
+					"label": {
+						"fr": "Aucune, l’essentiel me suffit",
+						"en": "None, the basics are enough"
+					},
+					"exclusive": true
+				}
+			]
+		},
+		{
+			"key": "budget",
+			"kind": "question",
+			"section": "budget",
+			"type": "slider",
+			"label": {
+				"fr": "Quel budget mensuel envisagez-vous ?",
+				"en": "What monthly budget do you have in mind?"
+			},
+			"help": {
+				"fr": "Une fourchette indicative suffit : elle sert uniquement à affiner la recommandation.",
+				"en": "A rough figure is enough: it is only used to refine the recommendation."
+			},
+			"unit": {
+				"fr": "€ / mois",
+				"en": "€ / month"
+			},
+			"validation": {
+				"min": 0,
+				"max": 200,
+				"step": 5
+			}
+		},
+		{
+			"key": "demarrage",
+			"kind": "question",
+			"section": "budget",
+			"type": "single",
+			"label": {
+				"fr": "Quand souhaitez-vous démarrer ?",
+				"en": "When would you like to start?"
+			},
+			"options": [
+				{
+					"value": "immediat",
+					"label": {
+						"fr": "Dès que possible",
+						"en": "As soon as possible"
+					}
+				},
+				{
+					"value": "mois",
+					"label": {
+						"fr": "Dans le mois",
+						"en": "Within a month"
+					}
+				},
+				{
+					"value": "plus_tard",
+					"label": {
+						"fr": "Plus tard, je me renseigne",
+						"en": "Later, I am just looking"
+					}
+				}
+			]
+		},
+		{
+			"key": "contact",
+			"kind": "form",
+			"section": "resultat",
+			"title": {
+				"fr": "Votre recommandation est prête",
+				"en": "Your recommendation is ready"
+			},
+			"text": {
+				"fr": "Recevez-la par email avec le détail de la formule et de ses options.",
+				"en": "Get it by email with full details of the plan and its options."
+			},
+			"fields": [
+				{
+					"key": "first_name",
+					"type": "text",
+					"label": {
+						"fr": "Prénom",
+						"en": "First name"
+					}
+				},
+				{
+					"key": "email",
+					"type": "email",
+					"label": {
+						"fr": "Email",
+						"en": "Email"
+					},
+					"required": true
+				}
+			],
+			"consent": {
+				"text": {
+					"fr": "J’accepte que mes réponses et mes coordonnées soient utilisées pour m’envoyer mon résultat et, le cas échéant, être recontacté(e) à ce sujet. Je peux demander leur suppression à tout moment.",
+					"en": "I agree that my answers and contact details may be used to send me my result and, where relevant, to contact me about it. I can ask for them to be deleted at any time."
+				},
+				"version": "product-finder-v1"
+			},
+			"submitLabel": {
+				"fr": "Découvrir ma formule",
+				"en": "Reveal my plan"
+			}
+		}
+	],
+	"scoring": {
+		"rules": [
+			{
+				"type": "range",
+				"axis": "essentiel",
+				"question": "budget",
+				"ranges": [
+					{
+						"max": 30,
+						"points": 30
+					}
+				]
+			},
+			{
+				"type": "range",
+				"axis": "confort",
+				"question": "budget",
+				"ranges": [
+					{
+						"min": 30,
+						"max": 80,
+						"points": 30
+					}
+				]
+			},
+			{
+				"type": "range",
+				"axis": "premium",
+				"question": "budget",
+				"ranges": [
+					{
+						"min": 80,
+						"points": 30
+					}
+				]
+			},
+			{
+				"type": "condition",
+				"axis": "essentiel",
+				"when": {
+					"left": "answer.fonctionnalites",
+					"op": "contains",
+					"value": "aucun"
+				},
+				"points": 15
+			},
+			{
+				"type": "count",
+				"axis": "premium",
+				"question": "fonctionnalites",
+				"ranges": [
+					{
+						"min": 3,
+						"points": 10
+					}
+				]
+			},
+			{
+				"type": "condition",
+				"axis": "premium",
+				"when": {
+					"left": "answer.budget",
+					"op": "lt",
+					"value": 30
+				},
+				"points": -15
+			}
+		]
+	},
+	"variables": [
+		{
+			"key": "reco",
+			"label": {
+				"fr": "Formule recommandée (1 = Essentiel, 2 = Confort, 3 = Premium)",
+				"en": "Recommended plan (1 = Essential, 2 = Comfort, 3 = Premium)"
+			},
+			"expr": "score.premium > score.confort and score.premium > score.essentiel ? 3 : (score.essentiel > score.confort and score.essentiel >= score.premium ? 1 : 2)"
+		},
+		{
+			"key": "adequation",
+			"label": {
+				"fr": "Adéquation avec la formule recommandée",
+				"en": "Match with the recommended plan"
+			},
+			"expr": "round(max(score.essentiel, score.confort, score.premium) / (score.essentiel + score.confort + score.premium) * 100)",
+			"format": {
+				"style": "percent",
+				"decimals": 0
+			}
+		},
+		{
+			"key": "budget_mensuel",
+			"label": {
+				"fr": "Votre budget indicatif",
+				"en": "Your indicative budget"
+			},
+			"expr": "answer.budget",
+			"format": {
+				"style": "currency",
+				"currency": "EUR",
+				"decimals": 0,
+				"suffix": {
+					"fr": "/ mois",
+					"en": "/ month"
+				}
+			}
+		}
+	],
+	"outcomes": {
+		"profiles": [
+			{
+				"key": "premium",
+				"label": {
+					"fr": "Formule Premium",
+					"en": "Premium plan"
+				},
+				"text": {
+					"fr": "Vous avez besoin d’une solution complète, utilisée intensivement et par plusieurs personnes. La formule <strong>Premium</strong> vous donne accès à toutes les options et à un interlocuteur dédié.",
+					"en": "You need a complete solution, used intensively and by several people. The <strong>Premium</strong> plan gives you every option and a dedicated contact."
+				},
+				"when": {
+					"left": "var.reco",
+					"op": "eq",
+					"value": 3
+				},
+				"priority": 30
+			},
+			{
+				"key": "essentiel",
+				"label": {
+					"fr": "Formule Essentiel",
+					"en": "Essential plan"
+				},
+				"text": {
+					"fr": "Vous cherchez une solution simple et efficace, sans superflu. La formule <strong>Essentiel</strong> couvre l’indispensable au meilleur prix, et vous pourrez évoluer à tout moment.",
+					"en": "You want a simple, effective solution with no frills. The <strong>Essential</strong> plan covers what matters at the best price, and you can upgrade at any time."
+				},
+				"when": {
+					"left": "var.reco",
+					"op": "eq",
+					"value": 1
+				},
+				"priority": 20
+			},
+			{
+				"key": "confort",
+				"label": {
+					"fr": "Formule Confort",
+					"en": "Comfort plan"
+				},
+				"text": {
+					"fr": "Vous recherchez le bon équilibre entre fonctionnalités et budget. La formule <strong>Confort</strong> vous apporte des outils plus riches et une aide disponible quand vous en avez besoin.",
+					"en": "You are looking for the right balance between features and budget. The <strong>Comfort</strong> plan brings richer tools and help whenever you need it."
+				},
+				"priority": 10
+			}
+		],
+		"texts": [
+			{
+				"key": "hesitation",
+				"title": {
+					"fr": "Deux formules au coude-à-coude",
+					"en": "Two plans neck and neck"
+				},
+				"body": {
+					"fr": "Vos réponses correspondent presque autant à une autre formule : n’hésitez pas à comparer leurs détails avant de choisir.",
+					"en": "Your answers fit another plan almost as well: feel free to compare the details before choosing."
+				},
+				"when": {
+					"expr": "var.adequation < 45"
+				}
+			},
+			{
+				"key": "budget_serre",
+				"title": {
+					"fr": "Un budget maîtrisé",
+					"en": "A tight budget"
+				},
+				"body": {
+					"fr": "Vous souhaitez beaucoup de fonctionnalités avec un budget serré : commencez par la formule recommandée, puis ajoutez des options au fil de vos besoins.",
+					"en": "You want many features on a tight budget: start with the recommended plan, then add options as your needs grow."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "answer.budget",
+							"op": "lt",
+							"value": 30
+						},
+						{
+							"expr": "count.fonctionnalites >= 3"
+						}
+					]
+				}
+			},
+			{
+				"key": "demarrage_rapide",
+				"title": {
+					"fr": "Vous êtes pressé ?",
+					"en": "In a hurry?"
+				},
+				"body": {
+					"fr": "Vous souhaitez démarrer rapidement : l’activation se fait en quelques minutes après votre inscription.",
+					"en": "You want to get started quickly: activation takes just a few minutes after signing up."
+				},
+				"when": {
+					"left": "answer.demarrage",
+					"op": "eq",
+					"value": "immediat"
+				}
+			}
+		],
+		"actions": [
+			{
+				"key": "action_essai",
+				"title": {
+					"fr": "Testez avant de vous décider",
+					"en": "Try before you decide"
+				},
+				"body": {
+					"fr": "Profitez de la période d’essai pour vérifier que la formule correspond à votre usage réel.",
+					"en": "Use the trial period to check the plan fits how you actually work."
+				},
+				"when": {
+					"left": "answer.demarrage",
+					"op": "eq",
+					"value": "plus_tard"
+				},
+				"priority": 20
+			},
+			{
+				"key": "action_equipe",
+				"title": {
+					"fr": "Impliquez votre équipe",
+					"en": "Involve your team"
+				},
+				"body": {
+					"fr": "Plusieurs personnes l’utiliseront : identifiez un référent qui facilitera la prise en main de chacun.",
+					"en": "Several people will use it: name a lead person to help everyone get started."
+				},
+				"when": {
+					"left": "answer.utilisateurs",
+					"op": "in",
+					"value": [ "petite_equipe", "equipe" ]
+				},
+				"priority": 10
+			},
+			{
+				"key": "action_evolution",
+				"title": {
+					"fr": "Gardez de la marge pour évoluer",
+					"en": "Leave room to grow"
+				},
+				"body": {
+					"fr": "Vous pourrez changer de formule à tout moment si vos besoins évoluent.",
+					"en": "You can switch plans at any time if your needs change."
+				},
+				"priority": 0
+			}
+		],
+		"ctas": [
+			{
+				"key": "cta_premium",
+				"label": {
+					"fr": "Découvrir la formule Premium",
+					"en": "Explore the Premium plan"
+				},
+				"text": {
+					"fr": "Toutes les options, un interlocuteur dédié.",
+					"en": "Every option, a dedicated contact."
+				},
+				"url": "https://example.com/formules/premium",
+				"utm": {
+					"source": "quiz",
+					"medium": "resultat",
+					"campaign": "choix-formule",
+					"content": "premium"
+				},
+				"when": {
+					"left": "var.reco",
+					"op": "eq",
+					"value": 3
+				},
+				"priority": 30
+			},
+			{
+				"key": "cta_essentiel",
+				"label": {
+					"fr": "Choisir la formule Essentiel",
+					"en": "Choose the Essential plan"
+				},
+				"text": {
+					"fr": "L’indispensable, simplement.",
+					"en": "The essentials, simply."
+				},
+				"url": "https://example.com/formules/essentiel",
+				"utm": {
+					"source": "quiz",
+					"medium": "resultat",
+					"campaign": "choix-formule",
+					"content": "essentiel"
+				},
+				"when": {
+					"left": "var.reco",
+					"op": "eq",
+					"value": 1
+				},
+				"priority": 20
+			},
+			{
+				"key": "cta_confort",
+				"label": {
+					"fr": "Choisir la formule Confort",
+					"en": "Choose the Comfort plan"
+				},
+				"text": {
+					"fr": "Le meilleur équilibre fonctionnalités / prix.",
+					"en": "The best balance of features and price."
+				},
+				"url": "https://example.com/formules/confort",
+				"utm": {
+					"source": "quiz",
+					"medium": "resultat",
+					"campaign": "choix-formule",
+					"content": "confort"
+				},
+				"priority": 10
+			}
+		]
+	},
+	"results": {
+		"title": {
+			"fr": "Notre recommandation pour vous, {first_name}",
+			"en": "Our recommendation for you, {first_name}"
+		},
+		"shareLink": true,
+		"emailResult": true,
+		"blocks": [
+			{
+				"type": "profile"
+			},
+			{
+				"type": "cta"
+			},
+			{
+				"type": "scores",
+				"title": {
+					"fr": "Votre affinité avec chaque formule",
+					"en": "How well each plan fits you"
+				},
+				"display": "bars"
+			},
+			{
+				"type": "variables",
+				"title": {
+					"fr": "Repères",
+					"en": "Key figures"
+				},
+				"keys": [ "adequation", "budget_mensuel" ]
+			},
+			{
+				"type": "texts"
+			},
+			{
+				"type": "actions",
+				"title": {
+					"fr": "Nos conseils",
+					"en": "Our tips"
+				}
+			},
+			{
+				"type": "share"
+			}
+		]
+	},
+	"ui": {
+		"theme": {
+			"colors": {
+				"primary": "#047857",
+				"primaryText": "#ffffff",
+				"background": "#ffffff",
+				"surface": "#ecfdf5",
+				"text": "#111827",
+				"muted": "#4b5563"
+			},
+			"fontFamily": "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+			"radius": "14px",
+			"maxWidth": "720px"
+		},
+		"legal": {
+			"fr": "Vos données servent uniquement à établir et vous envoyer votre résultat. Elles ne sont jamais revendues. Vous pouvez demander leur consultation ou leur suppression à tout moment.",
+			"en": "Your data is only used to produce and send you your result. It is never sold. You can ask to access or delete it at any time."
+		}
+	}
+}

@@ -1,0 +1,269 @@
+{
+	"description": "templates/diagnostics/eligibility-check.json : modèle livré avec le plugin.",
+	"configFile": "templates/diagnostics/eligibility-check.json",
+	"cases": [
+		{
+			"name": "eligible",
+			"answers": {
+				"statut": "societe",
+				"anciennete": "3_8",
+				"effectif": 12,
+				"ca": 1500000,
+				"regularite": true,
+				"localisation": "zone",
+				"projet_type": "innovation",
+				"projet_montant": 80000,
+				"cofinancement": true
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"statut",
+					"anciennete",
+					"effectif",
+					"ca",
+					"regularite",
+					"localisation",
+					"intro_projet",
+					"projet_type",
+					"projet_montant",
+					"cofinancement",
+					"contact"
+				],
+				"scores": {
+					"conformite": 100,
+					"bloquants": 0,
+					"reserves": 0
+				},
+				"vars": {
+					"nb_bloquants": 0,
+					"nb_reserves": 0
+				},
+				"profile": "eligible",
+				"texts": [],
+				"actions": [ "act_dossier", "act_budget" ],
+				"cta": "cta_candidater"
+			}
+		},
+		{
+			"name": "eligible small project skips cofinancement",
+			"answers": {
+				"statut": "societe",
+				"anciennete": "3_8",
+				"effectif": 12,
+				"ca": 1500000,
+				"regularite": true,
+				"localisation": "zone",
+				"projet_type": "innovation",
+				"projet_montant": 30000,
+				"cofinancement": false
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"statut",
+					"anciennete",
+					"effectif",
+					"ca",
+					"regularite",
+					"localisation",
+					"intro_projet",
+					"projet_type",
+					"projet_montant",
+					"contact"
+				],
+				"scores": {
+					"conformite": 100,
+					"bloquants": 0,
+					"reserves": 0
+				},
+				"vars": {
+					"nb_bloquants": 0,
+					"nb_reserves": 0
+				},
+				"profile": "eligible",
+				"texts": [],
+				"actions": [ "act_dossier", "act_budget" ],
+				"cta": "cta_candidater"
+			}
+		},
+		{
+			"name": "sous conditions (creation jumps)",
+			"answers": {
+				"statut": "creation",
+				"anciennete": "plus_8",
+				"effectif": 500,
+				"localisation": "zone",
+				"projet_type": "commercial",
+				"projet_montant": 20000
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"statut",
+					"localisation",
+					"intro_projet",
+					"projet_type",
+					"projet_montant",
+					"contact"
+				],
+				"scores": {
+					"conformite": 85,
+					"bloquants": 0,
+					"reserves": 1
+				},
+				"vars": {
+					"nb_bloquants": 0,
+					"nb_reserves": 1
+				},
+				"profile": "sous_conditions",
+				"texts": [ "txt_jeune" ],
+				"actions": [ "act_dossier", "act_budget", "act_conseiller" ],
+				"cta": "cta_conseiller"
+			}
+		},
+		{
+			"name": "sous conditions (several reserves)",
+			"answers": {
+				"statut": "societe",
+				"anciennete": "3_8",
+				"effectif": 80,
+				"ca": 8000000,
+				"regularite": true,
+				"localisation": "zone",
+				"projet_type": "innovation",
+				"projet_montant": 80000,
+				"cofinancement": false
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"statut",
+					"anciennete",
+					"effectif",
+					"ca",
+					"regularite",
+					"localisation",
+					"intro_projet",
+					"projet_type",
+					"projet_montant",
+					"cofinancement",
+					"contact"
+				],
+				"scores": {
+					"conformite": 55,
+					"bloquants": 0,
+					"reserves": 3
+				},
+				"vars": {
+					"nb_bloquants": 0,
+					"nb_reserves": 3
+				},
+				"profile": "sous_conditions",
+				"texts": [ "txt_effectif", "txt_ca", "txt_budget" ],
+				"actions": [ "act_dossier", "act_budget", "act_conseiller" ],
+				"cta": "cta_conseiller"
+			}
+		},
+		{
+			"name": "non eligible (hors zone jumps to contact)",
+			"answers": {
+				"statut": "societe",
+				"anciennete": "3_8",
+				"effectif": 12,
+				"ca": 1500000,
+				"regularite": true,
+				"localisation": "hors_zone",
+				"projet_type": "innovation",
+				"projet_montant": 80000,
+				"cofinancement": true
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"statut",
+					"anciennete",
+					"effectif",
+					"ca",
+					"regularite",
+					"localisation",
+					"contact"
+				],
+				"scores": {
+					"conformite": 40,
+					"bloquants": 1,
+					"reserves": 0
+				},
+				"vars": {
+					"nb_bloquants": 1,
+					"nb_reserves": 0
+				},
+				"profile": "non_eligible",
+				"texts": [ "txt_territoire" ],
+				"actions": [ "act_alternatives" ],
+				"cta": "cta_alternatives"
+			}
+		},
+		{
+			"name": "non eligible (regularite)",
+			"answers": {
+				"statut": "societe",
+				"anciennete": "moins_1",
+				"effectif": 12,
+				"ca": 1500000,
+				"regularite": false,
+				"localisation": "zone",
+				"projet_type": "innovation",
+				"projet_montant": 80000,
+				"cofinancement": true
+			},
+			"contact": {
+				"first_name": "Alex",
+				"email": "a@example.com"
+			},
+			"expected": {
+				"path": [
+					"statut",
+					"anciennete",
+					"effectif",
+					"ca",
+					"regularite",
+					"localisation",
+					"intro_projet",
+					"projet_type",
+					"projet_montant",
+					"cofinancement",
+					"contact"
+				],
+				"scores": {
+					"conformite": 25,
+					"bloquants": 1,
+					"reserves": 1
+				},
+				"vars": {
+					"nb_bloquants": 1,
+					"nb_reserves": 1
+				},
+				"profile": "non_eligible",
+				"texts": [ "txt_jeune", "txt_regularite" ],
+				"actions": [ "act_alternatives" ],
+				"cta": "cta_alternatives"
+			}
+		}
+	]
+}

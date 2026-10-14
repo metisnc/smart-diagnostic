@@ -1,0 +1,1214 @@
+{
+	"schemaVersion": 1,
+	"meta": {
+		"title": {
+			"fr": "Test d’éligibilité",
+			"en": "Eligibility check"
+		},
+		"description": {
+			"fr": "Vérifiez en 2 minutes si une entreprise peut prétendre à un programme d’accompagnement selon ses critères (statut, ancienneté, effectif, chiffre d’affaires, localisation, projet). Réponse : éligible, éligible sous conditions ou non éligible.",
+			"en": "Check in 2 minutes whether a business qualifies for a support programme against its criteria (legal form, age, headcount, turnover, location, project). Answer: eligible, eligible with conditions, or not eligible."
+		}
+	},
+	"i18n": {
+		"defaultLanguage": "fr",
+		"languages": [ "fr", "en" ],
+		"switcher": true
+	},
+	"welcome": {
+		"title": {
+			"fr": "Êtes-vous éligible au programme d’accompagnement ?",
+			"en": "Are you eligible for the support programme?"
+		},
+		"subtitle": {
+			"fr": "Répondez à quelques questions sur votre structure et votre projet : vous saurez immédiatement si votre candidature peut être étudiée.",
+			"en": "Answer a few questions about your organisation and project, and find out straight away whether your application can be considered."
+		},
+		"benefits": [
+			{
+				"fr": "Une réponse immédiate et argumentée",
+				"en": "An instant, explained answer"
+			},
+			{
+				"fr": "La liste des critères à vérifier",
+				"en": "The list of criteria to check"
+			},
+			{
+				"fr": "Les prochaines étapes pour candidater",
+				"en": "Next steps to apply"
+			}
+		],
+		"badges": [
+			{
+				"fr": "2 minutes",
+				"en": "2 minutes"
+			},
+			{
+				"fr": "Gratuit et confidentiel",
+				"en": "Free and confidential"
+			}
+		],
+		"startLabel": {
+			"fr": "Vérifier mon éligibilité",
+			"en": "Check my eligibility"
+		}
+	},
+	"flow": {
+		"progress": {
+			"bar": true,
+			"counter": false,
+			"sectionName": true
+		},
+		"backButton": true,
+		"saveProgress": true,
+		"autoAdvance": true,
+		"optionLetters": false,
+		"encouragements": [
+			{
+				"atPercent": 50,
+				"text": {
+					"fr": "Votre structure est décrite, place à votre projet.",
+					"en": "Your organisation is covered, now on to your project."
+				}
+			}
+		],
+		"transition": {
+			"enabled": true,
+			"durationMs": 2500,
+			"steps": [
+				{
+					"fr": "Vérification des critères…",
+					"en": "Checking the criteria…"
+				},
+				{
+					"fr": "Préparation de votre réponse…",
+					"en": "Preparing your answer…"
+				}
+			]
+		}
+	},
+	"sections": [
+		{
+			"key": "structure",
+			"label": {
+				"fr": "Votre structure",
+				"en": "Your organisation"
+			}
+		},
+		{
+			"key": "territoire",
+			"label": {
+				"fr": "Territoire",
+				"en": "Location"
+			}
+		},
+		{
+			"key": "projet",
+			"label": {
+				"fr": "Votre projet",
+				"en": "Your project"
+			}
+		},
+		{
+			"key": "resultat",
+			"label": {
+				"fr": "Votre réponse",
+				"en": "Your answer"
+			}
+		}
+	],
+	"axes": [
+		{
+			"key": "conformite",
+			"label": {
+				"fr": "Critères respectés",
+				"en": "Criteria met"
+			},
+			"description": {
+				"fr": "Indice de conformité aux critères du programme.",
+				"en": "How closely you meet the programme criteria."
+			},
+			"base": 100,
+			"min": 0,
+			"max": 100
+		},
+		{
+			"key": "bloquants",
+			"label": {
+				"fr": "Critères bloquants",
+				"en": "Blocking criteria"
+			},
+			"base": 0,
+			"min": 0,
+			"max": 10
+		},
+		{
+			"key": "reserves",
+			"label": {
+				"fr": "Points à vérifier",
+				"en": "Points to check"
+			},
+			"base": 0,
+			"min": 0,
+			"max": 10
+		}
+	],
+	"steps": [
+		{
+			"key": "statut",
+			"kind": "question",
+			"section": "structure",
+			"type": "single",
+			"label": {
+				"fr": "Quelle est la situation de votre structure ?",
+				"en": "What is the status of your organisation?"
+			},
+			"options": [
+				{
+					"value": "societe",
+					"label": {
+						"fr": "Société immatriculée",
+						"en": "Registered company"
+					}
+				},
+				{
+					"value": "individuel",
+					"label": {
+						"fr": "Entreprise individuelle ou micro-entreprise",
+						"en": "Sole trader"
+					}
+				},
+				{
+					"value": "association",
+					"label": {
+						"fr": "Association ayant une activité économique",
+						"en": "Non-profit with a trading activity"
+					}
+				},
+				{
+					"value": "creation",
+					"label": {
+						"fr": "Entreprise en cours de création",
+						"en": "Business being set up"
+					}
+				}
+			],
+			"jumpTo": [
+				{
+					"if": {
+						"left": "answer.statut",
+						"op": "eq",
+						"value": "creation"
+					},
+					"to": "localisation"
+				}
+			]
+		},
+		{
+			"key": "anciennete",
+			"kind": "question",
+			"section": "structure",
+			"type": "single",
+			"label": {
+				"fr": "Depuis quand votre structure est-elle immatriculée ?",
+				"en": "How long has your organisation been registered?"
+			},
+			"options": [
+				{
+					"value": "moins_1",
+					"label": {
+						"fr": "Moins d’un an",
+						"en": "Less than a year"
+					}
+				},
+				{
+					"value": "1_3",
+					"label": {
+						"fr": "De 1 à 3 ans",
+						"en": "1 to 3 years"
+					}
+				},
+				{
+					"value": "3_8",
+					"label": {
+						"fr": "De 3 à 8 ans",
+						"en": "3 to 8 years"
+					}
+				},
+				{
+					"value": "plus_8",
+					"label": {
+						"fr": "Plus de 8 ans",
+						"en": "More than 8 years"
+					}
+				}
+			]
+		},
+		{
+			"key": "effectif",
+			"kind": "question",
+			"section": "structure",
+			"type": "number",
+			"label": {
+				"fr": "Combien de salariés compte votre structure ?",
+				"en": "How many employees does your organisation have?"
+			},
+			"help": {
+				"fr": "En équivalent temps plein, dirigeant non compris. Indiquez 0 si vous travaillez seul.",
+				"en": "Full-time equivalent, excluding the owner. Enter 0 if you work alone."
+			},
+			"unit": {
+				"fr": "salariés",
+				"en": "employees"
+			},
+			"placeholder": {
+				"fr": "Ex. : 4",
+				"en": "e.g. 4"
+			},
+			"validation": {
+				"min": 0,
+				"max": 100000,
+				"step": 1
+			}
+		},
+		{
+			"key": "ca",
+			"kind": "question",
+			"section": "structure",
+			"type": "amount",
+			"label": {
+				"fr": "Quel est votre chiffre d’affaires annuel hors taxes ?",
+				"en": "What is your annual turnover, excluding tax?"
+			},
+			"help": {
+				"fr": "Dernier exercice clos, ou estimation pour l’année en cours.",
+				"en": "Last closed financial year, or an estimate for the current year."
+			},
+			"currency": "EUR",
+			"period": "year",
+			"validation": {
+				"min": 0
+			}
+		},
+		{
+			"key": "regularite",
+			"kind": "question",
+			"section": "structure",
+			"type": "yes_no",
+			"label": {
+				"fr": "Votre structure est-elle à jour de ses obligations déclaratives et de ses paiements ?",
+				"en": "Is your organisation up to date with its filings and payments?"
+			},
+			"help": {
+				"fr": "Déclarations et cotisations obligatoires.",
+				"en": "Mandatory returns and contributions."
+			},
+			"options": [
+				{
+					"value": true,
+					"label": {
+						"fr": "Oui",
+						"en": "Yes"
+					}
+				},
+				{
+					"value": false,
+					"label": {
+						"fr": "Non, pas entièrement",
+						"en": "Not entirely"
+					}
+				}
+			]
+		},
+		{
+			"key": "localisation",
+			"kind": "question",
+			"section": "territoire",
+			"type": "single",
+			"label": {
+				"fr": "Où se situe votre activité principale ?",
+				"en": "Where is your main activity based?"
+			},
+			"options": [
+				{
+					"value": "zone",
+					"label": {
+						"fr": "Dans le territoire couvert par le programme",
+						"en": "Within the area covered by the programme"
+					}
+				},
+				{
+					"value": "limitrophe",
+					"label": {
+						"fr": "Dans un territoire voisin",
+						"en": "In a neighbouring area"
+					}
+				},
+				{
+					"value": "hors_zone",
+					"label": {
+						"fr": "Ailleurs",
+						"en": "Elsewhere"
+					}
+				}
+			],
+			"jumpTo": [
+				{
+					"if": {
+						"left": "answer.localisation",
+						"op": "eq",
+						"value": "hors_zone"
+					},
+					"to": "contact"
+				}
+			]
+		},
+		{
+			"key": "intro_projet",
+			"kind": "content",
+			"section": "projet",
+			"variant": "text",
+			"title": {
+				"fr": "Parlons de votre projet",
+				"en": "Tell us about your project"
+			},
+			"body": {
+				"fr": "Le programme accompagne des projets de développement concrets. Ces trois dernières questions permettent de vérifier que le vôtre entre dans son périmètre.",
+				"en": "The programme supports concrete growth projects. These last three questions check that yours falls within its scope."
+			}
+		},
+		{
+			"key": "projet_type",
+			"kind": "question",
+			"section": "projet",
+			"type": "single",
+			"label": {
+				"fr": "Quel type de projet souhaitez-vous mener ?",
+				"en": "What kind of project do you want to carry out?"
+			},
+			"options": [
+				{
+					"value": "commercial",
+					"label": {
+						"fr": "Développement commercial",
+						"en": "Business development"
+					}
+				},
+				{
+					"value": "innovation",
+					"label": {
+						"fr": "Innovation (produit, service, procédé)",
+						"en": "Innovation (product, service, process)"
+					}
+				},
+				{
+					"value": "transition",
+					"label": {
+						"fr": "Transition écologique ou énergétique",
+						"en": "Environmental or energy transition"
+					}
+				},
+				{
+					"value": "numerique",
+					"label": {
+						"fr": "Transformation numérique",
+						"en": "Digital transformation"
+					}
+				},
+				{
+					"value": "recrutement",
+					"label": {
+						"fr": "Structuration et recrutement",
+						"en": "Structuring and hiring"
+					}
+				},
+				{
+					"value": "autre",
+					"label": {
+						"fr": "Autre projet",
+						"en": "Other project"
+					}
+				}
+			]
+		},
+		{
+			"key": "projet_montant",
+			"kind": "question",
+			"section": "projet",
+			"type": "slider",
+			"label": {
+				"fr": "Quel est le budget total estimé de votre projet ?",
+				"en": "What is the estimated total budget of your project?"
+			},
+			"unit": {
+				"fr": "€",
+				"en": "€"
+			},
+			"validation": {
+				"min": 0,
+				"max": 500000,
+				"step": 5000
+			}
+		},
+		{
+			"key": "cofinancement",
+			"kind": "question",
+			"section": "projet",
+			"type": "yes_no",
+			"label": {
+				"fr": "Pour un projet de cette taille, pouvez-vous en financer au moins 30 % par vos propres moyens ?",
+				"en": "For a project of this size, can you fund at least 30% of it yourself?"
+			},
+			"help": {
+				"fr": "Fonds propres, prêt bancaire ou autre financement.",
+				"en": "Own funds, bank loan or other financing."
+			},
+			"showIf": {
+				"left": "answer.projet_montant",
+				"op": "gte",
+				"value": 50000
+			},
+			"options": [
+				{
+					"value": true,
+					"label": {
+						"fr": "Oui",
+						"en": "Yes"
+					}
+				},
+				{
+					"value": false,
+					"label": {
+						"fr": "Non, pas pour le moment",
+						"en": "Not at the moment"
+					}
+				}
+			]
+		},
+		{
+			"key": "contact",
+			"kind": "form",
+			"section": "resultat",
+			"title": {
+				"fr": "Recevez votre réponse détaillée",
+				"en": "Get your detailed answer"
+			},
+			"text": {
+				"fr": "Nous vous envoyons le détail des critères et, si votre dossier peut être étudié, la marche à suivre pour candidater.",
+				"en": "We will send you the criteria breakdown and, if your application can be considered, how to apply."
+			},
+			"fields": [
+				{
+					"key": "first_name",
+					"type": "text",
+					"label": {
+						"fr": "Prénom",
+						"en": "First name"
+					}
+				},
+				{
+					"key": "last_name",
+					"type": "text",
+					"label": {
+						"fr": "Nom",
+						"en": "Last name"
+					}
+				},
+				{
+					"key": "email",
+					"type": "email",
+					"label": {
+						"fr": "Email",
+						"en": "Email"
+					},
+					"required": true
+				},
+				{
+					"key": "company",
+					"type": "text",
+					"label": {
+						"fr": "Nom de la structure",
+						"en": "Organisation name"
+					}
+				}
+			],
+			"consent": {
+				"text": {
+					"fr": "J’accepte que mes réponses et mes coordonnées soient utilisées pour m’envoyer mon résultat et, le cas échéant, être recontacté(e) à ce sujet. Je peux demander leur suppression à tout moment.",
+					"en": "I agree that my answers and contact details may be used to send me my result and, where relevant, to contact me about it. I can ask for them to be deleted at any time."
+				},
+				"version": "eligibility-check-v1"
+			},
+			"submitLabel": {
+				"fr": "Voir ma réponse",
+				"en": "See my answer"
+			}
+		}
+	],
+	"scoring": {
+		"rules": [
+			{
+				"type": "condition",
+				"axis": "bloquants",
+				"when": {
+					"left": "answer.anciennete",
+					"op": "eq",
+					"value": "plus_8"
+				},
+				"points": 1
+			},
+			{
+				"type": "condition",
+				"axis": "bloquants",
+				"when": {
+					"left": "answer.effectif",
+					"op": "gte",
+					"value": 250
+				},
+				"points": 1
+			},
+			{
+				"type": "condition",
+				"axis": "bloquants",
+				"when": {
+					"left": "answer.ca",
+					"op": "gte",
+					"value": 20000000
+				},
+				"points": 1
+			},
+			{
+				"type": "condition",
+				"axis": "bloquants",
+				"when": {
+					"left": "answer.regularite",
+					"op": "eq",
+					"value": false
+				},
+				"points": 1
+			},
+			{
+				"type": "condition",
+				"axis": "bloquants",
+				"when": {
+					"left": "answer.localisation",
+					"op": "eq",
+					"value": "hors_zone"
+				},
+				"points": 1
+			},
+			{
+				"type": "condition",
+				"axis": "reserves",
+				"when": {
+					"left": "answer.statut",
+					"op": "in",
+					"value": [ "creation", "association" ]
+				},
+				"points": 1
+			},
+			{
+				"type": "condition",
+				"axis": "reserves",
+				"when": {
+					"left": "answer.anciennete",
+					"op": "eq",
+					"value": "moins_1"
+				},
+				"points": 1
+			},
+			{
+				"type": "condition",
+				"axis": "reserves",
+				"when": {
+					"all": [
+						{
+							"left": "answer.effectif",
+							"op": "gte",
+							"value": 50
+						},
+						{
+							"left": "answer.effectif",
+							"op": "lt",
+							"value": 250
+						}
+					]
+				},
+				"points": 1
+			},
+			{
+				"type": "condition",
+				"axis": "reserves",
+				"when": {
+					"all": [
+						{
+							"left": "answer.ca",
+							"op": "gte",
+							"value": 5000000
+						},
+						{
+							"left": "answer.ca",
+							"op": "lt",
+							"value": 20000000
+						}
+					]
+				},
+				"points": 1
+			},
+			{
+				"type": "condition",
+				"axis": "reserves",
+				"when": {
+					"left": "answer.localisation",
+					"op": "eq",
+					"value": "limitrophe"
+				},
+				"points": 1
+			},
+			{
+				"type": "condition",
+				"axis": "reserves",
+				"when": {
+					"left": "answer.projet_type",
+					"op": "eq",
+					"value": "autre"
+				},
+				"points": 1
+			},
+			{
+				"type": "condition",
+				"axis": "reserves",
+				"when": {
+					"all": [
+						{
+							"left": "answer.projet_montant",
+							"op": "answered"
+						},
+						{
+							"left": "answer.projet_montant",
+							"op": "lt",
+							"value": 10000
+						}
+					]
+				},
+				"points": 1
+			},
+			{
+				"type": "condition",
+				"axis": "reserves",
+				"when": {
+					"left": "answer.cofinancement",
+					"op": "eq",
+					"value": false
+				},
+				"points": 1
+			},
+			{
+				"type": "condition",
+				"axis": "conformite",
+				"points": "0 - (score.bloquants * 60 + score.reserves * 15)"
+			}
+		]
+	},
+	"variables": [
+		{
+			"key": "nb_bloquants",
+			"label": {
+				"fr": "Critères non remplis",
+				"en": "Criteria not met"
+			},
+			"expr": "score.bloquants",
+			"format": {
+				"decimals": 0
+			}
+		},
+		{
+			"key": "nb_reserves",
+			"label": {
+				"fr": "Points à vérifier",
+				"en": "Points to check"
+			},
+			"expr": "score.reserves",
+			"format": {
+				"decimals": 0
+			}
+		}
+	],
+	"outcomes": {
+		"profiles": [
+			{
+				"key": "non_eligible",
+				"label": {
+					"fr": "Non éligible en l’état",
+					"en": "Not eligible at this stage"
+				},
+				"text": {
+					"fr": "D’après vos réponses, au moins un critère essentiel du programme n’est pas rempli aujourd’hui. Cela ne ferme pas toutes les portes : d’autres dispositifs peuvent correspondre à votre situation.",
+					"en": "Based on your answers, at least one essential criterion of the programme is not met today. That does not close every door: other schemes may suit your situation."
+				},
+				"when": {
+					"left": "score.bloquants",
+					"op": "gte",
+					"value": 1
+				},
+				"priority": 30
+			},
+			{
+				"key": "sous_conditions",
+				"label": {
+					"fr": "Éligible sous conditions",
+					"en": "Eligible with conditions"
+				},
+				"text": {
+					"fr": "Votre structure semble pouvoir bénéficier du programme, mais certains points demandent une vérification au cas par cas. Un échange avec un conseiller permettra de lever ces réserves.",
+					"en": "Your organisation appears able to join the programme, but some points need checking case by case. A conversation with an advisor will clear them up."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "score.bloquants",
+							"op": "eq",
+							"value": 0
+						},
+						{
+							"left": "score.reserves",
+							"op": "gte",
+							"value": 1
+						}
+					]
+				},
+				"priority": 20
+			},
+			{
+				"key": "eligible",
+				"label": {
+					"fr": "Éligible",
+					"en": "Eligible"
+				},
+				"text": {
+					"fr": "Bonne nouvelle {first_name} : vous remplissez l’ensemble des critères vérifiés par ce test. Vous pouvez préparer votre candidature dès maintenant.",
+					"en": "Good news {first_name}: you meet all the criteria checked by this test. You can start preparing your application now."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "score.bloquants",
+							"op": "eq",
+							"value": 0
+						},
+						{
+							"left": "score.reserves",
+							"op": "eq",
+							"value": 0
+						}
+					]
+				},
+				"priority": 10
+			}
+		],
+		"texts": [
+			{
+				"key": "txt_anciennete",
+				"title": {
+					"fr": "Ancienneté",
+					"en": "Company age"
+				},
+				"body": {
+					"fr": "Le programme s’adresse aux structures immatriculées depuis 8 ans au plus.",
+					"en": "The programme is aimed at organisations registered for 8 years or less."
+				},
+				"when": {
+					"left": "answer.anciennete",
+					"op": "eq",
+					"value": "plus_8"
+				}
+			},
+			{
+				"key": "txt_jeune",
+				"title": {
+					"fr": "Structure récente",
+					"en": "Recently registered"
+				},
+				"body": {
+					"fr": "Les structures de moins d’un an, ou en cours de création, sont étudiées au cas par cas : un premier bilan ou un prévisionnel pourra vous être demandé.",
+					"en": "Organisations under a year old, or still being set up, are reviewed case by case: an initial set of accounts or a forecast may be requested."
+				},
+				"when": {
+					"any": [
+						{
+							"left": "answer.anciennete",
+							"op": "eq",
+							"value": "moins_1"
+						},
+						{
+							"left": "answer.statut",
+							"op": "eq",
+							"value": "creation"
+						}
+					]
+				}
+			},
+			{
+				"key": "txt_association",
+				"title": {
+					"fr": "Statut associatif",
+					"en": "Non-profit status"
+				},
+				"body": {
+					"fr": "Les associations sont acceptées si leur activité économique est significative et régulière.",
+					"en": "Non-profits are accepted if their trading activity is significant and regular."
+				},
+				"when": {
+					"left": "answer.statut",
+					"op": "eq",
+					"value": "association"
+				}
+			},
+			{
+				"key": "txt_effectif",
+				"title": {
+					"fr": "Effectif",
+					"en": "Headcount"
+				},
+				"body": {
+					"fr": "Le programme vise les structures de moins de 50 salariés ; de 50 à 249 salariés, un examen complémentaire est nécessaire ; au-delà, le programme ne s’applique pas.",
+					"en": "The programme targets organisations with fewer than 50 employees; from 50 to 249 an additional review is needed; above that, the programme does not apply."
+				},
+				"when": {
+					"left": "answer.effectif",
+					"op": "gte",
+					"value": 50
+				}
+			},
+			{
+				"key": "txt_ca",
+				"title": {
+					"fr": "Chiffre d’affaires",
+					"en": "Turnover"
+				},
+				"body": {
+					"fr": "Le programme concerne les structures dont le chiffre d’affaires annuel est inférieur à 5 M€ ; entre 5 et 20 M€, le dossier est étudié au cas par cas ; au-delà, il n’est pas recevable.",
+					"en": "The programme covers organisations with annual turnover under €5M; between €5M and €20M applications are reviewed case by case; above that they are not accepted."
+				},
+				"when": {
+					"left": "answer.ca",
+					"op": "gte",
+					"value": 5000000
+				}
+			},
+			{
+				"key": "txt_regularite",
+				"title": {
+					"fr": "Situation administrative",
+					"en": "Administrative standing"
+				},
+				"body": {
+					"fr": "Être à jour de ses obligations déclaratives et de ses paiements est un prérequis. Une régularisation ou un échéancier en cours peut permettre de revenir vers le programme.",
+					"en": "Being up to date with filings and payments is a prerequisite. Settling arrears or agreeing a payment plan may allow you to come back to the programme."
+				},
+				"when": {
+					"left": "answer.regularite",
+					"op": "eq",
+					"value": false
+				}
+			},
+			{
+				"key": "txt_territoire",
+				"title": {
+					"fr": "Territoire",
+					"en": "Location"
+				},
+				"body": {
+					"fr": "Le programme est réservé aux activités implantées sur son territoire ; les territoires voisins peuvent être acceptés sous conditions.",
+					"en": "The programme is reserved for activities based in its area; neighbouring areas may be accepted under conditions."
+				},
+				"when": {
+					"left": "answer.localisation",
+					"op": "in",
+					"value": [ "limitrophe", "hors_zone" ]
+				}
+			},
+			{
+				"key": "txt_projet",
+				"title": {
+					"fr": "Votre projet",
+					"en": "Your project"
+				},
+				"body": {
+					"fr": "Votre projet devra être précisé pour vérifier qu’il entre bien dans le périmètre du programme.",
+					"en": "Your project will need more detail to confirm it falls within the programme scope."
+				},
+				"when": {
+					"left": "answer.projet_type",
+					"op": "eq",
+					"value": "autre"
+				}
+			},
+			{
+				"key": "txt_budget",
+				"title": {
+					"fr": "Budget du projet",
+					"en": "Project budget"
+				},
+				"body": {
+					"fr": "Les projets de moins de 10 000 € ou sans apport personnel suffisant sont étudiés au cas par cas.",
+					"en": "Projects under €10,000, or without enough own funding, are reviewed case by case."
+				},
+				"when": {
+					"any": [
+						{
+							"all": [
+								{
+									"left": "answer.projet_montant",
+									"op": "answered"
+								},
+								{
+									"left": "answer.projet_montant",
+									"op": "lt",
+									"value": 10000
+								}
+							]
+						},
+						{
+							"left": "answer.cofinancement",
+							"op": "eq",
+							"value": false
+						}
+					]
+				}
+			}
+		],
+		"actions": [
+			{
+				"key": "act_dossier",
+				"title": {
+					"fr": "Rassemblez vos pièces",
+					"en": "Gather your documents"
+				},
+				"body": {
+					"fr": "Préparez votre justificatif d’immatriculation, vos derniers comptes (ou votre prévisionnel) et une présentation de votre projet sur une page.",
+					"en": "Prepare your registration proof, latest accounts (or forecast) and a one-page project summary."
+				},
+				"when": {
+					"left": "score.bloquants",
+					"op": "eq",
+					"value": 0
+				},
+				"priority": 30
+			},
+			{
+				"key": "act_budget",
+				"title": {
+					"fr": "Chiffrez votre projet",
+					"en": "Cost your project"
+				},
+				"body": {
+					"fr": "Détaillez les principales dépenses et la façon dont vous comptez les financer : c’est le cœur de votre candidature.",
+					"en": "List the main costs and how you plan to fund them: it is the heart of your application."
+				},
+				"when": {
+					"left": "score.bloquants",
+					"op": "eq",
+					"value": 0
+				},
+				"priority": 20
+			},
+			{
+				"key": "act_conseiller",
+				"title": {
+					"fr": "Faites lever les réserves",
+					"en": "Get the open points cleared"
+				},
+				"body": {
+					"fr": "Un conseiller vérifiera avec vous les points signalés ci-dessus avant le dépôt de votre dossier.",
+					"en": "An advisor will review the points above with you before you submit your application."
+				},
+				"when": {
+					"all": [
+						{
+							"left": "score.bloquants",
+							"op": "eq",
+							"value": 0
+						},
+						{
+							"left": "score.reserves",
+							"op": "gte",
+							"value": 1
+						}
+					]
+				},
+				"priority": 15
+			},
+			{
+				"key": "act_alternatives",
+				"title": {
+					"fr": "Explorez d’autres dispositifs",
+					"en": "Explore other schemes"
+				},
+				"body": {
+					"fr": "D’autres solutions d’accompagnement ou de financement peuvent correspondre à votre situation : renseignez-vous auprès des acteurs de votre territoire.",
+					"en": "Other support or funding options may suit your situation: ask local business support organisations."
+				},
+				"when": {
+					"left": "score.bloquants",
+					"op": "gte",
+					"value": 1
+				},
+				"priority": 10
+			}
+		],
+		"ctas": [
+			{
+				"key": "cta_alternatives",
+				"label": {
+					"fr": "Découvrir d’autres solutions",
+					"en": "Discover other options"
+				},
+				"text": {
+					"fr": "Des pistes adaptées à votre situation.",
+					"en": "Options suited to your situation."
+				},
+				"url": "https://example.com/autres-dispositifs",
+				"utm": {
+					"source": "test-eligibilite",
+					"medium": "resultat",
+					"campaign": "programme-accompagnement",
+					"content": "non-eligible"
+				},
+				"when": {
+					"left": "score.bloquants",
+					"op": "gte",
+					"value": 1
+				},
+				"priority": 30
+			},
+			{
+				"key": "cta_conseiller",
+				"label": {
+					"fr": "Échanger avec un conseiller",
+					"en": "Talk to an advisor"
+				},
+				"text": {
+					"fr": "Un rendez-vous de 20 minutes pour vérifier les points en suspens.",
+					"en": "A 20-minute appointment to check the open points."
+				},
+				"url": "https://example.com/rendez-vous",
+				"utm": {
+					"source": "test-eligibilite",
+					"medium": "resultat",
+					"campaign": "programme-accompagnement",
+					"content": "sous-conditions"
+				},
+				"when": {
+					"all": [
+						{
+							"left": "score.bloquants",
+							"op": "eq",
+							"value": 0
+						},
+						{
+							"left": "score.reserves",
+							"op": "gte",
+							"value": 1
+						}
+					]
+				},
+				"priority": 20
+			},
+			{
+				"key": "cta_candidater",
+				"label": {
+					"fr": "Déposer ma pré-candidature",
+					"en": "Submit my pre-application"
+				},
+				"text": {
+					"fr": "Quelques minutes suffisent pour lancer votre dossier.",
+					"en": "It only takes a few minutes to start your application."
+				},
+				"url": "https://example.com/candidature",
+				"utm": {
+					"source": "test-eligibilite",
+					"medium": "resultat",
+					"campaign": "programme-accompagnement",
+					"content": "eligible"
+				},
+				"priority": 10
+			}
+		]
+	},
+	"results": {
+		"title": {
+			"fr": "Votre résultat d’éligibilité",
+			"en": "Your eligibility result"
+		},
+		"shareLink": true,
+		"emailResult": true,
+		"blocks": [
+			{
+				"type": "profile"
+			},
+			{
+				"type": "scores",
+				"title": {
+					"fr": "Conformité aux critères",
+					"en": "Match with the criteria"
+				},
+				"display": "gauges",
+				"axes": [ "conformite" ]
+			},
+			{
+				"type": "variables",
+				"keys": [ "nb_bloquants", "nb_reserves" ],
+				"showIf": {
+					"expr": "score.bloquants + score.reserves > 0"
+				}
+			},
+			{
+				"type": "texts",
+				"title": {
+					"fr": "Le détail des critères",
+					"en": "Criteria in detail"
+				}
+			},
+			{
+				"type": "actions",
+				"title": {
+					"fr": "Prochaines étapes",
+					"en": "Next steps"
+				}
+			},
+			{
+				"type": "cta"
+			},
+			{
+				"type": "html",
+				"body": {
+					"fr": "<p><small>Ce test est indicatif : il ne constitue pas une décision d’éligibilité. Seule l’instruction complète de votre dossier permet de confirmer votre accès au programme.</small></p>",
+					"en": "<p><small>This test is for guidance only and is not an eligibility decision. Only a full review of your application can confirm access to the programme.</small></p>"
+				}
+			}
+		]
+	},
+	"ui": {
+		"theme": {
+			"colors": {
+				"primary": "#4338ca",
+				"primaryText": "#ffffff",
+				"background": "#ffffff",
+				"surface": "#eef2ff",
+				"text": "#1e1b4b",
+				"muted": "#4b5563",
+				"success": "#15803d",
+				"warning": "#b45309",
+				"danger": "#b91c1c"
+			},
+			"fontFamily": "system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+			"radius": "8px",
+			"maxWidth": "720px"
+		},
+		"legal": {
+			"fr": "Vos données servent uniquement à établir et vous envoyer votre résultat. Elles ne sont jamais revendues. Vous pouvez demander leur consultation ou leur suppression à tout moment.",
+			"en": "Your data is only used to produce and send you your result. It is never sold. You can ask to access or delete it at any time."
+		}
+	}
+}
