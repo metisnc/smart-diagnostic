@@ -137,7 +137,7 @@ test( 'the default email reuses the questionnaire appearance', async ( {
 	// Couleur principale choisie dans l'onglet Apparence (non enregistrée : aperçu seulement).
 	await page.getByRole( 'tab', { name: 'Appearance', exact: true } ).click();
 	await page
-		.locator( '.sd-b-color', { hasText: 'Main colour' } )
+		.locator( '.sd-b-color', { hasText: /^Main colour/ } )
 		.locator( 'input[type="color"]' )
 		.fill( '#ff5500' );
 
