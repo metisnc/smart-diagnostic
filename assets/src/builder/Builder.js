@@ -59,6 +59,7 @@ export function Builder( { initial, initialText, field, schema } ) {
 		}
 		return { key: 0, name };
 	} );
+	const [ currentTab, setCurrentTab ] = useState( tabState.name );
 	const mainRef = useRef( null );
 	const goTo = ( name ) => {
 		setTabState( ( state ) => ( { key: state.key + 1, name } ) );
@@ -95,7 +96,8 @@ export function Builder( { initial, initialText, field, schema } ) {
 			PREVIEW_DELAY_MS
 		);
 		return () => clearTimeout( timer );
-	}, [ config, showPreview ] );
+		// currentTab : l'aperçu réapparaît en quittant l'onglet « Guide ».
+	}, [ config, showPreview, currentTab ] );
 
 	const tabs = [
 		{ name: 'guide', title: __( 'Guide', 'smart-diagnostic' ) },
@@ -114,7 +116,11 @@ export function Builder( { initial, initialText, field, schema } ) {
 	const props = { config, set, languages };
 
 	return (
-		<div className={ `sd-builder${ showPreview ? ' has-preview' : '' }` }>
+		<div
+			className={ `sd-builder${
+				showPreview && currentTab !== 'guide' ? ' has-preview' : ''
+			}` }
+		>
 			<div className="sd-builder__header">
 				<h2 className="sd-builder__title">
 					{ __( 'Diagnostic builder', 'smart-diagnostic' ) }
@@ -192,6 +198,7 @@ export function Builder( { initial, initialText, field, schema } ) {
 					className="sd-builder__tabs"
 					tabs={ tabs }
 					initialTabName={ tabState.name }
+					onSelect={ setCurrentTab }
 				>
 					{ ( tab ) => (
 						<div className="sd-builder__panel">
@@ -250,7 +257,8 @@ export function Builder( { initial, initialText, field, schema } ) {
 						</div>
 					) }
 				</TabPanel>
-				{ showPreview && (
+				{ /* Pas d'aperçu sur l'onglet « Guide » : place au texte. */ }
+				{ showPreview && currentTab !== 'guide' && (
 					<aside
 						className="sd-builder__preview"
 						aria-label={ __( 'Live preview', 'smart-diagnostic' ) }

@@ -4,6 +4,18 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Unreleased]
 
+### Added
+- Onglet « Guide » dans le constructeur (ouvert pour un nouveau diagnostic) : fonctionnement
+  expliqué simplement avec un exemple, liste de vérification calculée sur le diagnostic,
+  étapes avec accès direct aux onglets, lexique, questions fréquentes.
+
+### Fixed
+- Le constructeur ne peut plus se retrouver dans la colonne latérale (panneau fixe sous le
+  titre) ; en-tête, onglets et tableau des réponses plus lisibles ; shortcode dans une boîte
+  « Insertion ».
+- Textes de l'éditeur d'emails non traduits en français (fichier non déclaré pour les
+  traductions).
+
 ## [1.3.0] - 2026-10-14
 
 ### Added
