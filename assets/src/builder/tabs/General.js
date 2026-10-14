@@ -9,6 +9,7 @@ import {
 import { __ } from '@wordpress/i18n';
 import { I18nText, KeyField, ListEditor, NumberField } from '../fields';
 import { uniqueKey } from '../utils';
+import { EmailTemplateEditor } from '../EmailTemplateEditor';
 
 function TextList( { label, items, onChange, languages, addLabel } ) {
 	return (
@@ -521,6 +522,12 @@ export function IntegrationsTab( { config, set, languages } ) {
 					set( [ 'integrations', 'emails', 'user', 'subject' ], v )
 				}
 			/>
+			<EmailTemplateEditor
+				kind="user"
+				config={ config }
+				set={ set }
+				languages={ languages }
+			/>
 			<ToggleControl
 				__nextHasNoMarginBottom
 				label={ __(
@@ -557,6 +564,20 @@ export function IntegrationsTab( { config, set, languages } ) {
 						list.length ? list : undefined
 					);
 				} }
+			/>
+			<I18nText
+				label={ __( 'Subject of the team email', 'smart-diagnostic' ) }
+				value={ emails.admin?.subject }
+				languages={ languages }
+				onChange={ ( v ) =>
+					set( [ 'integrations', 'emails', 'admin', 'subject' ], v )
+				}
+			/>
+			<EmailTemplateEditor
+				kind="admin"
+				config={ config }
+				set={ set }
+				languages={ languages }
 			/>
 
 			<ListEditor

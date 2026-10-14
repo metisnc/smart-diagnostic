@@ -63,10 +63,8 @@ final class Mailer {
 			return false;
 		}
 
-		$subject = $this->text( $settings['subject'] ?? null, $config, $submission )
-			?: __( 'Your results', 'smart-diagnostic' ); // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
-		$body    = $this->render( (string) ( $settings['template'] ?? 'user' ), $submission, $config );
-		$result  = $this->transport->send( $email, $subject, $body );
+		$email_content = $this->compose( 'user', $submission, $config );
+		$result        = $this->transport->send( $email, $email_content['subject'], $email_content['body'] );
 		$this->record( $submission, 'user', $email, $result );
 		return $result['ok'];
 	}
@@ -85,16 +83,88 @@ final class Mailer {
 			$recipients = array( (string) get_option( 'admin_email' ) );
 		}
 
-		$subject = $this->text( $settings['subject'] ?? null, $config, $submission );
-		if ( '' === $subject ) {
-			/* translators: 1: diagnostic title, 2: first name or email. */
-			$subject = sprintf( __( 'New submission: %1$s (%2$s)', 'smart-diagnostic' ), get_the_title( (int) $submission['diagnostic_id'] ), $submission['first_name'] ?: $submission['email'] ?: '—' ); // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
-		}
-		$body   = $this->render( (string) ( $settings['template'] ?? 'admin' ), $submission, $config );
-		$to     = implode( ',', $recipients );
-		$result = $this->transport->send( $to, $subject, $body );
+		$email_content = $this->compose( 'admin', $submission, $config );
+		$to            = implode( ',', $recipients );
+		$result        = $this->transport->send( $to, $email_content['subject'], $email_content['body'] );
 		$this->record( $submission, 'admin', $to, $result );
 		return $result['ok'];
+	}
+
+	/**
+	 * Objet et corps d'un email : modèle personnalisé du diagnostic s'il existe, sinon modèle par défaut.
+	 *
+	 * @param string               $kind       user | admin.
+	 * @param array<string, mixed> $submission Soumission.
+	 * @param array<string, mixed> $config     Config.
+	 * @return array{subject: string, body: string, custom: bool}
+	 */
+	public function compose( string $kind, array $submission, array $config ): array {
+		$settings = $config['integrations']['emails'][ $kind ] ?? array();
+		$subject  = $this->text( $settings['subject'] ?? null, $config, $submission );
+		if ( '' === $subject ) {
+			$subject = 'user' === $kind
+				? __( 'Your results', 'smart-diagnostic' )
+				/* translators: 1: diagnostic title, 2: first name or email. */
+				: sprintf( __( 'New submission: %1$s (%2$s)', 'smart-diagnostic' ), get_the_title( (int) ( $submission['diagnostic_id'] ?? 0 ) ), $submission['first_name'] ?: $submission['email'] ?: '—' ); // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
+		}
+
+		$custom = Text::resolve( $settings['body'] ?? null, (string) ( $submission['lang'] ?? '' ), (string) ( $config['i18n']['defaultLanguage'] ?? '' ) );
+		if ( '' !== trim( $custom ) ) {
+			return array(
+				'subject' => $subject,
+				'body'    => CustomEmail::render( $custom, ! empty( $settings['fullHtml'] ), $submission, $config ),
+				'custom'  => true,
+			);
+		}
+		return array(
+			'subject' => $subject,
+			'body'    => $this->render( (string) ( $settings['template'] ?? $kind ), $submission, $config ),
+			'custom'  => false,
+		);
+	}
+
+	/**
+	 * Soumission fictive pour l'aperçu des emails dans le constructeur : premier profil,
+	 * scores à mi-échelle, tous les textes et actions, premier CTA.
+	 *
+	 * @param array<string, mixed> $config Config.
+	 * @return array<string, mixed>
+	 */
+	public static function sample_submission( array $config, int $diagnostic_id = 0 ): array {
+		$scores = array();
+		foreach ( $config['axes'] ?? array() as $axis ) {
+			$scores[ $axis['key'] ] = ( (float) ( $axis['min'] ?? 0 ) + (float) ( $axis['max'] ?? 100 ) ) / 2;
+		}
+		$answers = array();
+		foreach ( $config['steps'] ?? array() as $step ) {
+			if ( 'question' === ( $step['kind'] ?? '' ) && ! empty( $step['options'] ) ) {
+				$answers[ $step['key'] ] = 'multi' === ( $step['type'] ?? '' ) ? array( $step['options'][0]['value'] ) : $step['options'][0]['value'];
+			}
+		}
+		$outcomes = $config['outcomes'] ?? array();
+		return array(
+			'id'            => 0,
+			'diagnostic_id' => $diagnostic_id,
+			'token'         => str_repeat( '0', 32 ),
+			'source_url'    => home_url( '/' ),
+			'created_at'    => current_time( 'mysql', true ),
+			'first_name'    => __( 'Marie', 'smart-diagnostic' ),
+			'email'         => 'marie@example.com',
+			'contact'       => array(
+				'first_name' => __( 'Marie', 'smart-diagnostic' ),
+				'email'      => 'marie@example.com',
+			),
+			'answers'       => $answers,
+			'scores'        => $scores,
+			'vars'          => array(),
+			'lang'          => (string) ( $config['i18n']['defaultLanguage'] ?? '' ),
+			'result'        => array(
+				'profile' => $outcomes['profiles'][0]['key'] ?? null,
+				'texts'   => array_column( $outcomes['texts'] ?? array(), 'key' ),
+				'actions' => array_column( $outcomes['actions'] ?? array(), 'key' ),
+				'cta'     => $outcomes['ctas'][0]['key'] ?? null,
+			),
+		);
 	}
 
 	/**
@@ -228,11 +298,12 @@ final class Mailer {
 			)
 		);
 
-		$color = (string) ( $config['ui']['theme']['colors']['primary'] ?? '' );
+		$theme = self::email_theme( $config );
 
 		return array(
 			'brand'      => Branding::name(),
-			'color'      => 1 === preg_match( '/^#[0-9a-f]{3,8}$/i', $color ) ? $color : '#2563eb',
+			'color'      => $theme['primary'],
+			'theme'      => $theme,
 			'title'      => $tx( $config['results']['title'] ?? '' ) ?: __( 'Your results', 'smart-diagnostic' ), // phpcs:ignore Universal.Operators.DisallowShortTernary.Found
 			'first_name' => (string) ( $submission['first_name'] ?? '' ),
 			'email'      => (string) ( $submission['email'] ?? '' ),
@@ -252,6 +323,51 @@ final class Mailer {
 			'answers'    => $answers,
 			'submission' => $submission,
 			'config'     => $config,
+		);
+	}
+
+	/**
+	 * Apparence du questionnaire (onglet « Apparence »), validée pour un usage dans les emails.
+	 * Mêmes valeurs par défaut que le questionnaire.
+	 *
+	 * @param array<string, mixed> $config Config.
+	 * @return array{primary: string, primary_text: string, background: string, surface: string, text: string, muted: string, font: string, heading_font: string, radius: string, logo: string, logo_alt: string}
+	 */
+	public static function email_theme( array $config ): array {
+		$theme  = (array) ( $config['ui']['theme'] ?? array() );
+		$colors = (array) ( $theme['colors'] ?? array() );
+		$color  = static function ( string $key, string $fallback ) use ( $colors ): string {
+			$value = (string) ( $colors[ $key ] ?? '' );
+			return 1 === preg_match( '/^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i', $value ) ? $value : $fallback;
+		};
+		$font   = static function ( mixed $value, string $fallback ): string {
+			$value = trim( (string) $value );
+			if ( '' === $value || 1 !== preg_match( '/^[\w\s,\'"-]+$/u', $value ) ) {
+				return $fallback;
+			}
+			// Repli sur des polices standard : beaucoup de messageries n'ont pas les polices du site.
+			return $value . ', Arial, Helvetica, sans-serif';
+		};
+		$radius = (string) ( $theme['radius'] ?? '' );
+		$logo   = (string) ( $config['ui']['logo']['url'] ?? '' );
+		if ( str_starts_with( $logo, '/' ) && ! str_starts_with( $logo, '//' ) ) {
+			$logo = home_url( $logo ); // Une image d'email doit avoir une adresse complète.
+		}
+
+		$base = $font( $theme['fontFamily'] ?? '', 'Arial, Helvetica, sans-serif' );
+		return array(
+			'primary'      => $color( 'primary', '#2563eb' ),
+			'primary_text' => $color( 'primaryText', '#ffffff' ),
+			'background'   => $color( 'background', '#ffffff' ),
+			'surface'      => $color( 'surface', '#f5f7fa' ),
+			'text'         => $color( 'text', '#1f2937' ),
+			'muted'        => $color( 'muted', '#6b7280' ),
+			'font'         => $base,
+			'heading_font' => '' !== trim( (string) ( $theme['headingFontFamily'] ?? '' ) ) ? $font( $theme['headingFontFamily'], $base ) : $base,
+			// Les messageries gèrent mal les unités relatives : px uniquement.
+			'radius'       => 1 === preg_match( '/^\d+(\.\d+)?px$/', $radius ) ? $radius : '12px',
+			'logo'         => 1 === preg_match( '#^https?://#i', $logo ) ? $logo : '',
+			'logo_alt'     => wp_strip_all_tags( Text::resolve( $config['ui']['logo']['alt'] ?? '' ) ),
 		);
 	}
 

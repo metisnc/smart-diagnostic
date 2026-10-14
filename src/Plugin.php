@@ -54,6 +54,7 @@ final class Plugin {
 				Admin\ImportExport::class,
 				Rest\SubmitController::class,
 				Rest\EventsController::class,
+				Rest\EmailPreviewController::class,
 				Integrations\Mailer::class,
 				Integrations\Webhooks::class,
 				Privacy\Privacy::class,

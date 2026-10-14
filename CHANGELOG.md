@@ -4,6 +4,12 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Unreleased]
 
+### Added
+- Modèle d'email personnalisé (visiteur et équipe) dans le constructeur : corps HTML avec
+  variables ({first_name}, {profile}, {scores}, {cta}, {result_button}…), option « document
+  HTML complet », aperçu avec données d'exemple, envoi d'essai.
+- Les emails reprennent l'apparence du questionnaire : couleurs, polices, arrondis, logo.
+
 ## [1.1.0] - 2026-10-14
 
 ### Added

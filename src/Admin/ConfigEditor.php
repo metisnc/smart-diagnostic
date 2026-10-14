@@ -12,6 +12,8 @@ namespace SmartDiagnostic\Admin;
 use SmartDiagnostic\Config\ConfigRepository;
 use SmartDiagnostic\Config\SchemaValidator;
 use SmartDiagnostic\Front\Strings;
+use SmartDiagnostic\Integrations\CustomEmail;
+use SmartDiagnostic\Rest\SubmitController;
 use SmartDiagnostic\PostType\DiagnosticPostType;
 
 /**
@@ -141,9 +143,12 @@ final class ConfigEditor {
 			self::SCRIPT_HANDLE,
 			'window.sdAdmin = ' . wp_json_encode(
 				array(
-					'schema'  => json_decode( (string) $schema ),
-					'strings' => Strings::defaults(),
-					'locale'  => determine_locale(),
+					'schema'            => json_decode( (string) $schema ),
+					'strings'           => Strings::defaults(),
+					'locale'            => determine_locale(),
+					'emailPlaceholders' => CustomEmail::placeholders(),
+					'previewPath'       => '/' . SubmitController::rest_namespace() . '/email-preview',
+					'postId'            => (int) get_the_ID(),
 				)
 			) . ';',
 			'before'

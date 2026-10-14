@@ -43,6 +43,34 @@ async function saveSettings( page, values ) {
 	).toBeVisible();
 }
 
+// Réglages trouvés au début des tests, restaurés à la fin (le site de test peut servir à
+// des essais manuels : on ne les écrase pas).
+const FIELDS = [
+	'Sender name',
+	'Sender address',
+	'Reply-to address',
+	'Dedicated SMTP',
+	'SMTP server',
+	'Port',
+	'Encryption',
+	'Username',
+];
+let original = null;
+
+async function readSettings( page ) {
+	await page.goto( SETTINGS );
+	const values = {};
+	for ( const label of FIELDS ) {
+		const field = page.getByLabel( label, { exact: true } );
+		const type = await field.evaluate( ( el ) => el.type );
+		values[ label ] =
+			type === 'checkbox'
+				? await field.isChecked()
+				: await field.inputValue();
+	}
+	return values;
+}
+
 async function sendTestEmail( page, to ) {
 	await page.goto( SETTINGS );
 	await page.fill( '#sd-test-email-to', to );
@@ -52,6 +80,7 @@ async function sendTestEmail( page, to ) {
 
 test( 'sender, reply-to and delivery status', async ( { page, request } ) => {
 	await login( page );
+	original = await readSettings( page );
 	await saveSettings( page, {
 		'Sender name': 'Équipe Diagnostic',
 		'Sender address': 'diagnostic@example.test',
@@ -152,12 +181,6 @@ test( 'dedicated SMTP sends through its own server', async ( {
 	const failure = await sendTestEmail( page, to );
 	await expect( failure ).toContainText( 'could not be sent' );
 
-	// Remise à l'état initial pour les autres tests.
-	await saveSettings( page, {
-		'Dedicated SMTP': false,
-		'SMTP server': '',
-		'Sender name': '',
-		'Sender address': '',
-		'Reply-to address': '',
-	} );
+	// Remise des réglages trouvés au départ.
+	await saveSettings( page, original );
 } );
