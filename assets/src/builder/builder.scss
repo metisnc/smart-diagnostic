@@ -91,9 +91,10 @@
 	}
 
 	// Aperçu à côté du formulaire dès que le panneau est assez large.
-	@container (min-width: 960px) {
+	// Aperçu à droite seulement si le formulaire garde au moins ~700 px.
+	@container (min-width: 1100px) {
 		&.has-preview &__main {
-			grid-template-columns: minmax(0, 3fr) minmax(340px, 2fr);
+			grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
 		}
 	}
 
@@ -111,8 +112,9 @@
 		}
 	}
 
+	// Les onglets s'adaptent à la place réellement disponible (aperçu déduit).
 	&__panel {
-		max-width: 920px;
+		container-type: inline-size;
 		padding: 20px;
 	}
 
@@ -126,7 +128,7 @@
 		background: #f6f7f7;
 		border-top: 1px solid #dcdcde;
 
-		@container (min-width: 960px) {
+		@container (min-width: 1100px) {
 			border-top: 0;
 			border-left: 1px solid #dcdcde;
 		}
@@ -834,7 +836,7 @@
 	display: grid;
 	gap: 24px;
 
-	@media (min-width: 1100px) {
+	@container (min-width: 760px) {
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 	}
 
@@ -1190,4 +1192,9 @@
 			line-height: 1.6;
 		}
 	}
+}
+
+// Onglets de formulaire : largeur de lecture confortable sur les très grands écrans.
+.sd-b-tab {
+	max-width: 960px;
 }
