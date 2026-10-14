@@ -14,7 +14,7 @@ namespace SmartDiagnostic\Storage;
  */
 final class SubmissionRepository {
 
-	private const JSON_COLUMNS = array( 'contact', 'answers', 'path', 'scores', 'vars', 'result', 'utm', 'webhooks' );
+	private const JSON_COLUMNS = array( 'contact', 'answers', 'path', 'scores', 'vars', 'result', 'utm', 'webhooks', 'emails' );
 
 	/** Colonnes filtrables / triables dans l'admin. */
 	private const ORDERABLE = array( 'id', 'created_at', 'email', 'first_name', 'profile', 'cta' );

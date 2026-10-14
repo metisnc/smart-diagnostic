@@ -52,6 +52,14 @@ services:
       - wp_data:/var/www/html
       - ./:/var/www/html/wp-content/plugins/smart-diagnostic
 
+  # Faux serveur d'emails pour le développement et les tests : tout est reçu, rien n'est distribué.
+  # Interface : http://127.0.0.1:8025 (MAILPIT_PORT) · SMTP interne : mailpit:1025.
+  mailpit:
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - "${MAILPIT_BIND:-127.0.0.1}:${MAILPIT_PORT:-8025}:8025"
+
   phpmyadmin:
     image: phpmyadmin:5
     restart: unless-stopped

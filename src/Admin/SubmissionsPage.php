@@ -194,11 +194,17 @@ final class SubmissionsPage {
 		}
 		$this->section( __( 'Answers', 'smart-diagnostic' ), $answers );
 
-		$meta = array(
-			__( 'Language', 'smart-diagnostic' )     => $row['lang'],
-			__( 'Source page', 'smart-diagnostic' )  => $row['source_url'],
-			__( 'Result email', 'smart-diagnostic' ) => $row['user_email_sent_at'] ? get_date_from_gmt( (string) $row['user_email_sent_at'], get_option( 'date_format' ) . ' H:i' ) : '—',
+		$meta         = array(
+			__( 'Language', 'smart-diagnostic' )    => $row['lang'],
+			__( 'Source page', 'smart-diagnostic' ) => $row['source_url'],
 		);
+		$email_labels = array(
+			'user'  => __( 'Email to the visitor', 'smart-diagnostic' ),
+			'admin' => __( 'Email to the team', 'smart-diagnostic' ),
+		);
+		foreach ( $email_labels as $kind => $label ) {
+			$meta[ $label ] = $this->email_status( (array) ( $row['emails'][ $kind ] ?? array() ) );
+		}
 		foreach ( (array) $row['utm'] as $key => $value ) {
 			$meta[ 'utm_' . $key ] = $value;
 		}
@@ -223,6 +229,25 @@ final class SubmissionsPage {
 			esc_js( __( 'Delete this submission permanently?', 'smart-diagnostic' ) ),
 			esc_html__( 'Delete', 'smart-diagnostic' )
 		);
+	}
+
+	/**
+	 * Statut lisible d'un envoi d'email.
+	 *
+	 * @param array<string, mixed> $state Statut enregistré par Mailer.
+	 */
+	private function email_status( array $state ): string {
+		if ( array() === $state ) {
+			return __( 'Not sent', 'smart-diagnostic' );
+		}
+		$date = get_date_from_gmt( (string) $state['at'], get_option( 'date_format' ) . ' H:i' );
+		$via  = 'smtp' === ( $state['via'] ?? '' ) ? __( 'dedicated SMTP', 'smart-diagnostic' ) : __( 'WordPress / SMTP plugin', 'smart-diagnostic' );
+		if ( 'sent' === ( $state['status'] ?? '' ) ) {
+			/* translators: 1: recipient, 2: date, 3: sending method. */
+			return sprintf( __( 'Sent to %1$s on %2$s (%3$s)', 'smart-diagnostic' ), $state['to'] ?? '', $date, $via );
+		}
+		/* translators: 1: recipient, 2: date, 3: error message. */
+		return sprintf( __( 'Failed for %1$s on %2$s: %3$s', 'smart-diagnostic' ), $state['to'] ?? '', $date, $state['error'] ?? '' );
 	}
 
 	/**
