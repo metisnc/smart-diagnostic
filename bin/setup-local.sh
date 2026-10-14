@@ -30,6 +30,14 @@ if [[ ! -f .env ]]; then
 	done
 	chmod 600 .env
 fi
+# Variables ajoutées après coup (anciens .env) : complétées avec des valeurs aléatoires.
+for var in E2E_ADMIN_USER E2E_ADMIN_PASSWORD; do
+	if ! grep -q "^${var}=" .env; then
+		value="$(random_secret)"
+		[[ "$var" == E2E_ADMIN_USER ]] && value=e2e
+		echo "${var}=${value}" >> .env
+	fi
+done
 set -a
 # shellcheck disable=SC1091
 source .env
@@ -80,12 +88,25 @@ else
 	wp option update siteurl "$WP_URL" >/dev/null
 fi
 
+if [[ -n "${WP_LOCALE:-}" ]]; then
+	log "Langue du site : ${WP_LOCALE}"
+	if [[ "$WP_LOCALE" != "en_US" ]]; then
+		wp language core install "$WP_LOCALE" >/dev/null 2>&1 || true
+	fi
+	wp site switch-language "$WP_LOCALE" >/dev/null 2>&1 || true
+fi
+
 log "Activation du plugin"
 wp plugin activate smart-diagnostic
 
 # --- 4. Contenu de test ------------------------------------------------------------
 # Environnement de test : aides E2E (capture des emails, récepteur de webhooks).
 if [[ "${SD_TEST_HELPERS:-0}" == "1" ]]; then
+	# Compte des tests E2E : admin en anglais (les tests s'appuient sur ces libellés).
+	if ! wp user get "$E2E_ADMIN_USER" >/dev/null 2>&1; then
+		wp user create "$E2E_ADMIN_USER" e2e@example.test --role=administrator --user_pass="$E2E_ADMIN_PASSWORD" >/dev/null
+	fi
+	wp user update "$E2E_ADMIN_USER" --user_pass="$E2E_ADMIN_PASSWORD" --locale=en_US --skip-email >/dev/null
 	log "Installation des aides de test (mu-plugin)"
 	docker compose run --rm -T wpcli sh -c 'mkdir -p wp-content/mu-plugins && cp wp-content/plugins/smart-diagnostic/tests/e2e/mu-plugins/sd-test-helpers.php wp-content/mu-plugins/'
 fi

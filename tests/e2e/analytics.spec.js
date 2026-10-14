@@ -53,12 +53,12 @@ test( 'journey events reach the dataLayer and the funnel', async ( {
 
 test( 'statistics dashboard shows the funnel', async ( { page } ) => {
 	test.skip(
-		! process.env.WP_ADMIN_USER || ! process.env.WP_ADMIN_PASSWORD,
-		'WP_ADMIN_USER / WP_ADMIN_PASSWORD not set'
+		! process.env.E2E_ADMIN_USER || ! process.env.E2E_ADMIN_PASSWORD,
+		'E2E_ADMIN_USER / E2E_ADMIN_PASSWORD not set'
 	);
 	await page.goto( '/wp-login.php' );
-	await page.fill( '#user_login', process.env.WP_ADMIN_USER );
-	await page.fill( '#user_pass', process.env.WP_ADMIN_PASSWORD );
+	await page.fill( '#user_login', process.env.E2E_ADMIN_USER );
+	await page.fill( '#user_pass', process.env.E2E_ADMIN_PASSWORD );
 	await page.click( '#wp-submit' );
 
 	await page.goto( '/diagnostic-test/' );

@@ -87,14 +87,14 @@ test( 'admin lists, filters, exports and deletes submissions', async ( {
 	page,
 } ) => {
 	test.skip(
-		! process.env.WP_ADMIN_USER || ! process.env.WP_ADMIN_PASSWORD,
-		'WP_ADMIN_USER / WP_ADMIN_PASSWORD not set'
+		! process.env.E2E_ADMIN_USER || ! process.env.E2E_ADMIN_PASSWORD,
+		'E2E_ADMIN_USER / E2E_ADMIN_PASSWORD not set'
 	);
 	page.on( 'dialog', ( dialog ) => dialog.accept() );
 
 	await page.goto( '/wp-login.php' );
-	await page.fill( '#user_login', process.env.WP_ADMIN_USER );
-	await page.fill( '#user_pass', process.env.WP_ADMIN_PASSWORD );
+	await page.fill( '#user_login', process.env.E2E_ADMIN_USER );
+	await page.fill( '#user_pass', process.env.E2E_ADMIN_PASSWORD );
 	await page.click( '#wp-submit' );
 
 	const list = `/wp-admin/edit.php?post_type=sd_diagnostic&page=sd-submissions&s=${ encodeURIComponent(
