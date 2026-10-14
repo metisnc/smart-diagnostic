@@ -4,6 +4,8 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-10-14
+
 ### Added
 - Modèle d'email personnalisé (visiteur et équipe) dans le constructeur : corps HTML avec
   variables ({first_name}, {profile}, {scores}, {cta}, {result_button}…), option « document
