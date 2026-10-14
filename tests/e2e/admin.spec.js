@@ -59,7 +59,7 @@ test( 'build a diagnostic visually, test it and save it', async ( {
 	await page
 		.locator( '.sd-b-steps__select', { hasText: 'Quelle couleur ?' } )
 		.click();
-	await page.getByLabel( 'axis_1' ).first().fill( '40' );
+	await page.getByLabel( /^Points of answer 1 for / ).fill( '40' );
 
 	// Mode test : le score suit la réponse simulée.
 	await tab( page, 'Test' ).click();

@@ -102,8 +102,20 @@ function newStep( kind, steps, section ) {
 	};
 }
 
-function OptionsEditor( { step, axes, languages, onChange } ) {
+/**
+ * Réponses d'une question à choix, en cartes : libellé (par langue), points par thème,
+ * et réglages techniques (valeur, « Je ne sais pas », exclusive) dans « Options avancées ».
+ *
+ * @param {Object}   props
+ * @param {Object}   props.step      Question.
+ * @param {Array}    props.axes      Axes (thèmes notés).
+ * @param {string[]} props.languages Langues.
+ * @param {boolean}  props.advanced  Afficher les réglages techniques.
+ * @param {Function} props.onChange  ( options ) => void.
+ */
+function OptionsEditor( { step, axes, languages, advanced, onChange } ) {
 	const options = step.options ?? [];
+	const langs = languages.length ? languages : [ '' ];
 	const set = ( index, patch ) =>
 		onChange(
 			options.map( ( option, i ) => {
@@ -117,196 +129,83 @@ function OptionsEditor( { step, axes, languages, onChange } ) {
 				return next;
 			} )
 		);
+	const setLabel = ( index, lang, text ) => {
+		const label = options[ index ].label;
+		if ( langs.length < 2 ) {
+			set( index, { label: text } );
+			return;
+		}
+		const object =
+			typeof label === 'object' && label
+				? { ...label }
+				: { [ langs[ 0 ] ]: label ?? '' };
+		object[ lang ] = text;
+		set( index, { label: object } );
+	};
+	const labelOf = ( option, lang ) =>
+		typeof option.label === 'object' && option.label
+			? ( option.label[ lang ] ?? '' )
+			: ( option.label ?? '' );
+	const axisName = ( axis ) =>
+		resolveText( axis.label, langs[ 0 ] ) || axis.key;
+
 	return (
-		<div className="sd-b-options">
-			<table className="sd-b-table">
-				<thead>
-					<tr>
-						<th>{ __( 'Value', 'smart-diagnostic' ) }</th>
-						<th>{ __( 'Label', 'smart-diagnostic' ) }</th>
-						{ axes.map( ( axis ) => (
-							<th key={ axis.key }>
-								{ sprintf(
-									/* translators: %s: axis key */ __(
-										'Points %s',
-										'smart-diagnostic'
-									),
-									axis.key
-								) }
-							</th>
-						) ) }
-						<th>{ __( '“I don’t know”', 'smart-diagnostic' ) }</th>
-						{ step.type === 'multi' && (
-							<th>{ __( 'Exclusive', 'smart-diagnostic' ) }</th>
-						) }
-						<th />
-					</tr>
-				</thead>
-				<tbody>
-					{ options.map( ( option, index ) => (
-						<tr key={ index }>
-							<td>
-								<input
-									aria-label={ __(
-										'Value',
-										'smart-diagnostic'
-									) }
-									value={ formatScalar( option.value ) }
-									onChange={ ( event ) =>
-										set( index, {
-											value: parseScalar(
-												event.target.value
-											),
-										} )
-									}
-								/>
-							</td>
-							<td>
-								<input
-									aria-label={ __(
-										'Label',
-										'smart-diagnostic'
-									) }
-									value={ resolveText(
-										option.label,
-										languages[ 0 ]
-									) }
-									onChange={ ( event ) =>
-										set( index, {
-											label:
-												typeof option.label ===
-													'object' && languages[ 0 ]
-													? {
-															...option.label,
-															[ languages[ 0 ] ]:
-																event.target
-																	.value,
-														}
-													: event.target.value,
-										} )
-									}
-								/>
-							</td>
-							{ axes.map( ( axis ) => (
-								<td key={ axis.key }>
-									<input
-										type="number"
-										step="any"
-										className="sd-b-narrow"
-										aria-label={ axis.key }
-										disabled={ Boolean( option.exit ) }
-										value={
-											option.scores?.[ axis.key ] ?? ''
-										}
-										onChange={ ( event ) => {
-											const scores = { ...option.scores };
-											const n = parseNumber(
-												event.target.value
-											);
-											if ( n === undefined ) {
-												delete scores[ axis.key ];
-											} else {
-												scores[ axis.key ] = n;
+		<div className="sd-b-answers">
+			<p className="sd-b-answers__title">
+				{ __( 'Answers', 'smart-diagnostic' ) }
+			</p>
+			{ axes.length > 0 && (
+				<p className="description">
+					{ __(
+						'For each answer, enter the points it earns on each theme (leave empty for 0).',
+						'smart-diagnostic'
+					) }
+				</p>
+			) }
+			<ol className="sd-b-answers__list">
+				{ options.map( ( option, index ) => (
+					<li key={ index } className="sd-b-answer">
+						<div className="sd-b-answer__head">
+							<span
+								className="sd-b-answer__number"
+								aria-hidden="true"
+							>
+								{ index + 1 }
+							</span>
+							<div className="sd-b-answer__labels">
+								{ langs.map( ( lang ) => (
+									<label
+										key={ lang || 'default' }
+										className="sd-b-answer__label"
+									>
+										{ langs.length > 1 && (
+											<span className="sd-b-answer__lang">
+												{ lang.toUpperCase() }
+											</span>
+										) }
+										<input
+											type="text"
+											aria-label={ sprintf(
+												/* translators: %d: answer number. */
+												__(
+													'Answer %d',
+													'smart-diagnostic'
+												),
+												index + 1
+											) }
+											value={ labelOf( option, lang ) }
+											onChange={ ( event ) =>
+												setLabel(
+													index,
+													lang,
+													event.target.value
+												)
 											}
-											set( index, {
-												scores: Object.keys( scores )
-													.length
-													? scores
-													: undefined,
-											} );
-										} }
-									/>
-								</td>
-							) ) }
-							<td>
-								<select
-									aria-label={ __(
-										'Exit answer',
-										'smart-diagnostic'
-									) }
-									value={ option.exit?.mode ?? '' }
-									onChange={ ( event ) =>
-										set( index, {
-											exit: event.target.value
-												? {
-														mode: event.target
-															.value,
-														...( event.target
-															.value === 'fixed'
-															? {
-																	value:
-																		option
-																			.exit
-																			?.value ??
-																		0,
-																}
-															: {} ),
-													}
-												: undefined,
-										} )
-									}
-								>
-									<option value="">—</option>
-									<option value="ignore">
-										{ __(
-											'no points',
-											'smart-diagnostic'
-										) }
-									</option>
-									<option value="neutral">
-										{ __( 'average', 'smart-diagnostic' ) }
-									</option>
-									<option value="min">
-										{ __( 'minimum', 'smart-diagnostic' ) }
-									</option>
-									<option value="fixed">
-										{ __( 'fixed', 'smart-diagnostic' ) }
-									</option>
-								</select>
-								{ option.exit?.mode === 'fixed' && (
-									<input
-										type="number"
-										step="any"
-										className="sd-b-narrow"
-										aria-label={ __(
-											'Fixed points',
-											'smart-diagnostic'
-										) }
-										value={ option.exit.value ?? 0 }
-										onChange={ ( event ) =>
-											set( index, {
-												exit: {
-													mode: 'fixed',
-													value:
-														parseNumber(
-															event.target.value
-														) ?? 0,
-												},
-											} )
-										}
-									/>
-								) }
-							</td>
-							{ step.type === 'multi' && (
-								<td>
-									<input
-										type="checkbox"
-										aria-label={ __(
-											'Exclusive',
-											'smart-diagnostic'
-										) }
-										checked={ Boolean( option.exclusive ) }
-										onChange={ ( event ) =>
-											set( index, {
-												exclusive:
-													event.target.checked ||
-													undefined,
-											} )
-										}
-									/>
-								</td>
-							) }
-							<td>
+										/>
+									</label>
+								) ) }
+							</div>
+							<span className="sd-b-answer__actions">
 								<Button
 									size="small"
 									icon="arrow-up-alt2"
@@ -323,6 +222,20 @@ function OptionsEditor( { step, axes, languages, onChange } ) {
 								/>
 								<Button
 									size="small"
+									icon="arrow-down-alt2"
+									label={ __(
+										'Move down',
+										'smart-diagnostic'
+									) }
+									disabled={ index === options.length - 1 }
+									onClick={ () =>
+										onChange(
+											move( options, index, index + 1 )
+										)
+									}
+								/>
+								<Button
+									size="small"
 									icon="trash"
 									isDestructive
 									label={ __( 'Remove', 'smart-diagnostic' ) }
@@ -334,11 +247,193 @@ function OptionsEditor( { step, axes, languages, onChange } ) {
 										)
 									}
 								/>
-							</td>
-						</tr>
-					) ) }
-				</tbody>
-			</table>
+							</span>
+						</div>
+
+						{ axes.length > 0 && ! option.exit && (
+							<div className="sd-b-answer__points">
+								{ axes.map( ( axis ) => (
+									<label
+										key={ axis.key }
+										className="sd-b-answer__point"
+									>
+										<span>{ axisName( axis ) }</span>
+										<input
+											type="number"
+											step="any"
+											placeholder="0"
+											aria-label={ sprintf(
+												/* translators: 1: answer number, 2: theme name. */
+												__(
+													'Points of answer %1$d for %2$s',
+													'smart-diagnostic'
+												),
+												index + 1,
+												axisName( axis )
+											) }
+											value={
+												option.scores?.[ axis.key ] ??
+												''
+											}
+											onChange={ ( event ) => {
+												const scores = {
+													...option.scores,
+												};
+												const n = parseNumber(
+													event.target.value
+												);
+												if ( n === undefined ) {
+													delete scores[ axis.key ];
+												} else {
+													scores[ axis.key ] = n;
+												}
+												set( index, {
+													scores: Object.keys(
+														scores
+													).length
+														? scores
+														: undefined,
+												} );
+											} }
+										/>
+									</label>
+								) ) }
+							</div>
+						) }
+
+						{ advanced && (
+							<div className="sd-b-answer__advanced">
+								<TextControl
+									__nextHasNoMarginBottom
+									__next40pxDefaultSize
+									label={ __(
+										'Internal value',
+										'smart-diagnostic'
+									) }
+									help={ __(
+										'Recorded in the answers and the exports.',
+										'smart-diagnostic'
+									) }
+									value={ formatScalar( option.value ) }
+									onChange={ ( raw ) =>
+										set( index, {
+											value: parseScalar( raw ),
+										} )
+									}
+								/>
+								<SelectControl
+									__nextHasNoMarginBottom
+									__next40pxDefaultSize
+									label={ __(
+										'“I don’t know” answer',
+										'smart-diagnostic'
+									) }
+									help={ __(
+										'How this answer counts in the score.',
+										'smart-diagnostic'
+									) }
+									value={ option.exit?.mode ?? '' }
+									options={ [
+										{
+											value: '',
+											label: __(
+												'No (normal answer)',
+												'smart-diagnostic'
+											),
+										},
+										{
+											value: 'ignore',
+											label: __(
+												'Yes — counts for nothing',
+												'smart-diagnostic'
+											),
+										},
+										{
+											value: 'neutral',
+											label: __(
+												'Yes — average points',
+												'smart-diagnostic'
+											),
+										},
+										{
+											value: 'min',
+											label: __(
+												'Yes — minimum points',
+												'smart-diagnostic'
+											),
+										},
+										{
+											value: 'fixed',
+											label: __(
+												'Yes — fixed points',
+												'smart-diagnostic'
+											),
+										},
+									] }
+									onChange={ ( mode ) =>
+										set( index, {
+											exit: mode
+												? {
+														mode,
+														...( mode === 'fixed'
+															? {
+																	value:
+																		option
+																			.exit
+																			?.value ??
+																		0,
+																}
+															: {} ),
+													}
+												: undefined,
+										} )
+									}
+								/>
+								{ option.exit?.mode === 'fixed' && (
+									<NumberField
+										label={ __(
+											'Fixed points',
+											'smart-diagnostic'
+										) }
+										value={ option.exit.value ?? 0 }
+										onChange={ ( v ) =>
+											set( index, {
+												exit: {
+													mode: 'fixed',
+													value: v ?? 0,
+												},
+											} )
+										}
+									/>
+								) }
+								{ step.type === 'multi' && (
+									<CheckboxControl
+										__nextHasNoMarginBottom
+										label={ __(
+											'Exclusive (unticks the other answers)',
+											'smart-diagnostic'
+										) }
+										checked={ Boolean( option.exclusive ) }
+										onChange={ ( on ) =>
+											set( index, {
+												exclusive: on || undefined,
+											} )
+										}
+									/>
+								) }
+							</div>
+						) }
+						{ option.exit && ! advanced && (
+							<p className="description">
+								{ __(
+									'“I don’t know” answer (see the advanced options).',
+									'smart-diagnostic'
+								) }
+							</p>
+						) }
+					</li>
+				) ) }
+			</ol>
 			<Button
 				variant="secondary"
 				icon="plus"
@@ -369,24 +464,25 @@ function OptionsEditor( { step, axes, languages, onChange } ) {
 	);
 }
 
-function QuestionFields( { step, set, config, languages } ) {
+function QuestionFields( { step, set, config, languages, advanced } ) {
 	const rules = step.validation ?? {};
 	const setRule = ( key, value ) => set( [ 'validation', key ], value );
 	return (
 		<>
-			<SelectControl
-				__nextHasNoMarginBottom
-				__next40pxDefaultSize
-				label={ __( 'Question type', 'smart-diagnostic' ) }
-				value={ step.type }
-				options={ QUESTION_TYPES() }
-				onChange={ ( type ) => set( [ 'type' ], type ) }
-			/>
 			<I18nText
 				label={ __( 'Question', 'smart-diagnostic' ) }
 				value={ step.label }
 				languages={ languages }
 				onChange={ ( v ) => set( [ 'label' ], v ?? '' ) }
+			/>
+			<SelectControl
+				__nextHasNoMarginBottom
+				__next40pxDefaultSize
+				label={ __( 'Question type', 'smart-diagnostic' ) }
+				help={ __( 'How the visitor answers.', 'smart-diagnostic' ) }
+				value={ step.type }
+				options={ QUESTION_TYPES() }
+				onChange={ ( type ) => set( [ 'type' ], type ) }
 			/>
 			<I18nText
 				label={ __( 'Help text', 'smart-diagnostic' ) }
@@ -418,6 +514,7 @@ function QuestionFields( { step, set, config, languages } ) {
 					step={ step }
 					axes={ config.axes ?? [] }
 					languages={ languages }
+					advanced={ advanced }
 					onChange={ ( options ) => set( [ 'options' ], options ) }
 				/>
 			) }
@@ -961,11 +1058,17 @@ export function StepsTab( { config, set, languages } ) {
 	const sections = config.sections ?? [];
 	const [ selected, setSelected ] = useState( steps[ 0 ]?.key ?? null );
 	const [ dragged, setDragged ] = useState( null );
+	// Réglages techniques (clés, valeurs internes, « Je ne sais pas ») : masqués par défaut.
+	const [ advanced, setAdvanced ] = useState( false );
 	const index = steps.findIndex( ( s ) => s.key === selected );
 	const step = steps[ index ];
 	const setStep = ( path, value ) =>
 		set( [ 'steps', index, ...path ], value );
 	const kinds = KIND_LABELS();
+	const titleOf = ( item ) =>
+		resolveText( item.label ?? item.title ?? item.body, languages[ 0 ] )
+			.replace( /<[^>]+>/g, '' )
+			.trim() || item.key;
 
 	const add = ( kind ) => {
 		const created = newStep(
@@ -985,45 +1088,38 @@ export function StepsTab( { config, set, languages } ) {
 		setSelected( created.key );
 	};
 
+	const duplicate = () => {
+		const copy = {
+			...structuredClone( step ),
+			key: uniqueKey(
+				step.key,
+				steps.map( ( s ) => s.key )
+			),
+		};
+		set(
+			[ 'steps' ],
+			[
+				...steps.slice( 0, index + 1 ),
+				copy,
+				...steps.slice( index + 1 ),
+			]
+		);
+		setSelected( copy.key );
+	};
+
+	const remove = () => {
+		set(
+			[ 'steps' ],
+			steps.filter( ( _, i ) => i !== index )
+		);
+		setSelected(
+			steps[ index + 1 ]?.key ?? steps[ index - 1 ]?.key ?? null
+		);
+	};
+
 	return (
 		<div className="sd-b-steps">
 			<div className="sd-b-steps__list">
-				<ListEditor
-					label={ __( 'Sections', 'smart-diagnostic' ) }
-					items={ sections }
-					onChange={ ( list ) => set( [ 'sections' ], list ?? [] ) }
-					newItem={ ( items ) => ( {
-						key: uniqueKey(
-							'section',
-							items.map( ( i ) => i.key )
-						),
-						label: __( 'New section', 'smart-diagnostic' ),
-					} ) }
-					addLabel={ __( 'Add a section', 'smart-diagnostic' ) }
-					summary={ ( section ) =>
-						resolveText( section.label, languages[ 0 ] ) ||
-						section.key
-					}
-					renderItem={ ( section, update ) => (
-						<>
-							<KeyField
-								value={ section.key }
-								taken={ sections.map( ( s ) => s.key ) }
-								onChange={ ( key ) =>
-									update( { ...section, key } )
-								}
-							/>
-							<I18nText
-								label={ __( 'Name', 'smart-diagnostic' ) }
-								value={ section.label }
-								languages={ languages }
-								onChange={ ( label ) =>
-									update( { ...section, label: label ?? '' } )
-								}
-							/>
-						</>
-					) }
-				/>
 				<h3>{ __( 'Steps', 'smart-diagnostic' ) }</h3>
 				<ol className="sd-b-steps__items">
 					{ steps.map( ( item, i ) => (
@@ -1041,38 +1137,34 @@ export function StepsTab( { config, set, languages } ) {
 							<button
 								type="button"
 								className="sd-b-steps__select"
+								aria-current={
+									item.key === selected ? 'step' : undefined
+								}
 								onClick={ () => setSelected( item.key ) }
 							>
-								<span
-									className="sd-b-steps__grip"
-									aria-hidden="true"
-								>
-									⋮⋮
+								<span className="sd-b-steps__number">
+									{ i + 1 }
 								</span>
-								<span
-									className={ `sd-b-badge sd-b-badge--${ item.kind }` }
-								>
-									{ kinds[ item.kind ] }
-								</span>
-								<span className="sd-b-steps__label">
-									{ resolveText(
-										item.label ?? item.title ?? item.body,
-										languages[ 0 ]
-									)
-										.replace( /<[^>]+>/g, '' )
-										.slice( 0, 60 ) || item.key }
-								</span>
-								{ item.showIf && (
-									<span
-										className="sd-b-badge"
-										title={ __(
-											'Conditional',
-											'smart-diagnostic'
-										) }
-									>
-										if
+								<span className="sd-b-steps__text">
+									<span className="sd-b-steps__label">
+										{ titleOf( item ) }
 									</span>
-								) }
+									<span className="sd-b-steps__meta">
+										<span
+											className={ `sd-b-badge sd-b-badge--${ item.kind }` }
+										>
+											{ kinds[ item.kind ] }
+										</span>
+										{ item.showIf && (
+											<span className="sd-b-badge">
+												{ __(
+													'Conditional',
+													'smart-diagnostic'
+												) }
+											</span>
+										) }
+									</span>
+								</span>
 							</button>
 							<span className="sd-b-steps__move">
 								<Button
@@ -1109,6 +1201,9 @@ export function StepsTab( { config, set, languages } ) {
 						</li>
 					) ) }
 				</ol>
+				<p className="sd-b-steps__add-title">
+					{ __( 'Add after the selected step:', 'smart-diagnostic' ) }
+				</p>
 				<div className="sd-b-steps__add">
 					<Button
 						variant="secondary"
@@ -1132,74 +1227,133 @@ export function StepsTab( { config, set, languages } ) {
 						{ __( 'Form', 'smart-diagnostic' ) }
 					</Button>
 				</div>
+
+				<details className="sd-b-panel sd-b-steps__sections">
+					<summary>
+						{ sprintf(
+							/* translators: %d: number of sections. */
+							__( 'Sections (%d)', 'smart-diagnostic' ),
+							sections.length
+						) }
+					</summary>
+					<p className="description">
+						{ __(
+							'Sections group the questions; their name is shown above the progress bar.',
+							'smart-diagnostic'
+						) }
+					</p>
+					<ListEditor
+						items={ sections }
+						onChange={ ( list ) =>
+							set( [ 'sections' ], list ?? [] )
+						}
+						newItem={ ( items ) => ( {
+							key: uniqueKey(
+								'section',
+								items.map( ( i ) => i.key )
+							),
+							label: __( 'New section', 'smart-diagnostic' ),
+						} ) }
+						addLabel={ __( 'Add a section', 'smart-diagnostic' ) }
+						summary={ ( section ) =>
+							resolveText( section.label, languages[ 0 ] ) ||
+							section.key
+						}
+						renderItem={ ( section, update ) => (
+							<>
+								<I18nText
+									label={ __( 'Name', 'smart-diagnostic' ) }
+									value={ section.label }
+									languages={ languages }
+									onChange={ ( label ) =>
+										update( {
+											...section,
+											label: label ?? '',
+										} )
+									}
+								/>
+								{ advanced && (
+									<KeyField
+										value={ section.key }
+										taken={ sections.map( ( s ) => s.key ) }
+										onChange={ ( key ) =>
+											update( { ...section, key } )
+										}
+									/>
+								) }
+							</>
+						) }
+					/>
+				</details>
 			</div>
 
 			<div className="sd-b-steps__editor">
 				{ ! step && (
-					<p>
+					<p className="sd-b-steps__empty">
 						{ __(
-							'Select a step to edit it.',
+							'Select a step on the left to edit it, or add one.',
 							'smart-diagnostic'
 						) }
 					</p>
 				) }
 				{ step && (
 					<>
-						<div className="sd-b-row sd-b-row--head">
-							<h3>{ kinds[ step.kind ] }</h3>
-							<Button
-								variant="tertiary"
-								icon="admin-page"
-								onClick={ () => {
-									const copy = {
-										...structuredClone( step ),
-										key: uniqueKey(
-											step.key,
-											steps.map( ( s ) => s.key )
-										),
-									};
-									set(
-										[ 'steps' ],
-										[
-											...steps.slice( 0, index + 1 ),
-											copy,
-											...steps.slice( index + 1 ),
-										]
-									);
-									setSelected( copy.key );
-								} }
-							>
-								{ __( 'Duplicate', 'smart-diagnostic' ) }
-							</Button>
-							<Button
-								variant="tertiary"
-								isDestructive
-								icon="trash"
-								onClick={ () => {
-									set(
-										[ 'steps' ],
-										steps.filter( ( _, i ) => i !== index )
-									);
-									setSelected(
-										steps[ index + 1 ]?.key ??
-											steps[ index - 1 ]?.key ??
-											null
-									);
-								} }
-							>
-								{ __( 'Delete', 'smart-diagnostic' ) }
-							</Button>
+						<div className="sd-b-steps__head">
+							<h3>
+								{ sprintf(
+									/* translators: 1: step number, 2: kind of step. */
+									__(
+										'Step %1$d · %2$s',
+										'smart-diagnostic'
+									),
+									index + 1,
+									kinds[ step.kind ]
+								) }
+							</h3>
+							<span className="sd-b-steps__tools">
+								<Button
+									variant="tertiary"
+									icon="admin-page"
+									onClick={ duplicate }
+								>
+									{ __( 'Duplicate', 'smart-diagnostic' ) }
+								</Button>
+								<Button
+									variant="tertiary"
+									isDestructive
+									icon="trash"
+									onClick={ remove }
+								>
+									{ __( 'Delete', 'smart-diagnostic' ) }
+								</Button>
+							</span>
 						</div>
-						<div className="sd-b-row">
-							<KeyField
-								key={ step.key }
-								value={ step.key }
-								taken={ steps.map( ( s ) => s.key ) }
-								onChange={ ( key ) => {
-									setStep( [ 'key' ], key );
-									setSelected( key );
-								} }
+
+						{ step.kind === 'question' && (
+							<QuestionFields
+								step={ step }
+								set={ setStep }
+								config={ config }
+								languages={ languages }
+								advanced={ advanced }
 							/>
+						) }
+						{ step.kind === 'content' && (
+							<ContentFields
+								step={ step }
+								set={ setStep }
+								languages={ languages }
+							/>
+						) }
+						{ step.kind === 'form' && (
+							<FormFields
+								step={ step }
+								set={ setStep }
+								languages={ languages }
+							/>
+						) }
+
+						{ sections.length > 1 && (
 							<SelectControl
 								__nextHasNoMarginBottom
 								__next40pxDefaultSize
@@ -1220,45 +1374,67 @@ export function StepsTab( { config, set, languages } ) {
 									setStep( [ 'section' ], v || undefined )
 								}
 							/>
-						</div>
-						{ step.kind === 'question' && (
-							<QuestionFields
-								step={ step }
-								set={ setStep }
+						) }
+
+						<details
+							className="sd-b-panel"
+							open={ Boolean(
+								step.showIf || step.jumpTo?.length
+							) }
+						>
+							<summary>
+								{ __(
+									'Logic: show only in some cases, jump to another step',
+									'smart-diagnostic'
+								) }
+							</summary>
+							<ConditionEditor
+								label={ __(
+									'Show this step',
+									'smart-diagnostic'
+								) }
+								value={ step.showIf }
 								config={ config }
-								languages={ languages }
+								onChange={ ( condition ) =>
+									setStep( [ 'showIf' ], condition )
+								}
 							/>
-						) }
-						{ step.kind === 'content' && (
-							<ContentFields
+							<JumpEditor
 								step={ step }
-								set={ setStep }
-								languages={ languages }
+								steps={ steps }
+								config={ config }
+								onChange={ ( rules ) =>
+									setStep( [ 'jumpTo' ], rules )
+								}
 							/>
-						) }
-						{ step.kind === 'form' && (
-							<FormFields
-								step={ step }
-								set={ setStep }
-								languages={ languages }
+						</details>
+
+						<div className="sd-b-steps__advanced">
+							<ToggleControl
+								__nextHasNoMarginBottom
+								label={ __(
+									'Show the advanced options',
+									'smart-diagnostic'
+								) }
+								help={ __(
+									'Technical keys and values, “I don’t know” answers.',
+									'smart-diagnostic'
+								) }
+								checked={ advanced }
+								onChange={ setAdvanced }
 							/>
-						) }
-						<ConditionEditor
-							label={ __( 'Show this step', 'smart-diagnostic' ) }
-							value={ step.showIf }
-							config={ config }
-							onChange={ ( condition ) =>
-								setStep( [ 'showIf' ], condition )
-							}
-						/>
-						<JumpEditor
-							step={ step }
-							steps={ steps }
-							config={ config }
-							onChange={ ( rules ) =>
-								setStep( [ 'jumpTo' ], rules )
-							}
-						/>
+							{ advanced && (
+								<KeyField
+									key={ step.key }
+									value={ step.key }
+									taken={ steps.map( ( s ) => s.key ) }
+									onChange={ ( key ) => {
+										setStep( [ 'key' ], key );
+										setSelected( key );
+									} }
+								/>
+							) }
+						</div>
 					</>
 				) }
 			</div>
