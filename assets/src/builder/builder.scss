@@ -363,6 +363,12 @@
 		}
 	}
 
+	&__toolbar {
+		display: grid;
+		gap: 12px;
+		margin: 8px 0;
+	}
+
 	&__style {
 		margin: 8px 0 12px;
 		padding: 8px 12px;

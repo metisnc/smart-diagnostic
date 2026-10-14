@@ -813,7 +813,7 @@ export function EmailEditor( { kind, config, set, languages } ) {
 
 			{ mode === 'visual' && (
 				<div className="sd-b-email__visual">
-					<div className="sd-b-row">
+					<div className="sd-b-email__toolbar">
 						<SelectControl
 							__nextHasNoMarginBottom
 							__next40pxDefaultSize

@@ -73,7 +73,10 @@ test( 'visual editor: blocks, variables, live preview, test send and real email'
 	const id = await openDemo( page );
 	const editor = userEmail( page );
 
-	// Éditeur visuel : le modèle de départ « résultat » est proposé.
+	// Éditeur visuel (depuis le modèle par défaut) : le modèle de départ « résultat » est proposé.
+	await editor
+		.getByLabel( 'Default template (built from the results)' )
+		.check();
 	await editor.getByLabel( 'Visual editor' ).check();
 	await expect(
 		editor.locator( '.sd-b-email__block' ).first()
