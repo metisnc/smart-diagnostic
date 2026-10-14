@@ -7,7 +7,7 @@
 # 2. installe les dépendances PHP/JS et compile les assets (via Docker si
 #    composer/node ne sont pas installés) ;
 # 3. démarre les conteneurs, installe WordPress, active le plugin ;
-# 4. environnement de tests seulement (SD_TEST_HELPERS=1) : compte e2e, aides de test,
+# 4. environnement de tests seulement (SD_TEST_HELPERS=1) : compte e2e, aides de test, MCP Adapter,
 #    limite de soumissions relevée, import de tests/fixtures/demo.json et page
 #    /diagnostic-test/. Avec SD_TEST_HELPERS=0, le site reste vierge.
 set -euo pipefail
@@ -110,6 +110,13 @@ if [[ "${SD_TEST_HELPERS:-0}" == "1" ]]; then
 	wp user update "$E2E_ADMIN_USER" --user_pass="$E2E_ADMIN_PASSWORD" --locale=en_US --skip-email >/dev/null
 	log "Installation des aides de test (mu-plugin)"
 	docker compose run --rm -T wpcli sh -c 'mkdir -p wp-content/mu-plugins && cp wp-content/plugins/smart-diagnostic/tests/e2e/mu-plugins/sd-test-helpers.php wp-content/mu-plugins/'
+
+	# Connecteur MCP : plugin officiel « MCP Adapter » (version figée), pour les tests du connecteur.
+	MCP_ADAPTER_VERSION=0.7.0
+	if ! wp plugin is-active mcp-adapter >/dev/null 2>&1; then
+		log "Installation du MCP Adapter ${MCP_ADAPTER_VERSION}"
+		wp plugin install "https://github.com/WordPress/mcp-adapter/releases/download/v${MCP_ADAPTER_VERSION}/mcp-adapter.zip" --force --activate >/dev/null
+	fi
 
 	# Limite de soumissions relevée (les tests E2E soumettent souvent).
 	if ! wp option get sd_settings >/dev/null 2>&1; then

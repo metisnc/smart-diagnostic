@@ -25,6 +25,8 @@ d'éligibilité…
   « Réponses » avec filtres et export CSV, emails, webhooks signés (Make, Zapier, n8n, CRM).
 - **Statistiques** : entonnoir, abandons, profils, CTA ; événements pour GA4 / GTM / Meta.
 - **RGPD** : consentement versionné, conservation limitée, export / effacement WordPress.
+- **Connecteur MCP** (facultatif) : piloter les diagnostics depuis un assistant IA comme
+  Claude Desktop (lecture seule par défaut, aucune suppression, journal des actions).
 - **Multilingue** (WPML, Polylang), interface traduite en français, **marque blanche**.
 - **Bibliothèque de modèles** prêts à l'emploi (diagnostic business, recommandation produit,
   éligibilité, maturité digitale, satisfaction client), extensible par filtre.
@@ -41,6 +43,29 @@ Prérequis : WordPress 6.4+, PHP 8.1+.
 4. Insérer le diagnostic avec le bloc **Diagnostic** ou le shortcode
    `[smart_diagnostic id="123"]` (ID ou slug).
 
+Assistant IA (facultatif) : voir [Connecteur MCP](docs/mcp.md) — installer le plugin
+**MCP Adapter**, activer le connecteur dans les réglages, puis dans Claude Desktop
+(`claude_desktop_config.json`) :
+
+```json
+{
+  "mcpServers": {
+    "smart-diagnostic": {
+      "command": "npx",
+      "args": ["-y", "@automattic/mcp-wordpress-remote@latest"],
+      "env": {
+        "WP_API_URL": "https://mon-site.fr/wp-json/smart-diagnostic/mcp",
+        "WP_API_USERNAME": "mon-identifiant",
+        "WP_API_PASSWORD": "mot de passe d’application"
+      }
+    }
+  }
+}
+```
+
+Exemple de demande : « crée-moi un quiz de 10 questions pour un salon de coiffure à partir
+du modèle *Quiz de recommandation produit* ».
+
 Recommandé : un plugin SMTP pour l'envoi des emails, et une tâche cron système si le site a
 peu de trafic (réessais des webhooks, purge RGPD).
 
@@ -54,6 +79,7 @@ peu de trafic (réessais des webhooks, purge RGPD).
 | Emails, webhooks, réponses, RGPD | [`docs/integrations.md`](docs/integrations.md) |
 | Statistiques, langues, marque blanche | [`docs/statistiques-langues-marque.md`](docs/statistiques-langues-marque.md) |
 | Hooks, filtres, WP-CLI | [`docs/hooks.md`](docs/hooks.md) |
+| Connecteur MCP (Claude Desktop…) : installation, sécurité, exemples | [`docs/mcp.md`](docs/mcp.md) |
 | Cahier des charges | [`docs/cahier-des-charges.md`](docs/cahier-des-charges.md) |
 
 ## Développement

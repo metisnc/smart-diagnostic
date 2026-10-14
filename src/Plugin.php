@@ -59,6 +59,8 @@ final class Plugin {
 				Integrations\Mailer::class,
 				Integrations\Webhooks::class,
 				Privacy\Privacy::class,
+				Mcp\Abilities::class,
+				Mcp\Server::class,
 			)
 		);
 

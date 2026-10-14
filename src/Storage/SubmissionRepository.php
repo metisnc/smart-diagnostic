@@ -124,6 +124,36 @@ final class SubmissionRepository {
 	}
 
 	/**
+	 * Répartition des réponses d'un diagnostic par profil ou par CTA, sur une période.
+	 *
+	 * @param string $column profile | cta.
+	 * @param string $from   Date de début AAAA-MM-JJ (GMT).
+	 * @param string $to     Date de fin AAAA-MM-JJ (GMT), incluse.
+	 * @return array<string, int> Valeur => nombre, du plus fréquent au moins fréquent.
+	 */
+	public function count_by( string $column, int $diagnostic_id, string $from, string $to ): array {
+		global $wpdb;
+		if ( ! in_array( $column, array( 'profile', 'cta' ), true ) ) {
+			return array();
+		}
+		$table = Schema::submissions_table();
+		$rows  = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$wpdb->prepare(
+				"SELECT {$column} AS k, COUNT(*) AS n FROM {$table} WHERE diagnostic_id = %d AND created_at BETWEEN %s AND %s GROUP BY {$column} ORDER BY n DESC", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$diagnostic_id,
+				$from . ' 00:00:00',
+				$to . ' 23:59:59'
+			),
+			ARRAY_A
+		);
+		$counts = array();
+		foreach ( (array) $rows as $row ) {
+			$counts[ (string) $row['k'] ] = (int) $row['n'];
+		}
+		return $counts;
+	}
+
+	/**
 	 * @param list<int> $ids Soumissions.
 	 * @return int Nombre supprimé.
 	 */

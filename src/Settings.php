@@ -17,7 +17,7 @@ final class Settings {
 	public const OPTION = 'sd_settings';
 
 	/**
-	 * @return array{captcha_provider: string, captcha_site_key: string, captcha_secret_key: string, rate_limit: int, rate_window: int, retention_days: int, analytics: bool, brand_name: string, mail_from_name: string, mail_from_email: string, mail_reply_to: string, smtp_enabled: bool, smtp_host: string, smtp_port: int, smtp_encryption: string, smtp_user: string, smtp_password: string}
+	 * @return array{captcha_provider: string, captcha_site_key: string, captcha_secret_key: string, rate_limit: int, rate_window: int, retention_days: int, analytics: bool, brand_name: string, mail_from_name: string, mail_from_email: string, mail_reply_to: string, smtp_enabled: bool, smtp_host: string, smtp_port: int, smtp_encryption: string, smtp_user: string, smtp_password: string, mcp_enabled: bool, mcp_write: bool}
 	 */
 	public static function all(): array {
 		$saved = get_option( self::OPTION, array() );
@@ -41,6 +41,9 @@ final class Settings {
 			'smtp_user'          => (string) ( $saved['smtp_user'] ?? '' ),
 			// Prioritaire : constante SD_SMTP_PASSWORD dans wp-config.php (le mot de passe ne va pas en base).
 			'smtp_password'      => defined( 'SD_SMTP_PASSWORD' ) ? (string) SD_SMTP_PASSWORD : (string) ( $saved['smtp_password'] ?? '' ),
+			// Connecteur MCP : désactivé et en lecture seule par défaut.
+			'mcp_enabled'        => (bool) ( $saved['mcp_enabled'] ?? false ),
+			'mcp_write'          => (bool) ( $saved['mcp_write'] ?? false ),
 		);
 	}
 

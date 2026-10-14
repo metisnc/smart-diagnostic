@@ -17,6 +17,11 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
   notification équipe, relance). Emails adaptés aux petits écrans.
 - Relance du visiteur quelques jours après sa réponse (`integrations.emails.followUp`,
   désactivée par défaut).
+- Connecteur MCP facultatif (désactivé par défaut) : fonctions exposées via l'Abilities API
+  de WordPress et le MCP Adapter officiel (serveur `/wp-json/smart-diagnostic/mcp`) —
+  lister / lire / prévisualiser / créer / modifier des diagnostics, créer depuis un modèle,
+  lister / exporter les réponses, statistiques. Lecture seule par défaut, mot de passe
+  d'application, droits vérifiés à chaque action, aucune suppression, journal des actions.
 
 ### Changed
 - Le diagnostic de démonstration devient un fichier de test (`tests/fixtures/demo.json`) ; le

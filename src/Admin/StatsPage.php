@@ -15,7 +15,7 @@ use SmartDiagnostic\Engine\Text;
 use SmartDiagnostic\PostType\DiagnosticPostType;
 use SmartDiagnostic\Settings;
 use SmartDiagnostic\Storage\EventRepository;
-use SmartDiagnostic\Storage\Schema;
+use SmartDiagnostic\Storage\SubmissionRepository;
 
 /**
  * Rendu HTML/CSS simple (barres), sans librairie de graphiques.
@@ -175,18 +175,8 @@ final class StatsPage {
 	 * @param list<array<string, mixed>> $items  Profils ou CTA de la config.
 	 */
 	private function distribution( string $title, string $column, int $id, string $from, string $to, array $items ): void {
-		global $wpdb;
-		$table  = Schema::submissions_table();
-		$rows   = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-			$wpdb->prepare(
-				"SELECT {$column} AS k, COUNT(*) AS n FROM {$table} WHERE diagnostic_id = %d AND created_at BETWEEN %s AND %s GROUP BY {$column} ORDER BY n DESC", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-				$id,
-				$from . ' 00:00:00',
-				$to . ' 23:59:59'
-			),
-			ARRAY_A
-		);
-		$total  = array_sum( array_map( 'intval', array_column( (array) $rows, 'n' ) ) );
+		$counts = ( new SubmissionRepository() )->count_by( $column, $id, $from, $to );
+		$total  = array_sum( $counts );
 		$labels = array();
 		foreach ( $items as $item ) {
 			$labels[ $item['key'] ] = wp_strip_all_tags( Text::resolve( $item['label'] ?? $item['key'] ) );
@@ -197,9 +187,9 @@ final class StatsPage {
 			return;
 		}
 		echo '<table class="widefat striped sd-stats__funnel"><tbody>';
-		foreach ( (array) $rows as $row ) {
-			$key = (string) $row['k'];
-			$this->bar_row( '' === $key ? '—' : ( $labels[ $key ] ?? $key ), $key, (int) $row['n'], (int) $row['n'] / $total );
+		foreach ( $counts as $key => $count ) {
+			$key = (string) $key;
+			$this->bar_row( '' === $key ? '—' : ( $labels[ $key ] ?? $key ), $key, $count, $count / $total );
 		}
 		echo '</tbody></table>';
 	}
