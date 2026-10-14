@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-14T12:50:50+00:00\n"
+"POT-Creation-Date: 2026-10-14T20:51:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: smart-diagnostic\n"
@@ -75,7 +75,7 @@ msgstr ""
 #: src/Admin/ImportExport.php:65
 #: src/Admin/ImportExport.php:79
 #: assets/src/builder/EmailEditor.js:985
-#: assets/src/builder/tabs/Steps.js:1172
+#: assets/src/builder/tabs/Steps.js:1321
 msgid "Duplicate"
 msgstr ""
 
@@ -131,8 +131,8 @@ msgstr ""
 #: assets/src/builder/tabs/General.js:115
 #: assets/src/builder/tabs/Results.js:106
 #: assets/src/builder/tabs/Results.js:286
-#: assets/src/builder/tabs/Steps.js:668
-#: assets/src/builder/tabs/Steps.js:753
+#: assets/src/builder/tabs/Steps.js:767
+#: assets/src/builder/tabs/Steps.js:852
 msgid "Title"
 msgstr ""
 
@@ -576,7 +576,7 @@ msgid "Funnel"
 msgstr ""
 
 #: src/Admin/StatsPage.php:141
-#: assets/src/builder/tabs/Steps.js:454
+#: assets/src/builder/tabs/Steps.js:553
 msgid "Step"
 msgstr ""
 
@@ -587,7 +587,7 @@ msgstr ""
 #: src/Admin/StatsPage.php:145
 #: assets/src/builder/Builder.js:107
 #: assets/src/builder/tabs/Guide.js:151
-#: assets/src/builder/tabs/Steps.js:913
+#: assets/src/builder/tabs/Steps.js:1012
 msgid "Results"
 msgstr ""
 
@@ -693,6 +693,7 @@ msgstr ""
 #: src/Admin/SubmissionsPage.php:195
 #: templates/emails/admin.php:43
 #: assets/src/builder/EmailEditor.js:142
+#: assets/src/builder/tabs/Steps.js:155
 msgid "Answers"
 msgstr ""
 
@@ -737,7 +738,7 @@ msgstr ""
 #: src/Admin/SubmissionsPage.php:233
 #: src/Admin/SubmissionsTable.php:88
 #: src/Admin/SubmissionsTable.php:143
-#: assets/src/builder/tabs/Steps.js:1190
+#: assets/src/builder/tabs/Steps.js:1329
 msgid "Delete"
 msgstr ""
 
@@ -1613,8 +1614,6 @@ msgstr ""
 #: assets/src/builder/ConditionEditor.js:150
 #: assets/src/builder/ConditionEditor.js:195
 #: assets/src/builder/tabs/General.js:613
-#: assets/src/builder/tabs/Steps.js:125
-#: assets/src/builder/tabs/Steps.js:150
 msgid "Value"
 msgstr ""
 
@@ -1687,8 +1686,8 @@ msgstr ""
 #: assets/src/builder/tabs/Design.js:30
 #: assets/src/builder/tabs/Design.js:467
 #: assets/src/builder/tabs/Design.js:644
-#: assets/src/builder/tabs/Steps.js:647
-#: assets/src/builder/tabs/Steps.js:760
+#: assets/src/builder/tabs/Steps.js:746
+#: assets/src/builder/tabs/Steps.js:859
 msgid "Text"
 msgstr ""
 
@@ -1697,7 +1696,7 @@ msgid "Button"
 msgstr ""
 
 #: assets/src/builder/EmailEditor.js:25
-#: assets/src/builder/tabs/Steps.js:654
+#: assets/src/builder/tabs/Steps.js:753
 msgid "Image"
 msgstr ""
 
@@ -1818,8 +1817,8 @@ msgid "An empty line starts a new paragraph. **Text between double asterisks** i
 msgstr ""
 
 #: assets/src/builder/EmailEditor.js:381
-#: assets/src/builder/tabs/Steps.js:707
-#: assets/src/builder/tabs/Steps.js:895
+#: assets/src/builder/tabs/Steps.js:806
+#: assets/src/builder/tabs/Steps.js:994
 msgid "Button label"
 msgstr ""
 
@@ -1925,14 +1924,15 @@ msgstr ""
 
 #: assets/src/builder/EmailEditor.js:944
 #: assets/src/builder/fields.js:229
-#: assets/src/builder/tabs/Steps.js:313
-#: assets/src/builder/tabs/Steps.js:1081
+#: assets/src/builder/tabs/Steps.js:212
+#: assets/src/builder/tabs/Steps.js:1175
 msgid "Move up"
 msgstr ""
 
 #: assets/src/builder/EmailEditor.js:963
 #: assets/src/builder/fields.js:243
-#: assets/src/builder/tabs/Steps.js:1096
+#: assets/src/builder/tabs/Steps.js:226
+#: assets/src/builder/tabs/Steps.js:1190
 msgid "Move down"
 msgstr ""
 
@@ -1940,7 +1940,7 @@ msgstr ""
 #: assets/src/builder/fields.js:258
 #: assets/src/builder/fields.js:360
 #: assets/src/builder/tabs/Design.js:303
-#: assets/src/builder/tabs/Steps.js:328
+#: assets/src/builder/tabs/Steps.js:241
 msgid "Remove"
 msgstr ""
 
@@ -2280,10 +2280,8 @@ msgstr ""
 
 #: assets/src/builder/tabs/Design.js:627
 #: assets/src/builder/tabs/Scoring.js:363
-#: assets/src/builder/tabs/Steps.js:126
-#: assets/src/builder/tabs/Steps.js:166
-#: assets/src/builder/tabs/Steps.js:545
-#: assets/src/builder/tabs/Steps.js:809
+#: assets/src/builder/tabs/Steps.js:644
+#: assets/src/builder/tabs/Steps.js:908
 msgid "Label"
 msgstr ""
 
@@ -2337,7 +2335,7 @@ msgstr ""
 
 #: assets/src/builder/tabs/General.js:149
 #: assets/src/builder/tabs/Results.js:140
-#: assets/src/builder/tabs/Steps.js:684
+#: assets/src/builder/tabs/Steps.js:783
 msgid "Image URL"
 msgstr ""
 
@@ -2479,8 +2477,8 @@ msgid "Field mapping (empty: everything is sent)"
 msgstr ""
 
 #: assets/src/builder/tabs/General.js:595
-#: assets/src/builder/tabs/Steps.js:535
-#: assets/src/builder/tabs/Steps.js:777
+#: assets/src/builder/tabs/Steps.js:634
+#: assets/src/builder/tabs/Steps.js:876
 msgid "Add a field"
 msgstr ""
 
@@ -2617,7 +2615,7 @@ msgid "The button offered at the end: book a call, see an offer, download a guid
 msgstr ""
 
 #: assets/src/builder/tabs/Guide.js:221
-#: assets/src/builder/tabs/Steps.js:1206
+#: assets/src/builder/tabs/Steps.js:1362
 msgid "Section"
 msgstr ""
 
@@ -2799,13 +2797,13 @@ msgstr ""
 
 #: assets/src/builder/tabs/Results.js:113
 #: assets/src/builder/tabs/Scoring.js:103
-#: assets/src/builder/tabs/Steps.js:1017
+#: assets/src/builder/tabs/Steps.js:1267
 msgid "Name"
 msgstr ""
 
 #: assets/src/builder/tabs/Results.js:123
 #: assets/src/builder/tabs/Results.js:390
-#: assets/src/builder/tabs/Steps.js:675
+#: assets/src/builder/tabs/Steps.js:774
 msgid "Text (basic HTML allowed)"
 msgstr ""
 
@@ -2929,14 +2927,14 @@ msgid "Starting value"
 msgstr ""
 
 #: assets/src/builder/tabs/Scoring.js:130
-#: assets/src/builder/tabs/Steps.js:443
-#: assets/src/builder/tabs/Steps.js:574
+#: assets/src/builder/tabs/Steps.js:542
+#: assets/src/builder/tabs/Steps.js:673
 msgid "Minimum"
 msgstr ""
 
 #: assets/src/builder/tabs/Scoring.js:137
-#: assets/src/builder/tabs/Steps.js:448
-#: assets/src/builder/tabs/Steps.js:578
+#: assets/src/builder/tabs/Steps.js:547
+#: assets/src/builder/tabs/Steps.js:677
 msgid "Maximum"
 msgstr ""
 
@@ -2954,8 +2952,8 @@ msgstr ""
 
 #: assets/src/builder/tabs/Scoring.js:229
 #: assets/src/builder/tabs/Steps.js:55
-#: assets/src/builder/tabs/Steps.js:386
-#: assets/src/builder/tabs/Steps.js:1118
+#: assets/src/builder/tabs/Steps.js:475
+#: assets/src/builder/tabs/Steps.js:1215
 msgid "Question"
 msgstr ""
 
@@ -3046,7 +3044,7 @@ msgid "Slider"
 msgstr ""
 
 #: assets/src/builder/tabs/Steps.js:33
-#: assets/src/builder/tabs/Steps.js:533
+#: assets/src/builder/tabs/Steps.js:632
 msgid "Amount"
 msgstr ""
 
@@ -3067,12 +3065,12 @@ msgid "Phone"
 msgstr ""
 
 #: assets/src/builder/tabs/Steps.js:56
-#: assets/src/builder/tabs/Steps.js:1125
+#: assets/src/builder/tabs/Steps.js:1222
 msgid "Content"
 msgstr ""
 
 #: assets/src/builder/tabs/Steps.js:57
-#: assets/src/builder/tabs/Steps.js:1132
+#: assets/src/builder/tabs/Steps.js:1229
 msgid "Form"
 msgstr ""
 
@@ -3089,279 +3087,336 @@ msgid "Receive your results"
 msgstr ""
 
 #: assets/src/builder/tabs/Steps.js:96
-#: assets/src/builder/tabs/Steps.js:845
+#: assets/src/builder/tabs/Steps.js:944
 msgid "I agree to be contacted about my results."
 msgstr ""
 
-#. translators: %s: axis key
-#: assets/src/builder/tabs/Steps.js:130
+#: assets/src/builder/tabs/Steps.js:159
+msgid "For each answer, enter the points it earns on each theme (leave empty for 0)."
+msgstr ""
+
+#. translators: %d: answer number.
+#: assets/src/builder/tabs/Steps.js:190
 #, js-format
-msgid "Points %s"
+msgid "Answer %d"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:138
-msgid "“I don’t know”"
+#. translators: 1: answer number, 2: theme name.
+#: assets/src/builder/tabs/Steps.js:269
+#, js-format
+msgid "Points of answer %1$d for %2$s"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:140
-#: assets/src/builder/tabs/Steps.js:294
-msgid "Exclusive"
+#: assets/src/builder/tabs/Steps.js:311
+msgid "Internal value"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:223
-msgid "Exit answer"
+#: assets/src/builder/tabs/Steps.js:315
+msgid "Recorded in the answers and the exports."
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:251
-msgid "no points"
+#: assets/src/builder/tabs/Steps.js:329
+msgid "“I don’t know” answer"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:257
-msgid "average"
+#: assets/src/builder/tabs/Steps.js:333
+msgid "How this answer counts in the score."
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:260
-msgid "minimum"
+#: assets/src/builder/tabs/Steps.js:341
+msgid "No (normal answer)"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:263
-msgid "fixed"
+#: assets/src/builder/tabs/Steps.js:348
+msgid "Yes — counts for nothing"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:271
-msgid "Fixed points"
-msgstr ""
-
-#: assets/src/builder/tabs/Steps.js:353
-msgid "New answer"
-msgstr ""
-
-#: assets/src/builder/tabs/Steps.js:358
-msgid "Add an answer"
+#: assets/src/builder/tabs/Steps.js:355
+msgid "Yes — average points"
 msgstr ""
 
 #: assets/src/builder/tabs/Steps.js:362
+msgid "Yes — minimum points"
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:369
+msgid "Yes — fixed points"
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:396
+msgid "Fixed points"
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:414
+msgid "Exclusive (unticks the other answers)"
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:430
+msgid "“I don’t know” answer (see the advanced options)."
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:450
+msgid "New answer"
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:455
+msgid "Add an answer"
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:459
 msgid "Images: edit \"image\": { \"url\": … } in the JSON tab."
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:380
+#: assets/src/builder/tabs/Steps.js:483
 msgid "Question type"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:392
+#: assets/src/builder/tabs/Steps.js:484
+msgid "How the visitor answers."
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:490
 msgid "Help text"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:402
+#: assets/src/builder/tabs/Steps.js:500
 msgid "Placeholder"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:410
+#: assets/src/builder/tabs/Steps.js:508
 msgid "Answer required"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:427
+#: assets/src/builder/tabs/Steps.js:526
 msgid "Min. checked"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:433
+#: assets/src/builder/tabs/Steps.js:532
 msgid "Max. checked"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:463
+#: assets/src/builder/tabs/Steps.js:562
 msgid "Unit"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:474
+#: assets/src/builder/tabs/Steps.js:573
 msgid "Currency (ISO code)"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:487
+#: assets/src/builder/tabs/Steps.js:586
 msgid "Period"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:493
+#: assets/src/builder/tabs/Steps.js:592
 msgid "once"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:497
+#: assets/src/builder/tabs/Steps.js:596
 msgid "per day"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:501
+#: assets/src/builder/tabs/Steps.js:600
 msgid "per week"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:505
+#: assets/src/builder/tabs/Steps.js:604
 msgid "per month"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:509
+#: assets/src/builder/tabs/Steps.js:608
 msgid "per quarter"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:513
+#: assets/src/builder/tabs/Steps.js:612
 msgid "per year"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:525
+#: assets/src/builder/tabs/Steps.js:624
 msgid "Amount fields"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:561
+#: assets/src/builder/tabs/Steps.js:660
 msgid "Combined value"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:566
+#: assets/src/builder/tabs/Steps.js:665
 msgid "Sum"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:570
+#: assets/src/builder/tabs/Steps.js:669
 msgid "Average"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:590
+#: assets/src/builder/tabs/Steps.js:689
 msgid "Label of the minimum"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:599
+#: assets/src/builder/tabs/Steps.js:698
 msgid "Label of the maximum"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:612
+#: assets/src/builder/tabs/Steps.js:711
 msgid "Min. length"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:618
+#: assets/src/builder/tabs/Steps.js:717
 msgid "Max. length"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:626
+#: assets/src/builder/tabs/Steps.js:725
 msgid "Pattern (regex)"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:644
+#: assets/src/builder/tabs/Steps.js:743
 msgid "Layout"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:650
+#: assets/src/builder/tabs/Steps.js:749
 msgid "Quote"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:658
+#: assets/src/builder/tabs/Steps.js:757
 msgid "Testimonial"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:662
+#: assets/src/builder/tabs/Steps.js:761
 msgid "Promotion"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:692
+#: assets/src/builder/tabs/Steps.js:791
 msgid "Author"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:698
+#: assets/src/builder/tabs/Steps.js:797
 msgid "Author role"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:716
+#: assets/src/builder/tabs/Steps.js:815
 msgid "Button link"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:733
+#: assets/src/builder/tabs/Steps.js:832
 msgid "Position"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:738
+#: assets/src/builder/tabs/Steps.js:837
 msgid "In the journey (before the results)"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:745
+#: assets/src/builder/tabs/Steps.js:844
 msgid "Below the results"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:766
+#: assets/src/builder/tabs/Steps.js:865
 msgid "Fields"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:775
+#: assets/src/builder/tabs/Steps.js:874
 msgid "Field"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:793
+#: assets/src/builder/tabs/Steps.js:892
 msgid "Type"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:818
+#: assets/src/builder/tabs/Steps.js:917
 msgid "Required"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:828
+#: assets/src/builder/tabs/Steps.js:927
 msgid "Use the keys first_name and email so that emails are personalised and sent."
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:838
+#: assets/src/builder/tabs/Steps.js:937
 msgid "Consent checkbox (GDPR)"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:859
+#: assets/src/builder/tabs/Steps.js:958
 msgid "Consent text"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:870
+#: assets/src/builder/tabs/Steps.js:969
 msgid "Text version"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:871
+#: assets/src/builder/tabs/Steps.js:970
 msgid "Change it whenever the text changes: it is stored with each consent."
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:882
+#: assets/src/builder/tabs/Steps.js:981
 msgid "Mandatory"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:920
+#: assets/src/builder/tabs/Steps.js:1019
 msgid "Jumps after this step"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:924
+#: assets/src/builder/tabs/Steps.js:1023
 msgid "Add a jump"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:930
+#: assets/src/builder/tabs/Steps.js:1029
 msgid "Go to"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:936
+#: assets/src/builder/tabs/Steps.js:1035
 msgid "If"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:992
-msgid "Sections"
-msgstr ""
-
-#: assets/src/builder/tabs/Steps.js:1000
-msgid "New section"
-msgstr ""
-
-#: assets/src/builder/tabs/Steps.js:1002
-msgid "Add a section"
-msgstr ""
-
-#: assets/src/builder/tabs/Steps.js:1027
+#: assets/src/builder/tabs/Steps.js:1125
 msgid "Steps"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:1068
+#: assets/src/builder/tabs/Steps.js:1162
 msgid "Conditional"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:1140
-msgid "Select a step to edit it."
+#: assets/src/builder/tabs/Steps.js:1207
+msgid "Add after the selected step:"
 msgstr ""
 
-#: assets/src/builder/tabs/Steps.js:1247
+#. translators: %d: number of sections.
+#: assets/src/builder/tabs/Steps.js:1237
+#, js-format
+msgid "Sections (%d)"
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:1242
+msgid "Sections group the questions; their name is shown above the progress bar."
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:1257
+msgid "New section"
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:1259
+msgid "Add a section"
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:1295
+msgid "Select a step on the left to edit it, or add one."
+msgstr ""
+
+#. translators: 1: step number, 2: kind of step.
+#: assets/src/builder/tabs/Steps.js:1307
+#, js-format
+msgid "Step %1$d · %2$s"
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:1388
+msgid "Logic: show only in some cases, jump to another step"
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:1394
 msgid "Show this step"
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:1417
+msgid "Show the advanced options"
+msgstr ""
+
+#: assets/src/builder/tabs/Steps.js:1421
+msgid "Technical keys and values, “I don’t know” answers."
 msgstr ""
 
 #: assets/src/builder/tabs/Test.js:148

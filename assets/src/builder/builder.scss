@@ -4,6 +4,14 @@
 	// La mise en page suit la largeur du panneau (et non celle de l'écran).
 	container-type: inline-size;
 
+	// Zoom du navigateur : aucun bloc ne doit déborder de sa colonne. Par défaut, un
+	// fieldset s'élargit à son contenu (min-width: min-content).
+	fieldset,
+	&__panel,
+	&__main > * {
+		min-width: 0;
+	}
+
 	&__header {
 		display: flex;
 		flex-wrap: wrap;
@@ -83,9 +91,10 @@
 	}
 
 	// Aperçu à côté du formulaire dès que le panneau est assez large.
-	@container (min-width: 960px) {
+	// Aperçu à droite seulement si le formulaire garde au moins ~700 px.
+	@container (min-width: 1100px) {
 		&.has-preview &__main {
-			grid-template-columns: minmax(0, 3fr) minmax(340px, 2fr);
+			grid-template-columns: minmax(0, 1fr) minmax(320px, 400px);
 		}
 	}
 
@@ -103,8 +112,9 @@
 		}
 	}
 
+	// Les onglets s'adaptent à la place réellement disponible (aperçu déduit).
 	&__panel {
-		max-width: 920px;
+		container-type: inline-size;
 		padding: 20px;
 	}
 
@@ -118,7 +128,7 @@
 		background: #f6f7f7;
 		border-top: 1px solid #dcdcde;
 
-		@container (min-width: 960px) {
+		@container (min-width: 1100px) {
 			border-top: 0;
 			border-left: 1px solid #dcdcde;
 		}
@@ -242,7 +252,11 @@
 	&__toggle {
 		flex: 1;
 		justify-content: flex-start;
+		min-width: 0;
+		overflow: hidden;
 		text-align: left;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 
 	&__grip {
@@ -316,28 +330,49 @@
 
 .sd-b-steps {
 	display: grid;
-	gap: 20px;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 24px;
 
-	@container (min-width: 760px) {
-		grid-template-columns: minmax(240px, 1fr) minmax(0, 2fr);
+	// Deux colonnes seulement si la place le permet (quel que soit le zoom du navigateur).
+	@container (min-width: 820px) {
+		grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+	}
+
+	// Les colonnes ne s'élargissent jamais au-delà de leur place.
+	> * {
+		min-width: 0;
+	}
+
+	h3 {
+		margin-top: 0;
 	}
 
 	&__items {
-		margin: 0 0 8px;
+		margin: 0 0 12px;
+		padding: 0;
 		list-style: none;
+
+		// Une seule colonne : liste à hauteur fixe, l'éditeur reste proche.
+		@container (max-width: 819px) {
+			max-height: 340px;
+			overflow-y: auto;
+			padding: 2px;
+		}
 	}
 
 	&__item {
 		display: flex;
 		align-items: center;
-		margin-bottom: 4px;
+		min-width: 0;
+		margin: 0 0 6px;
 		border: 1px solid #dcdcde;
-		border-radius: 4px;
+		border-radius: 6px;
 		background: #fff;
 
 		&.is-selected {
-			border-color: #2271b1;
-			box-shadow: 0 0 0 1px #2271b1;
+			border-color: var(--wp-admin-theme-color, #2271b1);
+			box-shadow: 0 0 0 1px var(--wp-admin-theme-color, #2271b1);
+			background: #f0f6fc;
 		}
 
 		&.is-dragged {
@@ -347,36 +382,274 @@
 
 	&__select {
 		display: flex;
-		flex: 1;
+		flex: 1 1 auto;
 		align-items: center;
-		gap: 6px;
-		min-height: 40px;
-		padding: 4px 8px;
+		gap: 10px;
+		min-width: 0;
+		padding: 8px 4px 8px 10px;
 		border: 0;
 		background: none;
+		color: inherit;
 		text-align: left;
 		cursor: pointer;
 	}
 
-	&__grip {
-		color: #8c8f94;
-		cursor: grab;
+	&__number {
+		display: inline-flex;
+		flex: 0 0 auto;
+		align-items: center;
+		justify-content: center;
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		background: #f0f0f1;
+		color: #50575e;
+		font-size: 12px;
+		font-weight: 600;
+
+		.is-selected & {
+			background: var(--wp-admin-theme-color, #2271b1);
+			color: #fff;
+		}
+	}
+
+	&__text {
+		display: flex;
+		flex: 1 1 auto;
+		flex-direction: column;
+		gap: 3px;
+		min-width: 0;
 	}
 
 	&__label {
 		overflow: hidden;
+		font-weight: 500;
+		line-height: 1.35;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 	}
 
+	&__meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px;
+	}
+
 	&__move {
 		display: flex;
+		flex: 0 0 auto;
+		flex-direction: column;
+
+		.components-button {
+			height: 20px;
+			min-width: 28px;
+			padding: 0;
+		}
+	}
+
+	&__add-title {
+		margin: 12px 0 6px;
+		color: #50575e;
+		font-size: 12px;
 	}
 
 	&__add {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 6px;
+	}
+
+	&__sections {
+		margin-top: 20px;
+	}
+
+	&__editor {
+		padding: 16px 20px;
+		border: 1px solid #dcdcde;
+		border-radius: 8px;
+		background: #fff;
+
+		> .components-base-control,
+		> .sd-b-i18n {
+			max-width: 640px;
+		}
+	}
+
+	&__empty {
+		color: #646970;
+	}
+
+	&__head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+		margin: -4px 0 16px;
+		padding-bottom: 12px;
+		border-bottom: 1px solid #f0f0f1;
+
+		h3 {
+			margin: 0;
+		}
+	}
+
+	&__tools {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px;
+	}
+
+	&__advanced {
+		margin-top: 16px;
+		padding-top: 12px;
+		border-top: 1px solid #f0f0f1;
+	}
+}
+
+// Bloc repliable (sections, logique).
+.sd-b-panel {
+	margin: 16px 0 0;
+	padding: 10px 14px;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	background: #fff;
+
+	> summary {
+		cursor: pointer;
+		font-weight: 600;
+	}
+
+	&[open] > summary {
+		margin-bottom: 10px;
+	}
+}
+
+// Réponses d'une question, en cartes.
+.sd-b-answers {
+	margin: 16px 0;
+
+	&__title {
+		margin: 0 0 4px;
+		font-weight: 600;
+	}
+
+	&__list {
+		margin: 8px 0 10px;
+		padding: 0;
+		list-style: none;
+	}
+}
+
+.sd-b-answer {
+	margin: 0 0 8px;
+	padding: 10px 12px;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	background: #fcfcfc;
+
+	&__head {
+		display: flex;
+		align-items: flex-start;
+		gap: 8px;
+		min-width: 0;
+	}
+
+	&__number {
+		display: inline-flex;
+		flex: 0 0 auto;
+		align-items: center;
+		justify-content: center;
+		width: 22px;
+		height: 22px;
+		margin-top: 7px;
+		border-radius: 50%;
+		background: #e7f0fa;
+		color: #135e96;
+		font-size: 11px;
+		font-weight: 600;
+	}
+
+	&__labels {
+		display: grid;
+		flex: 1 1 auto;
+		gap: 6px;
+		min-width: 0;
+	}
+
+	&__label {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		min-width: 0;
+
+		input {
+			flex: 1 1 auto;
+			box-sizing: border-box;
+			width: 100%;
+			min-width: 0;
+			height: 36px;
+			padding: 0 10px;
+			border: 1px solid #8c8f94;
+			border-radius: 4px;
+		}
+	}
+
+	&__lang {
+		flex: 0 0 auto;
+		width: 22px;
+		color: #646970;
+		font-size: 11px;
+		font-weight: 600;
+	}
+
+	&__actions {
+		display: flex;
+		flex: 0 0 auto;
+	}
+
+	&__points {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px 12px;
+		margin: 10px 0 0 30px;
+	}
+
+	&__point {
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+		width: 120px;
+
+		span {
+			overflow: hidden;
+			color: #50575e;
+			font-size: 12px;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+
+		input {
+			box-sizing: border-box;
+			width: 100%;
+			height: 34px;
+			padding: 0 8px;
+			border: 1px solid #8c8f94;
+			border-radius: 4px;
+		}
+	}
+
+	&__advanced {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: 8px 12px;
+		margin: 12px 0 0 30px;
+		padding-top: 10px;
+		border-top: 1px dashed #dcdcde;
+	}
+
+	.description {
+		margin: 6px 0 0 30px;
 	}
 }
 
@@ -570,7 +843,7 @@
 	display: grid;
 	gap: 24px;
 
-	@media (min-width: 1100px) {
+	@container (min-width: 760px) {
 		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 	}
 
@@ -926,4 +1199,9 @@
 			line-height: 1.6;
 		}
 	}
+}
+
+// Onglets de formulaire : largeur de lecture confortable sur les très grands écrans.
+.sd-b-tab {
+	max-width: 960px;
 }
