@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-14T11:45:58+00:00\n"
+"POT-Creation-Date: 2026-10-14T12:03:15+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: smart-diagnostic\n"
@@ -48,20 +48,20 @@ msgstr ""
 msgid "The configuration was not saved: it contains errors. The previous valid version remains online."
 msgstr ""
 
-#: src/Admin/ConfigEditor.php:185
+#: src/Admin/ConfigEditor.php:188
 msgid "Section 1"
 msgstr ""
 
-#: src/Admin/ConfigEditor.php:194
+#: src/Admin/ConfigEditor.php:197
 msgid "First question"
 msgstr ""
 
-#: src/Admin/ConfigEditor.php:198
+#: src/Admin/ConfigEditor.php:201
 #: assets/src/builder/tabs/Steps.js:72
 msgid "Answer A"
 msgstr ""
 
-#: src/Admin/ConfigEditor.php:202
+#: src/Admin/ConfigEditor.php:205
 #: assets/src/builder/tabs/Steps.js:73
 msgid "Answer B"
 msgstr ""
@@ -390,6 +390,7 @@ msgstr ""
 
 #: src/Admin/SettingsPage.php:362
 #: src/Admin/SubmissionsPage.php:189
+#: assets/src/builder/tabs/Guide.js:123
 msgid "Result"
 msgstr ""
 
@@ -502,7 +503,8 @@ msgid "Visitors"
 msgstr ""
 
 #: src/Admin/StatsPage.php:145
-#: assets/src/builder/Builder.js:85
+#: assets/src/builder/Builder.js:104
+#: assets/src/builder/tabs/Guide.js:151
 #: assets/src/builder/tabs/Steps.js:913
 msgid "Results"
 msgstr ""
@@ -594,6 +596,8 @@ msgstr ""
 #: src/Admin/SubmissionsTable.php:67
 #: src/Privacy/Privacy.php:125
 #: templates/emails/admin.php:36
+#: assets/src/builder/tabs/Guide.js:115
+#: assets/src/builder/tabs/Guide.js:207
 #: assets/src/builder/tabs/Results.js:17
 #: assets/src/builder/tabs/Test.js:236
 msgid "Profile"
@@ -734,7 +738,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Admin/TemplatesPage.php:133
-#: assets/src/builder/Builder.js:232
+#: assets/src/builder/Builder.js:259
 #: assets/src/builder/EmailEditor.js:1115
 msgid "Preview"
 msgstr ""
@@ -1380,71 +1384,81 @@ msgstr ""
 msgid "Diagnostic to display"
 msgstr ""
 
-#: assets/src/builder/Builder.js:83
+#: assets/src/builder/Builder.js:101
+msgid "Guide"
+msgstr ""
+
+#: assets/src/builder/Builder.js:102
 #: assets/src/builder/tabs/General.js:170
+#: assets/src/builder/tabs/Guide.js:135
 msgid "Journey"
 msgstr ""
 
-#: assets/src/builder/Builder.js:84
+#: assets/src/builder/Builder.js:103
+#: assets/src/builder/tabs/Guide.js:143
 msgid "Calculation"
 msgstr ""
 
-#: assets/src/builder/Builder.js:86
+#: assets/src/builder/Builder.js:105
+#: assets/src/builder/tabs/Guide.js:159
 msgid "General"
 msgstr ""
 
-#: assets/src/builder/Builder.js:87
+#: assets/src/builder/Builder.js:106
+#: assets/src/builder/tabs/Guide.js:167
 msgid "Appearance"
 msgstr ""
 
-#: assets/src/builder/Builder.js:90
+#: assets/src/builder/Builder.js:109
+#: assets/src/builder/tabs/Guide.js:175
 msgid "Integrations"
 msgstr ""
 
-#: assets/src/builder/Builder.js:92
+#: assets/src/builder/Builder.js:111
+#: assets/src/builder/tabs/Guide.js:183
 msgid "Test"
 msgstr ""
 
-#: assets/src/builder/Builder.js:101
+#: assets/src/builder/Builder.js:120
 msgid "Diagnostic builder"
 msgstr ""
 
-#: assets/src/builder/Builder.js:106
+#: assets/src/builder/Builder.js:125
 msgid "Invalid JSON"
 msgstr ""
 
-#: assets/src/builder/Builder.js:111
+#: assets/src/builder/Builder.js:130
 msgid "Valid configuration."
 msgstr ""
 
 #. translators: %d: number of errors.
-#: assets/src/builder/Builder.js:118
+#: assets/src/builder/Builder.js:137
 #, js-format
 msgid "%d error to fix"
 msgid_plural "%d errors to fix"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/src/builder/Builder.js:132
-#: assets/src/builder/Builder.js:229
+#: assets/src/builder/Builder.js:151
+#: assets/src/builder/Builder.js:256
 msgid "Live preview"
 msgstr ""
 
-#: assets/src/builder/Builder.js:143
+#: assets/src/builder/Builder.js:162
 msgid "Invalid JSON:"
 msgstr ""
 
-#: assets/src/builder/Builder.js:153
+#: assets/src/builder/Builder.js:172
 msgid "The configuration will not be saved until this error is fixed:"
 msgid_plural "The configuration will not be saved until these errors are fixed:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: assets/src/builder/Builder.js:201
+#: assets/src/builder/Builder.js:228
 msgid "Configuration (JSON)"
 msgstr ""
 
-#: assets/src/builder/Builder.js:205
+#: assets/src/builder/Builder.js:232
 msgid "Format documented in schema/diagnostic.schema.json. Changes are applied to the other tabs as soon as the JSON is valid."
 msgstr ""
 
@@ -1522,6 +1536,7 @@ msgid "Value"
 msgstr ""
 
 #: assets/src/builder/ConditionEditor.js:178
+#: assets/src/builder/tabs/Guide.js:193
 #: assets/src/builder/tabs/Scoring.js:217
 msgid "Axis"
 msgstr ""
@@ -1557,6 +1572,7 @@ msgid "Expression"
 msgstr ""
 
 #: assets/src/builder/ConditionEditor.js:281
+#: assets/src/builder/tabs/Guide.js:228
 msgid "Condition"
 msgstr ""
 
@@ -1615,6 +1631,7 @@ msgstr ""
 
 #: assets/src/builder/EmailEditor.js:29
 #: assets/src/builder/EmailEditor.js:143
+#: assets/src/builder/tabs/Guide.js:107
 msgid "Scores"
 msgstr ""
 
@@ -1914,6 +1931,7 @@ msgid "This key is already used."
 msgstr ""
 
 #: assets/src/builder/fields.js:133
+#: assets/src/builder/tabs/Guide.js:242
 msgid "Key"
 msgstr ""
 
@@ -1934,6 +1952,8 @@ msgid "Max"
 msgstr ""
 
 #: assets/src/builder/fields.js:329
+#: assets/src/builder/tabs/Guide.js:99
+#: assets/src/builder/tabs/Guide.js:200
 msgid "Points"
 msgstr ""
 
@@ -2209,6 +2229,263 @@ msgstr ""
 
 #: assets/src/builder/tabs/General.js:790
 msgid "The signing secret is entered in the “Webhook secrets” box, after saving."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:30
+msgid "At least 3 questions in the journey"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:40
+msgid "A contact form asking for the email (to send the result and collect leads)"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:48
+msgid "At least one theme to score (axis)"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:56
+msgid "Answers that earn points"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:61
+msgid "Profiles to classify the visitors"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:66
+msgid "A recommended action (button to book a call, buy, contact you…)"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:75
+msgid "A welcome screen that makes people want to start"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:83
+msgid "No error in the configuration"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:91
+msgid "Questions"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:92
+msgid "The visitor answers your questions, one screen at a time."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:96
+msgid "“Do you have a website?” → Yes"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:100
+msgid "Each answer can earn points on one or more themes."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:104
+msgid "Yes = 10 points in “Visibility”"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:108
+msgid "Points add up into a score per theme (an “axis”), shown as a chart."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:112
+msgid "Visibility: 70 / 100"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:116
+msgid "The scores decide which profile the visitor gets."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:120
+msgid "Score over 60 → “Well on the way”"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:124
+msgid "A personalised result page, an email, advice and a recommended action."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:128
+msgid "“Book a free call” button"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:136
+msgid "Write your questions and choose how people answer: choices, yes / no, scale, slider, amount, text… Group them in sections, add information screens, show a question only in some cases, and end with the contact form (first name, email, consent)."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:144
+msgid "Create the themes you want to score (for example Visibility, Sales, Organisation). The points of each answer are set in the Journey tab, next to each answer; here you can add extra rules (bonus, cap, count…)."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:152
+msgid "Create the profiles (from the scores), the texts shown according to the answers, the action plan and the recommended action button. Then choose what the result page shows: chart, scores, advice…"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:160
+msgid "The welcome screen (title, benefits, start button), the languages, the progress bar, the encouragement messages and the waiting screen before the result."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:168
+msgid "Your colours, fonts, rounded corners and logo. The emails use the same look."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:176
+msgid "The email sent to the visitor with the result, the notification to your team, the follow-up email a few days later, and the sending to your CRM or tools (Make, Zapier…)."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:184
+msgid "Answer as a visitor would and check the result: scores, profile, advice. Nothing is saved. Try several typical answers."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:194
+msgid "A theme you score, for example “Visibility”. The result shows one score per axis."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:201
+msgid "What an answer is worth on an axis. More points = better score."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:208
+msgid "The category the visitor falls into according to the scores, with its own text."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:214
+msgid "Recommended action (CTA)"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:215
+msgid "The button offered at the end: book a call, see an offer, download a guide…"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:221
+#: assets/src/builder/tabs/Steps.js:1206
+msgid "Section"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:222
+msgid "A group of questions, shown in the progress bar."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:229
+msgid "A rule that shows a question, a text or a profile only in some cases (“if the answer is Yes”)."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:235
+msgid "Jump"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:236
+msgid "Goes directly to another question according to the answer."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:243
+msgid "A short technical name (no spaces) used to recognise an item in rules and exports. It is filled in for you."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:252
+msgid "Where do I see the answers of my visitors?"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:253
+msgid "In the Submissions menu: each answer, the contact details, the scores and the profile, with filters and an export for Excel. The Statistics menu shows how many people start, finish or drop out."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:259
+msgid "How do I put the diagnostic on my site?"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:260
+msgid "Publish it, then in any page add the “Diagnostic” block, or paste the shortcode shown in the Insertion box on the right."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:266
+msgid "Can I change the diagnostic once it is online?"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:270
+msgid "Yes. Changes apply as soon as you click Update. Avoid renaming the keys of questions already answered, so that the answers stay readable."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:276
+msgid "A message says the configuration has errors."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:280
+msgid "The badge at the top shows the number of errors and the list under it says where they are. While there are errors, the previous version stays online: nothing breaks for your visitors."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:286
+msgid "Does the visitor have to give an email?"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:287
+msgid "Only if you want: the contact form is optional and can be placed before or after the result. Without email, the visitor still sees the result on screen."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:309
+msgid "Create your diagnostic in a few steps"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:315
+msgid "A diagnostic is a short questionnaire that gives each visitor a personalised result: a score, a profile, advice and a recommended action. You collect qualified contacts, and your visitors learn something useful."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:323
+msgid "Start from a ready-made template"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:333
+msgid "Start from scratch"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:337
+msgid "Tip: a template is the fastest way. You get a complete diagnostic that you only have to adapt."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:345
+msgid "How it works"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:362
+msgid "Your checklist"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:383
+msgid "recommended"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:391
+msgid "done"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:392
+msgid "to do"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:400
+msgid "Do it"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:409
+msgid "Step by step"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:425
+msgid "Open"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:435
+msgid "Publish"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:438
+msgid "Give a title at the top of the page, click Publish, then insert the diagnostic in a page with the “Diagnostic” block or the shortcode of the Insertion box."
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:449
+msgid "Words to know"
+msgstr ""
+
+#: assets/src/builder/tabs/Guide.js:461
+msgid "Frequent questions"
 msgstr ""
 
 #: assets/src/builder/tabs/Results.js:18
@@ -2820,10 +3097,6 @@ msgstr ""
 
 #: assets/src/builder/tabs/Steps.js:1140
 msgid "Select a step to edit it."
-msgstr ""
-
-#: assets/src/builder/tabs/Steps.js:1206
-msgid "Section"
 msgstr ""
 
 #: assets/src/builder/tabs/Steps.js:1247
