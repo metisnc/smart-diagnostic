@@ -1055,15 +1055,28 @@ function JumpEditor( { step, steps, config, onChange } ) {
 
 /**
  * @param {Object}   props
- * @param {Object}   props.config         Config.
- * @param {Function} props.set            ( path, value ) => void.
- * @param {string[]} props.languages      Langues.
- * @param {Function} [props.onSelectStep] ( clé | null ) => void : étape sélectionnée (aperçu).
+ * @param {Object}   props.config            Config.
+ * @param {Function} props.set               ( path, value ) => void.
+ * @param {string[]} props.languages         Langues.
+ * @param {string}   [props.initialSelected] Étape à sélectionner à l'ouverture.
+ * @param {Function} [props.onSelectStep]    ( clé | null ) => void : étape sélectionnée (aperçu).
  */
-export function StepsTab( { config, set, languages, onSelectStep } ) {
+export function StepsTab( {
+	config,
+	set,
+	languages,
+	initialSelected,
+	onSelectStep,
+} ) {
 	const steps = config.steps ?? [];
 	const sections = config.sections ?? [];
-	const [ selected, setSelected ] = useState( steps[ 0 ]?.key ?? null );
+	// Retour sur l'onglet : l'étape (ou l'accueil) modifiée en dernier.
+	const [ selected, setSelected ] = useState( () =>
+		initialSelected === WELCOME ||
+		steps.some( ( s ) => s.key === initialSelected )
+			? initialSelected
+			: ( steps[ 0 ]?.key ?? null )
+	);
 	const [ dragged, setDragged ] = useState( null );
 	// Réglages techniques (clés, valeurs internes, « Je ne sais pas ») : masqués par défaut.
 	const [ advanced, setAdvanced ] = useState( false );

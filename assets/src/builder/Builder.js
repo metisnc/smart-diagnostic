@@ -62,8 +62,16 @@ export function Builder( { initial, initialText, field, schema } ) {
 		return { key: 0, name };
 	} );
 	const [ currentTab, setCurrentTab ] = useState( tabState.name );
+	// Étape sélectionnée dans le Parcours (gardée en changeant d'onglet ; aperçu ciblé).
+	const [ selectedStep, setSelectedStep ] = useState( null );
 	const mainRef = useRef( null );
-	const goTo = ( name ) => {
+	// « welcome » : l'écran d'accueil, en tête du Parcours.
+	const goTo = ( target ) => {
+		let name = target;
+		if ( target === 'welcome' ) {
+			setSelectedStep( '__welcome' );
+			name = 'steps';
+		}
 		setTabState( ( state ) => ( { key: state.key + 1, name } ) );
 		window.requestAnimationFrame( () =>
 			mainRef.current?.scrollIntoView( { block: 'start' } )
@@ -91,7 +99,6 @@ export function Builder( { initial, initialText, field, schema } ) {
 
 	// Aperçu ciblé : l'étape en cours de modification (Parcours), l'accueil (Général),
 	// le résultat (Résultat) ; sinon, ou si on le demande, tout le parcours depuis le début.
-	const [ selectedStep, setSelectedStep ] = useState( null );
 	const [ previewAll, setPreviewAll ] = useState( false );
 	const stepIndex = ( config.steps ?? [] ).findIndex(
 		( step ) => step.key === selectedStep
@@ -110,15 +117,6 @@ export function Builder( { initial, initialText, field, schema } ) {
 				__( 'Step %d', 'smart-diagnostic' ),
 				stepIndex + 1
 			),
-		};
-	} else if (
-		currentTab === 'general' &&
-		config.welcome &&
-		config.welcome.enabled !== false
-	) {
-		focus = {
-			start: { screen: 'welcome' },
-			label: __( 'Welcome screen', 'smart-diagnostic' ),
 		};
 	} else if ( currentTab === 'results' ) {
 		focus = {
@@ -259,6 +257,7 @@ export function Builder( { initial, initialText, field, schema } ) {
 							{ tab.name === 'steps' && (
 								<StepsTab
 									{ ...props }
+									initialSelected={ selectedStep }
 									onSelectStep={ setSelectedStep }
 								/>
 							) }
@@ -269,7 +268,7 @@ export function Builder( { initial, initialText, field, schema } ) {
 								<ResultsTab { ...props } />
 							) }
 							{ tab.name === 'general' && (
-								<GeneralTab { ...props } />
+								<GeneralTab { ...props } goTo={ goTo } />
 							) }
 							{ tab.name === 'design' && (
 								<DesignTab { ...props } />

@@ -157,7 +157,14 @@ export function WelcomeEditor( { config, set, languages } ) {
 	);
 }
 
-export function GeneralTab( { config, set, languages } ) {
+/**
+ * @param {Object}   props
+ * @param {Object}   props.config    Config.
+ * @param {Function} props.set       ( path, value ) => void.
+ * @param {string[]} props.languages Langues.
+ * @param {Function} [props.goTo]    ( onglet ) => void : ouvre un onglet du constructeur.
+ */
+export function GeneralTab( { config, set, languages, goTo } ) {
 	const flow = config.flow ?? {};
 	return (
 		<div className="sd-b-tab">
@@ -214,11 +221,21 @@ export function GeneralTab( { config, set, languages } ) {
 			/>
 
 			<h3>{ __( 'Welcome screen', 'smart-diagnostic' ) }</h3>
-			<WelcomeEditor
-				config={ config }
-				set={ set }
-				languages={ languages }
-			/>
+			<p className="description">
+				{ __(
+					'The welcome screen is set in the Journey tab, at the top of the list of steps.',
+					'smart-diagnostic'
+				) }
+			</p>
+			<p>
+				<Button
+					variant="secondary"
+					icon="admin-home"
+					onClick={ () => goTo?.( 'welcome' ) }
+				>
+					{ __( 'Open the welcome screen', 'smart-diagnostic' ) }
+				</Button>
+			</p>
 
 			<h3>{ __( 'Journey', 'smart-diagnostic' ) }</h3>
 			<div className="sd-b-grid">
