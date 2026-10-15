@@ -20,6 +20,9 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
   d'accueil (Général) ou la page de résultat avec des réponses d'exemple (Résultat), avec un
   bouton « Tout le parcours ».
 
+- « Écran d'accueil » en tête de la liste du Parcours (réglages et aperçu), image depuis la
+  médiathèque ; un nouveau diagnostic a un écran d'accueil prêt à personnaliser.
+
 ### Fixed
 - Constructeur : chevauchements et textes illisibles avec le zoom du navigateur ; la mise en
   page suit la place réellement disponible (aperçu déduit).
