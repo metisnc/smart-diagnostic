@@ -76,7 +76,7 @@ export function checklist( config, valid ) {
 				'A welcome screen that makes people want to start',
 				'smart-diagnostic'
 			),
-			tab: 'general',
+			tab: 'welcome',
 		},
 		{
 			ok: valid,
@@ -134,7 +134,7 @@ const STEPS = () => [
 		tab: 'steps',
 		title: __( 'Journey', 'smart-diagnostic' ),
 		text: __(
-			'Write your questions and choose how people answer: choices, yes / no, scale, slider, amount, text… Group them in sections, add information screens, show a question only in some cases, and end with the contact form (first name, email, consent).',
+			'Start with the welcome screen, at the top of the list. Then write your questions and choose how people answer: choices, yes / no, scale, slider, amount, text… Group them in sections, add information screens, show a question only in some cases, and end with the contact form (first name, email, consent).',
 			'smart-diagnostic'
 		),
 	},
@@ -158,7 +158,7 @@ const STEPS = () => [
 		tab: 'general',
 		title: __( 'General', 'smart-diagnostic' ),
 		text: __(
-			'The welcome screen (title, benefits, start button), the languages, the progress bar, the encouragement messages and the waiting screen before the result.',
+			'The languages, the progress bar, the back button, the encouragement messages and the waiting screen before the result.',
 			'smart-diagnostic'
 		),
 	},

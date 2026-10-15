@@ -63,9 +63,20 @@ test( 'the preview follows what is being edited', async ( { page } ) => {
 	await expect( page.getByLabel( 'Show a welcome screen' ) ).toBeChecked();
 	await expect( preview.locator( '.sd-welcome' ) ).toBeVisible();
 
-	// Général : l'accueil ; Résultat : la page de résultat (réponses d'exemple).
+	// Général : un bouton mène à l'écran d'accueil, dans le Parcours.
 	await tab( page, 'General' ).click();
+	await expect( page.getByLabel( 'Show a welcome screen' ) ).toHaveCount( 0 );
+	await page
+		.getByRole( 'button', { name: 'Open the welcome screen' } )
+		.click();
+	await expect( tab( page, 'Journey' ) ).toHaveAttribute(
+		'aria-selected',
+		'true'
+	);
+	await expect( page.getByLabel( 'Show a welcome screen' ) ).toBeChecked();
 	await expect( preview.locator( '.sd-welcome' ) ).toBeVisible();
+
+	// Résultat : la page de résultat (réponses d'exemple).
 	await tab( page, 'Results' ).click();
 	await expect( preview.locator( '.sd-results' ) ).toBeVisible();
 } );

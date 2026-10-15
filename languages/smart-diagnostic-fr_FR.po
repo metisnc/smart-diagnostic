@@ -36,7 +36,7 @@ msgstr "metisnc"
 msgid "Smart Diagnostic: dependencies are missing. Run \"composer install\" in the plugin folder."
 msgstr "Smart Diagnostic : dépendances manquantes. Lancez « composer install » dans le dossier du plugin."
 
-#: assets/src/builder/Builder.js:285
+#: assets/src/builder/Builder.js:284
 msgid "Configuration (JSON)"
 msgstr "Configuration (JSON)"
 
@@ -71,7 +71,7 @@ msgstr "Importer"
 #: src/Admin/ImportExport.php:65
 #: src/Admin/ImportExport.php:79
 #: assets/src/builder/EmailEditor.js:985
-#: assets/src/builder/tabs/Steps.js:1384
+#: assets/src/builder/tabs/Steps.js:1397
 msgid "Duplicate"
 msgstr "Dupliquer"
 
@@ -197,7 +197,7 @@ msgid "Displayed name"
 msgstr "Nom affiché"
 
 #: src/Admin/SettingsPage.php:77
-#: assets/src/builder/tabs/General.js:393
+#: assets/src/builder/tabs/General.js:410
 msgid "Emails"
 msgstr "Emails"
 
@@ -418,7 +418,7 @@ msgid "Visitors"
 msgstr "Visiteurs"
 
 #: src/Admin/StatsPage.php:145
-#: assets/src/builder/Builder.js:153
+#: assets/src/builder/Builder.js:151
 #: assets/src/builder/tabs/Guide.js:151
 #: assets/src/builder/tabs/Steps.js:1016
 msgid "Results"
@@ -429,11 +429,10 @@ msgid "Drop-offs (last step seen)"
 msgstr "Abandons (dernière étape vue)"
 
 #: src/Admin/StatsPage.php:161
-#: assets/src/builder/Builder.js:103
-#: assets/src/builder/Builder.js:121
-#: assets/src/builder/tabs/General.js:216
-#: assets/src/builder/tabs/Steps.js:1155
-#: assets/src/builder/tabs/Steps.js:1340
+#: assets/src/builder/Builder.js:110
+#: assets/src/builder/tabs/General.js:223
+#: assets/src/builder/tabs/Steps.js:1168
+#: assets/src/builder/tabs/Steps.js:1353
 msgid "Welcome screen"
 msgstr "Écran d’accueil"
 
@@ -585,7 +584,7 @@ msgstr "Supprimer définitivement cette réponse ?"
 #: src/Admin/SubmissionsPage.php:233
 #: src/Admin/SubmissionsTable.php:88
 #: src/Admin/SubmissionsTable.php:143
-#: assets/src/builder/tabs/Steps.js:1392
+#: assets/src/builder/tabs/Steps.js:1405
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -1039,51 +1038,51 @@ msgstr "Choisir un diagnostic…"
 msgid "Diagnostic to display"
 msgstr "Diagnostic à afficher"
 
-#: assets/src/builder/Builder.js:151
-#: assets/src/builder/tabs/General.js:223
+#: assets/src/builder/Builder.js:149
+#: assets/src/builder/tabs/General.js:240
 #: assets/src/builder/tabs/Guide.js:135
 msgid "Journey"
 msgstr "Parcours"
 
-#: assets/src/builder/Builder.js:152
+#: assets/src/builder/Builder.js:150
 #: assets/src/builder/tabs/Guide.js:143
 msgid "Calculation"
 msgstr "Calcul"
 
-#: assets/src/builder/Builder.js:154
+#: assets/src/builder/Builder.js:152
 #: assets/src/builder/tabs/Guide.js:159
 msgid "General"
 msgstr "Général"
 
-#: assets/src/builder/Builder.js:155
+#: assets/src/builder/Builder.js:153
 #: assets/src/builder/tabs/Guide.js:167
 msgid "Appearance"
 msgstr "Apparence"
 
-#: assets/src/builder/Builder.js:158
+#: assets/src/builder/Builder.js:156
 #: assets/src/builder/tabs/Guide.js:175
 msgid "Integrations"
 msgstr "Intégrations"
 
-#: assets/src/builder/Builder.js:160
+#: assets/src/builder/Builder.js:158
 #: assets/src/builder/tabs/Guide.js:183
 msgid "Test"
 msgstr "Test"
 
-#: assets/src/builder/Builder.js:215
+#: assets/src/builder/Builder.js:213
 msgid "Invalid JSON:"
 msgstr "JSON invalide :"
 
-#: assets/src/builder/Builder.js:183
+#: assets/src/builder/Builder.js:181
 msgid "Valid configuration."
 msgstr "Configuration valide."
 
-#: assets/src/builder/Builder.js:204
-#: assets/src/builder/Builder.js:314
+#: assets/src/builder/Builder.js:202
+#: assets/src/builder/Builder.js:313
 msgid "Live preview"
 msgstr "Aperçu en direct"
 
-#: assets/src/builder/Builder.js:289
+#: assets/src/builder/Builder.js:288
 msgid "Format documented in schema/diagnostic.schema.json. Changes are applied to the other tabs as soon as the JSON is valid."
 msgstr "Format documenté dans schema/diagnostic.schema.json. Les modifications s’appliquent aux autres onglets dès que le JSON est valide."
 
@@ -1154,7 +1153,7 @@ msgstr "Valeurs, séparées par des virgules"
 
 #: assets/src/builder/ConditionEditor.js:150
 #: assets/src/builder/ConditionEditor.js:195
-#: assets/src/builder/tabs/General.js:670
+#: assets/src/builder/tabs/General.js:687
 msgid "Value"
 msgstr "Valeur"
 
@@ -1284,14 +1283,14 @@ msgstr "Identifiant technique utilisé dans les règles et les exports."
 #: assets/src/builder/EmailEditor.js:944
 #: assets/src/builder/fields.js:229
 #: assets/src/builder/tabs/Steps.js:216
-#: assets/src/builder/tabs/Steps.js:1218
+#: assets/src/builder/tabs/Steps.js:1231
 msgid "Move up"
 msgstr "Monter"
 
 #: assets/src/builder/EmailEditor.js:963
 #: assets/src/builder/fields.js:243
 #: assets/src/builder/tabs/Steps.js:230
-#: assets/src/builder/tabs/Steps.js:1233
+#: assets/src/builder/tabs/Steps.js:1246
 msgid "Move down"
 msgstr "Descendre"
 
@@ -1325,23 +1324,23 @@ msgstr "Points"
 msgid "Add a range"
 msgstr "Ajouter une plage"
 
-#: assets/src/builder/tabs/General.js:164
+#: assets/src/builder/tabs/General.js:171
 msgid "Languages"
 msgstr "Langues"
 
-#: assets/src/builder/tabs/General.js:169
+#: assets/src/builder/tabs/General.js:176
 msgid "Languages (codes separated by commas)"
 msgstr "Langues (codes séparés par des virgules)"
 
-#: assets/src/builder/tabs/General.js:173
+#: assets/src/builder/tabs/General.js:180
 msgid "Example: fr, en. With several languages, each text gets one field per language."
 msgstr "Exemple : fr, en. Avec plusieurs langues, chaque texte a un champ par langue."
 
-#: assets/src/builder/tabs/General.js:199
+#: assets/src/builder/tabs/General.js:206
 msgid "Language selector for visitors"
 msgstr "Sélecteur de langue pour les visiteurs"
 
-#: assets/src/builder/tabs/General.js:210
+#: assets/src/builder/tabs/General.js:217
 msgid "Internal title"
 msgstr "Titre interne"
 
@@ -1383,72 +1382,72 @@ msgstr "Adresse de l’image"
 msgid "Start button"
 msgstr "Bouton de démarrage"
 
-#: assets/src/builder/tabs/General.js:227
+#: assets/src/builder/tabs/General.js:244
 msgid "Progress bar"
 msgstr "Barre de progression"
 
-#: assets/src/builder/tabs/General.js:238
+#: assets/src/builder/tabs/General.js:255
 msgid "Step counter"
 msgstr "Compteur d’étapes"
 
-#: assets/src/builder/tabs/General.js:249
+#: assets/src/builder/tabs/General.js:266
 msgid "Section name"
 msgstr "Nom de la section"
 
-#: assets/src/builder/tabs/General.js:260
+#: assets/src/builder/tabs/General.js:277
 msgid "Back button"
 msgstr "Bouton Retour"
 
-#: assets/src/builder/tabs/General.js:268
+#: assets/src/builder/tabs/General.js:285
 msgid "Save progress"
 msgstr "Sauvegarder la progression"
 
-#: assets/src/builder/tabs/General.js:279
+#: assets/src/builder/tabs/General.js:296
 msgid "Go to the next step after a single choice"
 msgstr "Passer à l’étape suivante après un choix unique"
 
-#: assets/src/builder/tabs/General.js:290
+#: assets/src/builder/tabs/General.js:307
 msgid "Letters A, B, C… on answers"
 msgstr "Lettres A, B, C… sur les réponses"
 
-#: assets/src/builder/tabs/General.js:302
+#: assets/src/builder/tabs/General.js:319
 msgid "Encouragement messages"
 msgstr "Messages d’encouragement"
 
-#: assets/src/builder/tabs/General.js:307
+#: assets/src/builder/tabs/General.js:324
 msgid "Halfway there!"
 msgstr "Vous êtes à mi-chemin !"
 
-#: assets/src/builder/tabs/General.js:309
-#: assets/src/builder/tabs/General.js:376
+#: assets/src/builder/tabs/General.js:326
+#: assets/src/builder/tabs/General.js:393
 msgid "Add a message"
 msgstr "Ajouter un message"
 
-#: assets/src/builder/tabs/General.js:313
+#: assets/src/builder/tabs/General.js:330
 msgid "At (% of the journey)"
 msgstr "À (% du parcours)"
 
-#: assets/src/builder/tabs/General.js:325
+#: assets/src/builder/tabs/General.js:342
 msgid "Message"
 msgstr "Message"
 
-#: assets/src/builder/tabs/General.js:336
+#: assets/src/builder/tabs/General.js:353
 msgid "Before the results"
 msgstr "Avant le résultat"
 
-#: assets/src/builder/tabs/General.js:339
+#: assets/src/builder/tabs/General.js:356
 msgid "Loading screen before the results"
 msgstr "Écran d’attente avant le résultat"
 
-#: assets/src/builder/tabs/General.js:351
+#: assets/src/builder/tabs/General.js:368
 msgid "Analysing your answers…"
 msgstr "Analyse de vos réponses…"
 
-#: assets/src/builder/tabs/General.js:366
+#: assets/src/builder/tabs/General.js:383
 msgid "Duration (ms)"
 msgstr "Durée (ms)"
 
-#: assets/src/builder/tabs/General.js:375
+#: assets/src/builder/tabs/General.js:392
 msgid "Messages"
 msgstr "Messages"
 
@@ -1519,65 +1518,65 @@ msgstr "Remplacer un libellé"
 msgid "Label"
 msgstr "Libellé"
 
-#: assets/src/builder/tabs/General.js:396
+#: assets/src/builder/tabs/General.js:413
 msgid "Send the results to the visitor"
 msgstr "Envoyer le résultat au visiteur"
 
-#: assets/src/builder/tabs/General.js:409
+#: assets/src/builder/tabs/General.js:426
 msgid "Subject of the visitor email"
 msgstr "Objet de l’email au visiteur"
 
-#: assets/src/builder/tabs/General.js:427
+#: assets/src/builder/tabs/General.js:444
 msgid "Notify the team of each submission"
 msgstr "Prévenir l’équipe à chaque réponse"
 
-#: assets/src/builder/tabs/General.js:442
+#: assets/src/builder/tabs/General.js:459
 msgid "Team addresses (separated by commas)"
 msgstr "Adresses de l’équipe (séparées par des virgules)"
 
-#: assets/src/builder/tabs/General.js:446
+#: assets/src/builder/tabs/General.js:463
 msgid "Empty: the site administration email."
 msgstr "Vide : l’email d’administration du site."
 
-#: assets/src/builder/tabs/General.js:463
+#: assets/src/builder/tabs/General.js:480
 msgid "Subject of the team email"
 msgstr "Objet de l’email à l’équipe"
 
-#: assets/src/builder/tabs/General.js:553
+#: assets/src/builder/tabs/General.js:570
 msgid "Webhooks (CRM, Make, Zapier, n8n…)"
 msgstr "Webhooks (CRM, Make, Zapier, n8n…)"
 
-#: assets/src/builder/tabs/General.js:569
+#: assets/src/builder/tabs/General.js:586
 msgid "Add a webhook"
 msgstr "Ajouter un webhook"
 
-#: assets/src/builder/tabs/General.js:581
+#: assets/src/builder/tabs/General.js:598
 msgid "URL"
 msgstr "URL"
 
-#: assets/src/builder/tabs/General.js:589
+#: assets/src/builder/tabs/General.js:606
 msgid "On submission"
 msgstr "À la soumission"
 
-#: assets/src/builder/tabs/General.js:593
+#: assets/src/builder/tabs/General.js:610
 msgid "When contact details are added after the results"
 msgstr "Quand des coordonnées sont ajoutées après le résultat"
 
-#: assets/src/builder/tabs/General.js:624
+#: assets/src/builder/tabs/General.js:641
 msgid "Field mapping (empty: everything is sent)"
 msgstr "Correspondance des champs (vide : tout est envoyé)"
 
-#: assets/src/builder/tabs/General.js:652
+#: assets/src/builder/tabs/General.js:669
 #: assets/src/builder/tabs/Steps.js:638
 #: assets/src/builder/tabs/Steps.js:880
 msgid "Add a field"
 msgstr "Ajouter un champ"
 
-#: assets/src/builder/tabs/General.js:658
+#: assets/src/builder/tabs/General.js:675
 msgid "Sent as"
 msgstr "Envoyé sous le nom"
 
-#: assets/src/builder/tabs/General.js:684
+#: assets/src/builder/tabs/General.js:701
 msgid "The signing secret is entered in the “Webhook secrets” box, after saving."
 msgstr "Le secret de signature se saisit dans la boîte « Secrets des webhooks », après l’enregistrement."
 
@@ -1637,7 +1636,7 @@ msgstr "La plus haute d’abord."
 
 #: assets/src/builder/tabs/Results.js:113
 #: assets/src/builder/tabs/Scoring.js:103
-#: assets/src/builder/tabs/Steps.js:1310
+#: assets/src/builder/tabs/Steps.js:1323
 msgid "Name"
 msgstr "Nom"
 
@@ -1804,7 +1803,7 @@ msgstr "Règle"
 #: assets/src/builder/tabs/Scoring.js:229
 #: assets/src/builder/tabs/Steps.js:59
 #: assets/src/builder/tabs/Steps.js:479
-#: assets/src/builder/tabs/Steps.js:1258
+#: assets/src/builder/tabs/Steps.js:1271
 msgid "Question"
 msgstr "Question"
 
@@ -1916,12 +1915,12 @@ msgid "Phone"
 msgstr "Téléphone"
 
 #: assets/src/builder/tabs/Steps.js:60
-#: assets/src/builder/tabs/Steps.js:1265
+#: assets/src/builder/tabs/Steps.js:1278
 msgid "Content"
 msgstr "Contenu"
 
 #: assets/src/builder/tabs/Steps.js:61
-#: assets/src/builder/tabs/Steps.js:1272
+#: assets/src/builder/tabs/Steps.js:1285
 msgid "Form"
 msgstr "Formulaire"
 
@@ -2161,28 +2160,28 @@ msgstr "Aller à"
 msgid "If"
 msgstr "Si"
 
-#: assets/src/builder/tabs/Steps.js:1300
+#: assets/src/builder/tabs/Steps.js:1313
 msgid "New section"
 msgstr "Nouvelle section"
 
-#: assets/src/builder/tabs/Steps.js:1302
+#: assets/src/builder/tabs/Steps.js:1315
 msgid "Add a section"
 msgstr "Ajouter une section"
 
-#: assets/src/builder/tabs/Steps.js:1139
+#: assets/src/builder/tabs/Steps.js:1152
 msgid "Steps"
 msgstr "Étapes"
 
-#: assets/src/builder/tabs/Steps.js:1205
+#: assets/src/builder/tabs/Steps.js:1218
 msgid "Conditional"
 msgstr "Conditionnelle"
 
 #: assets/src/builder/tabs/Guide.js:221
-#: assets/src/builder/tabs/Steps.js:1425
+#: assets/src/builder/tabs/Steps.js:1438
 msgid "Section"
 msgstr "Section"
 
-#: assets/src/builder/tabs/Steps.js:1457
+#: assets/src/builder/tabs/Steps.js:1470
 msgid "Show this step"
 msgstr "Afficher cette étape"
 
@@ -2267,7 +2266,7 @@ msgid "Unknown template."
 msgstr "Modèle inconnu."
 
 #: src/Admin/SubmissionsPage.php:206
-#: assets/src/builder/tabs/General.js:477
+#: assets/src/builder/tabs/General.js:494
 msgid "Follow-up email"
 msgstr "Email de relance"
 
@@ -2562,19 +2561,19 @@ msgstr "Pratique pour aller vite ou coller un contenu préparé avec une IA. Dé
 msgid "Invalid JSON: the last valid version is kept."
 msgstr "JSON invalide : la dernière version valide est conservée."
 
-#: assets/src/builder/tabs/General.js:480
+#: assets/src/builder/tabs/General.js:497
 msgid "Send a follow-up email to the visitor a few days later"
 msgstr "Envoyer un email de relance au visiteur quelques jours après"
 
-#: assets/src/builder/tabs/General.js:484
+#: assets/src/builder/tabs/General.js:501
 msgid "Only to visitors who left their email address."
 msgstr "Uniquement aux visiteurs qui ont laissé leur adresse email."
 
-#: assets/src/builder/tabs/General.js:499
+#: assets/src/builder/tabs/General.js:516
 msgid "Days after the answer"
 msgstr "Jours après la réponse"
 
-#: assets/src/builder/tabs/General.js:525
+#: assets/src/builder/tabs/General.js:542
 msgid "Subject of the follow-up email"
 msgstr "Objet de l’email de relance"
 
@@ -2810,29 +2809,29 @@ msgstr "Insertion"
 msgid "Insert this diagnostic in a page with the \"Diagnostic\" block, or with this shortcode:"
 msgstr "Insérez ce diagnostic dans une page avec le bloc « Diagnostic », ou avec ce shortcode :"
 
-#: assets/src/builder/Builder.js:173
+#: assets/src/builder/Builder.js:171
 msgid "Diagnostic builder"
 msgstr "Constructeur du diagnostic"
 
-#: assets/src/builder/Builder.js:178
+#: assets/src/builder/Builder.js:176
 msgid "Invalid JSON"
 msgstr "JSON invalide"
 
 #. translators: %d: number of errors.
-#: assets/src/builder/Builder.js:190
+#: assets/src/builder/Builder.js:188
 #, js-format
 msgid "%d error to fix"
 msgid_plural "%d errors to fix"
 msgstr[0] "%d erreur à corriger"
 msgstr[1] "%d erreurs à corriger"
 
-#: assets/src/builder/Builder.js:225
+#: assets/src/builder/Builder.js:223
 msgid "The configuration will not be saved until this error is fixed:"
 msgid_plural "The configuration will not be saved until these errors are fixed:"
 msgstr[0] "La configuration ne sera pas enregistrée tant que cette erreur n’est pas corrigée :"
 msgstr[1] "La configuration ne sera pas enregistrée tant que ces erreurs ne sont pas corrigées :"
 
-#: assets/src/builder/Builder.js:150
+#: assets/src/builder/Builder.js:148
 msgid "Guide"
 msgstr "Guide"
 
@@ -2912,10 +2911,6 @@ msgstr "Une page de résultat personnalisée, un email, des conseils et une acti
 msgid "“Book a free call” button"
 msgstr "Bouton « Réserver un appel gratuit »"
 
-#: assets/src/builder/tabs/Guide.js:136
-msgid "Write your questions and choose how people answer: choices, yes / no, scale, slider, amount, text… Group them in sections, add information screens, show a question only in some cases, and end with the contact form (first name, email, consent)."
-msgstr "Rédigez vos questions et choisissez comment on y répond : choix, oui / non, échelle, curseur, montant, texte… Regroupez-les en sections, ajoutez des écrans d’information, n’affichez une question que dans certains cas, et terminez par le formulaire de contact (prénom, email, consentement)."
-
 #: assets/src/builder/tabs/Guide.js:144
 msgid "Create the themes you want to score (for example Visibility, Sales, Organisation). The points of each answer are set in the Journey tab, next to each answer; here you can add extra rules (bonus, cap, count…)."
 msgstr "Créez les thèmes à noter (par exemple Visibilité, Ventes, Organisation). Les points de chaque réponse se règlent dans l’onglet Parcours, à côté de chaque réponse ; ici, vous pouvez ajouter des règles en plus (bonus, plafond, comptage…)."
@@ -2923,10 +2918,6 @@ msgstr "Créez les thèmes à noter (par exemple Visibilité, Ventes, Organisati
 #: assets/src/builder/tabs/Guide.js:152
 msgid "Create the profiles (from the scores), the texts shown according to the answers, the action plan and the recommended action button. Then choose what the result page shows: chart, scores, advice…"
 msgstr "Créez les profils (selon les scores), les textes affichés selon les réponses, le plan d’action et le bouton d’action recommandée. Puis choisissez ce que montre la page de résultat : graphique, scores, conseils…"
-
-#: assets/src/builder/tabs/Guide.js:160
-msgid "The welcome screen (title, benefits, start button), the languages, the progress bar, the encouragement messages and the waiting screen before the result."
-msgstr "L’écran d’accueil (titre, bénéfices, bouton de départ), les langues, la barre de progression, les messages d’encouragement et l’écran d’attente avant le résultat."
 
 #: assets/src/builder/tabs/Guide.js:168
 msgid "Your colours, fonts, rounded corners and logo. The emails use the same look."
@@ -3427,71 +3418,71 @@ msgstr "Réponse « Je ne sais pas » (voir les options avancées)."
 msgid "How the visitor answers."
 msgstr "Comment le visiteur répond."
 
-#: assets/src/builder/tabs/Steps.js:1250
+#: assets/src/builder/tabs/Steps.js:1263
 msgid "Add after the selected step:"
 msgstr "Ajouter après l’étape sélectionnée :"
 
 #. translators: %d: number of sections.
-#: assets/src/builder/tabs/Steps.js:1280
+#: assets/src/builder/tabs/Steps.js:1293
 #, js-format
 msgid "Sections (%d)"
 msgstr "Sections (%d)"
 
-#: assets/src/builder/tabs/Steps.js:1285
+#: assets/src/builder/tabs/Steps.js:1298
 msgid "Sections group the questions; their name is shown above the progress bar."
 msgstr "Les sections regroupent les questions ; leur nom s’affiche au-dessus de la barre de progression."
 
-#: assets/src/builder/tabs/Steps.js:1358
+#: assets/src/builder/tabs/Steps.js:1371
 msgid "Select a step on the left to edit it, or add one."
 msgstr "Sélectionnez une étape à gauche pour la modifier, ou ajoutez-en une."
 
 #. translators: 1: step number, 2: kind of step.
-#: assets/src/builder/tabs/Steps.js:1370
+#: assets/src/builder/tabs/Steps.js:1383
 #, js-format
 msgid "Step %1$d · %2$s"
 msgstr "Étape %1$d · %2$s"
 
-#: assets/src/builder/tabs/Steps.js:1451
+#: assets/src/builder/tabs/Steps.js:1464
 msgid "Logic: show only in some cases, jump to another step"
 msgstr "Logique : afficher seulement dans certains cas, sauter à une autre étape"
 
-#: assets/src/builder/tabs/Steps.js:1480
+#: assets/src/builder/tabs/Steps.js:1493
 msgid "Show the advanced options"
 msgstr "Afficher les options avancées"
 
-#: assets/src/builder/tabs/Steps.js:1484
+#: assets/src/builder/tabs/Steps.js:1497
 msgid "Technical keys and values, “I don’t know” answers."
 msgstr "Clés et valeurs techniques, réponses « Je ne sais pas »."
 
 #. translators: %d: step number.
-#: assets/src/builder/Builder.js:110
+#: assets/src/builder/Builder.js:117
 #, js-format
 msgid "Step %d"
 msgstr "Étape %d"
 
-#: assets/src/builder/Builder.js:126
+#: assets/src/builder/Builder.js:124
 msgid "Result (example answers)"
 msgstr "Résultat (réponses d’exemple)"
 
 #. translators: %s: what is previewed (step, welcome screen…).
-#: assets/src/builder/Builder.js:321
+#: assets/src/builder/Builder.js:320
 #, js-format
 msgid "Preview: %s"
 msgstr "Aperçu : %s"
 
-#: assets/src/builder/Builder.js:327
+#: assets/src/builder/Builder.js:326
 msgid "Preview: whole journey"
 msgstr "Aperçu : tout le parcours"
 
-#: assets/src/builder/Builder.js:336
+#: assets/src/builder/Builder.js:335
 msgid "What to preview"
 msgstr "Que prévisualiser"
 
-#: assets/src/builder/Builder.js:349
+#: assets/src/builder/Builder.js:348
 msgid "This part"
 msgstr "Cette partie"
 
-#: assets/src/builder/Builder.js:362
+#: assets/src/builder/Builder.js:361
 msgid "Whole journey"
 msgstr "Tout le parcours"
 
@@ -3507,14 +3498,30 @@ msgstr "Image (facultative)"
 msgid "Choose or upload an image"
 msgstr "Choisir ou téléverser une image"
 
-#: assets/src/builder/tabs/Steps.js:1162
+#: assets/src/builder/tabs/Steps.js:1175
 msgid "Shown"
 msgstr "Affiché"
 
-#: assets/src/builder/tabs/Steps.js:1163
+#: assets/src/builder/tabs/Steps.js:1176
 msgid "Off"
 msgstr "Désactivé"
 
-#: assets/src/builder/tabs/Steps.js:1344
+#: assets/src/builder/tabs/Steps.js:1357
 msgid "The first page the visitor sees: it presents the diagnostic and makes people want to start. Without it, the questionnaire opens directly on the first question."
 msgstr "La première page que voit le visiteur : elle présente le diagnostic et donne envie de commencer. Sans elle, le questionnaire s’ouvre directement sur la première question."
+
+#: assets/src/builder/tabs/General.js:225
+msgid "The welcome screen is set in the Journey tab, at the top of the list of steps."
+msgstr "L’écran d’accueil se règle dans l’onglet Parcours, en tête de la liste des étapes."
+
+#: assets/src/builder/tabs/General.js:236
+msgid "Open the welcome screen"
+msgstr "Ouvrir l’écran d’accueil"
+
+#: assets/src/builder/tabs/Guide.js:136
+msgid "Start with the welcome screen, at the top of the list. Then write your questions and choose how people answer: choices, yes / no, scale, slider, amount, text… Group them in sections, add information screens, show a question only in some cases, and end with the contact form (first name, email, consent)."
+msgstr "Commencez par l’écran d’accueil, en tête de la liste. Rédigez ensuite vos questions et choisissez comment on y répond : choix, oui / non, échelle, curseur, montant, texte… Regroupez-les en sections, ajoutez des écrans d’information, n’affichez une question que dans certains cas, et terminez par le formulaire de contact (prénom, email, consentement)."
+
+#: assets/src/builder/tabs/Guide.js:160
+msgid "The languages, the progress bar, the back button, the encouragement messages and the waiting screen before the result."
+msgstr "Les langues, la barre de progression, le bouton Retour, les messages d’encouragement et l’écran d’attente avant le résultat."
