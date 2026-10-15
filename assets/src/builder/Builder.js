@@ -97,7 +97,12 @@ export function Builder( { initial, initialText, field, schema } ) {
 		( step ) => step.key === selectedStep
 	);
 	let focus = null;
-	if ( currentTab === 'steps' && stepIndex >= 0 ) {
+	if ( currentTab === 'steps' && selectedStep === '__welcome' ) {
+		focus = {
+			start: { screen: 'welcome' },
+			label: __( 'Welcome screen', 'smart-diagnostic' ),
+		};
+	} else if ( currentTab === 'steps' && stepIndex >= 0 ) {
 		focus = {
 			start: { step: selectedStep },
 			label: sprintf(

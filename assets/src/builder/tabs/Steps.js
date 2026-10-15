@@ -12,6 +12,7 @@ import {
 import { __, sprintf } from '@wordpress/i18n';
 import { I18nText, KeyField, ListEditor, NumberField } from '../fields';
 import { ConditionEditor } from '../ConditionEditor';
+import { WelcomeEditor } from './General';
 import {
 	move,
 	uniqueKey,
@@ -50,6 +51,9 @@ const CHOICE_TYPES = [
 ];
 const NUMERIC_TYPES = [ 'number', 'amount', 'slider', 'scale', 'multi_amount' ];
 const TEXT_TYPES = [ 'text', 'textarea', 'email', 'phone' ];
+
+// Élément « Écran d'accueil » de la liste (n'est pas une étape de la config).
+const WELCOME = '__welcome';
 
 const KIND_LABELS = () => ( {
 	question: __( 'Question', 'smart-diagnostic' ),
@@ -1064,6 +1068,9 @@ export function StepsTab( { config, set, languages, onSelectStep } ) {
 	// Réglages techniques (clés, valeurs internes, « Je ne sais pas ») : masqués par défaut.
 	const [ advanced, setAdvanced ] = useState( false );
 	const index = steps.findIndex( ( s ) => s.key === selected );
+	const welcomeSelected = selected === WELCOME;
+	const welcomeOn =
+		Boolean( config.welcome ) && config.welcome.enabled !== false;
 	const step = steps[ index ];
 	const setStep = ( path, value ) =>
 		set( [ 'steps', index, ...path ], value );
@@ -1071,8 +1078,8 @@ export function StepsTab( { config, set, languages, onSelectStep } ) {
 
 	// L'aperçu montre l'étape sélectionnée.
 	useEffect( () => {
-		onSelectStep?.( step ? selected : null );
-	}, [ selected, step, onSelectStep ] );
+		onSelectStep?.( step || welcomeSelected ? selected : null );
+	}, [ selected, step, welcomeSelected, onSelectStep ] );
 
 	const titleOf = ( item ) =>
 		resolveText( item.label ?? item.title ?? item.body, languages[ 0 ] )
@@ -1130,6 +1137,35 @@ export function StepsTab( { config, set, languages, onSelectStep } ) {
 		<div className="sd-b-steps">
 			<div className="sd-b-steps__list">
 				<h3>{ __( 'Steps', 'smart-diagnostic' ) }</h3>
+				<div
+					className={ `sd-b-steps__item sd-b-steps__item--welcome${ welcomeSelected ? ' is-selected' : '' }` }
+				>
+					<button
+						type="button"
+						className="sd-b-steps__select"
+						aria-current={ welcomeSelected ? 'step' : undefined }
+						onClick={ () => setSelected( WELCOME ) }
+					>
+						<span
+							className="sd-b-steps__number dashicons dashicons-admin-home"
+							aria-hidden="true"
+						/>
+						<span className="sd-b-steps__text">
+							<span className="sd-b-steps__label">
+								{ __( 'Welcome screen', 'smart-diagnostic' ) }
+							</span>
+							<span className="sd-b-steps__meta">
+								<span
+									className={ `sd-b-badge${ welcomeOn ? ' sd-b-badge--on' : '' }` }
+								>
+									{ welcomeOn
+										? __( 'Shown', 'smart-diagnostic' )
+										: __( 'Off', 'smart-diagnostic' ) }
+								</span>
+							</span>
+						</span>
+					</button>
+				</div>
 				<ol className="sd-b-steps__items">
 					{ steps.map( ( item, i ) => (
 						<li
@@ -1297,7 +1333,27 @@ export function StepsTab( { config, set, languages, onSelectStep } ) {
 			</div>
 
 			<div className="sd-b-steps__editor">
-				{ ! step && (
+				{ welcomeSelected && (
+					<>
+						<div className="sd-b-steps__head">
+							<h3>
+								{ __( 'Welcome screen', 'smart-diagnostic' ) }
+							</h3>
+						</div>
+						<p className="description">
+							{ __(
+								'The first page the visitor sees: it presents the diagnostic and makes people want to start. Without it, the questionnaire opens directly on the first question.',
+								'smart-diagnostic'
+							) }
+						</p>
+						<WelcomeEditor
+							config={ config }
+							set={ set }
+							languages={ languages }
+						/>
+					</>
+				) }
+				{ ! step && ! welcomeSelected && (
 					<p className="sd-b-steps__empty">
 						{ __(
 							'Select a step on the left to edit it, or add one.',

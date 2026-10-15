@@ -29,9 +29,9 @@ test( 'a new diagnostic opens on the guide, which leads to the right tabs', asyn
 	const guide = page.locator( '.sd-guide' );
 	await expect( guide.locator( '.sd-guide__flow-item' ) ).toHaveCount( 5 );
 
-	// Diagnostic de départ : une seule question, pas de formulaire, pas d'axe…
+	// Diagnostic de départ : accueil et une seule question, pas de formulaire, pas d'axe…
 	await expect( guide.locator( '.sd-guide__progress' ) ).toHaveText(
-		'1 / 8'
+		'2 / 8'
 	);
 	await expect(
 		guide.getByRole( 'link', { name: 'Start from a ready-made template' } )

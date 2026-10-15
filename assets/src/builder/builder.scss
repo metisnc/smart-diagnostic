@@ -408,6 +408,11 @@
 		cursor: pointer;
 	}
 
+	&__item--welcome {
+		margin-bottom: 10px;
+		border-style: dashed;
+	}
+
 	&__number {
 		display: inline-flex;
 		flex: 0 0 auto;
@@ -415,6 +420,11 @@
 		justify-content: center;
 		width: 24px;
 		height: 24px;
+
+		&.dashicons {
+			font-size: 15px;
+			line-height: 24px;
+		}
 		border-radius: 50%;
 		background: #f0f0f1;
 		color: #50575e;
@@ -664,6 +674,25 @@
 
 	.description {
 		margin: 6px 0 0 30px;
+	}
+}
+
+.sd-b-badge--on {
+	background: #e6f4ea !important;
+	color: #00703c;
+}
+
+.sd-b-row--end {
+	align-items: flex-end;
+	margin-bottom: 12px;
+
+	.components-base-control {
+		margin-bottom: 0;
+	}
+
+	> .components-button {
+		flex: 0 0 auto;
+		height: 40px;
 	}
 }
 
