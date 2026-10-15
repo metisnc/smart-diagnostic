@@ -4,6 +4,10 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Unreleased]
 
+### Changed
+- L'écran d'accueil se règle uniquement dans le Parcours (en tête de la liste) ; l'onglet
+  Général et le Guide y renvoient. Le Parcours rouvre l'étape modifiée en dernier.
+
 ## [1.4.0] - 2026-10-15
 
 ### Added
