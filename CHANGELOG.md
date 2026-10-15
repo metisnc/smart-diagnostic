@@ -4,6 +4,8 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-10-15
+
 ### Added
 - Onglet « Guide » dans le constructeur (ouvert pour un nouveau diagnostic) : fonctionnement
   expliqué simplement avec un exemple, liste de vérification calculée sur le diagnostic,
@@ -15,11 +17,9 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/), versions : [S
 - Onglet « Parcours » simplifié : étapes numérotées, réponses en cartes avec les points par
   thème (nom du thème au lieu de la clé), libellés dans toutes les langues, logique
   (conditions, sauts) et options avancées (clés, valeurs, « Je ne sais pas ») repliées.
-
 - Aperçu ciblé dans le constructeur : l'étape en cours de modification (Parcours), l'écran
   d'accueil (Général) ou la page de résultat avec des réponses d'exemple (Résultat), avec un
   bouton « Tout le parcours ».
-
 - « Écran d'accueil » en tête de la liste du Parcours (réglages et aperçu), image depuis la
   médiathèque ; un nouveau diagnostic a un écran d'accueil prêt à personnaliser.
 

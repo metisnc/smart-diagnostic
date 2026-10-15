@@ -1,6 +1,6 @@
 {
   "name": "smart-diagnostic",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "private": true,
   "description": "Moteur de questionnaires de diagnostic interactifs pour WordPress, en marque blanche.",
   "license": "GPL-2.0-or-later",
