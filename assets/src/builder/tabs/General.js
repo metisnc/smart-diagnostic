@@ -1,7 +1,7 @@
 /**
  * Onglets « Général » (accueil, parcours, langues) et « Intégrations ».
  */
-import { TextControl, ToggleControl } from '@wordpress/components';
+import { Button, TextControl, ToggleControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { I18nText, KeyField, ListEditor, NumberField } from '../fields';
 import { uniqueKey } from '../utils';
@@ -27,64 +27,18 @@ function TextList( { label, items, onChange, languages, addLabel } ) {
 	);
 }
 
-export function GeneralTab( { config, set, languages } ) {
+/**
+ * Écran d'accueil : affiché ou non, titre, sous-titre, bénéfices, badges, image, bouton.
+ *
+ * @param {Object}   props
+ * @param {Object}   props.config    Config.
+ * @param {Function} props.set       ( path, value ) => void.
+ * @param {string[]} props.languages Langues.
+ */
+export function WelcomeEditor( { config, set, languages } ) {
 	const welcome = config.welcome ?? {};
-	const flow = config.flow ?? {};
 	return (
-		<div className="sd-b-tab">
-			<h3>{ __( 'Languages', 'smart-diagnostic' ) }</h3>
-			<div className="sd-b-row">
-				<TextControl
-					__nextHasNoMarginBottom
-					__next40pxDefaultSize
-					label={ __(
-						'Languages (codes separated by commas)',
-						'smart-diagnostic'
-					) }
-					help={ __(
-						'Example: fr, en. With several languages, each text gets one field per language.',
-						'smart-diagnostic'
-					) }
-					value={ ( config.i18n?.languages ?? [] ).join( ', ' ) }
-					onChange={ ( raw ) => {
-						const list = raw
-							.split( ',' )
-							.map( ( l ) => l.trim() )
-							.filter( ( l ) =>
-								/^[a-z]{2}(_[A-Z]{2})?$/.test( l )
-							);
-						set(
-							[ 'i18n', 'languages' ],
-							list.length ? list : undefined
-						);
-						if (
-							list.length &&
-							! list.includes( config.i18n?.defaultLanguage )
-						) {
-							set( [ 'i18n', 'defaultLanguage' ], list[ 0 ] );
-						}
-					} }
-				/>
-				<ToggleControl
-					__nextHasNoMarginBottom
-					label={ __(
-						'Language selector for visitors',
-						'smart-diagnostic'
-					) }
-					checked={ Boolean( config.i18n?.switcher ) }
-					onChange={ ( on ) =>
-						set( [ 'i18n', 'switcher' ], on || undefined )
-					}
-				/>
-			</div>
-			<I18nText
-				label={ __( 'Internal title', 'smart-diagnostic' ) }
-				value={ config.meta?.title }
-				languages={ languages }
-				onChange={ ( v ) => set( [ 'meta', 'title' ], v ) }
-			/>
-
-			<h3>{ __( 'Welcome screen', 'smart-diagnostic' ) }</h3>
+		<>
 			<ToggleControl
 				__nextHasNoMarginBottom
 				label={ __( 'Show a welcome screen', 'smart-diagnostic' ) }
@@ -142,16 +96,53 @@ export function GeneralTab( { config, set, languages } ) {
 						languages={ languages }
 						onChange={ ( v ) => set( [ 'welcome', 'badges' ], v ) }
 					/>
-					<TextControl
-						__nextHasNoMarginBottom
-						__next40pxDefaultSize
-						type="url"
-						label={ __( 'Image URL', 'smart-diagnostic' ) }
-						value={ welcome.image?.url ?? '' }
-						onChange={ ( v ) =>
-							set( [ 'welcome', 'image', 'url' ], v || undefined )
-						}
-					/>
+					<div className="sd-b-row sd-b-row--end">
+						<TextControl
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
+							type="url"
+							label={ __(
+								'Image (optional)',
+								'smart-diagnostic'
+							) }
+							value={ welcome.image?.url ?? '' }
+							onChange={ ( v ) =>
+								set(
+									[ 'welcome', 'image' ],
+									v ? { url: v } : undefined
+								)
+							}
+						/>
+						{ window.wp?.media && (
+							<Button
+								variant="secondary"
+								onClick={ () => {
+									const frame = window.wp.media( {
+										title: __(
+											'Choose or upload an image',
+											'smart-diagnostic'
+										),
+										library: { type: 'image' },
+										multiple: false,
+									} );
+									frame.on( 'select', () => {
+										const image = frame
+											.state()
+											.get( 'selection' )
+											.first()
+											.toJSON();
+										set( [ 'welcome', 'image' ], {
+											id: image.id,
+											url: image.url,
+										} );
+									} );
+									frame.open();
+								} }
+							>
+								{ __( 'Choose an image', 'smart-diagnostic' ) }
+							</Button>
+						) }
+					</div>
 					<I18nText
 						label={ __( 'Start button', 'smart-diagnostic' ) }
 						value={ welcome.startLabel }
@@ -162,6 +153,72 @@ export function GeneralTab( { config, set, languages } ) {
 					/>
 				</>
 			) }
+		</>
+	);
+}
+
+export function GeneralTab( { config, set, languages } ) {
+	const flow = config.flow ?? {};
+	return (
+		<div className="sd-b-tab">
+			<h3>{ __( 'Languages', 'smart-diagnostic' ) }</h3>
+			<div className="sd-b-row">
+				<TextControl
+					__nextHasNoMarginBottom
+					__next40pxDefaultSize
+					label={ __(
+						'Languages (codes separated by commas)',
+						'smart-diagnostic'
+					) }
+					help={ __(
+						'Example: fr, en. With several languages, each text gets one field per language.',
+						'smart-diagnostic'
+					) }
+					value={ ( config.i18n?.languages ?? [] ).join( ', ' ) }
+					onChange={ ( raw ) => {
+						const list = raw
+							.split( ',' )
+							.map( ( l ) => l.trim() )
+							.filter( ( l ) =>
+								/^[a-z]{2}(_[A-Z]{2})?$/.test( l )
+							);
+						set(
+							[ 'i18n', 'languages' ],
+							list.length ? list : undefined
+						);
+						if (
+							list.length &&
+							! list.includes( config.i18n?.defaultLanguage )
+						) {
+							set( [ 'i18n', 'defaultLanguage' ], list[ 0 ] );
+						}
+					} }
+				/>
+				<ToggleControl
+					__nextHasNoMarginBottom
+					label={ __(
+						'Language selector for visitors',
+						'smart-diagnostic'
+					) }
+					checked={ Boolean( config.i18n?.switcher ) }
+					onChange={ ( on ) =>
+						set( [ 'i18n', 'switcher' ], on || undefined )
+					}
+				/>
+			</div>
+			<I18nText
+				label={ __( 'Internal title', 'smart-diagnostic' ) }
+				value={ config.meta?.title }
+				languages={ languages }
+				onChange={ ( v ) => set( [ 'meta', 'title' ], v ) }
+			/>
+
+			<h3>{ __( 'Welcome screen', 'smart-diagnostic' ) }</h3>
+			<WelcomeEditor
+				config={ config }
+				set={ set }
+				languages={ languages }
+			/>
 
 			<h3>{ __( 'Journey', 'smart-diagnostic' ) }</h3>
 			<div className="sd-b-grid">

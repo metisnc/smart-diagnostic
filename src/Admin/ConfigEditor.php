@@ -182,6 +182,11 @@ final class ConfigEditor {
 		return (string) wp_json_encode(
 			array(
 				'schemaVersion' => 1,
+				'welcome'       => array(
+					'title'      => __( 'Take the diagnostic', 'smart-diagnostic' ),
+					'subtitle'   => __( 'Answer a few questions and get your personalised result.', 'smart-diagnostic' ),
+					'startLabel' => __( 'Start', 'smart-diagnostic' ),
+				),
 				'sections'      => array(
 					array(
 						'key'   => 'main',
