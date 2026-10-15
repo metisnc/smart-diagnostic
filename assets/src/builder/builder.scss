@@ -684,6 +684,11 @@
 
 .sd-b-row--end {
 	align-items: flex-end;
+	margin-bottom: 12px;
+
+	.components-base-control {
+		margin-bottom: 0;
+	}
 
 	> .components-button {
 		flex: 0 0 auto;
