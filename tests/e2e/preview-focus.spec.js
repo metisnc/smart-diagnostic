@@ -56,6 +56,13 @@ test( 'the preview follows what is being edited', async ( { page } ) => {
 		'Cochez ce qui convient'
 	);
 
+	// Écran d'accueil, en tête du parcours : réglages et aperçu.
+	await page
+		.locator( '.sd-b-steps__select', { hasText: 'Welcome screen' } )
+		.click();
+	await expect( page.getByLabel( 'Show a welcome screen' ) ).toBeChecked();
+	await expect( preview.locator( '.sd-welcome' ) ).toBeVisible();
+
 	// Général : l'accueil ; Résultat : la page de résultat (réponses d'exemple).
 	await tab( page, 'General' ).click();
 	await expect( preview.locator( '.sd-welcome' ) ).toBeVisible();
